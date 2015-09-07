@@ -11,28 +11,34 @@ import RegisterPage from './components/RegisterPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
+import MainPage from './components/MainPage';
+
 const router = new Router(on => {
 
-  on('*', async (state, next) => {
-    const component = await next();
-    return component && <App context={state.context}>{component}</App>;
-  });
+    on('*', async (state, next) => {
+        //console.log('route *');
+        const component = await next();
+        return component && <App context={state.context}>{component}</App>;
+    });
 
-  on('/contact', async () => <ContactPage />);
+    on('/', async () => <MainPage />);
 
-  on('/login', async () => <LoginPage />);
+    on('/contact', async () => <ContactPage />);
 
-  on('/register', async () => <RegisterPage />);
+    on('/login', async () => <LoginPage />);
 
-  on('*', async (state) => {
-    const content = await http.get(`/api/content?path=${state.path}`);
-    return content && <ContentPage {...content} />;
-  });
+    on('/register', async () => <RegisterPage />);
 
-  on('error', (state, error) => state.statusCode === 404 ?
-    <App context={state.context} error={error}><NotFoundPage /></App> :
-    <App context={state.context} error={error}><ErrorPage /></App>
-  );
+    on('*', async (state) => {
+        //console.log('route next *, state.path', state.path);
+        const content = await http.get(`/api/content?path=${state.path}`);
+        return content && <ContentPage {...content} />;
+    });
+
+    on('error', (state, error) => state.statusCode === 404 ?
+            <App context={state.context} error={error}><NotFoundPage /></App> :
+            <App context={state.context} error={error}><ErrorPage /></App>
+    );
 
 });
 

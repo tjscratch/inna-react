@@ -9,24 +9,33 @@ import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 @withContext
-@withStyles(styles)
-class App {
+@withStyles(styles) class App {
 
-  static propTypes = {
-    children: PropTypes.element.isRequired,
-    error: PropTypes.object
-  };
+    static propTypes = {
+        children: PropTypes.element.isRequired,
+        error: PropTypes.object
+    };
 
-  render() {
-    return !this.props.error ? (
-      <div>
-        <Header />
-        {this.props.children}
-        <Feedback />
-        <Footer />
-      </div>
-    ) : this.props.children;
-  }
+    render() {
+        return !this.props.error ? (
+            <div>
+                <Header />
+                {this.props.children}
+                <Footer />
+            </div>
+        ) : this.props.children;
+    }
+
+    //render() {
+    //  return !this.props.error ? (
+    //    <div>
+    //      <Header />
+    //      {this.props.children}
+    //      <Feedback />
+    //      <Footer />
+    //    </div>
+    //  ) : this.props.children;
+    //}
 
 }
 
