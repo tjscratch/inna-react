@@ -1,34 +1,28 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
-.Navigation-link {
-  display: inline-block;
-  padding: 3px 8px;
-  text-decoration: none;
-  font-size: 1.125em; /* ~18px */
+.navigation-text {
+    display: inline-block;
+    padding: 0px 4px;
+    color: #989898;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 19px;
 }
 
-.Navigation-link,
-.Navigation-link:active,
-.Navigation-link:visited {
-  color: rgba(255, 255, 255, .6);
+.navigation-link {
+    display: inline-block;
+    padding: 0px 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 19px;
 }
 
-.Navigation-link:hover {
-  color: rgba(255, 255, 255, 1);
+.navigation-link,
+.navigation-link:active,
+.navigation-link:visited {
 }
 
-.Navigation-link--highlight {
-  margin-right: 8px;
-  margin-left: 8px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, .15);
-  color: #fff;
-}
-
-.Navigation-link--highlight:hover {
-  background: rgba(0, 0, 0, .3);
-}
-
-.Navigation-spacer {
-  color: rgba(255, 255, 255, .3);
+.navigation-link:hover {
+    text-decoration: underline;
 }

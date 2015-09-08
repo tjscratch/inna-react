@@ -6,26 +6,23 @@ import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 import Navigation from '../Navigation';
 
-@withStyles(styles)
-class Header {
+@withStyles(styles) class Header {
 
-  render() {
-    return (
-      <div className="Header">
-        <div className="Header-container">
-          <a className="Header-brand" href="/" onClick={Link.handleClick}>
-            <img className="Header-brandImg" src={require('./logo-small.png')} width="38" height="38" alt="React" />
-            <span className="Header-brandTxt">Your Company</span>
-          </a>
-          <Navigation className="Header-nav" />
-          <div className="Header-banner">
-            <h1 className="Header-bannerTitle">React</h1>
-            <p className="Header-bannerDesc">Complex web apps made easy</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="header">
+                <div className="header-container">
+                    <a className="header-brand" href="/" onClick={Link.handleClick}>
+                        <img className="header-brand__brand-img" src={require('./logo-small.png')} width="100" height="39"
+                             alt="Инна-Тур"/>
+                        <img className="header-brand__brand-text" src={require('./innatour.png')} width="135" height="19"
+                             alt="Инна-Тур"/>
+                    </a>
+                    <Navigation className="header-nav"/>
+                </div>
+            </div>
+        );
+    }
 
 }
 

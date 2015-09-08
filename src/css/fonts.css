@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'ProximaNova';
+    font-weight: normal;
+    font-style: normal;
+    src: url('fonts/proximanova-reg-webfont.eot');
+    src: url('fonts/proximanova-reg-webfont.eot?iefix') format('eot'),
+    url('fonts/proximanova-reg-webfont.woff') format('woff'),
+    url('fonts/proximanova-reg-webfont.ttf') format('truetype'),
+    url('fonts/proximanova-reg-webfont.svg#svgFontName') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNova';
+    font-weight: bold;
+    font-style: normal;
+    src: url('fonts/proximanova-bold-webfont.eot');
+    src: url('fonts/proximanova-bold-webfont.eot?iefix') format('eot'),
+    url('fonts/proximanova-bold-webfont.woff') format('woff'),
+    url('fonts/proximanova-bold-webfont.ttf') format('truetype'),
+    url('fonts/proximanova-bold-webfont.svg#svgFontName') format('svg');
+}
+
+@font-face {
+    font-family: 'ProximaNovaLight';
+    font-weight: normal;
+    font-style: normal;
+    src: url('fonts/proximanova-light-webfont.eot');
+    src: url('fonts/proximanova-light-webfont.eot?iefix') format('eot'),
+    url('fonts/proximanova-light-webfont.woff') format('woff'),
+    url('fonts/proximanova-light-webfont.ttf') format('truetype'),
+    url('fonts/proximanova-light-webfont.svg#svgFontName') format('svg');
+}
+
+@font-face {
+    font-family: 'ALSRubl-Arial';
+    font-weight: normal;
+    font-style: normal;
+    src: url('fonts/alsrubl-arial-regular.eot');
+    src: url('fonts/alsrubl-arial-regular.eot?iefix') format('embedded-opentype'),
+    url('fonts/alsrubl-arial-regular.woff') format('woff'),
+    url('fonts/alsrubl-arial-regular.ttf') format('truetype'),
+    url('fonts/alsrubl-arial-regular.svg#ALSRublArialRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'ALSRubl-Arial';
+    font-weight: bold;
+    font-style: normal;
+    src: url('fonts/alsrubl-arial-bold.eot');
+    src: url('fonts/alsrubl-arial-bold.eot?iefix') format('embedded-opentype'),
+    url('fonts/alsrubl-arial-bold.woff') format('woff'),
+    url('fonts/alsrubl-arial-bold.ttf') format('truetype'),
+    url('fonts/alsrubl-arial-bold.svg#ALSRublArialRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'Rouble';
+    src: url('fonts/rouble.eot');
+    src: url('fonts/rouble.eot?iefix') format('embedded-opentype'),
+    url('fonts/rouble.woff') format('woff'),
+    url('fonts/rouble.ttf') format('truetype'),
+    url('fonts/rouble.svg#ALSRubl') format('svg');
+}

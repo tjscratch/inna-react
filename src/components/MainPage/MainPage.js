@@ -12,9 +12,11 @@ import withStyles from '../../decorators/withStyles';
         let title = 'Инна-Тур';
         this.context.onSetTitle(title);
         return (
-            <div className="MainPage">
-                <div className="MainPage-container">
-                    <h1>Перелет + Отель — новая альтернатива классическим турам</h1>
+            <div className="main-page">
+                <div className="main-page-container">
+                    <div className="main-page__content">
+                        <h1>Перелет + Отель — новая альтернатива классическим турам</h1>
+                    </div>
                 </div>
             </div>
         );
