@@ -1,8 +1,7 @@
 @import '../../../node_modules/normalize.css/normalize.css';
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-@import '../../css/fonts.css';
 @import '../variables.css';
-
+@import '../../css/fonts.css';
 
 /*
  * Base styles

@@ -1,12 +1,13 @@
+
 @font-face {
     font-family: 'ProximaNova';
     font-weight: normal;
     font-style: normal;
-    src: url('fonts/proximanova-reg-webfont.eot');
-    src: url('fonts/proximanova-reg-webfont.eot?iefix') format('eot'),
-    url('fonts/proximanova-reg-webfont.woff') format('woff'),
-    url('fonts/proximanova-reg-webfont.ttf') format('truetype'),
-    url('fonts/proximanova-reg-webfont.svg#svgFontName') format('svg');
+    src: url('fonts/proximanova-reg-webfont.eot');/* IE9 Compat Modes */
+    src: url('fonts/proximanova-reg-webfont.eot?#iefix') format('eot'),/* IE6-IE8 */
+    url('fonts/proximanova-reg-webfont.woff') format('woff'),/* Modern Browsers */
+    url('fonts/proximanova-reg-webfont.ttf') format('truetype'),/* Safari, Android, iOS */
+    url('fonts/proximanova-reg-webfont.svg#proxima_nova_rgregular') format('svg');/* Legacy iOS */
 }
 
 @font-face {
@@ -14,10 +15,10 @@
     font-weight: bold;
     font-style: normal;
     src: url('fonts/proximanova-bold-webfont.eot');
-    src: url('fonts/proximanova-bold-webfont.eot?iefix') format('eot'),
+    src: url('fonts/proximanova-bold-webfont.eot?#iefix') format('eot'),
     url('fonts/proximanova-bold-webfont.woff') format('woff'),
     url('fonts/proximanova-bold-webfont.ttf') format('truetype'),
-    url('fonts/proximanova-bold-webfont.svg#svgFontName') format('svg');
+    url('fonts/proximanova-bold-webfont.svg#proxima_nova_rgregular') format('svg');
 }
 
 @font-face {
@@ -25,10 +26,10 @@
     font-weight: normal;
     font-style: normal;
     src: url('fonts/proximanova-light-webfont.eot');
-    src: url('fonts/proximanova-light-webfont.eot?iefix') format('eot'),
+    src: url('fonts/proximanova-light-webfont.eot?#iefix') format('eot'),
     url('fonts/proximanova-light-webfont.woff') format('woff'),
     url('fonts/proximanova-light-webfont.ttf') format('truetype'),
-    url('fonts/proximanova-light-webfont.svg#svgFontName') format('svg');
+    url('fonts/proximanova-light-webfont.svg#proxima_nova_ltlight') format('svg');
 }
 
 @font-face {
@@ -36,7 +37,7 @@
     font-weight: normal;
     font-style: normal;
     src: url('fonts/alsrubl-arial-regular.eot');
-    src: url('fonts/alsrubl-arial-regular.eot?iefix') format('embedded-opentype'),
+    src: url('fonts/alsrubl-arial-regular.eot?#iefix') format('embedded-opentype'),
     url('fonts/alsrubl-arial-regular.woff') format('woff'),
     url('fonts/alsrubl-arial-regular.ttf') format('truetype'),
     url('fonts/alsrubl-arial-regular.svg#ALSRublArialRegular') format('svg');
@@ -47,16 +48,16 @@
     font-weight: bold;
     font-style: normal;
     src: url('fonts/alsrubl-arial-bold.eot');
-    src: url('fonts/alsrubl-arial-bold.eot?iefix') format('embedded-opentype'),
+    src: url('fonts/alsrubl-arial-bold.eot?#iefix') format('embedded-opentype'),
     url('fonts/alsrubl-arial-bold.woff') format('woff'),
     url('fonts/alsrubl-arial-bold.ttf') format('truetype'),
-    url('fonts/alsrubl-arial-bold.svg#ALSRublArialRegular') format('svg');
+    url('fonts/alsrubl-arial-bold.svg#ALSRublArialBold') format('svg');
 }
 
 @font-face {
     font-family: 'Rouble';
     src: url('fonts/rouble.eot');
-    src: url('fonts/rouble.eot?iefix') format('embedded-opentype'),
+    src: url('fonts/rouble.eot?#iefix') format('embedded-opentype'),
     url('fonts/rouble.woff') format('woff'),
     url('fonts/rouble.ttf') format('truetype'),
     url('fonts/rouble.svg#ALSRubl') format('svg');
