@@ -7,7 +7,9 @@ import withStyles from '../../decorators/withStyles';
     render() {
         return (
             <div className="b-offers-slider">
-                Тут будет слайдер оферов
+                <div className="b-offers-slider__content">
+                    Тут будет форма
+                </div>
             </div>
         );
     }

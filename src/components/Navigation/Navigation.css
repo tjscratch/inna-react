@@ -21,9 +21,11 @@
 .b-nav__link,
 .b-nav__link:active,
 .b-nav__link:visited {
+    color: #fff;
 }
 
 .b-nav__link:hover {
+    color: #fff;
     text-decoration: underline;
 }
 

@@ -7,7 +7,7 @@ import withStyles from '../../decorators/withStyles';
     render() {
         return (
             <div className="b-offers-list">
-                <h1>Перелет + Отель — новая альтернатива классическим турам</h1>
+                тут будет стенка оферов
             </div>
         );
     }

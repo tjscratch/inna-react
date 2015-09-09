@@ -31,7 +31,7 @@ export default async () => {
         copy('package.json', 'build/package.json')
     ]);
 
-    console.log('copy bootstrap');
+    //console.log('copy bootstrap');
     // bootstrap
     await copy('node_modules/bootstrap/dist', 'build/public/css/bootstrap-3.3.5');
 

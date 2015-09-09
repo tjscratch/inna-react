@@ -22,42 +22,42 @@ const bundler = webpack(config);
  */
 export default async () => {
 
-  await require('./build')();
-  await require('./serve')();
+    await require('./build')();
+    await require('./serve')();
 
-  browserSync({
-    proxy: {
+    browserSync({
+        proxy: {
 
-      target: 'localhost:5000',
+            target: 'localhost:5000',
 
-      middleware: [
-        webpackDevMiddleware(bundler, {
-          // IMPORTANT: dev middleware can't access config, so we should
-          // provide publicPath by ourselves
-          publicPath: config.output.publicPath,
+            middleware: [
+                webpackDevMiddleware(bundler, {
+                    // IMPORTANT: dev middleware can't access config, so we should
+                    // provide publicPath by ourselves
+                    publicPath: config.output.publicPath,
 
-          // pretty colored output
-          stats: config.stats,
+                    // pretty colored output
+                    stats: config.stats,
 
-          hot: true,
-          historyApiFallback: true
+                    hot: true,
+                    historyApiFallback: true
 
-          // for other settings see
-          // http://webpack.github.io/docs/webpack-dev-middleware.html
-        }),
+                    // for other settings see
+                    // http://webpack.github.io/docs/webpack-dev-middleware.html
+                }),
 
-        // bundler should be the same as above
-        webpackHotMiddleware(bundler)
-      ]
-    },
+                // bundler should be the same as above
+                webpackHotMiddleware(bundler)
+            ]
+        },
 
-    // no need to watch '*.js' here, webpack will take care of it for us,
-    // including full page reloads if HMR won't work
-    files: [
-      'build/public/**/*.css',
-      'build/public/**/*.html',
-      'build/content/**/*.*',
-      'build/templates/**/*.*'
-    ]
-  });
+        // no need to watch '*.js' here, webpack will take care of it for us,
+        // including full page reloads if HMR won't work
+        files: [
+            'build/public/**/*.css',
+            'build/public/**/*.html',
+            'build/content/**/*.*',
+            'build/templates/**/*.*'
+        ]
+    });
 };
