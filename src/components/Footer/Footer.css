@@ -20,7 +20,7 @@
 .b-footer {
     position: relative;
     margin: 0 auto;
-    padding: 35px 0;
+    padding: 35px 0 15px;
     max-width: var(--max-content-width);
     text-align: center;
 }
@@ -83,7 +83,7 @@
 .social-icon {
     display: inline-block;
     background-repeat: no-repeat;
-    background-image: url(social-buttons-sprite.png);
+    background-image: url("social-buttons-sprite.png");
     height: 30px;
     width: 30px;
 }
@@ -155,4 +155,54 @@
     color: #fff;
     font-size: 28px;
     margin-top: 8px;
+}
+
+/*company*/
+
+.b-comp-info {
+    margin-top: 30px;
+    border-top: 1px solid #262626;
+    padding: 20px 0 50px;
+    color: #818589;
+    font-size: 9px;
+    text-align: justify;
+}
+
+.b-comp-info a {
+    color: #818589;
+    text-decoration: none;
+}
+.b-comp-info a:hover {
+    text-decoration: underline;
+}
+
+.b-comp-info__text {
+    width: 720px;
+    float: left;
+}
+
+.b-comp-info__copyright {
+    float: right;
+}
+
+/*tripadvisor*/
+
+.b-trip-votes {
+    text-align: left;
+}
+
+.b-trip-votes__votes {
+    color: #fff;
+    font-family: arial,sans-serif;
+    font-size: 12px;
+    line-height: 20px;
+    float: left;
+}
+
+.b-trip-votes__logo {
+    display: inline-block;
+    width: 110px;
+    height: 19px;
+    margin-left: 5px;
+    background: url("tripadvisor-white.png");
 }

@@ -105,14 +105,22 @@ import Link from '../Link';
                     <div className="b-footer__company">
                         <div className="b-comp-info">
                             <div className="b-comp-info__text">
+                                ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
+                                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию,
+                                Камбоджу, Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
                             </div>
                             <div className="b-comp-info__copyright">
+                                <div>&copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.</div>
+                                <div>Реестр туроператоров&nbsp;
+                                    <a href="https://inna.ru/proxy/reestr.russiatourism.ru/?ac=view&id_reestr=8893" target="_blank">МТ3 008557</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="b-footer__votes">
                         <div className="b-trip-votes">
                             <div className="b-trip-votes__votes">
+                                Теперь с отзывами об отелях от
                             </div>
                             <div className="b-trip-votes__logo">
                             </div>
