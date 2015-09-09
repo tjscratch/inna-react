@@ -2,18 +2,18 @@
 
 .b-offers-slider {
     height: 470px;
-    background-image: url('https://s.inna.ru/Files/Photos/140220092948/141028191927/p_O.jpg');
     background-color: #000;
+    background-image: url('https://s.inna.ru/Files/Photos/140220092948/141028191927/p_O.jpg');
+    background-repeat: no-repeat;
     background-position: center top;
     -webkit-background-size: auto 100%;
-    -moz-background-size: auto 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
+       -moz-background-size: auto 100%;
+            background-size: auto 100%;
 }
 
 .b-offers-slider__content {
-    margin: 0 auto;
-    padding: 40px 0 40px;
     max-width: var(--max-content-width);
+    padding: 40px 0 40px;
+    margin: 0 auto;
     color: #fff;
 }

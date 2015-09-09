@@ -2,15 +2,15 @@
 @import '../variables.css';
 
 .footer {
-    background: #000;
     color: #fff;
+    background: #000;
 }
 
 .footer-viewport {
     position: absolute;
     width: 200px;
-    margin-left: 0;
     margin-right: 0;
+    margin-left: 0;
 }
 
 .footer-text--muted {
@@ -19,9 +19,9 @@
 
 .b-footer {
     position: relative;
-    margin: 0 auto;
-    padding: 35px 0 15px;
     max-width: var(--max-content-width);
+    padding: 35px 0 15px;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -42,9 +42,9 @@
 }
 
 .b-footer-links__list {
-    list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .b-footer-links__link {
@@ -56,9 +56,9 @@
 }
 
 .b-footer-social__list {
-    list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .b-footer-social__link {
@@ -80,14 +80,13 @@
 
 .social-icon {
     display: inline-block;
-    background-repeat: no-repeat;
-    background-image: url("social-buttons-sprite.png");
-    height: 30px;
     width: 30px;
+    height: 30px;
+    background-image: url("social-buttons-sprite.png");
+    background-repeat: no-repeat;
 }
 
-.social-icon__vkontakte {
-}
+
 
 .social-icon__vkontakte:hover {
     background-position: 0 -33px;
@@ -144,26 +143,26 @@
 
 .b-footer-phone__text {
     font-family: ProximaNova;
-    color: #818589;
     font-size: 12px;
+    color: #818589;
 }
 
 .b-footer-phone__phone {
-    font-family: ProximaNova;
-    color: #fff;
-    font-size: 28px;
     margin-top: 8px;
+    font-family: ProximaNova;
+    font-size: 28px;
+    color: #fff;
 }
 
 /*company*/
 
 .b-comp-info {
-    margin-top: 30px;
-    border-top: 1px solid #262626;
     padding: 20px 0 50px;
-    color: #818589;
+    margin-top: 30px;
     font-size: 9px;
+    color: #818589;
     text-align: justify;
+    border-top: 1px solid #262626;
 }
 
 .b-comp-info a {
@@ -175,8 +174,8 @@
 }
 
 .b-comp-info__text {
-    width: 720px;
     float: left;
+    width: 720px;
 }
 
 .b-comp-info__copyright {
@@ -190,11 +189,11 @@
 }
 
 .b-trip-votes__votes {
-    color: #fff;
+    float: left;
     font-family: arial,sans-serif;
     font-size: 12px;
     line-height: 20px;
-    float: left;
+    color: #fff;
 }
 
 .b-trip-votes__logo {

@@ -1,9 +1,9 @@
 @import '../variables.css';
 
 .b-offers-landing {
-    margin: 0 auto;
-    padding: 40px 0 40px;
     max-width: var(--max-content-width);
+    padding: 40px 0 40px;
+    margin: 0 auto;
 }
 
 .b-offers-landing__title {
@@ -16,20 +16,15 @@
     margin-top: 40px;
 }
 
-.b-landing-list {
 
-}
 
 .b-landing-list__item {
     margin-bottom: 35px;
 }
 
-.b-landing-item {
 
-}
 
-.b-landing-item__img {
-}
+
 
 .b-landing-item__text {
     max-width: 370px;

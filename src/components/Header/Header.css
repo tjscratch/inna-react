@@ -6,26 +6,23 @@
 }
 
 .header {
-    background: #000;
     color: #fff;
+    background: #000;
 }
 
 .b-header {
-    margin: 0 auto;
-    padding: 5px 0;
     max-width: var(--max-content-width);
+    padding: 5px 0;
+    margin: 0 auto;
 }
 
 .b-header__brand {
     display: inline-block;
 }
 
-.b-brand {
 
-}
 
-.b-brand__img {
-}
+
 
 .b-brand__text {
     margin-left: 15px;
