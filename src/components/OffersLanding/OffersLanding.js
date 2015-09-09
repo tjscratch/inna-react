@@ -11,20 +11,20 @@ import withStyles from '../../decorators/withStyles';
                     Перелет + Отель — новая альтернатива классическим турам
                 </div>
                 <div className="b-offers-landing__content">
-                    <div className="b-landing-list">
+                    <div className="b-landing-list container">
                         <div className="row">
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/1.png")}/>
                                     </div>
-                                    <div className="b-landing-item__text media-body media-middle">
+                                    <div className="b-landing-item__text first media-body media-middle">
                                         <b>Cвобода выбора.</b> 200 стран, 500+ авиакомпаний, 389 тыс. отелей с
                                         моментальным подтверждением.
                                     </div>
                                 </div>
                             </div>
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/4.png")}/>
@@ -38,7 +38,7 @@ import withStyles from '../../decorators/withStyles';
                         </div>
 
                         <div className="row">
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/2.png")}/>
@@ -48,7 +48,7 @@ import withStyles from '../../decorators/withStyles';
                                     </div>
                                 </div>
                             </div>
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/5.png")}/>
@@ -61,7 +61,7 @@ import withStyles from '../../decorators/withStyles';
                         </div>
 
                         <div className="row">
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/3.png")}/>
@@ -71,7 +71,7 @@ import withStyles from '../../decorators/withStyles';
                                     </div>
                                 </div>
                             </div>
-                            <div className="b-landing-list__item col-xs-6">
+                            <div className="b-landing-list__item col-sm-6">
                                 <div className="b-landing-item media">
                                     <div className="b-landing-item__img media-left media-middle">
                                         <img alt="img" src={require("./img/6.png")}/>

@@ -32,4 +32,8 @@
 }
 
 .b-landing-item__text {
+    max-width: 370px;
+}
+.b-landing-item__text.first {
+    max-width: 350px;
 }
