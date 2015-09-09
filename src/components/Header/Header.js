@@ -12,13 +12,15 @@ import Navigation from '../Navigation';
         return (
             <div className="header">
                 <div className="header-container">
-                    <a className="header-brand" href="/" onClick={Link.handleClick}>
-                        <img className="header-brand__brand-img" src={require('./logo-small.png')} width="100" height="39"
-                             alt="Инна-Тур"/>
-                        <img className="header-brand__brand-text" src={require('./innatour.png')} width="135" height="19"
-                             alt="Инна-Тур"/>
-                    </a>
-                    <Navigation className="header-nav"/>
+                    <div className="b-header__brand">
+                        <a className="b-brand" href="/" onClick={Link.handleClick}>
+                            <img className="b-brand__img" src={require('./logo-small.png')} width="100" height="39"
+                                 alt="Инна-Тур"/>
+                            <img className="b-brand__text" src={require('./innatour.png')} width="135" height="19"
+                                 alt="Инна-Тур"/>
+                        </a>
+                    </div>
+                    <Navigation className="b-header__nav"/>
                 </div>
             </div>
         );
