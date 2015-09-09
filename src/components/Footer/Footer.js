@@ -25,6 +25,7 @@ import Link from '../Link';
             <footer className="footer">
                 <div className="b-footer">
                     <span ref="viewport" className="footer-viewport footer-text--muted">Viewport:</span>
+
                     <div className="b-footer__info">
                         <div className="b-footer-info">
                             <div className="b-footer-info__links">
@@ -66,25 +67,36 @@ import Link from '../Link';
                                     <div className="b-social-and-phone__social">
                                         <div className="b-footer-social">
                                             <ul className="b-footer-social__list">
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://vk.com/innatour_official" target="_blank"><i
-                                                    className="social-icon social-icon__vkontakte"></i></a></li>
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://odnoklassniki.ru/innatour" target="_blank"><i
-                                                    className="social-icon social-icon__odnoklassniki"></i></a></li>
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://www.facebook.com/INNATOURCOMPANY" target="_blank"><i
-                                                    className="social-icon social-icon__facebook"></i></a></li>
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://twitter.com/inna_tour"
-                                                    target="_blank"><i
-                                                    className="social-icon social-icon__twitter"></i></a></li>
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://www.pinterest.com/innatour/" target="_blank"><i
-                                                    className="social-icon social-icon__pinterest"></i></a></li>
-                                                <li className="b-footer-social__link"><a
-                                                    href="https://www.youtube.com/user/InnaTourMos/featured"
-                                                    target="_blank"><i className="social-icon social-icon__youtube"></i></a></li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://vk.com/innatour_official" target="_blank">
+                                                        <i className="social-icon social-icon__vkontakte"></i>
+                                                    </a>
+                                                </li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://odnoklassniki.ru/innatour" target="_blank">
+                                                        <i className="social-icon social-icon__odnoklassniki"></i>
+                                                    </a>
+                                                </li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://www.facebook.com/INNATOURCOMPANY" target="_blank">
+                                                        <i className="social-icon social-icon__facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://twitter.com/inna_tour" target="_blank">
+                                                        <i className="social-icon social-icon__twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://www.pinterest.com/innatour/" target="_blank">
+                                                        <i className="social-icon social-icon__pinterest"></i>
+                                                    </a>
+                                                </li>
+                                                <li className="b-footer-social__link">
+                                                    <a href="https://www.youtube.com/user/InnaTourMos/featured" target="_blank">
+                                                        <i className="social-icon social-icon__youtube"></i>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -105,9 +117,12 @@ import Link from '../Link';
                     <div className="b-footer__company">
                         <div className="b-comp-info">
                             <div className="b-comp-info__text">
-                                ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
-                                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану, Индонезию,
-                                Камбоджу, Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40 направлений по всему миру.
+                                ИННА ТУР (INNA TOUR) — многопрофильный туроператор, оказывающий полный комплекс
+                                туристических услуг.
+                                Туры в Великобританию, Францию, Италию, Швейцарию, Барбадос, Вьетнам, Доминикану,
+                                Индонезию,
+                                Камбоджу, Кубу, Мексику, Тайланд, Филиппины, Ямайку, ОАЭ и др. - всего более 40
+                                направлений по всему миру.
                             </div>
                             <div className="b-comp-info__copyright">
                                 <div>&copy;&nbsp;1992&ndash;2014 &laquo;ИННА ТУР&raquo;, все права защищены.</div>
