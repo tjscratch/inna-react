@@ -6,15 +6,6 @@
     color: #fff;
 }
 
-.footer-container {
-    position: relative;
-    margin: 0 auto;
-    padding: 20px 15px;
-    max-width: var(--max-content-width);
-    text-align: center;
-}
-
-
 .footer-viewport {
     position: absolute;
     width: 200px;
@@ -27,10 +18,22 @@
 }
 
 .b-footer {
+    position: relative;
+    margin: 0 auto;
+    padding: 35px 0;
+    max-width: var(--max-content-width);
+    text-align: center;
+}
+
+.b-footer-info {
+    position: relative;
+}
+
+.b-footer-info__links {
+    width: 480px;
 }
 
 .b-footer-links {
-    width: 480px;
     text-align: left;
 }
 
@@ -39,7 +42,7 @@
     text-decoration: none;
 }
 
-.b-footer-links__cont {
+.b-footer-links__list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -48,7 +51,108 @@
 .b-footer-links__link {
     display: inline-block;
     width: 50%;
-    font-family: Arial,sans-serif;
+    padding: 6px 0;
+    font-family: Arial, sans-serif;
     font-size: 15px;
-    line-height: 30px;
+    /*line-height: 30px;*/
+}
+
+.b-footer-social__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.b-footer-social__link {
+    display: inline-block;
+    margin-right: 3px;
+}
+
+/*social links*/
+
+.b-footer-info__right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.b-social-and-phone {
+    margin-top: 6px;
+}
+
+.social-icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-image: url(social-buttons-sprite.png);
+    height: 30px;
+    width: 30px;
+}
+
+.social-icon__vkontakte {
+}
+
+.social-icon__vkontakte:hover {
+    background-position: 0 -33px;
+}
+
+.social-icon__odnoklassniki {
+    background-position: -33px 0;
+}
+
+.social-icon__odnoklassniki:hover {
+    background-position: -33px -33px;
+}
+
+.social-icon__facebook {
+    background-position: -66px 0;
+}
+
+.social-icon__facebook:hover {
+    background-position: -66px -33px;
+}
+
+.social-icon__twitter {
+    background-position: -99px 0;
+}
+
+.social-icon__twitter:hover {
+    background-position: -99px -33px;
+}
+
+.social-icon__pinterest {
+    background-position: -132px 0;
+}
+
+.social-icon__pinterest:hover {
+    background-position: -132px -33px;
+}
+
+.social-icon__youtube {
+    background-position: -165px 0;
+}
+
+.social-icon__youtube:hover {
+    background-position: -165px -33px;
+}
+
+/*phone*/
+.b-social-and-phone__phone {
+    margin-top: 25px;
+}
+
+.b-footer-phone {
+    text-align: right;
+}
+
+.b-footer-phone__text {
+    font-family: ProximaNova;
+    color: #818589;
+    font-size: 12px;
+}
+
+.b-footer-phone__phone {
+    font-family: ProximaNova;
+    color: #fff;
+    font-size: 28px;
+    margin-top: 8px;
 }

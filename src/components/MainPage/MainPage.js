@@ -15,21 +15,19 @@ import OffersList from '../OffersList';
         let title = 'Инна-Тур';
         this.context.onSetTitle(title);
         return (
-            <div className="main-page">
-                <div className="main-page-container">
-                    <div className="b-main-page">
-                        <div className="b-main-page__slider">
-                            <OffersSlider />
-                        </div>
-                        <div className="b-main-page__offers-landing">
-                            <OffersLanding />
-                        </div>
-                        <div className="b-main-page__offers-list">
-                            <OffersList />
-                        </div>
+            <section className="main-page">
+                <div className="b-main-page">
+                    <div className="b-main-page__slider">
+                        <OffersSlider />
+                    </div>
+                    <div className="b-main-page__offers-landing">
+                        <OffersLanding />
+                    </div>
+                    <div className="b-main-page__offers-list">
+                        <OffersList />
                     </div>
                 </div>
-            </div>
+            </section>
         );
     }
 

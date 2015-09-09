@@ -10,8 +10,8 @@ import Navigation from '../Navigation';
 
     render() {
         return (
-            <div className="header">
-                <div className="header-container">
+            <header className="header">
+                <div className="b-header">
                     <div className="b-header__brand">
                         <a className="b-brand" href="/" onClick={Link.handleClick}>
                             <img className="b-brand__img" src={require('./logo-small.png')} width="100" height="39"
@@ -22,7 +22,7 @@ import Navigation from '../Navigation';
                     </div>
                     <Navigation className="b-header__nav"/>
                 </div>
-            </div>
+            </header>
         );
     }
 

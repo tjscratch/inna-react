@@ -10,7 +10,7 @@
     color: #fff;
 }
 
-.header-container {
+.b-header {
     margin: 0 auto;
     padding: 5px 0;
     max-width: var(--max-content-width);
