@@ -1,0 +1,6 @@
+{
+  "name": "OffersLanding",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./OffersLanding.js"
+}
