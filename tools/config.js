@@ -11,6 +11,8 @@ import path from 'path';
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
 import merge from 'lodash/object/merge';
 
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+
 const DEBUG = !process.argv.includes('release');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
 const VERBOSE = process.argv.includes('verbose');
@@ -58,7 +60,10 @@ const config = {
     },
 
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new ExtractTextPlugin("css/bootstrap.css", {
+            allChunks: true
+        })
     ],
 
     resolve: {
@@ -152,6 +157,7 @@ const appConfig = merge({}, config, {
     module: {
         loaders: [...config.module.loaders, {
             test: /\.css$/,
+            //loader: ExtractTextPlugin.extract(`${STYLE_LOADER}`, `${CSS_LOADER}!postcss-loader`)
             loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
         }]
     }
@@ -195,6 +201,7 @@ const serverConfig = merge({}, config, {
         loaders: [...config.module.loaders,
             {
                 test: /\.css$/,
+                //loader: ExtractTextPlugin.extract(`${CSS_LOADER}!postcss-loader`)
                 loader: `${CSS_LOADER}!postcss-loader`
             }
         ]

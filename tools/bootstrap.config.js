@@ -1,4 +1,7 @@
 module.exports = {
+    postStyleLoaders: [
+        require.resolve('extract-text-webpack-plugin/loader.js') + '?{"omit":1,"extract":true,"remove":true}'
+    ],
     scripts: {
         // add every bootstrap script you need
         //'transition': true,
