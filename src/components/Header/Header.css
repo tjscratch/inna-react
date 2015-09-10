@@ -1,10 +1,6 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.css';
 
-:root {
-    --brand-color: #61dafb;
-}
-
 .header {
     color: #fff;
     background: #000;
@@ -14,13 +10,13 @@
     max-width: var(--max-content-width);
     padding: 5px 15px;
     margin: 0 auto;
+    text-align: left;
 }
 
 .b-header__brand {
     display: inline-block;
     width: 270px;
 }
-
 
 .b-brand__text {
     display: inline-block;
@@ -31,4 +27,14 @@
     display: inline-block;
     float: right;
     margin-top: 10px;
+}
+
+@media (max-width: 650px) {
+    .b-header {
+        text-align: center;
+    }
+
+    .b-header__nav {
+        float: none;
+    }
 }
