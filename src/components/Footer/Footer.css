@@ -154,6 +154,10 @@
     color: #fff;
 }
 
+.b-footer-phone__phone a {
+    color: #fff;
+}
+
 /*company*/
 
 .b-comp-info {
