@@ -12,23 +12,22 @@
 
 .b-header {
     max-width: var(--max-content-width);
-    padding: 5px 0;
+    padding: 5px 15px;
     margin: 0 auto;
 }
 
 .b-header__brand {
     display: inline-block;
+    width: 270px;
 }
-
-
-
 
 
 .b-brand__text {
-    margin-left: 15px;
+    display: inline-block;
 }
 
 .b-header__nav {
+    display: inline-block;
     float: right;
     margin-top: 10px;
 }
