@@ -66,44 +66,55 @@ const config = {
     },
 
     module: {
-        loaders: [{
-            test: /\.txt/,
-            loader: 'file?name=[path][name].[ext]'
-        }, {
-            test: /\.gif/,
-            loader: 'url-loader?limit=10000&mimetype=image/gif'
-        }, {
-            test: /\.jpg/,
-            loader: 'url-loader?limit=10000&mimetype=image/jpg'
-        }, {
-            test: /\.png/,
-            loader: 'url-loader?limit=10000&mimetype=image/png'
-        }, {
-            test: /\.svg/,
-            loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-        }, {
-            test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-            loader : 'file-loader'
-        //}, {
-        //    test   : /\.(eot|svg)(\?[a-z0-9]+)?$/,
-        //    loader : 'file-loader'
-        //}, {
-        //    test   : /\.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
-        //    loader: 'url-loader?limit=30000&name=[name].[ext]'
-        //}, {
-        //    test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        //    loader: 'url-loader?limit=30000&name=[name].[ext]'
-        //}, {
-        //    test   : /\.(eot|woff|ttf|svg)$/,
-        //    loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
-        }, {
-            test: /\.jsx?$/,
-            include: [
-                path.resolve(__dirname, '../node_modules/react-routing/src'),
-                path.resolve(__dirname, '../src')
-            ],
-            loaders: [...(WATCH ? ['react-hot'] : []), 'babel-loader']
-        }]
+        loaders: [
+            {
+                test: /\.less$/,
+                loader: "style!css!less"
+            },
+            {
+                test: /\.txt/,
+                loader: 'file?name=[path][name].[ext]'
+            },
+            {
+                test: /\.gif/,
+                loader: 'url-loader?limit=10000&mimetype=image/gif'
+            },
+            {
+                test: /\.jpg/,
+                loader: 'url-loader?limit=10000&mimetype=image/jpg'
+            },
+            {
+                test: /\.png/,
+                loader: 'url-loader?limit=10000&mimetype=image/png'
+            },
+            {
+                test: /\.svg/,
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+            },
+            {
+                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                loader: 'file-loader'
+                //}, {
+                //    test   : /\.(eot|svg)(\?[a-z0-9]+)?$/,
+                //    loader : 'file-loader'
+                //}, {
+                //    test   : /\.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
+                //    loader: 'url-loader?limit=30000&name=[name].[ext]'
+                //}, {
+                //    test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                //    loader: 'url-loader?limit=30000&name=[name].[ext]'
+                //}, {
+                //    test   : /\.(eot|woff|ttf|svg)$/,
+                //    loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+            },
+            {
+                test: /\.jsx?$/,
+                include: [
+                    path.resolve(__dirname, '../node_modules/react-routing/src'),
+                    path.resolve(__dirname, '../src')
+                ],
+                loaders: [...(WATCH ? ['react-hot'] : []), 'babel-loader']
+            }]
     },
 
     postcss: [
@@ -118,7 +129,8 @@ const config = {
 // -----------------------------------------------------------------------------
 
 const appConfig = merge({}, config, {
-    entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js'],
+    entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js',
+        'bootstrap-webpack!./tools/bootstrap.config.js'],
     output: {
         path: path.join(__dirname, '../build/public'),
         filename: 'app.js'
@@ -180,10 +192,12 @@ const serverConfig = merge({}, config, {
             {raw: true, entryOnly: false})
     ],
     module: {
-        loaders: [...config.module.loaders, {
-            test: /\.css$/,
-            loader: `${CSS_LOADER}!postcss-loader`
-        }]
+        loaders: [...config.module.loaders,
+            {
+                test: /\.css$/,
+                loader: `${CSS_LOADER}!postcss-loader`
+            }
+        ]
     }
 });
 
