@@ -25,18 +25,6 @@ import Footer from '../Footer';
             </div>
         ) : this.props.children;
     }
-
-    //render() {
-    //  return !this.props.error ? (
-    //    <div>
-    //      <Header />
-    //      {this.props.children}
-    //      <Feedback />
-    //      <Footer />
-    //    </div>
-    //  ) : this.props.children;
-    //}
-
 }
 
 export default App;
