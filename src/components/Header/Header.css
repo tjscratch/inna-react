@@ -36,5 +36,6 @@
 
     .b-header__nav {
         float: none;
+        margin-bottom: 5px;
     }
 }

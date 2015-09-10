@@ -2,7 +2,7 @@
 
 .b-offers-landing {
     max-width: var(--max-content-width);
-    padding: 40px 0 40px;
+    padding: 40px 15px 40px;
     margin: 0 auto;
 }
 
@@ -18,19 +18,37 @@
 
 .b-landing-list {
     max-width: 960px;
+    margin: 0 auto;
 }
 
 .b-landing-list__item {
     margin-bottom: 35px;
 }
 
-
-
-
+.b-landing-list__item {
+    display: inline-block;
+    width: 50%;
+    padding-right: 10px;
+}
 
 .b-landing-item__text {
     max-width: 370px;
 }
+
 .b-landing-item__text.first {
     max-width: 350px;
+}
+
+@media (max-width: 450px) {
+    .b-landing-list__item {
+        width: 100%;
+    }
+
+    .b-landing-item__text {
+        max-width: inherit;
+    }
+
+    .b-landing-item__text.first {
+        max-width: inherit;
+    }
 }
