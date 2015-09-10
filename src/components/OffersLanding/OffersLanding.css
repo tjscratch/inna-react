@@ -16,7 +16,9 @@
     margin-top: 40px;
 }
 
-
+.b-landing-list {
+    max-width: 960px;
+}
 
 .b-landing-list__item {
     margin-bottom: 35px;

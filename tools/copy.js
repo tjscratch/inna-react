@@ -33,7 +33,7 @@ export default async () => {
 
     //console.log('copy bootstrap');
     // bootstrap
-    await copy('node_modules/bootstrap/dist', 'build/public/css/bootstrap-3.3.5');
+    //await copy('node_modules/bootstrap/dist', 'build/public/css/bootstrap-3.3.5');
 
     replace({
         regex: '"start".*',
