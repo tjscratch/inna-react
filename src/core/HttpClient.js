@@ -23,6 +23,7 @@ const HttpClient = {
             reject(err);
           }
         } else {
+          console.log('HttpClient resolve');
           resolve(res.body);
         }
       });

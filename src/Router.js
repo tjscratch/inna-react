@@ -3,6 +3,7 @@
 import React from 'react';
 import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
+import api from './core/ApiClient';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
 import ContactPage from './components/ContactPage';
@@ -21,7 +22,13 @@ const router = new Router(on => {
         return component && <App context={state.context}>{component}</App>;
     });
 
-    on('/', async () => <MainPage />);
+    on('/', async () => {
+        let sectionId = 4;
+        console.log('route /');
+        const data = await api.get(`/Section/Get/${sectionId}`);
+        console.log('route / data fetched');
+        return <MainPage data={data} />
+    });
 
     on('/contact', async () => <ContactPage />);
 
