@@ -14,6 +14,8 @@ import ErrorPage from './components/ErrorPage';
 
 import MainPage from './components/MainPage';
 
+import Storage from './storage.js';
+
 const router = new Router(on => {
 
     on('*', async (state, next) => {
@@ -24,9 +26,8 @@ const router = new Router(on => {
 
     on('/', async () => {
         let sectionId = 4;
-        console.log('route /');
-        const data = await api.get(`/Section/Get/${sectionId}`);
-        console.log('route / data fetched');
+        //console.log('route /');
+        const data = await Storage.getSectionData(sectionId);
         return <MainPage data={data} />
     });
 

@@ -19,43 +19,44 @@ import withStyles from '../../decorators/withStyles';
                 sections: null
             };
         }
-
     }
 
-    componentDidMount() {
+    //componentDidMount() {
         //this.getData();
-    }
+    //}
 
-    getData() {
-        var sectionId = 4;
-        api.get(`/Section/Get/${sectionId}`).then((data) => {
-            console.log(data);
-
-            if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
-
-                this.setState({
-                    sections: data.SectionLayouts
-                });
-            }
-        });
-    }
-
-    renderOffer(offer) {
-        return (
-            <div>{offer.OfferLayoutType}</div>
-        );
-    }
+    //componentWillMount() {
+    //    this.getData();
+    //}
+    //
+    //getData() {
+    //    var sectionId = 4;
+    //    api.get(`/Section/Get/${sectionId}`).then((data) => {
+    //        console.log('getData fetched');
+    //        if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
+    //
+    //            this.setState({
+    //                sections: data.SectionLayouts
+    //            });
+    //        }
+    //    });
+    //}
 
     renderSections() {
-        var self = this;
-        var result = this.state.sections.map((section, index)=> {
-            return (
-                <div key={index}>{section.OfferLayouts.map(self.renderOffer)}</div>
-            );
-        });
-
         return (
-            <div>{result}</div>
+            <div>
+                {this.state.sections.map((section, index)=> {
+                    return (
+                        <div key={index}>
+                            {section.OfferLayouts.map((offer, ix)=>{
+                                return (
+                                    <div key={ix}>{offer.OfferLayoutType}</div>
+                                );
+                            })}
+                        </div>
+                    );
+                })}
+            </div>
         );
     }
 
