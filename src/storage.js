@@ -1,35 +1,27 @@
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import api from './core/ApiClient';
 
-
+//Singleton - хранилище
 var storage = (function () {
     var mem = {};
 
-    function get(key) {
-
-    }
-
-    function set(key, value) {
-
-    }
-
-    function getSectionData(sectionId) {
+    function getApiCachedDataByUrl(url) {
         return new Promise((resolve, reject)=> {
-            let key = `getSectionData_${sectionId}`;
+            let key = url;
             if (canUseDOM) {
-                var data = sessionStorage.getItem(key);
+                let data = sessionStorage.getItem(key);
                 if (data) {
-                    console.log('client getSectionData', sectionId, 'from cache');
+                    console.log('client', url, 'from cache');
                     resolve(JSON.parse(data));
                 }
                 else {
-                    api.get(`/Section/Get/${sectionId}`).then((data)=> {
+                    api.get(url).then((data)=> {
                         //сохраняем данные
                         if (data) {
                             sessionStorage.setItem(key, JSON.stringify(data));
                         }
 
-                        console.log('client getSectionData', sectionId, 'from api');
+                        console.log('client', url, 'from api');
                         resolve(data);
                     });
                 }
@@ -37,16 +29,17 @@ var storage = (function () {
             else {
                 //кэш на ноде
                 if (mem[key]) {
-                    console.log('server getSectionData', sectionId, 'from cache');
-                    resolve(mem[key]);
+                    console.log('server', url, 'from cache');
+                    let data = mem[key];
+                    resolve(data);
                 }
                 else {
-                    api.get(`/Section/Get/${sectionId}`).then((data)=> {
+                    api.get(url).then((data)=> {
                         if (data) {
                             mem[key] = data;
                         }
 
-                        console.log('server getSectionData', sectionId, 'from api');
+                        console.log('server', url, 'from api');
                         resolve(data);
                     });
                 }
@@ -54,10 +47,33 @@ var storage = (function () {
         });
     }
 
+    function getPageData(context, dataApiCalls) {
+        return new Promise((resolve, reject)=> {
+            if (canUseDOM && window.__INITIAL_STATE__) {
+                console.log('getPageData from initial state');
+                //если на клиенте, и есть данные для страницы - сразу возвращаем
+                resolve(JSON.parse(window.__INITIAL_STATE__));
+            }
+            else {
+                //делаем запросы в api по мыссиву урлов
+                let dataPromises = dataApiCalls.map((url)=> {
+                    return getApiCachedDataByUrl(url);
+                });
+                Promise.all(dataPromises).
+                    then((results) => {
+                        //сохраняем результаты для страницы в html
+                        if (!canUseDOM && context && context.onSetInitialState) {
+                            context.onSetInitialState(JSON.stringify(results));
+                        }
+                        //возвращаем
+                        resolve(results);
+                    });
+            }
+        });
+    }
+
     return {
-        getSectionData: getSectionData,
-        get: get,
-        set: set
+        getPageData: getPageData,
     }
 })();
 

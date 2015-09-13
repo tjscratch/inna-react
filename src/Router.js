@@ -24,11 +24,11 @@ const router = new Router(on => {
         return component && <App context={state.context}>{component}</App>;
     });
 
-    on('/', async () => {
+    on('/', async (state) => {
         let sectionId = 4;
-        //console.log('route /');
-        const data = await Storage.getSectionData(sectionId);
-        return <MainPage data={data} />
+        //получаем все данные (массив) для этой страницы сразу
+        let data = await Storage.getPageData(state.context, [`/Section/Get/${sectionId}`]);
+        return <MainPage data={data}/>
     });
 
     on('/contact', async () => <ContactPage />);

@@ -8,7 +8,8 @@ import withStyles from '../../decorators/withStyles';
         super(props);
         //console.log('props', props);
 
-        let data = props.data;
+        //берем из массива данных первый элемент
+        let data = (props.data && props.data.length > 0) ? props.data[0] : null;
         if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
             this.state = {
                 sections: data.SectionLayouts
@@ -20,27 +21,6 @@ import withStyles from '../../decorators/withStyles';
             };
         }
     }
-
-    //componentDidMount() {
-        //this.getData();
-    //}
-
-    //componentWillMount() {
-    //    this.getData();
-    //}
-    //
-    //getData() {
-    //    var sectionId = 4;
-    //    api.get(`/Section/Get/${sectionId}`).then((data) => {
-    //        console.log('getData fetched');
-    //        if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
-    //
-    //            this.setState({
-    //                sections: data.SectionLayouts
-    //            });
-    //        }
-    //    });
-    //}
 
     renderSections() {
         return (
@@ -63,7 +43,7 @@ import withStyles from '../../decorators/withStyles';
     render() {
         if (this.state.sections) {
             return (
-                <div className="b-offers-list">
+                <div id="offersList" className="b-offers-list">
                     {this.renderSections()}
                 </div>
             );

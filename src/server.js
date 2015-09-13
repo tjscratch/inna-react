@@ -37,13 +37,14 @@ const template = _.template(fs.readFileSync(templateFile, 'utf8'));
 server.get('*', async (req, res, next) => {
     try {
         let statusCode = 200;
-        const data = {title: '', description: '', css: '', body: ''};
+        const data = {title: '', description: '', css: '', body: '', initialState: ''};
         const css = [];
         const context = {
             onInsertCss: value => css.push(value),
             onSetTitle: value => data.title = value,
             onSetMeta: (key, value) => data[key] = value,
-            onPageNotFound: () => statusCode = 404
+            onPageNotFound: () => statusCode = 404,
+            onSetInitialState: (state) => data.initialState = state
         };
 
         await Router.dispatch({path: req.path, context}, (state, component) => {
