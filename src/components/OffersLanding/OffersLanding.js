@@ -63,8 +63,7 @@ import withStyles from '../../decorators/withStyles';
                                     <img alt="img" src={require('./img/3.png')}/>
                                 </div>
                                 <div className="b-landing-item__text media-body media-middle">
-                                    <b>Онлайн оплата банковской картой.</b> После оплаты мы пришлем ваш билет и ваучер
-                                    на электронную почту.
+                                    <b>Онлайн оплата банковской картой.</b> После оплаты мы пришлем ваш билет и ваучер на электронную почту.
                                 </div>
                             </div>
                         </div>
