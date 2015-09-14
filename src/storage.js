@@ -55,7 +55,7 @@ var storage = (function () {
                 resolve(JSON.parse(window.__INITIAL_STATE__));
             }
             else {
-                //делаем запросы в api по мыссиву урлов
+                //делаем запросы в api по массиву урлов
                 let dataPromises = dataApiCalls.map((url)=> {
                     return getApiCachedDataByUrl(url);
                 });

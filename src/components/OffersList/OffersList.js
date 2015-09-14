@@ -25,6 +25,11 @@ import withStyles from '../../decorators/withStyles';
 
     renderOffer(offer, ix) {
         //console.log(offer.OfferLayoutType, offer);
+
+        //offer.Offer1.Image = null;
+        //if (offer.Offer2) offer.Offer2.Image = null;
+        //if (offer.Offer3) offer.Offer3.Image = null;
+
         switch (offer.OfferLayoutType) {
             case 'XL':
                 return (
