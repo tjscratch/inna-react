@@ -1,0 +1,6 @@
+{
+  "name": "TabsNav",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./TabsNav.js"
+}

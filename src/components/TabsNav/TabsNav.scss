@@ -1,0 +1,28 @@
+@import '../variables.scss';
+.b-tabs-nav__item {
+    display: inline-block;
+    padding: $b-tabs-nav__item-padding-vertical $b-tabs-nav__item-padding-horizontal;
+    margin-right: $b-tabs-nav__item-margin-right;
+    font-size: $b-tabs-nav__item-font-size;
+    line-height: 135%;
+    color: $b-tabs-nav__item-color;
+    vertical-align: top;
+    cursor: pointer;
+    background-color: $b-tabs-nav__item-bg;
+    border-top-left-radius: $b-tabs-nav__item-border-radius;
+    border-top-right-radius: $b-tabs-nav__item-border-radius;
+
+    &:hover {
+        color: $b-tabs-nav__item-color;
+        text-decoration: none;
+        background-color: $b-tabs-nav__item-hover-bg;
+    }
+}
+.b-tabs-nav__item_active {
+    cursor: inherit;
+    background-color: $b-tabs-nav__item-active-bg;
+
+    &:hover {
+        background-color: $b-tabs-nav__item-active-bg;
+    }
+}
