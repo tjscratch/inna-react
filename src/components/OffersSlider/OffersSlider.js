@@ -8,7 +8,7 @@ import withStyles from '../../decorators/withStyles';
         return (
             <div className="b-offers-slider">
                 <div className="b-offers-slider__content">
-                    Тут будет форма
+                    
                 </div>
             </div>
         );
