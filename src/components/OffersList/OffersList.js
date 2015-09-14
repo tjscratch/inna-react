@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import api from './../../core/ApiClient';
-import styles from './OffersList.css';
+import styles from './OffersList.scss';
 import withStyles from '../../decorators/withStyles';
+import Link from '../Link';
 
 @withStyles(styles) class OffersList extends React.Component {
     constructor(props) {
@@ -23,6 +24,13 @@ import withStyles from '../../decorators/withStyles';
         }
     }
 
+    getFullUrl(url) {
+        if (url && url.startsWith('/#/')) {
+            url = 'https://inna.ru' + url;
+        }
+        return url;
+    }
+
     renderOfferTitle(offer) {
         //console.log('renderOfferTitle', offer);
 
@@ -31,11 +39,15 @@ import withStyles from '../../decorators/withStyles';
         html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text">${offer.FrontTitleRow2}</div>` : '';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
+        html += offer.BackSubTitleRow2 ? `<div class="b-offer-title__sub-text">${offer.BackSubTitleRow2}</div>` : '';
         html += offer.FrontPrice ? `<div>от <span class="b-offer-title__price">${offer.FrontPrice}<span/></div>` : '';
 
+        //onClick={Link.handleClick}
         return (
-            <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
-            </div>
+            <a className="b-offer-title-wrap" href={this.getFullUrl(offer.Url)}>
+                <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
+                </div>
+            </a>
         );
     }
 
@@ -51,9 +63,7 @@ import withStyles from '../../decorators/withStyles';
                 return (
                     <div key={ix} className="b-offer">
                         <div className="b-offer-x-large" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer1)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer1)}
                         </div>
                     </div>
                 );
@@ -63,19 +73,13 @@ import withStyles from '../../decorators/withStyles';
                     <div key={ix} className="b-offer">
                         <div className="b-offer-large offer-left"
                              style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer1)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer1)}
                         </div>
                         <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer2)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer2)}
                         </div>
                         <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer3)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer3)}
                         </div>
                     </div>
                 );
@@ -85,19 +89,13 @@ import withStyles from '../../decorators/withStyles';
                     <div key={ix} className="b-offer">
                         <div className="b-offer-large offer-right"
                              style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer3)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer3)}
                         </div>
                         <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer1)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer1)}
                         </div>
                         <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer2)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer2)}
                         </div>
                     </div>
                 );
@@ -107,14 +105,10 @@ import withStyles from '../../decorators/withStyles';
                     <div key={ix} className="b-offer">
                         <div className="b-offer-medium b-offer-margin"
                              style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer1)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer1)}
                         </div>
                         <div className="b-offer-medium" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer2)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer2)}
                         </div>
                     </div>
                 );
@@ -124,20 +118,14 @@ import withStyles from '../../decorators/withStyles';
                     <div key={ix} className="b-offer">
                         <div className="b-offer-small b-offer-margin"
                              style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer1)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer1)}
                         </div>
                         <div className="b-offer-small b-offer-margin"
                              style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer2)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer2)}
                         </div>
                         <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
-                            <div className="b-offer-title-wrap">
-                                {this.renderOfferTitle(offer.Offer3)}
-                            </div>
+                            {this.renderOfferTitle(offer.Offer3)}
                         </div>
                     </div>
                 );

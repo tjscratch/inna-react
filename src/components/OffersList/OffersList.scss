@@ -1,7 +1,9 @@
-@import '../variables.css';
+@import '../variables.scss';
+
+$animation-speed: 0.2s;
 
 .b-offers-list {
-    max-width: var(--max-content-width);
+    max-width: $max-width;
     padding: 10px 15px 50px;
     margin: 0 auto;
 }
@@ -63,24 +65,24 @@
 .offer-left {
     float: left;
     margin-right: 1.043%;
-}
 
-.offer-left:after {
-    clear: both;
-    content: '';
+    &:after {
+        clear: both;
+        content: '';
+    }
 }
 
 .offer-right {
     float: right;
     margin-left: 1.043%;
+
+    &:after {
+        clear: both;
+        content: '';
+    }
 }
 
-.offer-right:after {
-    clear: both;
-    content: '';
-}
-
-.b-offer-title-wrap {
+a.b-offer-title-wrap {
     position: absolute;
     top: 0;
     right: 0;
@@ -92,13 +94,24 @@
     font-size: 18px;
     color: #fff;
     background-color: rgba(0, 0, 0, .3);
-}
+    transition: background-color $animation-speed;
 
-.b-offer-title-wrap:after {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    content: '';
+    &:after {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+    }
+
+    &:hover {
+        font-size: 22px;
+        background-color: rgba(0, 0, 0, .6);
+        cursor: pointer;
+
+        .b-offer-title__sub-text {
+            font-size: 1em;
+        }
+    }
 }
 
 .b-offer-title {
@@ -125,10 +138,21 @@
 .b-offer-title__text {
     font-size: 1.6em;
     font-weight: bold;
+    transition: font-size $animation-speed;
+}
+
+.b-offer-title__date {
+    transition: font-size $animation-speed;
+}
+
+.b-offer-title__sub-text {
+    font-size: 0;
+    transition: font-size $animation-speed;
 }
 
 .b-offer-title__price {
     font-weight: bold;
+    transition: font-size $animation-speed;
 }
 
 @media (max-width: 768px) {
