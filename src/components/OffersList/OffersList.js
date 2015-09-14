@@ -34,8 +34,7 @@ import withStyles from '../../decorators/withStyles';
             case 'XL':
                 return (
                     <div key={ix} className="b-offer">
-                        <div className="b-offer-x-large">
-                            <img className="b-offer__img" src={offer.Offer1.Image}/>
+                        <div className="b-offer-x-large" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer1.FrontTitleRow1}
                             </div>
@@ -46,20 +45,17 @@ import withStyles from '../../decorators/withStyles';
             case 'L2S':
                 return (
                     <div key={ix} className="b-offer">
-                        <div className="b-offer-large offer-left">
-                            <img className="b-offer__img" src={offer.Offer1.Image}/>
+                        <div className="b-offer-large offer-left" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer1.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small">
-                            <img className="b-offer__img" src={offer.Offer2.Image}/>
+                        <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer2.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small">
-                            <img className="b-offer__img" src={offer.Offer3.Image}/>
+                        <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer3.FrontTitleRow1}
                             </div>
@@ -70,20 +66,17 @@ import withStyles from '../../decorators/withStyles';
             case '2SL':
                 return (
                     <div key={ix} className="b-offer">
-                        <div className="b-offer-large offer-right">
-                            <img className="b-offer__img" src={offer.Offer3.Image}/>
+                        <div className="b-offer-large offer-right" style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer3.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small">
-                            <img className="b-offer__img" src={offer.Offer1.Image}/>
+                        <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer1.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small">
-                            <img className="b-offer__img" src={offer.Offer2.Image}/>
+                        <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer2.FrontTitleRow1}
                             </div>
@@ -94,14 +87,12 @@ import withStyles from '../../decorators/withStyles';
             case '2M':
                 return (
                     <div key={ix} className="b-offer">
-                        <div className="b-offer-medium b-offer-margin">
-                            <img className="b-offer__img" src={offer.Offer1.Image}/>
+                        <div className="b-offer-medium b-offer-margin" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer1.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-medium">
-                            <img className="b-offer__img" src={offer.Offer2.Image}/>
+                        <div className="b-offer-medium" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer2.FrontTitleRow1}
                             </div>
@@ -112,20 +103,17 @@ import withStyles from '../../decorators/withStyles';
             case 'L3L3L3':
                 return (
                     <div key={ix} className="b-offer">
-                        <div className="b-offer-small b-offer-margin">
-                            <img className="b-offer__img" src={offer.Offer1.Image}/>
+                        <div className="b-offer-small b-offer-margin" style={{backgroundImage: `url('${offer.Offer1.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer1.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small b-offer-margin">
-                            <img className="b-offer__img" src={offer.Offer2.Image}/>
+                        <div className="b-offer-small b-offer-margin" style={{backgroundImage: `url('${offer.Offer2.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer2.FrontTitleRow1}
                             </div>
                         </div>
-                        <div className="b-offer-small">
-                            <img className="b-offer__img" src={offer.Offer3.Image}/>
+                        <div className="b-offer-small" style={{backgroundImage: `url('${offer.Offer3.Image}')`}}>
                             <div className="b-offer__title">
                                 {offer.Offer3.FrontTitleRow1}
                             </div>
