@@ -7,11 +7,11 @@
 }
 
 .b-offer {
+    padding: 0 15px;
     /*display: inline-block;*/
     /*position: relative;*/
     /*max-width: 960px;*/
     margin-bottom: 1%;
-    padding: 0 15px;
     overflow: hidden;
 }
 
@@ -19,11 +19,11 @@
 .b-offer-large,
 .b-offer-medium,
 .b-offer-small {
-    display: inline-block;
     position: relative;
+    display: inline-block;
+    overflow: hidden;
     text-align: center;
     vertical-align: top;
-    overflow: hidden;
     /*margin-left: 5px;*/
     /*margin-right: 5px;*/
 }
@@ -62,8 +62,8 @@
 }
 
 .offer-left:after {
-    content: '';
     clear: both;
+    content: '';
 }
 
 .offer-right {
@@ -72,17 +72,17 @@
 }
 
 .offer-right:after {
-    content: '';
     clear: both;
+    content: '';
 }
 
 .b-offer__title {
     position: absolute;
-    width: 100%;
     top: 45%;
-    color: #fff;
+    width: 100%;
     font-size: 32px;
-    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    background-color: rgba(0, 0, 0, .3);
 }
 
 .b-offer__img {
@@ -96,13 +96,13 @@
 
 .b-offer__img:after {
     position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, .3);
 }
 
 @media (max-width: 768px) {

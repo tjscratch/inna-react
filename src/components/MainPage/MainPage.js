@@ -4,6 +4,7 @@ import withStyles from '../../decorators/withStyles';
 import OffersSlider from '../OffersSlider';
 import OffersLanding from '../OffersLanding';
 import OffersList from '../OffersList';
+import SearchForm from '../SearchForm';
 
 @withStyles(styles) class MainPage {
 
@@ -17,6 +18,9 @@ import OffersList from '../OffersList';
         return (
             <section className="main-page">
                 <div className="b-main-page">
+                    <div className="b-main-page__search-form">
+                        <SearchForm/>
+                    </div>
                     <div className="b-main-page__slider">
                         <OffersSlider />
                     </div>
