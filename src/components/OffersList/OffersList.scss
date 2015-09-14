@@ -1,9 +1,8 @@
 @import '../variables.scss';
-
-$animation-speed: 0.2s;
+$animation-speed: .2s;
 
 .b-offers-list {
-    max-width: $max-width;
+    max-width: $layout-max-width;
     padding: 10px 15px 50px;
     margin: 0 auto;
 }
@@ -105,8 +104,8 @@ a.b-offer-title-wrap {
 
     &:hover {
         font-size: 22px;
-        background-color: rgba(0, 0, 0, .6);
         cursor: pointer;
+        background-color: rgba(0, 0, 0, .6);
 
         .b-offer-title__sub-text {
             font-size: 1em;

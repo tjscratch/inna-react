@@ -1,14 +1,14 @@
 @import '../variables.scss';
-.b-search-form{
+.b-search-form {
     margin: 40px 0;
 }
 .b-search-form__form,
-.b-search-form__tabs{
+.b-search-form__tabs {
     max-width: $b-search-form-max-width;
     padding: 0 $b-search-form-horizontal-padding;
     margin: 0 auto;
 }
-.b-search-form__actions{
+.b-search-form__actions {
     padding: $b-search-form__form-padding-vertical $b-search-form__form-padding-horizontal;
     font-size: 0;
     line-height: 0;
@@ -19,36 +19,37 @@
 }
 @mixin form-item($width, $margin-right, $margin-bottom) {
     display: inline-block;
-    margin: 0 $margin-right $margin-bottom 0;
     width: $width;
+    margin: 0 $margin-right $margin-bottom 0;
     vertical-align: top;
 }
 .b-search-form-action__location-from,
-.b-search-form-action__location-to{
-    @include form-item(100px, .5%, 0);
+.b-search-form-action__location-to {
+    @include form-item(21%, .5%, 0);
 }
 .b-search-form-action__date-from,
-.b-search-form-action__date-to{
-    @include form-item(110px, .5%, 0);
+.b-search-form-action__date-to {
+    @include form-item(14%, .5%, 0);
 }
-.b-search-form-action__people{
-    @include form-item(180px, .5%, 0);
+.b-search-form-action__people {
+    @include form-item(17.5%, .5%, 0);
 }
-.b-search-form-action__btn{
-    @include form-item(100px, 0, 0);
-}
-.b-search-form-action__btn-btn{
-    vertical-align: top;
+.b-search-form-action__btn {
+    @include form-item(10%, 0, 0);
+
+    .btn{
+        width: 100%;
+    }
 }
 //BEGIN b-suggest
-.b-suggest{
+.b-suggest {
     display: block;
     padding: $padding-base-vertical;
-    line-height: $line-height-computed;
     font-size: $font-size-base;
+    line-height: $line-height-computed;
     background-color: $white;
-    border-radius: $b-suggest-border-radius;
     border: 1px solid transparent;
+    border-radius: $b-suggest-border-radius;
 }
 //END b-suggest
 @mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
@@ -58,23 +59,32 @@
     border-radius: $border-radius;
 }
 @mixin btn-bg-color($bg-color, $color) {
-    background-color: $bg-color;
     color: $color;
+    background-color: $bg-color;
+
+    &:hover {
+        background-color: lighten($bg-color, 5%);
+    }
+    &:active {
+        background-color: darken($bg-color, 5%);
+    }
 }
-.btn{
+.btn {
     display: inline-block;
     margin-bottom: 0;
     font-weight: normal;
     text-align: center;
+    white-space: nowrap;
     vertical-align: middle;
     touch-action: manipulation;
     cursor: pointer;
+    user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    white-space: nowrap;
-    user-select: none;
-    @include button-size($btn-padding-vertical, $btn-padding-horizontal, $btn-font-size, $btn-line-height, $btn-border-radius)
+    transition: all .1s;
+
+    @include button-size($btn-padding-vertical, $btn-padding-horizontal, $btn-font-size, $btn-line-height, $btn-border-radius);
 }
-.btn-green{
-    @include btn-bg-color($btn-green-bg, $btn-green-color)
+.btn-green {
+    @include btn-bg-color($btn-green-bg, $btn-green-color);
 }
