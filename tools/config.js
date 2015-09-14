@@ -76,6 +76,10 @@ const config = {
                 test: /\.less$/,
                 loader: "style!css!less"
             },
+            //{
+            //    test: /\.scss$/,
+            //    loader: 'style!css!sass'
+            //},
             {
                 test: /\.txt/,
                 loader: 'file?name=[path][name].[ext]'
@@ -155,11 +159,16 @@ const appConfig = merge({}, config, {
         ] : [])
     ],
     module: {
-        loaders: [...config.module.loaders, {
-            test: /\.css$/,
-            //loader: ExtractTextPlugin.extract(`${STYLE_LOADER}`, `${CSS_LOADER}!postcss-loader`)
-            loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
-        }]
+        loaders: [...config.module.loaders,
+            {
+                test: /\.scss$/,
+                loader: `${STYLE_LOADER}!${CSS_LOADER}!sass`
+            },
+            {
+                test: /\.css$/,
+                //loader: ExtractTextPlugin.extract(`${STYLE_LOADER}`, `${CSS_LOADER}!postcss-loader`)
+                loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
+            }]
     }
 });
 
@@ -178,7 +187,7 @@ const serverConfig = merge({}, config, {
     externals: [
         function (context, request, cb) {
             var isExternal =
-                request.match(/^[a-z][a-z\/\.\-0-9]*$/i) && !request.match(/^react-routing/) && !context.match(/[\\/]react-routing/);
+                    request.match(/^[a-z][a-z\/\.\-0-9]*$/i) && !request.match(/^react-routing/) && !context.match(/[\\/]react-routing/);
             cb(null, Boolean(isExternal));
         }
     ],
@@ -199,6 +208,10 @@ const serverConfig = merge({}, config, {
     ],
     module: {
         loaders: [...config.module.loaders,
+            {
+                test: /\.scss$/,
+                loader: `${CSS_LOADER}!sass`
+            },
             {
                 test: /\.css$/,
                 //loader: ExtractTextPlugin.extract(`${CSS_LOADER}!postcss-loader`)
