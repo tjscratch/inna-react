@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
+import Suggest from '../ui/Suggest';
 
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
@@ -83,6 +84,7 @@ import TabsNav from '../TabsNav';
     render() {
         return (
             <section className="b-search-form">
+                <Suggest/>
                 <div className="b-search-form__tabs">
                     <TabsNav/>
                 </div>
