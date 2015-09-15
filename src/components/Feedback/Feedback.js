@@ -1,10 +1,10 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React from 'react';
-import styles from './Feedback.css';
-import withStyles from '../../decorators/withStyles';
+//import styles from './Feedback.css';
+//import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles)
+//@withStyles(styles)
 class Feedback {
 
   render() {

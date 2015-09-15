@@ -1,20 +1,14 @@
 @import '../../../node_modules/normalize.css/normalize.css';
-/*@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';*/
-/*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-@import '../variables.css';
-/*@import '../../css/fonts.css';*/
+@import '../variables.scss';
 
 /*
  * Base styles
  * ========================================================================== */
 
 html {
-    /*font-weight: 100;*/
-    /*font-size: 1em; /!* ~16px; *!/*/
-    font-family: var(--font-family-base);
-    /*background-color: #000;*/
-    color: #222;
-    /*line-height: 1.375; /!* ~22px *!/*/
+    font-family: $font-family-base;
+    color: $base-text-color;
+    line-height: $line-height-base;
 }
 
 * {

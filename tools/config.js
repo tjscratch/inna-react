@@ -11,7 +11,7 @@ import path from 'path';
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
 import merge from 'lodash/object/merge';
 
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+//import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const DEBUG = !process.argv.includes('release');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
@@ -73,14 +73,6 @@ const config = {
     module: {
         loaders: [
             {
-                test: /\.less$/,
-                loader: "style!css!less"
-            },
-            //{
-            //    test: /\.scss$/,
-            //    loader: 'style!css!sass'
-            //},
-            {
                 test: /\.txt/,
                 loader: 'file?name=[path][name].[ext]'
             },
@@ -126,11 +118,11 @@ const config = {
             }]
     },
 
-    postcss: [
-        require('postcss-nested')(),
-        require('cssnext')(),
-        require('autoprefixer-core')(AUTOPREFIXER_BROWSERS)
-    ]
+    //postcss: [
+    //    require('postcss-nested')(),
+    //    require('cssnext')(),
+    //    require('autoprefixer-core')(AUTOPREFIXER_BROWSERS)
+    //]
 };
 
 //
@@ -144,7 +136,7 @@ const appConfig = merge({}, config, {
         path: path.join(__dirname, '../build/public'),
         filename: 'app.js'
     },
-    devtool: DEBUG ? 'source-map' : false,
+    //devtool: DEBUG ? 'source-map' : false,
     plugins: [
         ...config.plugins,
         new DefinePlugin(merge({}, GLOBALS, {'__SERVER__': false})),
@@ -162,12 +154,11 @@ const appConfig = merge({}, config, {
         loaders: [...config.module.loaders,
             {
                 test: /\.scss$/,
-                loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader!sass`
+                loader: `${STYLE_LOADER}!${CSS_LOADER}!sass`
             },
             {
                 test: /\.css$/,
-                //loader: ExtractTextPlugin.extract(`${STYLE_LOADER}`, `${CSS_LOADER}!postcss-loader`)
-                loader: `${STYLE_LOADER}!${CSS_LOADER}!postcss-loader`
+                loader: `${STYLE_LOADER}!${CSS_LOADER}`
             }]
     }
 });
@@ -199,23 +190,22 @@ const serverConfig = merge({}, config, {
         __filename: false,
         __dirname: false
     },
-    devtool: DEBUG ? 'source-map' : 'cheap-module-source-map',
+    //devtool: DEBUG ? 'source-map' : 'cheap-module-source-map',
     plugins: [
         ...config.plugins,
         new DefinePlugin(merge({}, GLOBALS, {'__SERVER__': true})),
-        new BannerPlugin('require("source-map-support").install();',
-            {raw: true, entryOnly: false})
+        //new BannerPlugin('require("source-map-support").install();',
+        //    {raw: true, entryOnly: false})
     ],
     module: {
         loaders: [...config.module.loaders,
             {
                 test: /\.scss$/,
-                loader: `${CSS_LOADER}!postcss-loader!sass`
+                loader: `${CSS_LOADER}!sass`
             },
             {
                 test: /\.css$/,
-                //loader: ExtractTextPlugin.extract(`${CSS_LOADER}!postcss-loader`)
-                loader: `${CSS_LOADER}!postcss-loader`
+                loader: `${CSS_LOADER}`
             }
         ]
     }

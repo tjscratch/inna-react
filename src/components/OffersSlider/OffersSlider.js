@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './OffersSlider.css';
+import styles from './OffersSlider.scss';
 import withStyles from '../../decorators/withStyles';
 
 @withStyles(styles) class OffersSlider {

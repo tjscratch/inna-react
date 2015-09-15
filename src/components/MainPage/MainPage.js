@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './MainPage.css';
+import styles from './MainPage.scss';
 import withStyles from '../../decorators/withStyles';
 import OffersSlider from '../OffersSlider';
 import OffersLanding from '../OffersLanding';

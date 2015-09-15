@@ -1,10 +1,10 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes } from 'react';
-import withStyles from '../../decorators/withStyles';
-import styles from './TextBox.css';
+//import withStyles from '../../decorators/withStyles';
+//import styles from './TextBox.css';
 
-@withStyles(styles)
+//@withStyles(styles)
 class TextBox {
 
   static propTypes = {

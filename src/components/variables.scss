@@ -1,3 +1,5 @@
+$font-family-base: ProximaNova, Arial, sans-serif;
+
 /* BEGIN Layout */
 // 960 + 15*2
 $layout-max-width: 990px;
@@ -15,6 +17,7 @@ $base-border-radius: 2px;
 
 /* BEGIN COLORS */
 $black: #212121;
+$base-text-color: $black;
 $white: #fff;
 $green: #89c13a;
 /* END COLORS */

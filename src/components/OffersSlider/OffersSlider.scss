@@ -1,4 +1,4 @@
-@import '../variables.css';
+@import '../variables.scss';
 
 .b-offers-slider {
     height: 470px;
@@ -12,7 +12,7 @@
 }
 
 .b-offers-slider__content {
-    max-width: var(--max-content-width);
+    max-width: $layout-max-width;
     padding: 40px 0 40px;
     margin: 0 auto;
     color: #fff;

@@ -1,10 +1,10 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes } from 'react';
-import styles from './ContactPage.css';
-import withStyles from '../../decorators/withStyles';
-
-@withStyles(styles)
+//import styles from './ContactPage.css';
+//import withStyles from '../../decorators/withStyles';
+//
+//@withStyles(styles)
 class ContactPage {
 
   static contextTypes = {

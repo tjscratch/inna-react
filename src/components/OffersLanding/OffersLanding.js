@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './OffersLanding.css';
+import styles from './OffersLanding.scss';
 import withStyles from '../../decorators/withStyles';
 
 @withStyles(styles) class OffersLanding {
