@@ -13,6 +13,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
 import MainPage from './components/MainPage';
+import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 
 import Storage from './storage.js';
 
@@ -29,6 +30,13 @@ const router = new Router(on => {
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`/Section/Get/${sectionId}`]);
         return <MainPage data={data}/>
+    });
+
+    //https://inna.ru/#/packages/search/6733-6623-03.10.2015-10.10.2015-0-2-1_2_3
+    //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
+    on('/packages/search/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?', async (state) => {
+        console.log('params', state.params);
+        return <PackagesSearchResultsPage />
     });
 
     on('/contact', async () => <ContactPage />);
