@@ -35,8 +35,12 @@ const router = new Router(on => {
     //https://inna.ru/#/packages/search/6733-6623-03.10.2015-10.10.2015-0-2-1_2_3
     //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
     on('/packages/search/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?', async (state) => {
-        console.log('params', state.params);
-        return <PackagesSearchResultsPage />
+        //console.log('params', state.params);
+        let data = await Storage.getPageData(state.context, [
+            `/Dictionary/DirectoryById/${state.params.fromId}`,
+            `/Dictionary/DirectoryById/${state.params.toId}`
+        ]);
+        return <PackagesSearchResultsPage routeParams={state.params} data={data}/>
     });
 
     on('/contact', async () => <ContactPage />);
