@@ -30,11 +30,12 @@ import SearchForm from '../SearchForm';
         this.context.onSetTitle(title);
         return (
             <section className="b-packages-results-page">
-                {title}
                 <div className="b-packages-results-page__form">
                     <SearchForm data={this.formData} />
                 </div>
-                <div className="b-packages-results-page__recommended-bundle"></div>
+                <div className="b-packages-results-page__recommended-bundle">
+                    результаты
+                </div>
                 <div className="b-packages-results-page__filter"></div>
                 <div className="b-packages-results-page__results"></div>
                 <div className="b-packages-results-page__right-info-block"></div>

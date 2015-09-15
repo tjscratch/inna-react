@@ -1,7 +1,18 @@
 .b-packages-results-page {
-    min-height: 500px;
 
+    .b-search-form {
+        margin-top: 0px;
+        padding: 10px 0 0;
+        background-color: #000;
+    }
+}
+
+.b-packages-results-page__form {
+
+}
+
+.b-packages-results-page__recommended-bundle {
     max-width: 990px;
-    padding: 40px 15px 40px;
+    padding: 0 15px 40px;
     margin: 0 auto;
 }
