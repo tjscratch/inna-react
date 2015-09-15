@@ -12,70 +12,62 @@ import Overlay from '../../ui/Overlay';
     constructor() {
         super();
         this.state = {
+            showOverlay: false,
             value: 't'
         };
     }
 
-    
+    handleFocus(event) {
+        //если узкий ViewPort - то в оверлее
+        //if (this.props.viewport.width < 500) {
+            this.setState({
+                showOverlay: true
+            });
+        //}
+    }
+
+    handleBlur(event) {
+        this.setState({
+            showOverlay: false
+        });
+    }
+
     handleChange(event) {
         this.setState({
             value: event.target.value
         });
-        //console.log(withViewport());
-        //console.log(this.state);
-        //console.log(this.props);
+
         //console.log(this.props.viewport);
-        //this.node = document.createElement('div');
-        //this.node.className = 'b-overlay';
         //document.body.style.height = this.props.viewport.height;
-        //document.body.appendChild(this.node);
-        //document.body.className += 'overlay-scroll-fix';
-
-        let content = (
-            <ul className="b-suggest__list b-suggest__list_overlay">
-                <li className="b-suggest__list-item">Москва</li>
-                <li className="b-suggest__list-item">Барселона</li>
-                <li className="b-suggest__list-item">Москва</li>
-                <li className="b-suggest__list-item">Барселона</li>
-                <li className="b-suggest__list-item">Москва</li>
-                <li className="b-suggest__list-item">Барселона</li>
-            </ul>
-        );
-        
-        //<Overlay content={content}/>;
-        //console.log('overlay', overlay);
-        //Overlay.show(content);
-        Overlay.show(content);
-
-        //ReactDOM.render(
-        //    overlay,
-        //    this.node
-        //);
     }
 
-    renderSuggestList() {
-        if (this.state.value) {
+    renderOverlaySuggest() {
+        if (this.state.showOverlay) {
             return (
-                <ul className="b-suggest__list">
-                    <Overlay/>
-                    <li className="b-suggest__list-item">Москва</li>
-                    <li className="b-suggest__list-item">Барселона</li>
-                    <li className="b-suggest__list-item">Москва</li>
-                    <li className="b-suggest__list-item">Барселона</li>
-                    <li className="b-suggest__list-item">Москва</li>
-                    <li className="b-suggest__list-item">Барселона</li>
-                </ul>
+                <Overlay>
+                    <ul className="b-suggest__list b-suggest__list_overlay">
+                        <li className="b-suggest__list-item">Москва</li>
+                        <li className="b-suggest__list-item">Барселона</li>
+                        <li className="b-suggest__list-item">Москва</li>
+                        <li className="b-suggest__list-item">Барселона</li>
+                        <li className="b-suggest__list-item">Москва</li>
+                        <li className="b-suggest__list-item">Барселона</li>
+                    </ul>
+                </Overlay>
             )
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     render() {
         return (
             <div className="b-suggest-container">
+                {this.renderOverlaySuggest()}
                 <div className="b-suggest">
                     <input className="b-suggest__input" type="text" placeholder="suggest" ref="input" key="input"
+                           onFocus={this.handleFocus.bind(this)}
+                           onBlur={this.handleBlur.bind(this)}
                            onChange={this.handleChange.bind(this)}
                            value={this.state.value}
                         />

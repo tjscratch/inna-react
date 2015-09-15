@@ -6,6 +6,8 @@ import withStyles from '../../decorators/withStyles';
 import SearchForm from '../SearchForm';
 import api from './../../core/ApiClient';
 
+//let Overlay = require('../my.overlay.js');
+
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +19,10 @@ import api from './../../core/ApiClient';
             from: data[0],
             to: data[1],
             ...routeParams
+        };
+
+        this.state = {
+            hotelsData: null
         };
 
         //console.log('this.formData', this.formData);
@@ -56,11 +62,24 @@ import api from './../../core/ApiClient';
         //
     }
 
+    renderOverlay() {
+        //if (this.state.hotelsData == null) {
+        //    return (
+        //        <Overlay>
+        //            <div>тут мой оверлей</div>
+        //        </Overlay>
+        //    );
+        //}
+
+        return null;
+    }
+
     render() {
         let title = 'Инна-Тур - Динамические пакеты';
         this.context.onSetTitle(title);
         return (
             <section className="b-packages-results-page">
+                {this.renderOverlay()}
                 <div className="b-packages-results-page__form">
                     <SearchForm data={this.formData}/>
                 </div>
