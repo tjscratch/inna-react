@@ -61,9 +61,9 @@ const config = {
 
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
-        new ExtractTextPlugin("css/bootstrap.css", {
-            allChunks: true
-        })
+        //new ExtractTextPlugin("css/bootstrap.css", {
+        //    allChunks: true
+        //})
     ],
 
     resolve: {
@@ -138,8 +138,8 @@ const config = {
 // -----------------------------------------------------------------------------
 
 const appConfig = merge({}, config, {
-    entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js',
-        'bootstrap-webpack!./tools/bootstrap.config.js'],
+    entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js'],
+        //'bootstrap-webpack!./tools/bootstrap.config.js'],
     output: {
         path: path.join(__dirname, '../build/public'),
         filename: 'app.js'

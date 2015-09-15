@@ -1,4 +1,4 @@
-/*@import '../../../node_modules/normalize.css/normalize.css';*/
+@import '../../../node_modules/normalize.css/normalize.css';
 /*@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';*/
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.css';
@@ -15,6 +15,10 @@ html {
     /*background-color: #000;*/
     color: #222;
     /*line-height: 1.375; /!* ~22px *!/*/
+}
+
+* {
+    box-sizing: border-box;
 }
 
 /*

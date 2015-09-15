@@ -1,57 +1,90 @@
 @import '../variables.scss';
-.b-search-form{
+.b-search-form {
     margin: 40px 0;
 }
-.b-search-form__actions,
-.b-search-form__tabs{
+.b-search-form__form,
+.b-search-form__tabs {
     max-width: $b-search-form-max-width;
+    padding: 0 $b-search-form-horizontal-padding;
     margin: 0 auto;
 }
-.b-search-form__actions{
+.b-search-form__actions {
     padding: $b-search-form__form-padding-vertical $b-search-form__form-padding-horizontal;
+    font-size: 0;
+    line-height: 0;
     background: $b-search-form-bg;
-    border-bottom-left-radius: $b-search-form-border-radius;
-    border-bottom-right-radius: $b-search-form-border-radius;
     border-top-right-radius: $b-search-form-border-radius;
+    border-bottom-right-radius: $b-search-form-border-radius;
+    border-bottom-left-radius: $b-search-form-border-radius;
+}
+@mixin form-item($width, $margin-right, $margin-bottom) {
+    display: inline-block;
+    width: $width;
+    margin: 0 $margin-right $margin-bottom 0;
+    vertical-align: top;
 }
 .b-search-form-action__location-from,
-.b-search-form-action__location-to{
-    
+.b-search-form-action__location-to {
+    @include form-item(21%, .5%, 0);
 }
-//BEGIN b-tabs
-.b-tabs__item{
-    display: inline-block;
-    padding: $b-tabs__item-padding-vertical $b-tabs__item-padding-horizontal;
-    margin-right: $b-tabs__item-margin-right;
-    font-size: $b-tabs__item-font-size;
-    line-height: 135%;
-    color: $b-tabs__item-color;
-    vertical-align: top;
-    cursor: pointer;
-    background-color: $b-tabs__item-bg;
-    border-top-left-radius: $b-tabs__item-border-radius;
-    border-top-right-radius: $b-tabs__item-border-radius;
+.b-search-form-action__date-from,
+.b-search-form-action__date-to {
+    @include form-item(14%, .5%, 0);
+}
+.b-search-form-action__people {
+    @include form-item(17.5%, .5%, 0);
+}
+.b-search-form-action__btn {
+    @include form-item(10%, 0, 0);
 
-    &:hover{
-        color: $b-tabs__item-color;
-        text-decoration: none;
-        background-color: $b-tabs__item-hover-bg;
+    .btn{
+        width: 100%;
     }
 }
-.b-tabs__item_active{
-    cursor: inherit;
-    background-color: $b-tabs__item-active-bg;
-
-    &:hover{
-        background-color: $b-tabs__item-active-bg;
-    }
-}
-//END b-tabs
 //BEGIN b-suggest
-.b-suggest{
+.b-suggest {
     display: block;
-    height: 40px;
+    padding: $padding-base-vertical;
+    font-size: $font-size-base;
+    line-height: $line-height-computed;
     background-color: $white;
+    border: 1px solid transparent;
     border-radius: $b-suggest-border-radius;
 }
 //END b-suggest
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+    padding: $padding-vertical $padding-horizontal;
+    font-size: $font-size;
+    line-height: $line-height;
+    border-radius: $border-radius;
+}
+@mixin btn-bg-color($bg-color, $color) {
+    color: $color;
+    background-color: $bg-color;
+
+    &:hover {
+        background-color: lighten($bg-color, 5%);
+    }
+    &:active {
+        background-color: darken($bg-color, 5%);
+    }
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    transition: all .1s;
+
+    @include button-size($btn-padding-vertical, $btn-padding-horizontal, $btn-font-size, $btn-line-height, $btn-border-radius);
+}
+.btn-green {
+    @include btn-bg-color($btn-green-bg, $btn-green-color);
+}

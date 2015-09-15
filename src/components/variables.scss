@@ -1,6 +1,13 @@
-/* BEGIN SIZES */
-$max-width: 990px;
-/* END SIZES */
+/* BEGIN Layout */
+// 960 + 15*2
+$layout-max-width: 990px;
+$layout-horizontal-padding: 15px;
+$padding-base-vertical: 8px;
+$padding-base-horizontal: 15px;
+$font-size-base: 14px;
+$line-height-base: 1.428571429;
+$line-height-computed: $font-size-base * $line-height-base;
+/* END Layout */
 
 /* BEGIN BORDER-RADIUS */
 $base-border-radius: 2px;
@@ -9,30 +16,40 @@ $base-border-radius: 2px;
 /* BEGIN COLORS */
 $black: #212121;
 $white: #fff;
+$green: #89c13a;
 /* END COLORS */
 
-
-
 /* BEGIN b-search-form */
-$b-search-form-max-width: $max-width;
+$b-search-form-max-width: $layout-max-width;
+$b-search-form-horizontal-padding: $layout-horizontal-padding;
 $b-search-form-bg: $black;
 $b-search-form-border-radius: $base-border-radius + 1;
 $b-search-form__form-padding-vertical: 6px;
 $b-search-form__form-padding-horizontal: 6px;
 /* END b-search-form */
 
-/* BEGIN b-tabs */
-$b-tabs__item-color: $white;
-$b-tabs__item-bg: rgba(33, 33, 33, .6);
-$b-tabs__item-hover-bg: rgba(33, 33, 33, .75);
-$b-tabs__item-active-bg: $black;
-$b-tabs__item-border-radius: $base-border-radius;
-$b-tabs__item-margin-right: 2px;
-$b-tabs__item-padding-vertical: 8px;
-$b-tabs__item-padding-horizontal: 20px;
-$b-tabs__item-font-size: 16px;
-/* END b-tabs */
+/* BEGIN b-tabs-nav */
+$b-tabs-nav__item-color: $white;
+$b-tabs-nav__item-bg: rgba(33, 33, 33, .6);
+$b-tabs-nav__item-hover-bg: rgba(33, 33, 33, .75);
+$b-tabs-nav__item-active-bg: $black;
+$b-tabs-nav__item-border-radius: $base-border-radius;
+$b-tabs-nav__item-margin-right: 2px;
+$b-tabs-nav__item-padding-vertical: 9px;
+$b-tabs-nav__item-padding-horizontal: 20px;
+$b-tabs-nav__item-font-size: 16px;
+/* END b-tabs-nav */
 
 /* BEGIN b-suggest */
 $b-suggest-border-radius: $base-border-radius;
 /* END b-suggest */
+
+/* BEGIN btn */
+$btn-border-radius: $base-border-radius;
+$btn-line-height: $line-height-computed;
+$btn-font-size: 15px;
+$btn-padding-horizontal: $padding-base-horizontal;
+$btn-padding-vertical: $padding-base-vertical;
+$btn-green-color: $white;
+$btn-green-bg: $green;
+/* END btn */
