@@ -1,4 +1,3 @@
-
 @import '../variables.scss';
 .b-search-form {
     margin: 40px 0;
@@ -42,17 +41,6 @@
         width: 100%;
     }
 }
-//BEGIN b-suggest
-.b-suggest {
-    display: block;
-    padding: $padding-base-vertical;
-    font-size: $font-size-base;
-    line-height: $line-height-computed;
-    background-color: $white;
-    border: 1px solid transparent;
-    border-radius: $b-suggest-border-radius;
-}
-//END b-suggest
 @mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
     padding: $padding-vertical $padding-horizontal;
     font-size: $font-size;

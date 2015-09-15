@@ -1,0 +1,26 @@
+@import '../../variables.scss';
+.b-suggest-container{
+    width: $layout-max-width;
+    margin: 30px auto;
+    padding: 20px;
+    background: black;
+}
+.b-suggest{
+    display: block;
+    padding: $padding-base-vertical;
+    font-size: $font-size-base;
+    line-height: $line-height-computed;
+    background-color: $white;
+    border: 1px solid transparent;
+    border-radius: $b-suggest-border-radius;
+}
+.b-suggest__input{
+    display: block;
+    width: 100%;
+    padding: $padding-base-vertical;
+    font-size: $font-size-base;
+    line-height: $line-height-computed;
+    background-color: $white;
+    border: 1px solid $black;
+    border-radius: $b-suggest-border-radius;
+}
