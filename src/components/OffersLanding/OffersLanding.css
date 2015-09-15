@@ -22,16 +22,25 @@
 }
 
 .b-landing-list__item {
+    display: inline-block;
+    width: 50%;
+    padding-right: 20px;
     margin-bottom: 35px;
 }
 
-.b-landing-list__item {
-    display: inline-block;
-    width: 50%;
-    padding-right: 10px;
+.b-landing-item {
+    display: table;
+}
+
+.b-landing-item__img {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .b-landing-item__text {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
     max-width: 370px;
 }
 

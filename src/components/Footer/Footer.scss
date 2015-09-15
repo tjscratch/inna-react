@@ -1,5 +1,6 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
-@import '../variables.css';
+/*@import '../variables.css';*/
+@import '../variables.scss';
 
 .footer {
     color: #fff;
@@ -17,7 +18,7 @@
 
 .b-footer {
     position: relative;
-    max-width: var(--max-content-width);
+    max-width: $layout-max-width;
     padding: 35px 15px 15px;
     margin: 0 auto;
 }
@@ -34,6 +35,11 @@
 
 .b-footer-links a {
     color: #fff;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .b-footer-links__list {
@@ -64,6 +70,7 @@
 /*social links*/
 
 .b-footer-info__right {
+    position: relative;
     display: inline-block;
     float: right;
     width: 200px;
@@ -163,10 +170,10 @@
 .b-comp-info a {
     color: #818589;
     text-decoration: none;
-}
 
-.b-comp-info a:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .b-comp-info__text {
