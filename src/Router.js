@@ -3,7 +3,6 @@
 import React from 'react';
 import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
-import api from './core/ApiClient';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
 import ContactPage from './components/ContactPage';

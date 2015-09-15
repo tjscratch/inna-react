@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import api from './../../core/ApiClient';
 import styles from './OffersList.scss';
 import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
