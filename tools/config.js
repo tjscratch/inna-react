@@ -18,16 +18,18 @@ const WATCH = global.WATCH === undefined ? false : global.WATCH;
 const VERBOSE = process.argv.includes('verbose');
 const STYLE_LOADER = 'style-loader/useable';
 const CSS_LOADER = DEBUG ? 'css-loader' : 'css-loader?minimize';
-const AUTOPREFIXER_BROWSERS = [
-    'Android 2.3',
-    'Android >= 4',
-    'Chrome >= 20',
-    'Firefox >= 24',
-    'Explorer >= 8',
-    'iOS >= 6',
-    'Opera >= 12',
-    'Safari >= 6'
-];
+const AUTOPREFIXER_LOADER = '!autoprefixer-loader?browsers=last 5 version';
+
+//const AUTOPREFIXER_BROWSERS = [
+//    'Android 2.3',
+//    'Android >= 4',
+//    'Chrome >= 20',
+//    'Firefox >= 24',
+//    'Explorer >= 8',
+//    'iOS >= 6',
+//    'Opera >= 12',
+//    'Safari >= 6'
+//];
 const GLOBALS = {
     'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
     '__DEV__': DEBUG
@@ -118,11 +120,11 @@ const config = {
             }]
     },
 
-    //postcss: [
+    postcss: [
     //    require('postcss-nested')(),
     //    require('cssnext')(),
     //    require('autoprefixer-core')(AUTOPREFIXER_BROWSERS)
-    //]
+    ]
 };
 
 //
@@ -154,11 +156,11 @@ const appConfig = merge({}, config, {
         loaders: [...config.module.loaders,
             {
                 test: /\.scss$/,
-                loader: `${STYLE_LOADER}!${CSS_LOADER}!sass`
+                loader: `${STYLE_LOADER}!${CSS_LOADER}${AUTOPREFIXER_LOADER}!sass`
             },
             {
                 test: /\.css$/,
-                loader: `${STYLE_LOADER}!${CSS_LOADER}`
+                loader: `${STYLE_LOADER}!${CSS_LOADER}${AUTOPREFIXER_LOADER}`
             }]
     }
 });
@@ -201,11 +203,11 @@ const serverConfig = merge({}, config, {
         loaders: [...config.module.loaders,
             {
                 test: /\.scss$/,
-                loader: `${CSS_LOADER}!sass`
+                loader: `${CSS_LOADER}${AUTOPREFIXER_LOADER}!sass`
             },
             {
                 test: /\.css$/,
-                loader: `${CSS_LOADER}`
+                loader: `${CSS_LOADER}${AUTOPREFIXER_LOADER}`
             }
         ]
     }
