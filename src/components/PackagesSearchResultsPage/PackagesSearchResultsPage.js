@@ -49,7 +49,7 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
         };
         
         api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
-            console.log('SearchHotels data', data);
+            //console.log('SearchHotels data', data);
             this.setState({
                 hotelsData: data,
                 recommendedData: data.RecommendedPair
