@@ -6,6 +6,8 @@ import withStyles from '../../decorators/withStyles';
 import SearchForm from '../SearchForm';
 import api from './../../core/ApiClient';
 
+import RecommendedBundle from '../RecommendedBundle';
+
 //let Overlay = require('../my.overlay.js');
 
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
@@ -49,7 +51,8 @@ import api from './../../core/ApiClient';
         api.get(url).then((data)=> {
             console.log('SearchHotels data', data);
             this.setState({
-                hotelsData: data
+                hotelsData: data,
+                recommendedData: data.RecommendedPair
             });
         });
     }
@@ -86,30 +89,7 @@ import api from './../../core/ApiClient';
                 <div className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
-                    <div className="b-recommended-bundle">
-                        <div className="b-recommended-bundle__title">
-                            Выбранный вариант
-                        </div>
-                        <div className="b-recommended-bundle__collapse">
-                            Свернуть
-                        </div>
-                        <div className="b-recommended-bundle__content">
-                            <div className="b-bundle-content">
-                                <div className="b-bundle-content__avia">
-                                    <div className="b-avia-card">
-                                    </div>
-                                </div>
-                                <div className="b-bundle-content__dp">
-                                    <div className="b-hotel-card">
-                                    </div>
-                                </div>
-                                <div className="b-bundle-content__price">
-                                    <div className="b-price-card">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <RecommendedBundle data={this.state.recommendedData} />
                 </div>
                 <div className="b-packages-results-page__filter">
                     фильтры
