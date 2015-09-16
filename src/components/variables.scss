@@ -13,6 +13,7 @@ $line-height-computed: $font-size-base * $line-height-base;
 
 /* BEGIN BORDER-RADIUS */
 $base-border-radius: 2px;
+$small-border-radius: 1px;
 /* END BORDER-RADIUS */
 
 /* BEGIN COLORS */
@@ -44,7 +45,7 @@ $b-tabs-nav__item-font-size: 16px;
 /* END b-tabs-nav */
 
 /* BEGIN b-suggest */
-$b-suggest-border-radius: $base-border-radius;
+$b-suggest-border-radius: $small-border-radius;
 /* END b-suggest */
 
 /* BEGIN btn */
