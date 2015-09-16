@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import withViewport from '../../../decorators/withViewport';
-import http from '../../../core/ApiClient';
+import api from '../../../core/ApiClient';
 import styles from './Suggest.scss';
 import withStyles from '../../../decorators/withStyles';
 
@@ -14,8 +14,8 @@ import Overlay from '../../ui/Overlay';
         super();
         this.state = {
             showSuggest: false,
-            value: 't',
-            suggestListData: [] 
+            value: null,
+            suggestListData: null
         };
     }
 
@@ -35,14 +35,34 @@ import Overlay from '../../ui/Overlay';
         this.setState({
             value: event.target.value
         });
-        http.get('/Dictionary/Hotel', {term: event.target.value})
-            .then((data)=> {
-
+        if (event.target.value) {
+            let requestParams = {term: event.target.value.trim()};
+            api.get('/Dictionary/Hotel', requestParams)
+                .then((data)=> {
+                    this.setState({
+                        suggestListData: data,
+                        showSuggest: true
+                    })
+                });
+        }else{
+            this.setState({
+                showSuggest: false
             });
+        }
     }
-    
-    renderSuggestList(){
-        
+
+    renderSuggestList() {
+        return (
+            <ul className="b-suggest__list">
+                {this.state.suggestListData.map((item, index)=> {
+                    return (
+                        <li className="b-suggest__list-item" key={index}>
+                            {item.Name}
+                        </li>
+                    );
+                }, this)}
+            </ul>
+        );
     }
 
     renderSuggest() {
@@ -62,14 +82,9 @@ import Overlay from '../../ui/Overlay';
                 )
             } else {
                 return (
-                    <ul className="b-suggest__list">
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                    </ul>
+                    <div>
+                        {this.renderSuggestList()}
+                    </div>
                 )
             }
         }
