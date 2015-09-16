@@ -1,14 +1,10 @@
 .b-avia-card {
-    display: inline-block;
-    width: 100%;
 }
 
-
+.b-avia-card__aircompany {
+}
 
 .b-aircompany {
-    display: inline-block;
-    width: 100%;
-    padding-top: 5px;
 }
 
 .b-aircompany__logo {
@@ -37,8 +33,6 @@
     margin: 10px 0;
 }
 
-
-
 .b-flight-info_back {
     margin-top: 10px;
 }
@@ -59,6 +53,7 @@
     display: inline-block;
     width: 40%;
     min-height: 50px;
+    margin-left: -5%;
     //background-color: #eee;
     vertical-align: top;
 }
@@ -110,7 +105,25 @@
     }
 }
 
+.b-avia-card-actions {
+    display: inline-block;
+    padding: 5px 16px;
+    background-color: #f9c623;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover {
+        background-color: #f8bf07;
+    }
+}
+
 @media(max-width: 768px) {
+    .b-flight-info__flight {
+        margin-left: 0;
+    }
+
     .b-flight-info-trip {
         margin: 5px;
     }

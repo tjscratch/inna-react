@@ -106,6 +106,18 @@ import { apiDateToJsDate } from '../../core/DateHelper.js';
         return null;
     }
 
+    renderActions() {
+        if (this.props.data) {
+            return (
+                <div className="b-avia-card-actions">
+                    Еще 189 вариантов перелета
+                </div>
+            );
+        }
+
+        return null;
+    }
+
     render() {
         return (
             <div className="b-avia-card">
@@ -114,6 +126,7 @@ import { apiDateToJsDate } from '../../core/DateHelper.js';
                 </div>
                 {this.renderFlightInfo()}
                 <div className="b-avia-card__actions">
+                    {this.renderActions()}
                 </div>
             </div>
         );

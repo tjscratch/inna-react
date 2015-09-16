@@ -24,7 +24,7 @@ import PriceCard from './PriceCard.js';
                 </div>
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
-                        <div className="b-bundle-content__avia">
+                        <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>
                             <AviaCard data={aviaData} />
                         </div>
                         <div className="b-bundle-content__dp">
