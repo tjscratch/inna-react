@@ -1,11 +1,11 @@
 @import '../../variables.scss';
-.b-suggest-container {
+.b-suggest-container{
     width: $layout-max-width;
     padding: 20px;
     margin: 30px auto;
     background: black;
 }
-.b-suggest {
+.b-suggest{
     position: relative;
     display: block;
     //padding: $padding-base-vertical;
@@ -14,7 +14,7 @@
     background-color: $white;
     border-radius: $b-suggest-border-radius;
 }
-.b-suggest__input {
+.b-suggest__input{
     position: relative;
     z-index: 20;
     display: block;
@@ -26,11 +26,11 @@
     border: 1px solid transparent;
     border-radius: $b-suggest-border-radius;
 
-    &:focus {
+    &:focus{
         border-color: $green;
     }
 }
-.b-suggest__list {
+.b-suggest__list{
     position: absolute;
     left: 0;
     z-index: 10;
@@ -41,22 +41,29 @@
     background: $white;
     box-shadow: 0 5px 10px $black;
 }
-.b-suggest__list-item {
+.b-suggest-item{
     position: relative;
     padding: 4px $padding-base-horizontal;
     list-style: none;
     cursor: pointer;
 
-    &:hover {
+    &:hover{
         background-color: rgba(0, 0, 0, .1);
     }
 }
-.b-suggest__list-item__iata{
+.b-suggest-item__city-name{
+
+}
+.b-suggest-item__country-name{
+    margin-left: 3px;
+    color: #888;
+}
+.b-suggest-item__iata{
     position: absolute;
     right: 15px;
     color: #888;
 }
-.b-suggest__list_overlay {
+.b-suggest__list_overlay{
     position: inherit;
     top: auto;
     right: auto;

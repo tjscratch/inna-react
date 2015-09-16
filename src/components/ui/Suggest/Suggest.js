@@ -52,15 +52,23 @@ import Overlay from '../../ui/Overlay';
         }
     }
 
+
+    selectedSuggestItem(item) {
+        console.log('selectedSuggestItem')
+        console.log(item);
+    }
+
     renderSuggestList() {
         return (
             <ul className="b-suggest__list">
                 {this.state.suggestListData.map((item, index)=> {
                     return (
-                        <li className="b-suggest__list-item" key={index}>
-                            <span>{item.Name},</span>
-                            <span>{item.CountryName}</span>
-                            <span className="b-suggest__list-item__iata">{item.CodeIata}</span>
+                        <li className="b-suggest-item" key={index}
+                            onClick={this.selectedSuggestItem(item)}
+                            >
+                            <span className="b-suggest-item__city-name">{item.Name}</span>,
+                            <span className="b-suggest-item__country-name">{item.CountryName}</span>
+                            <span className="b-suggest-item__iata">{item.CodeIata}</span>
                         </li>
                     );
                 }, this)}
