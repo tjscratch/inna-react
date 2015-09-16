@@ -7,6 +7,7 @@ import SearchForm from '../SearchForm';
 import api from './../../core/ApiClient';
 
 import RecommendedBundle from '../RecommendedBundle';
+import { routeDateToApiDate } from '../../core/DateHelper.js'
 
 //let Overlay = require('../my.overlay.js');
 
@@ -32,23 +33,22 @@ import RecommendedBundle from '../RecommendedBundle';
     }
 
     getData() {
-        function dateToApiDate(date) {
-            if (date) {
-                var parts = date.split('.');
-                if (parts) {
-                    parts = parts.reverse();
-                }
-                return parts.join('-');
-            }
-            return null;
-        }
-
-        let fromDateApi = dateToApiDate(this.props.routeParams.fromDate);
-        let toDateApi = dateToApiDate(this.props.routeParams.toDate);
+        let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
+        let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
         let routeParams = this.props.routeParams;
-        let url = `/Packages/SearchHotels?AddFilter=true&Adult=${routeParams.adultCount}&ArrivalId=${routeParams.toId}&DepartureId=${routeParams.fromId}&EndVoyageDate=${toDateApi}&StartVoyageDate=${fromDateApi}&TicketClass=${routeParams.flightClass}`;
-        console.log('SearchHotels url', url);
-        api.get(url).then((data)=> {
+
+        let url = '/Packages/SearchHotels';
+        let params = {
+            AddFilter: 'true',
+            Adult: routeParams.adultCount,
+            ArrivalId: routeParams.toId,
+            DepartureId: routeParams.fromId,
+            EndVoyageDate: toDateApi,
+            StartVoyageDate: fromDateApi,
+            TicketClass: routeParams.flightClass
+        };
+        
+        api.get(url, params).then((data)=> {
             console.log('SearchHotels data', data);
             this.setState({
                 hotelsData: data,
@@ -89,7 +89,7 @@ import RecommendedBundle from '../RecommendedBundle';
                 <div className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
-                    <RecommendedBundle data={this.state.recommendedData} />
+                    <RecommendedBundle data={this.state.recommendedData}/>
                 </div>
                 <div className="b-packages-results-page__filter">
                     фильтры
