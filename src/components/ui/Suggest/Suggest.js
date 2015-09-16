@@ -27,7 +27,7 @@ import Overlay from '../../ui/Overlay';
 
     handleBlur(event) {
         this.setState({
-            showSuggest: false
+            showSuggest: true
         });
     }
 
@@ -57,7 +57,9 @@ import Overlay from '../../ui/Overlay';
                 {this.state.suggestListData.map((item, index)=> {
                     return (
                         <li className="b-suggest__list-item" key={index}>
-                            {item.Name}
+                            <span>{item.Name},</span>
+                            <span>{item.CountryName}</span>
+                            <span className="b-suggest__list-item__iata">{item.CodeIata}</span>
                         </li>
                     );
                 }, this)}
@@ -70,14 +72,7 @@ import Overlay from '../../ui/Overlay';
             if (this.props.viewport.width < 1100) {
                 return (
                     <Overlay>
-                        <ul className="b-suggest__list b-suggest__list_overlay">
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                        </ul>
+                        {this.renderSuggestList()}
                     </Overlay>
                 )
             } else {
