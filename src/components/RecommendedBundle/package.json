@@ -1,0 +1,6 @@
+{
+  "name": "RecommendedBundle",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RecommendedBundle.js"
+}

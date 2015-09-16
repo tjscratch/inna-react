@@ -6,12 +6,12 @@
     font-size: $b-tabs-nav__item-font-size;
     line-height: $line-height-computed;
     color: $b-tabs-nav__item-color;
+    text-decoration: none;
     vertical-align: top;
     cursor: pointer;
     background-color: $b-tabs-nav__item-bg;
     border-top-left-radius: $b-tabs-nav__item-border-radius;
     border-top-right-radius: $b-tabs-nav__item-border-radius;
-    text-decoration: none;
 
     &:hover {
         color: $b-tabs-nav__item-color;

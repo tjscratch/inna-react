@@ -1,0 +1,36 @@
+.b-avia-card {
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+}
+
+
+
+.b-aircompany {
+    display: inline-block;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.b-aircompany__logo {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.b-aircompany__text {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.b-aircompany__ico {
+    display: inline-block;
+    float: right;
+    width: 21px;
+    height: 18px;
+    margin: 3px 10px 0 0;
+    background: url("airplane.png") no-repeat 0 0;
+}

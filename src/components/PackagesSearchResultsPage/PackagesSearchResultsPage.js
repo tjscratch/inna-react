@@ -6,6 +6,9 @@ import withStyles from '../../decorators/withStyles';
 import SearchForm from '../SearchForm';
 import api from './../../core/ApiClient';
 
+import RecommendedBundle from '../RecommendedBundle';
+import { routeDateToApiDate } from '../../core/DateHelper.js'
+
 //let Overlay = require('../my.overlay.js');
 
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
@@ -30,26 +33,26 @@ import api from './../../core/ApiClient';
     }
 
     getData() {
-        function dateToApiDate(date) {
-            if (date) {
-                var parts = date.split('.');
-                if (parts) {
-                    parts = parts.reverse();
-                }
-                return parts.join('-');
-            }
-            return null;
-        }
-
-        let fromDateApi = dateToApiDate(this.props.routeParams.fromDate);
-        let toDateApi = dateToApiDate(this.props.routeParams.toDate);
+        let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
+        let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
         let routeParams = this.props.routeParams;
-        let url = `/Packages/SearchHotels?AddFilter=true&Adult=${routeParams.adultCount}&ArrivalId=${routeParams.toId}&DepartureId=${routeParams.fromId}&EndVoyageDate=${toDateApi}&StartVoyageDate=${fromDateApi}&TicketClass=${routeParams.flightClass}`;
-        console.log('SearchHotels url', url);
-        api.get(url).then((data)=> {
+
+        let url = '/Packages/SearchHotels';
+        let params = {
+            AddFilter: 'true',
+            Adult: routeParams.adultCount,
+            ArrivalId: routeParams.toId,
+            DepartureId: routeParams.fromId,
+            EndVoyageDate: toDateApi,
+            StartVoyageDate: fromDateApi,
+            TicketClass: routeParams.flightClass
+        };
+        
+        api.get(url, params).then((data)=> {
             console.log('SearchHotels data', data);
             this.setState({
-                hotelsData: data
+                hotelsData: data,
+                recommendedData: data.RecommendedPair
             });
         });
     }
@@ -86,30 +89,7 @@ import api from './../../core/ApiClient';
                 <div className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
-                    <div className="b-recommended-bundle">
-                        <div className="b-recommended-bundle__title">
-                            Выбранный вариант
-                        </div>
-                        <div className="b-recommended-bundle__collapse">
-                            Свернуть
-                        </div>
-                        <div className="b-recommended-bundle__content">
-                            <div className="b-bundle-content">
-                                <div className="b-bundle-content__avia">
-                                    <div className="b-avia-card">
-                                    </div>
-                                </div>
-                                <div className="b-bundle-content__dp">
-                                    <div className="b-hotel-card">
-                                    </div>
-                                </div>
-                                <div className="b-bundle-content__price">
-                                    <div className="b-price-card">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <RecommendedBundle data={this.state.recommendedData}/>
                 </div>
                 <div className="b-packages-results-page__filter">
                     фильтры
