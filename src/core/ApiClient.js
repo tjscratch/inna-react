@@ -16,9 +16,10 @@ const getUrl = (path) => {
 
 const ApiClient = {
 
-    get: path => new Promise((resolve, reject) => {
+    get: (path, params) => new Promise((resolve, reject) => {
         request
             .get(getUrl(path))
+            .query(params)
             .accept('application/json')
             .end((err, res) => {
                 if (err) {

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import withViewport from '../../../decorators/withViewport';
+import http from '../../../core/ApiClient';
 import styles from './Suggest.scss';
 import withStyles from '../../../decorators/withStyles';
 
@@ -12,23 +13,21 @@ import Overlay from '../../ui/Overlay';
     constructor() {
         super();
         this.state = {
-            showOverlay: false,
-            value: 't'
+            showSuggest: false,
+            value: 't',
+            suggestListData: [] 
         };
     }
 
     handleFocus(event) {
-        //если узкий ViewPort - то в оверлее
-        //if (this.props.viewport.width < 500) {
-            this.setState({
-                showOverlay: true
-            });
-        //}
+        this.setState({
+            showSuggest: true
+        });
     }
 
     handleBlur(event) {
         this.setState({
-            showOverlay: false
+            showSuggest: false
         });
     }
 
@@ -36,16 +35,34 @@ import Overlay from '../../ui/Overlay';
         this.setState({
             value: event.target.value
         });
+        http.get('/Dictionary/Hotel', {term: event.target.value})
+            .then((data)=> {
 
-        //console.log(this.props.viewport);
-        //document.body.style.height = this.props.viewport.height;
+            });
+    }
+    
+    renderSuggestList(){
+        
     }
 
-    renderOverlaySuggest() {
-        if (this.state.showOverlay) {
-            return (
-                <Overlay>
-                    <ul className="b-suggest__list b-suggest__list_overlay">
+    renderSuggest() {
+        if (this.state.showSuggest) {
+            if (this.props.viewport.width < 1100) {
+                return (
+                    <Overlay>
+                        <ul className="b-suggest__list b-suggest__list_overlay">
+                            <li className="b-suggest__list-item">Москва</li>
+                            <li className="b-suggest__list-item">Барселона</li>
+                            <li className="b-suggest__list-item">Москва</li>
+                            <li className="b-suggest__list-item">Барселона</li>
+                            <li className="b-suggest__list-item">Москва</li>
+                            <li className="b-suggest__list-item">Барселона</li>
+                        </ul>
+                    </Overlay>
+                )
+            } else {
+                return (
+                    <ul className="b-suggest__list">
                         <li className="b-suggest__list-item">Москва</li>
                         <li className="b-suggest__list-item">Барселона</li>
                         <li className="b-suggest__list-item">Москва</li>
@@ -53,17 +70,15 @@ import Overlay from '../../ui/Overlay';
                         <li className="b-suggest__list-item">Москва</li>
                         <li className="b-suggest__list-item">Барселона</li>
                     </ul>
-                </Overlay>
-            )
+                )
+            }
         }
-
         return null;
     }
 
     render() {
         return (
             <div className="b-suggest-container">
-                {this.renderOverlaySuggest()}
                 <div className="b-suggest">
                     <input className="b-suggest__input" type="text" placeholder="suggest" ref="input" key="input"
                            onFocus={this.handleFocus.bind(this)}
@@ -71,6 +86,7 @@ import Overlay from '../../ui/Overlay';
                            onChange={this.handleChange.bind(this)}
                            value={this.state.value}
                         />
+                    {this.renderSuggest()}
                 </div>
             </div>
         );
