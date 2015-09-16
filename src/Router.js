@@ -15,6 +15,7 @@ import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 
 import Storage from './storage.js';
+import apiUrls from './constants/ApiUrls.js';
 
 const router = new Router(on => {
 
@@ -27,7 +28,7 @@ const router = new Router(on => {
     on('/', async (state) => {
         let sectionId = 4;
         //получаем все данные (массив) для этой страницы сразу
-        let data = await Storage.getPageData(state.context, [`/Section/Get/${sectionId}`]);
+        let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
         return <MainPage data={data}/>
     });
 
@@ -36,8 +37,8 @@ const router = new Router(on => {
     on('/packages/search/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?', async (state) => {
         //console.log('params', state.params);
         let data = await Storage.getPageData(state.context, [
-            `/Dictionary/DirectoryById/${state.params.fromId}`,
-            `/Dictionary/DirectoryById/${state.params.toId}`
+            `${apiUrls.DirectoryById}${state.params.fromId}`,
+            `${apiUrls.DirectoryById}${state.params.toId}`
         ]);
         return <PackagesSearchResultsPage routeParams={state.params} data={data}/>
     });
