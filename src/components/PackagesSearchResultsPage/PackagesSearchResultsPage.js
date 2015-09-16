@@ -5,6 +5,7 @@ import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
 import SearchForm from '../SearchForm';
 import api from './../../core/ApiClient';
+import apiUrls from './../../constants/ApiUrls.js';
 
 import RecommendedBundle from '../RecommendedBundle';
 import { routeDateToApiDate } from '../../core/DateHelper.js'
@@ -37,7 +38,6 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
         let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
         let routeParams = this.props.routeParams;
 
-        let url = '/Packages/SearchHotels';
         let params = {
             AddFilter: 'true',
             Adult: routeParams.adultCount,
@@ -48,7 +48,7 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
             TicketClass: routeParams.flightClass
         };
         
-        api.get(url, params).then((data)=> {
+        api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
             console.log('SearchHotels data', data);
             this.setState({
                 hotelsData: data,
