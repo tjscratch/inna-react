@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import withViewport from '../../../decorators/withViewport';
-import http from '../../../core/ApiClient';
+import api from '../../../core/ApiClient';
+import apiUrls from '../../../constants/ApiUrls.js';
 import styles from './Suggest.scss';
 import withStyles from '../../../decorators/withStyles';
 
@@ -14,8 +15,8 @@ import Overlay from '../../ui/Overlay';
         super();
         this.state = {
             showSuggest: false,
-            value: 't',
-            suggestListData: [] 
+            value: null,
+            suggestListData: null
         };
     }
 
@@ -27,7 +28,7 @@ import Overlay from '../../ui/Overlay';
 
     handleBlur(event) {
         this.setState({
-            showSuggest: false
+            showSuggest: true
         });
     }
 
@@ -35,14 +36,44 @@ import Overlay from '../../ui/Overlay';
         this.setState({
             value: event.target.value
         });
-        http.get('/Dictionary/Hotel', {term: event.target.value})
-            .then((data)=> {
-
+        if (event.target.value) {
+            let requestParams = {term: event.target.value.trim()};
+            api.get(apiUrls.DictionaryHotel, requestParams)
+                .then((data)=> {
+                    this.setState({
+                        suggestListData: data,
+                        showSuggest: true
+                    })
+                });
+        } else {
+            this.setState({
+                showSuggest: false
             });
+        }
     }
-    
-    renderSuggestList(){
-        
+
+
+    selectedSuggestItem(item) {
+        console.log('selectedSuggestItem')
+        console.log(item);
+    }
+
+    renderSuggestList() {
+        return (
+            <ul className="b-suggest__list">
+                {this.state.suggestListData.map((item, index)=> {
+                    return (
+                        <li className="b-suggest-item" key={index}
+                            onClick={this.selectedSuggestItem(item)}
+                            >
+                            <span className="b-suggest-item__city-name">{item.Name}</span>,
+                            <span className="b-suggest-item__country-name">{item.CountryName}</span>
+                            <span className="b-suggest-item__iata">{item.CodeIata}</span>
+                        </li>
+                    );
+                }, this)}
+            </ul>
+        );
     }
 
     renderSuggest() {
@@ -50,26 +81,22 @@ import Overlay from '../../ui/Overlay';
             if (this.props.viewport.width < 1100) {
                 return (
                     <Overlay>
-                        <ul className="b-suggest__list b-suggest__list_overlay">
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                            <li className="b-suggest__list-item">Москва</li>
-                            <li className="b-suggest__list-item">Барселона</li>
-                        </ul>
+                        <div>
+                            <input className="b-suggest__input" type="text" placeholder="suggest" ref="input" key="input"
+                                   onFocus={this.handleFocus.bind(this)}
+                                   onBlur={this.handleBlur.bind(this)}
+                                   onChange={this.handleChange.bind(this)}
+                                   value={this.state.value}
+                                />
+                            {this.renderSuggestList()}
+                        </div>
                     </Overlay>
                 )
             } else {
                 return (
-                    <ul className="b-suggest__list">
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                        <li className="b-suggest__list-item">Москва</li>
-                        <li className="b-suggest__list-item">Барселона</li>
-                    </ul>
+                    <div>
+                        {this.renderSuggestList()}
+                    </div>
                 )
             }
         }
