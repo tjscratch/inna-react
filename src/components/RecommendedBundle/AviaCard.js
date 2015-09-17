@@ -58,7 +58,7 @@ import { pluralize } from '../../core/CountHelper.js';
                     <div className="b-flight-info">
                         <div className="b-flight-info__text">
                             <div className="b-flight-info-text">
-                                <div>
+                                <div className="b-flight-info-date-block">
                                     <div className="b-flight-info-time">
                                         {toHHMM(DepartureDate)}
                                     </div>
@@ -66,8 +66,8 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {dateToDDMMDay(DepartureDate)}
                                     </div>
                                 </div>
-                                <div className="b-flight-info-date-airport-block">
-                                    <div className="b-flight-info-date-airport">
+                                <div className="b-flight-info-airport-block">
+                                    <div className="b-flight-info-date-airport" title={data.AirportFrom}>
                                         {data.AirportFrom}
                                     </div>
                                     <div className="b-flight-info-date-airport-code">
@@ -79,7 +79,7 @@ import { pluralize } from '../../core/CountHelper.js';
 
                         <div className="b-flight-info__text b-flight-info__text_to">
                             <div className="b-flight-info-text">
-                                <div>
+                                <div className="b-flight-info-date-block">
                                     <div className="b-flight-info-time">
                                         {toHHMM(ArrivalDate)}
                                     </div>
@@ -87,8 +87,8 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {dateToDDMMDay(ArrivalDate)}
                                     </div>
                                 </div>
-                                <div className="b-flight-info-date-airport-block">
-                                    <div className="b-flight-info-date-airport">
+                                <div className="b-flight-info-airport-block">
+                                    <div className="b-flight-info-date-airport" title={data.AirportTo}>
                                         {data.AirportTo}
                                     </div>
                                     <div className="b-flight-info-date-airport-code">
@@ -108,7 +108,7 @@ import { pluralize } from '../../core/CountHelper.js';
                     <div className="b-flight-info b-flight-info_back">
                         <div className="b-flight-info__text">
                             <div className="b-flight-info-text">
-                                <div>
+                                <div className="b-flight-info-date-block">
                                     <div className="b-flight-info-time">
                                         {toHHMM(BackDepartureDate)}
                                     </div>
@@ -116,8 +116,8 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {dateToDDMMDay(BackDepartureDate)}
                                     </div>
                                 </div>
-                                <div className="b-flight-info-date-airport-block">
-                                    <div className="b-flight-info-date-airport">
+                                <div className="b-flight-info-airport-block">
+                                    <div className="b-flight-info-date-airport" title={data.AirportFromBack}>
                                         {data.AirportFromBack}
                                     </div>
                                     <div className="b-flight-info-date-airport-code">
@@ -129,7 +129,7 @@ import { pluralize } from '../../core/CountHelper.js';
 
                         <div className="b-flight-info__text b-flight-info__text_to">
                             <div className="b-flight-info-text">
-                                <div>
+                                <div className="b-flight-info-date-block">
                                     <div className="b-flight-info-time">
                                         {toHHMM(BackArrivalDate)}
                                     </div>
@@ -137,8 +137,8 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {dateToDDMMDay(BackArrivalDate)}
                                     </div>
                                 </div>
-                                <div className="b-flight-info-date-airport-block">
-                                    <div className="b-flight-info-date-airport">
+                                <div className="b-flight-info-airport-block">
+                                    <div className="b-flight-info-date-airport" title={data.AirportToBack}>
                                         {data.AirportToBack}
                                     </div>
                                     <div className="b-flight-info-date-airport-code">

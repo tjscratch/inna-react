@@ -99,7 +99,11 @@
     color: #878787;
 }
 
-.b-flight-info-date-airport-block {
+.b-flight-info-date-block {
+    margin-bottom: -5px;
+}
+
+.b-flight-info-airport-block {
     position: relative;
     display: inline-block;
     max-width: 100%;
@@ -149,11 +153,11 @@
 }
 
 @media(max-width: 768px) {
-    .b-flight-info__flight {
-        margin-left: 0;
+    .b-flight-info__text {
+        width: 48%;
     }
 
-    .b-flight-info-trip {
-        margin: 5px;
+    .b-flight-info__text.b-flight-info__text_to {
+        margin-left: 4%;
     }
 }
