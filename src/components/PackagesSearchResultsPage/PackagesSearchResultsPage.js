@@ -28,9 +28,6 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
         this.state = {
             hotelsData: null
         };
-
-        //console.log('this.formData', this.formData);
-        this.getData();
     }
 
     getData() {
@@ -48,7 +45,7 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
             TicketClass: routeParams.flightClass
         };
         
-        api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
+        api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
             //console.log('SearchHotels data', data);
             this.setState({
                 hotelsData: data,
@@ -62,7 +59,7 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
     };
 
     componentDidMount() {
-        //
+        this.getData();
     }
 
     renderOverlay() {
