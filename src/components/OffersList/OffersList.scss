@@ -130,7 +130,7 @@ a.b-offer-title-wrap {
 }
 
 .b-offer-small .b-offer-title {
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 .b-offer-title__text {
@@ -163,7 +163,40 @@ a.b-offer-title-wrap {
     }
 }
 
+@media (max-width: 600px) {
+    a.b-offer-title-wrap {
+        font-size: 13px;
+
+        &:hover {
+            font-size: 15px;
+        }
+    }
+}
+
 @media (max-width: 480px) {
+    .b-offer {
+        margin-bottom: 0;
+    }
+
+    .b-offer-x-large,
+    .b-offer-large,
+    .b-offer-medium,
+    .b-offer-small {
+        width: 100%;
+        padding: 0 0 44.584%;
+        margin-bottom: 1.043%;
+
+        .b-offer-title {
+            font-size: 1.6em;
+        }
+    }
+
+    .offer-left,
+    .offer-right {
+        clear: none;
+    }
+
+
     a.b-offer-title-wrap {
         font-size: 12px;
 
