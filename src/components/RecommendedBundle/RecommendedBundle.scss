@@ -51,7 +51,7 @@
 .b-bundle-content__avia {
     display: inline-block;
     width: 40%;
-    height: 200px;
+    min-height: 200px;
     padding: 5px 10px 10px;
     vertical-align: top;
     background-color: #fff;
@@ -61,7 +61,7 @@
 .b-bundle-content__dp {
     display: inline-block;
     width: 40%;
-    height: 200px;
+    min-height: 200px;
     vertical-align: top;
     background-color: #eee;
 }
@@ -69,7 +69,7 @@
 .b-bundle-content__price {
     display: inline-block;
     width: 20%;
-    height: 200px;
+    min-height: 200px;
     vertical-align: top;
     background-color: #fcf8e3;
 }

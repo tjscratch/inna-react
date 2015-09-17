@@ -54,61 +54,103 @@ import { pluralize } from '../../core/CountHelper.js';
 
             return (
                 <div className="b-avia-card__flight-info">
+
                     <div className="b-flight-info">
                         <div className="b-flight-info__text">
                             <div className="b-flight-info-text">
-                                <div className="b-flight-info-text__time">
-                                    {toHHMM(DepartureDate)} {data.OutCode}
+                                <div>
+                                    <div className="b-flight-info-time">
+                                        {toHHMM(DepartureDate)}
+                                    </div>
+                                    <div className="b-flight-info-date">
+                                        {dateToDDMMDay(DepartureDate)}
+                                    </div>
                                 </div>
-                                <div className="b-flight-info-text__date">
-                                    {dateToDDMMDay(DepartureDate)}
+                                <div className="b-flight-info-date-airport-block">
+                                    <div className="b-flight-info-date-airport">
+                                        {data.AirportFrom}
+                                    </div>
+                                    <div className="b-flight-info-date-airport-code">
+                                        {data.OutCode}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="b-flight-info__flight">
-                            <div className="b-flight-info-trip">
-                                в пути: {minutesToHHMM(data.TimeTo)}<br />
-                                {data.ToTransferCount > 0 ? `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
-                            </div>
-                        </div>
+
                         <div className="b-flight-info__text b-flight-info__text_to">
                             <div className="b-flight-info-text">
-                                <div className="b-flight-info-text__time">
-                                    {toHHMM(ArrivalDate)} {data.InCode}
+                                <div>
+                                    <div className="b-flight-info-time">
+                                        {toHHMM(ArrivalDate)}
+                                    </div>
+                                    <div className="b-flight-info-date">
+                                        {dateToDDMMDay(ArrivalDate)}
+                                    </div>
                                 </div>
-                                <div className="b-flight-info-text__date">
-                                    {dateToDDMMDay(ArrivalDate)}
+                                <div className="b-flight-info-date-airport-block">
+                                    <div className="b-flight-info-date-airport">
+                                        {data.AirportTo}
+                                    </div>
+                                    <div className="b-flight-info-date-airport-code">
+                                        {data.InCode}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div className="b-flight-info-transfer">
+                        в
+                        пути: {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ? `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
+                    </div>
+
+
+
                     <div className="b-flight-info b-flight-info_back">
                         <div className="b-flight-info__text">
                             <div className="b-flight-info-text">
-                                <div className="b-flight-info-text__time">
-                                    {toHHMM(BackDepartureDate)} {data.OutCodeBack}
+                                <div>
+                                    <div className="b-flight-info-time">
+                                        {toHHMM(BackDepartureDate)}
+                                    </div>
+                                    <div className="b-flight-info-date">
+                                        {dateToDDMMDay(BackDepartureDate)}
+                                    </div>
                                 </div>
-                                <div className="b-flight-info-text__date">
-                                    {dateToDDMMDay(BackDepartureDate)}
+                                <div className="b-flight-info-date-airport-block">
+                                    <div className="b-flight-info-date-airport">
+                                        {data.AirportFromBack}
+                                    </div>
+                                    <div className="b-flight-info-date-airport-code">
+                                        {data.OutCodeBack}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="b-flight-info__flight">
-                            <div className="b-flight-info-trip">
-                                в пути: {minutesToHHMM(data.TimeBack)}<br />
-                                {data.ToTransferCount > 0 ? `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
-                            </div>
-                        </div>
+
                         <div className="b-flight-info__text b-flight-info__text_to">
                             <div className="b-flight-info-text">
-                                <div className="b-flight-info-text__time">
-                                    {toHHMM(BackArrivalDate)} {data.InCodeBack}
+                                <div>
+                                    <div className="b-flight-info-time">
+                                        {toHHMM(BackArrivalDate)}
+                                    </div>
+                                    <div className="b-flight-info-date">
+                                        {dateToDDMMDay(BackArrivalDate)}
+                                    </div>
                                 </div>
-                                <div className="b-flight-info-text__date">
-                                    {dateToDDMMDay(BackArrivalDate)}
+                                <div className="b-flight-info-date-airport-block">
+                                    <div className="b-flight-info-date-airport">
+                                        {data.AirportToBack}
+                                    </div>
+                                    <div className="b-flight-info-date-airport-code">
+                                        {data.InCodeBack}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="b-flight-info-transfer">
+                        в
+                        пути: {minutesToHHMM(data.TimeBack)}, {data.BackTransferCount > 0 ? `${data.BackTransferCount} ${pluralize(data.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
                     </div>
                 </div>
             );
