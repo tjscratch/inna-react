@@ -19,12 +19,11 @@ import Link from '../Link';
     render() {
         // This is just an example how one can render CSS
         let { width, height } = this.props.viewport;
-        this.renderCss(`.footer-viewport:after {content:' ${width}x${height}';}`);
 
         return (
             <footer className="footer">
                 <div className="b-footer">
-                    <span ref="viewport" className="footer-viewport footer-text--muted">Viewport:</span>
+                    <span ref="viewport" className="footer-viewport">Viewport: {`${width}x${height}`}</span>
 
                     <div className="b-footer__info">
                         <div className="b-footer-info">

@@ -1,13 +1,10 @@
 @import "../Icons/css/icons.css";
 
-.b-avia-card {
-}
 
-.b-avia-card__aircompany {
-}
 
-.b-aircompany {
-}
+
+
+
 
 .b-aircompany__logo {
     display: inline-block;
@@ -91,61 +88,60 @@
 
 .b-flight-info-time {
     display: inline-block;
-    font-weight: bold;
-    font-size: 0.9em;
     margin-right: 5px;
+    font-size: .9em;
+    font-weight: bold;
 }
 
 .b-flight-info-date {
     display: inline-block;
+    font-size: .8em;
     color: #878787;
-    font-size: 0.8em;
 }
 
 .b-flight-info-date-airport-block {
-    display: inline-block;
     position: relative;
-    white-space: nowrap;
+    display: inline-block;
     max-width: 100%;
     padding-right: 30px;
+    white-space: nowrap;
 }
 
 .b-flight-info-date-airport {
     display: inline-block;
+    width: 100%;
     margin-right: 5px;
-    font-weight: bold;
-    font-size: 0.9em;
     overflow: hidden;
+    font-size: .9em;
+    font-weight: bold;
     text-overflow: ellipsis;
     vertical-align: bottom;
-
-    width: 100%;
 }
 
 .b-flight-info-date-airport-code {
     position: absolute;
     right: 0;
     bottom: 0;
-    color: #878787;
-    font-size: 0.8em;
-    vertical-align: bottom;
     width: 30px;
+    font-size: .8em;
+    color: #878787;
+    vertical-align: bottom;
 }
 
 .b-flight-info-transfer {
+    font-size: .8em;
     color: #878787;
-    font-size: 0.8em;
 }
 
 .b-avia-card-actions {
     display: inline-block;
     padding: 5px 16px;
-    background-color: #f9c623;
-    font-size: 0.9em;
+    font-size: .9em;
     font-weight: bold;
-    cursor: pointer;
-    border-radius: 3px;
     text-align: center;
+    cursor: pointer;
+    background-color: #f9c623;
+    border-radius: 3px;
 
     &:hover {
         background-color: #f8bf07;
