@@ -1,0 +1,22 @@
+{
+  "name": "icons",
+  "css_prefix_text": "icon-emb-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "297fe6c2ef08198b03d706ba52f51b7f",
+      "css": "flight",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "6e8aea8fff9525dfc5149f0c03669091",
+      "css": "flight-1",
+      "code": 59393,
+      "src": "entypo"
+    }
+  ]
+}

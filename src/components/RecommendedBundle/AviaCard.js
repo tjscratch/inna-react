@@ -19,6 +19,7 @@ import { pluralize } from '../../core/CountHelper.js';
         return '';
     }
 
+    //<i className="icon-emb-flight"></i>
     renderTransporterInfo() {
         if (this.props.data) {
             var data = this.props.data.EtapsTo[0];

@@ -83,7 +83,7 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
                 <div className="b-packages-results-page__form">
                     <SearchForm data={this.formData}/>
                 </div>
-                <div className="b-packages-results-page__recommended-bundle">
+                <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
                     <RecommendedBundle data={this.state.recommendedData}/>
