@@ -9,14 +9,15 @@ import withStyles from '../../../decorators/withStyles';
 import Overlay from '../../ui/Overlay';
 
 @withViewport
-@withStyles(styles) class SearchForm extends React.Component {
+@withStyles(styles) class Suggest extends React.Component {
 
     
     constructor() {
         super();
         this.state = {
-            showSuggest: false,
             value: null,
+            locationId: null,
+            showSuggest: false,
             suggestListData: null
         };
     }
@@ -57,6 +58,10 @@ import Overlay from '../../ui/Overlay';
     selectedSuggestItem(item) {
         console.log('selectedSuggestItem')
         console.log(item);
+        this.setState({
+            value: item.Name,
+            locationId: item.Id
+        })
     }
 
     renderSuggestList() {
@@ -65,7 +70,7 @@ import Overlay from '../../ui/Overlay';
                 {this.state.suggestListData.map((item, index)=> {
                     return (
                         <li className="b-suggest-item" key={index}
-                            onClick={this.selectedSuggestItem(item)}
+                            onClick={this.selectedSuggestItem.bind(this, item)}
                             >
                             <span className="b-suggest-item__city-name">{item.Name}</span>,
                             <span className="b-suggest-item__country-name">{item.CountryName}</span>
@@ -83,7 +88,9 @@ import Overlay from '../../ui/Overlay';
                 return (
                     <Overlay>
                         <div>
-                            <input className="b-suggest__input" type="text" placeholder="suggest" ref="input" key="input"
+                            <input className="b-suggest__input" 
+                                   type="text" 
+                                   placeholder="suggest"
                                    onFocus={this.handleFocus.bind(this)}
                                    onBlur={this.handleBlur.bind(this)}
                                    onChange={this.handleChange.bind(this)}
@@ -106,9 +113,13 @@ import Overlay from '../../ui/Overlay';
 
     render() {
         return (
-            <div className="b-suggest-container">
+            <div className="b-suggest-container"
+                locationId={this.state.locationId}
+                >
                 <div className="b-suggest">
-                    <input className="b-suggest__input" type="text" placeholder="suggest" ref="input" key="input"
+                    <input className="b-suggest__input" 
+                           type="text" 
+                           placeholder="suggest"
                            onFocus={this.handleFocus.bind(this)}
                            onBlur={this.handleBlur.bind(this)}
                            onChange={this.handleChange.bind(this)}
@@ -122,4 +133,4 @@ import Overlay from '../../ui/Overlay';
 
 }
 
-export default SearchForm;
+export default Suggest;
