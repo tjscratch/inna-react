@@ -126,8 +126,17 @@ var dtr = {
     },
 };
 
+//15 ноя
+export function dateToDDMMM(date) {
+    if (date) {
+        return `${date.getDate()} ${dtr.translateMonthShort(date.getMonth())}`
+    }
+
+    return null;
+}
+
 //15 ноя, вс
-export function dateToDDMMDay(date) {
+export function dateToDDMMMDay(date) {
     if (date) {
         return `${date.getDate()} ${dtr.translateMonthShort(date.getMonth())}, ${dtr.translateDayShort(date.getDay())}`
     }

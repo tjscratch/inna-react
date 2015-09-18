@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './AviaCard.scss';
 import withStyles from '../../decorators/withStyles';
 
-import { apiDateToJsDate, toHHMM, dateToDDMMDay, minutesToHHMM } from '../../core/DateHelper.js';
+import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
 @withStyles(styles) class AviaCard extends React.Component {
@@ -23,7 +23,7 @@ import { pluralize } from '../../core/CountHelper.js';
     renderTransporterInfo() {
         if (this.props.data) {
             var data = this.props.data.EtapsTo[0];
-            console.log('AviaCard data', this.props.data);
+            //console.log('AviaCard data', this.props.data);
             return (
                 <div className="b-aircompany">
                     <img alt="logo" className="b-aircompany__logo"
@@ -63,7 +63,7 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {toHHMM(DepartureDate)}
                                     </div>
                                     <div className="b-flight-info-date">
-                                        {dateToDDMMDay(DepartureDate)}
+                                        {dateToDDMMMDay(DepartureDate)}
                                     </div>
                                 </div>
                                 <div className="b-flight-info-airport-block">
@@ -84,7 +84,7 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {toHHMM(ArrivalDate)}
                                     </div>
                                     <div className="b-flight-info-date">
-                                        {dateToDDMMDay(ArrivalDate)}
+                                        {dateToDDMMMDay(ArrivalDate)}
                                     </div>
                                 </div>
                                 <div className="b-flight-info-airport-block">
@@ -113,7 +113,7 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {toHHMM(BackDepartureDate)}
                                     </div>
                                     <div className="b-flight-info-date">
-                                        {dateToDDMMDay(BackDepartureDate)}
+                                        {dateToDDMMMDay(BackDepartureDate)}
                                     </div>
                                 </div>
                                 <div className="b-flight-info-airport-block">
@@ -134,7 +134,7 @@ import { pluralize } from '../../core/CountHelper.js';
                                         {toHHMM(BackArrivalDate)}
                                     </div>
                                     <div className="b-flight-info-date">
-                                        {dateToDDMMDay(BackArrivalDate)}
+                                        {dateToDDMMMDay(BackArrivalDate)}
                                     </div>
                                 </div>
                                 <div className="b-flight-info-airport-block">

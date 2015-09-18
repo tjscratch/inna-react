@@ -7,6 +7,18 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "84cf1fcc3fec556e7eaeb19679ca2dc9",
+      "css": "star-half-alt",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
       "uid": "297fe6c2ef08198b03d706ba52f51b7f",
       "css": "flight",
       "code": 59392,
