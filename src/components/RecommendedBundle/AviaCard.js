@@ -56,7 +56,7 @@ import { pluralize } from '../../core/CountHelper.js';
                 <div className="b-avia-card__flight-info">
 
                     <div className="b-flight-info">
-                        <div className="b-flight-info__text">
+                        <div className="b-flight-info__text b-flight-info__text_from">
                             <div className="b-flight-info-text">
                                 <div className="b-flight-info-date-block">
                                     <div className="b-flight-info-time">
