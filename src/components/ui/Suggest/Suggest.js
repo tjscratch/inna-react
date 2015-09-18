@@ -11,6 +11,7 @@ import Overlay from '../../ui/Overlay';
 @withViewport
 @withStyles(styles) class SearchForm extends React.Component {
 
+    
     constructor() {
         super();
         this.state = {

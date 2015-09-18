@@ -8,12 +8,12 @@
 .b-suggest{
     position: relative;
     display: block;
-    //padding: $padding-base-vertical;
     font-size: $font-size-base;
     line-height: $line-height-computed;
     background-color: $white;
     border-radius: $b-suggest-border-radius;
 }
+
 .b-suggest__input{
     position: relative;
     z-index: 20;
