@@ -42,6 +42,7 @@ import { pluralize } from '../../core/CountHelper.js';
             return (
                 <div className="b-hotel-card">
                     <div className="b-hotel-card__icon">
+                        <img alt="logo" className="" src={require('./hotel.png')}/>
                     </div>
                     <div className="b-hotel-card__photo">
                         <img className="b-hotel-card-photo" src={data.HotelPhoto180}/>
