@@ -81,6 +81,7 @@ import Suggest from '../ui/Suggest';
         return `${adultCount + childCount} человек`;
     }
 
+
     render() {
         return (
             <section className="b-search-form">
