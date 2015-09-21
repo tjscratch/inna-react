@@ -12,14 +12,30 @@ import Overlay from '../../ui/Overlay';
 @withStyles(styles) class Suggest extends React.Component {
 
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             value: null,
             locationId: null,
             showSuggest: false,
             suggestListData: null
         };
+    }
+
+    onSetResult(data){
+        if (this.props.setResult) {
+            this.props.setResult(data)
+        }
+    }
+
+    selectedSuggestItem(item) {
+        //console.log('selectedSuggestItem')
+        //console.log(item);
+        this.onSetResult(item);
+        this.setState({
+            value: item.Name,
+            locationId: item.Id
+        })
     }
 
     handleFocus(event) {
@@ -52,16 +68,6 @@ import Overlay from '../../ui/Overlay';
                 showSuggest: false
             });
         }
-    }
-
-
-    selectedSuggestItem(item) {
-        console.log('selectedSuggestItem')
-        console.log(item);
-        this.setState({
-            value: item.Name,
-            locationId: item.Id
-        })
     }
 
     renderSuggestList() {
@@ -114,7 +120,7 @@ import Overlay from '../../ui/Overlay';
     render() {
         return (
             <div className="b-suggest-container"
-                locationId={this.state.locationId}
+                 
                 >
                 <div className="b-suggest">
                     <input className="b-suggest__input" 

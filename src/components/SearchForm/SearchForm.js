@@ -80,12 +80,17 @@ import Suggest from '../ui/Suggest';
         //ToDo: прикрутить множественную форму
         return `${adultCount + childCount} человек`;
     }
+    
+    suggestSetResult(data) {
+        console.log("=====")
+        console.log(data)
+    }
 
 
     render() {
         return (
             <section className="b-search-form">
-                <Suggest/>
+                <Suggest setResult={this.suggestSetResult} />
                 <div className="b-search-form__tabs">
                     <TabsNav/>
                 </div>
