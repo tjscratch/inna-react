@@ -7,6 +7,7 @@ import styles from './Suggest.scss';
 import withStyles from '../../../decorators/withStyles';
 
 import Overlay from '../../ui/Overlay';
+import SuggestOptions from './SuggestOptions';
 
 @withViewport
 @withStyles(styles) class Suggest extends React.Component {
@@ -16,26 +17,22 @@ import Overlay from '../../ui/Overlay';
         super(props);
         this.state = {
             value: null,
-            locationId: null,
             showSuggest: false,
             suggestListData: null
         };
+    }
+
+    onSetLocation(item) {
+        this.onSetResult(item);
+        this.setState({
+            value: item.Name
+        })
     }
 
     onSetResult(data){
         if (this.props.setResult) {
             this.props.setResult(data)
         }
-    }
-
-    selectedSuggestItem(item) {
-        //console.log('selectedSuggestItem')
-        //console.log(item);
-        this.onSetResult(item);
-        this.setState({
-            value: item.Name,
-            locationId: item.Id
-        })
     }
 
     handleFocus(event) {
@@ -58,6 +55,7 @@ import Overlay from '../../ui/Overlay';
             let requestParams = {term: event.target.value.trim()};
             api.get(apiUrls.DictionaryHotel, requestParams)
                 .then((data)=> {
+                    this.refs.suggestOptions.setData(data);
                     this.setState({
                         suggestListData: data,
                         showSuggest: true
@@ -70,47 +68,25 @@ import Overlay from '../../ui/Overlay';
         }
     }
 
-    renderSuggestList() {
-        return (
-            <ul className="b-suggest__list">
-                {this.state.suggestListData.map((item, index)=> {
-                    return (
-                        <li className="b-suggest-item" key={index}
-                            onClick={this.selectedSuggestItem.bind(this, item)}
-                            >
-                            <span className="b-suggest-item__city-name">{item.Name}</span>,
-                            <span className="b-suggest-item__country-name">{item.CountryName}</span>
-                            <span className="b-suggest-item__iata">{item.CodeIata}</span>
-                        </li>
-                    );
-                }, this)}
-            </ul>
-        );
-    }
-
     renderSuggest() {
         if (this.state.showSuggest) {
             if (this.props.viewport.width < 1100) {
                 return (
                     <Overlay>
-                        <div>
-                            <input className="b-suggest__input" 
-                                   type="text" 
-                                   placeholder="suggest"
-                                   onFocus={this.handleFocus.bind(this)}
-                                   onBlur={this.handleBlur.bind(this)}
-                                   onChange={this.handleChange.bind(this)}
-                                   value={this.state.value}
-                                />
-                            {this.renderSuggestList()}
-                        </div>
+                        <input className="b-suggest__input"
+                               type="text"
+                               placeholder="suggest"
+                               onFocus={this.handleFocus.bind(this)}
+                               onBlur={this.handleBlur.bind(this)}
+                               onChange={this.handleChange.bind(this)}
+                               value={this.state.value}
+                            />
+                        <SuggestOptions ref="suggestOptions" data={this.state.suggestListData}/>
                     </Overlay>
                 )
             } else {
                 return (
-                    <div>
-                        {this.renderSuggestList()}
-                    </div>
+                    <SuggestOptions ref="suggestOptions" setLocation={this.onSetLocation.bind(this)} data={this.state.suggestListData}/>
                 )
             }
         }
