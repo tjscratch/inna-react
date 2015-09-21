@@ -30,7 +30,7 @@ import { formatPrice } from '../../core/StringHelper.js';
             return (
                 <div className="b-price-card">
                     <div className="b-price-card__link">
-                        <div className={`b-share-link ${this.state.shareOpen ? 'active' : ''}`} onClick={this.shareClick.bind(this)}>
+                        <div className={`b-share-link ${this.state.shareOpen ? 'b-share-link_active' : ''}`} onClick={this.shareClick.bind(this)}>
                             <i className="b-share-img"></i>
                         </div>
                     </div>
