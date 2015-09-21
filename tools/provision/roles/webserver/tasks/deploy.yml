@@ -1,0 +1,25 @@
+---
+- name: upgrade
+  action: apt update_cache=yes
+
+- name: Install app dependencies
+  action: 'apt pkg={{ item }}'
+  with_items:
+    - 'build-essential'
+    - 'git'
+    - 'nginx'
+    - 'nodejs'
+    - 'htop'
+
+
+- name: Create deployment directory for application
+  file: path={{ deploy_dir }} owner={{user}} group={{user}} state=directory
+
+- name: Remove the config symlink, if exists
+  command: rm -rf {{ deploy_dir }}/shared/config
+
+- name: Create shared directory for  application
+  file: path={{ deploy_dir }}/shared owner={{user}} group={{user}} state=directory
+
+- name: Create config directory for application
+  file: path={{ deploy_dir }}/shared/config owner={{user}} group={{user}} state=directory
