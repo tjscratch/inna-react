@@ -67,12 +67,7 @@ var SuggestModel = {
         }
 
         return counter;
-    },
-
-    get: function () {
-        return 3456;
     }
-
 
 }
 module.exports = SuggestModel;

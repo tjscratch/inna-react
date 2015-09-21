@@ -16,6 +16,7 @@ import SuggestModel from './SuggestModel';
     constructor(props) {
         super(props);
         this.state = {
+            placeholder: props.data.placeholder,
             value: null,
             options: null,
             showSuggest: false,
@@ -31,7 +32,7 @@ import SuggestModel from './SuggestModel';
 
     handleBlur(event) {
         this.setState({
-            showSuggest: true
+            showSuggest: false
         });
     }
 
@@ -91,7 +92,7 @@ import SuggestModel from './SuggestModel';
         return (
             <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
                    type="text"
-                   placeholder="suggest"
+                   placeholder={this.state.placeholder}
                    onFocus={this.handleFocus.bind(this)}
                    onBlur={this.handleBlur.bind(this)}
                    onChange={this.handleChange.bind(this)}
@@ -145,11 +146,9 @@ import SuggestModel from './SuggestModel';
 
     render() {
         return (
-            <div className="b-suggest-container">
-                <div className="b-suggest">
-                    {this.renderSuggestInput()}
-                    {this.renderSuggest()}
-                </div>
+            <div className="b-suggest">
+                {this.renderSuggestInput()}
+                {this.renderSuggest()}
             </div>
         );
     }
