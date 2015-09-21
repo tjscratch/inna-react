@@ -30,7 +30,11 @@
         border-color: $green;
     }
 }
-.b-suggest__list{
+.b-suggest__input_focus{
+    border-color: $green;
+}
+
+.b-suggest-list{
     position: absolute;
     left: 0;
     z-index: 10;
