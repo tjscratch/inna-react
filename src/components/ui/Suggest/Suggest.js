@@ -21,6 +21,7 @@ import SuggestModel from './SuggestModel';
             options: null,
             showSuggest: false,
             optionCounter: 0,
+            onBlurDisabled: false
         };
     }
 
@@ -31,9 +32,28 @@ import SuggestModel from './SuggestModel';
     }
 
     handleBlur(event) {
-        this.setState({
-            showSuggest: false
-        });
+        if(this.state.onBlurDisabled){
+            this.setState({
+                showSuggest: true
+            });
+        }else{
+            this.setState({
+                showSuggest: false
+            });
+        }
+    }
+
+    handleOptionHover(event){
+        if(event.type == "mouseenter"){
+            this.setState({
+                onBlurDisabled: true
+            });
+        }
+        if(event.type == "mouseleave"){
+            this.setState({
+                onBlurDisabled: false
+            });
+        }
     }
 
     handleChange(event) {
@@ -104,7 +124,10 @@ import SuggestModel from './SuggestModel';
 
     renderSuggestOptions() {
         return (
-            <ul className="b-suggest-list">
+            <ul className="b-suggest-list"
+                onMouseEnter={this.handleOptionHover.bind(this)}
+                onMouseLeave={this.handleOptionHover.bind(this)}
+                >
                 {this.state.options.map((item, index)=> {
                     return (
                         <li className={`b-suggest-item ${item.selected ? 'b-suggest-item_selected' : ''}`}
