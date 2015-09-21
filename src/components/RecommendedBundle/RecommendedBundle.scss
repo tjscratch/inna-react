@@ -70,7 +70,8 @@
 
 .b-bundle-content__price {
     display: table-cell;
+    position: relative;
     width: 20%;
-    vertical-align: top;
+    vertical-align: middle;
     background-color: #fcf8e3;
 }

@@ -12,8 +12,10 @@ import PriceCard from './PriceCard.js';
     }
 
     render() {
+        console.log('this.props.data', this.props.data);
         var aviaData = this.props.data ? this.props.data.AviaInfo : null;
         var hotelData = this.props.data ? this.props.data.Hotel : null;
+        var priceData = this.props.data ? {price: this.props.data.Price } : null;
 
         return (
             <div className="b-recommended-bundle">
@@ -32,7 +34,7 @@ import PriceCard from './PriceCard.js';
                             <HotelCard data={hotelData} />
                         </div>
                         <div className="b-bundle-content__price">
-                            <PriceCard />
+                            <PriceCard data={priceData} />
                         </div>
                     </div>
                 </div>
