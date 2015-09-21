@@ -21,15 +21,33 @@ class SuggestOptions extends React.Component {
             this.props.setLocation(item)
         }
     }
-
+    
+    
+    keyboardSelected(itemIndex){
+        var newOptions = this.state.options.map(function (item, index) {
+            if (itemIndex == index){
+                item.selected = true;
+            }else{
+                item.selected = false;
+            }
+            return item;
+        });
+        this.setState({
+            options: newOptions
+        });
+        
+    }
+    
 
     render() {
         if (this.state.options) {
             return (
-                <ul className="b-suggest__list dsfse">
+                <ul className="b-suggest__list">
                     {this.state.options.map((item, index)=> {
                         return (
-                            <li className="b-suggest-item" key={index} onClick={this.selectedOptionItem.bind(this, item)}>
+                            <li className={`b-suggest-item ${item.selected ? 'b-suggest-item_selected' : ''}`}
+                                key={index} 
+                                onClick={this.selectedOptionItem.bind(this, item)}>
                                 <span className="b-suggest-item__city-name">{item.Name}</span>,
                                 <span className="b-suggest-item__country-name">{item.CountryName}</span>
                                 <span className="b-suggest-item__iata">{item.CodeIata}</span>

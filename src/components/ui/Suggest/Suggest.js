@@ -8,6 +8,7 @@ import withStyles from '../../../decorators/withStyles';
 
 import Overlay from '../../ui/Overlay';
 import SuggestOptions from './SuggestOptions';
+import SuggestModel from './SuggestModel';
 
 @withViewport
 @withStyles(styles) class Suggest extends React.Component {
@@ -18,6 +19,7 @@ import SuggestOptions from './SuggestOptions';
         this.state = {
             value: null,
             showSuggest: false,
+            optionSelected: 0,
             suggestListData: null
         };
     }
@@ -35,6 +37,12 @@ import SuggestOptions from './SuggestOptions';
         }
     }
 
+    onKeyDown(event) {
+        //console.log(event)
+        //console.log(event.keyCode)
+        this.refs.suggestOptions.keyboardSelected(2);
+    }
+    
     handleFocus(event) {
         this.setState({
             showSuggest: true
@@ -52,15 +60,14 @@ import SuggestOptions from './SuggestOptions';
             value: event.target.value
         });
         if (event.target.value) {
-            let requestParams = {term: event.target.value.trim()};
-            api.get(apiUrls.DictionaryHotel, requestParams)
-                .then((data)=> {
+            SuggestModel.getSuggest(event.target.value)
+                .then((data)=>{
                     this.refs.suggestOptions.setData(data);
                     this.setState({
                         suggestListData: data,
                         showSuggest: true
                     })
-                });
+                })
         } else {
             this.setState({
                 showSuggest: false
@@ -105,6 +112,7 @@ import SuggestOptions from './SuggestOptions';
                            onFocus={this.handleFocus.bind(this)}
                            onBlur={this.handleBlur.bind(this)}
                            onChange={this.handleChange.bind(this)}
+                           onKeyDown={this.onKeyDown.bind(this)}
                            value={this.state.value}
                         />
                     {this.renderSuggest()}
