@@ -40,8 +40,10 @@ module.exports = function (shipit) {
     });
 
     shipit.task('print.rollback', function () {
+        console.log('=================================================');
         console.log('Отменить деплой:');
         console.log('shipit staging rollback');
+        console.log('=================================================');
     });
 
     //копируем package.json в корневую папку,
