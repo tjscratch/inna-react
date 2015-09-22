@@ -1,0 +1,4 @@
+user: 'deploy'
+home: '/home/{{ user }}'
+name: 'inna-react'
+deploy_dir: '{{ home }}/www/{{ name }}'
