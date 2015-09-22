@@ -4,7 +4,8 @@
 ### Создание и копирование публичного ключа на сервер:
 
 ssh-keygen -t rsa -C "example@example.com"
-scp -P 2223 ~/.ssh/id_rsa.pub root@5.200.60.73:~/.ssh/authorized_keys
+cat ~/.ssh/id_rsa.pub | ssh -p 2223 root@5.200.60.73 'umask 077;test -d .ssh | cat >> ~/.ssh/authorized_keys'
+cat ~/.ssh/id_rsa.pub | ssh -p 2223 root@5.200.60.73 'umask 077;test -d .ssh | cat >> /home/deploy/.ssh/authorized_keys'
 
 ### [Установка ansible под Mac Os X] (http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-pip)
 

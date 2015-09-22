@@ -25,3 +25,10 @@
 
 - name: Create config directory for application
   file: path={{ deploy_dir }}/shared/config owner={{user}} group={{user}} state=directory
+
+- name: set node symlink
+  command: sudo ln -s /usr/bin/nodejs /usr/bin/node
+  ignore_errors: yes
+
+- name: babel
+  command: sudo npm install --global babel
