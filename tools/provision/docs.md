@@ -4,7 +4,7 @@
 ### Создание и копирование публичного ключа на сервер:
 
 ssh-keygen -t rsa -C "example@example.com"
-scp -P 2223 ~/.ssh/id_rsa.pub username@host:~/.ssh/authorized_keys
+scp -P 2223 ~/.ssh/id_rsa.pub root@5.200.60.73:~/.ssh/authorized_keys
 
 
 ### Запуск ansible:
