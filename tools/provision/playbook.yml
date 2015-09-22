@@ -1,4 +1,3 @@
-# ansible-playbook -i hosts playbook.yml
 ---
 - hosts: webservers #Указываем группу хостов
   remote_user: root #пользователь под которым ansible будет логиниться
