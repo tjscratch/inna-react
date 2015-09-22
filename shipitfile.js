@@ -32,6 +32,7 @@ module.exports = function (shipit) {
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
+            'after.deploy::npm.install.fix',
             'after.deploy::run.build',
             'after.deploy::restart.forever',
             'print.rollback'
@@ -53,6 +54,11 @@ module.exports = function (shipit) {
     //запускаем npm install в корневой папке
     shipit.blTask('after.deploy::run.npm.install', function () {
         return shipit.remote('cd ' + shipit.config.deployTo + ' && npm install');
+    });
+
+    //react-routing кривой, должен быть установлен в папку c билдом
+    shipit.blTask('after.deploy::npm.install.fix', function () {
+        return shipit.remote('cd ' + shipit.currentPath + '; npm install react-routing; npm install normalize.css');
     });
 
     //запускаем build --release в текущем билде
