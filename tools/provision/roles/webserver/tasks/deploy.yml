@@ -6,9 +6,11 @@
   action: 'apt pkg={{ item }}'
   with_items:
     - 'build-essential'
+    - 'libssl-dev'
     - 'git'
     - 'nginx'
     - 'nodejs'
+    - 'npm'
     - 'htop'
 
 

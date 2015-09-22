@@ -6,6 +6,21 @@
 ssh-keygen -t rsa -C "example@example.com"
 scp -P 2223 ~/.ssh/id_rsa.pub root@5.200.60.73:~/.ssh/authorized_keys
 
+### [Установка ansible под Mac Os X] (http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-pip)
+
+```
+sudo easy_install pip
+```
+
+```
+sudo pip install ansible
+```
+
+### Клонируем репо ansible-nvm для node.js в roles
+```
+git clone https://github.com/leonidas/ansible-nvm
+```
+
 
 ### Запуск ansible:
 

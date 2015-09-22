@@ -7,4 +7,5 @@
 
   roles: # Блок ролей, у нас пока одна роль 
     - user
+    - ansible-nvm
     - webserver
