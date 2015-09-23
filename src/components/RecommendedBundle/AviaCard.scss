@@ -1,3 +1,4 @@
+@import "../variables.scss";
 @import "../Icons/css/icons.css";
 
 .b-aircompany__logo {
@@ -20,6 +21,10 @@
     height: 18px;
     margin: 3px 0 0 0;
     background: url("airplane.png") no-repeat 0 0;
+}
+
+.b-avia-card {
+    padding: 5px 10px 40px 10px;
 }
 
 //карточка
@@ -58,7 +63,7 @@
         content: '\e802';
         position: absolute;
         display: inline-block;
-        margin-left: -3%;
+        margin-left: -10%;
         font-family: "icons";
         color: #878787;
     }
@@ -152,12 +157,21 @@
     color: #878787;
 }
 
+.b-avia-card__actions {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding-right: 10px;
+}
+
 .b-avia-card-actions {
-    display: inline-block;
+    max-height: 30px;
     padding: 5px 16px;
+    overflow: hidden;
     font-size: .9em;
     font-weight: bold;
     text-align: center;
+    line-height: 24px;
     cursor: pointer;
     background-color: #f9c623;
     border-radius: 3px;
@@ -167,7 +181,7 @@
     }
 }
 
-@media(max-width: 768px) {
+@media(max-width: $recommended-bundle-max-mobile-width) {
     .b-flight-info__text {
         width: 44%;
         margin-left: 8%;
@@ -175,5 +189,16 @@
 
     .b-flight-info__text.b-flight-info__text_to {
         margin-left: 4%;
+    }
+
+    .b-avia-card__actions {
+        left: inherit;
+        right: 0;
+        bottom: 5px;
+    }
+
+    .b-avia-card-actions {
+        width: 230px;
+        overflow: auto;
     }
 }
