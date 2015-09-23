@@ -10,7 +10,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import RecommendedBundle from '../RecommendedBundle';
 import { routeDateToApiDate } from '../../core/DateHelper.js'
 
-//let Overlay = require('../my.overlay.js');
+import PopupMessage from '../ui/PopupMessage';
 
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
     constructor(props) {
@@ -26,7 +26,8 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
         };
 
         this.state = {
-            hotelsData: null
+            hotelsData: null,
+            //error: true
         };
     }
 
@@ -44,13 +45,22 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
             StartVoyageDate: fromDateApi,
             TicketClass: routeParams.flightClass
         };
-        
+
         api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
             //console.log('SearchHotels data', data);
-            this.setState({
-                hotelsData: data,
-                recommendedData: data.RecommendedPair
-            });
+
+            if (data) {
+                this.setState({
+                    hotelsData: data,
+                    recommendedData: data.RecommendedPair
+                });
+            }
+            else {
+                console.log('PackagesSearchHotels data is null');
+                this.setState({
+                    error: true
+                });
+            }
         });
     }
 
@@ -63,11 +73,14 @@ import { routeDateToApiDate } from '../../core/DateHelper.js'
     }
 
     renderOverlay() {
-        //if (this.state.hotelsData == null) {
+        if (this.state.hotelsData == null) {
+            return (
+                <PopupMessage data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд'}} />
+            );
+        }
+        //else if (this.state.error) {
         //    return (
-        //        <Overlay>
-        //            <div>тут мой оверлей</div>
-        //        </Overlay>
+        //        <PopupMessage data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}} />
         //    );
         //}
 
