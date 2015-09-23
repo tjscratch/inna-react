@@ -12,7 +12,7 @@ import PriceCard from './PriceCard.js';
     }
 
     render() {
-        console.log('this.props.data', this.props.data);
+        //console.log('this.props.data', this.props.data);
         var aviaData = this.props.data ? this.props.data.AviaInfo : null;
         var hotelData = this.props.data ? this.props.data.Hotel : null;
         var priceData = this.props.data ? {price: this.props.data.Price } : null;

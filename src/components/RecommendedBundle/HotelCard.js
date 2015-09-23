@@ -28,7 +28,7 @@ import { pluralize } from '../../core/CountHelper.js';
     }
 
     render() {
-        console.log('HotelCard data', this.props.data);
+        //console.log('HotelCard data', this.props.data);
         var data = this.props.data;
 
         if (data) {
