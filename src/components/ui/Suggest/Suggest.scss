@@ -1,10 +1,5 @@
 @import '../../variables.scss';
-.b-suggest-container{
-    width: $layout-max-width;
-    padding: 20px;
-    margin: 30px auto;
-    background: black;
-}
+
 .b-suggest{
     position: relative;
     display: block;
@@ -30,7 +25,11 @@
         border-color: $green;
     }
 }
-.b-suggest__list{
+.b-suggest__input_focus{
+    border-color: $green;
+}
+
+.b-suggest-list{
     position: absolute;
     left: 0;
     z-index: 10;
@@ -50,6 +49,9 @@
     &:hover{
         background-color: rgba(0, 0, 0, .1);
     }
+}
+.b-suggest-item_selected{
+    background-color: rgba(0, 0, 0, .1);
 }
 .b-suggest-item__city-name{
 

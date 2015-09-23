@@ -49,7 +49,6 @@ import styles from './Overlay.scss';
         this._overlayContainer.className = 'b-overlay';
         var container = thisProps.container;
         container.className += ' overlay-scroll-fix';
-        console.log('overlay attach');
         container.appendChild(this._overlayContainer);
     }
 
@@ -57,7 +56,6 @@ import styles from './Overlay.scss';
         ReactDOM.unmountComponentAtNode(this._overlayContainer);
         this.props.container.removeChild(this._overlayContainer);
         this.props.container.className = this.props.container.className.replace(' overlay-scroll-fix', '');
-        console.log('overlay detach');
         this._overlayContainer = null;
     }
 

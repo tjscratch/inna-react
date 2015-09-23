@@ -38,15 +38,23 @@ import Suggest from '../ui/Suggest';
          NameEn: "Moscow"
          VisaGroup: 0
          */
+        
+        //if (data) {
+        //    this.state = {
+        //        ...data
+        //    };
+        //}
+        //else {
+        //    this.state = {
+        //        locationFrom: null,
+        //        locationTo: null,
+        //    };
+        //}
 
-        if (data) {
             this.state = {
-                ...data
+                locationFrom: null,
+                locationTo: null,
             };
-        }
-        else {
-            this.state = {};
-        }
     }
 
     getFlightClassName() {
@@ -81,25 +89,32 @@ import Suggest from '../ui/Suggest';
         return `${adultCount + childCount} человек`;
     }
 
+    locationFrom(data) {
+        this.setState({
+            locationFrom: data.Id
+        }); 
+    }
+
+    locationTo(data) {
+        this.setState({
+            locationTo: data.Id
+        });
+    }
+
 
     render() {
         return (
             <section className="b-search-form">
-                <Suggest/>
                 <div className="b-search-form__tabs">
                     <TabsNav/>
                 </div>
                 <div className="b-search-form__form">
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
-                            <div className="b-suggest">
-                                {this.state.from ? this.state.from.Name : 'Откуда'}
-                            </div>
+                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда'}}/>
                         </div>
                         <div className="b-search-form-action__location-to">
-                            <div className="b-suggest">
-                                {this.state.to ? this.state.to.Name: 'Куда'}
-                            </div>
+                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда'}}/>
                         </div>
                         <div className="b-search-form-action__date-from">
                             <div className="b-suggest">
@@ -122,6 +137,8 @@ import Suggest from '../ui/Suggest';
                             </span>
                         </div>
                     </div>
+                    <div>locationFrom - {this.state.locationFrom}</div>
+                    <div>locationTo - {this.state.locationTo}</div>
                 </div>
             </section>
         );
