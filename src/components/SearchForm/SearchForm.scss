@@ -17,22 +17,22 @@
     border-bottom-right-radius: $b-search-form-border-radius;
     border-bottom-left-radius: $b-search-form-border-radius;
 }
-@mixin form-item($width, $margin-right, $margin-bottom) {
+@mixin form-item($width, $padding-right, $padding-bottom) {
     display: inline-block;
     width: $width;
-    margin: 0 $margin-right $margin-bottom 0;
+    padding: 0 $padding-right $padding-bottom 0;
     vertical-align: top;
 }
 .b-search-form-action__location-from,
 .b-search-form-action__location-to {
-    @include form-item(21%, .5%, 0);
+    @include form-item(22%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__date-from,
 .b-search-form-action__date-to {
-    @include form-item(14%, .5%, 0);
+    @include form-item(14%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__people {
-    @include form-item(17.5%, .5%, 0);
+    @include form-item(18%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__btn {
     @include form-item(10%, 0, 0);
@@ -76,4 +76,40 @@
 }
 .btn-green {
     @include btn-bg-color($btn-green-bg, $btn-green-color);
+}
+
+
+@media(max-width: 900px) {
+    .b-search-form-action__location-from{
+        @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__location-to{
+        @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__date-from,
+    .b-search-form-action__date-to,
+    .b-search-form-action__people{
+        @include form-item(25%, $b-search-form__form-offset-ceil-horizontal, 0);
+    }
+    .b-search-form-action__btn{
+        @include form-item(25%, 0, 0);
+    }
+}
+@media(max-width: 640px) {
+    .b-search-form-action__location-from,
+    .b-search-form-action__location-to{
+        @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__date-from{
+        @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__date-to{
+        @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__people{
+        @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
+    }
+    .b-search-form-action__btn{
+        @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
+    }
 }
