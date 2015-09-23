@@ -3,7 +3,7 @@ module.exports = function (shipit) {
 
     shipit.initConfig({
         default: {
-            workspace: '/Users/alex/work/inna-front-react/build',
+            workspace: 'build',
             deployTo: '/home/deploy/www/inna-react',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-front-react.git',
             branch: 'master',
