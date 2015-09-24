@@ -10,7 +10,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import RecommendedBundle from '../RecommendedBundle';
 import { routeDateToApiDate } from '../../core/DateHelper.js'
 
-import PopupMessage from '../ui/PopupMessage';
+import { WaitMsg } from '../ui/PopupMessages';
 
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
     constructor(props) {
@@ -75,7 +75,15 @@ import PopupMessage from '../ui/PopupMessage';
     renderOverlay() {
         if (this.state.hotelsData == null) {
             return (
-                <PopupMessage data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд'}} />
+                <WaitMsg
+                    data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
+                    close={()=>{
+                        alert('popup close')
+                    }}
+                    cancel={()=>{
+                        alert('popup cancel')
+                    }}
+                />
             );
         }
         //else if (this.state.error) {

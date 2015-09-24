@@ -3,28 +3,30 @@ import styles from './PopupMessage.scss';
 import withStyles from '../../../decorators/withStyles';
 
 import Overlay from '../Overlay';
-import Spinner from '../Spinner';
 
 @withStyles(styles) class PopupMessage extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    static propTypes = {
+        children: PropTypes.element.isRequired,
+    };
+
+    closeClick() {
+        if (this.props.close) {
+            this.props.close();
+        }
+    }
+
     render() {
-        var data = this.props.data;
         return (
             <Overlay>
                 <div className="b-popup-message">
-                    <div className="b-wait-msg">
-                        <Spinner />
-
-                        <div className="b-wait-msg__title">
-                            {data ? data.title : ''}
-                        </div>
-                        <div className="b-wait-msg__text">
-                            {data ? data.text : ''}
-                        </div>
+                    <div className="b-close-btn" onClick={this.closeClick.bind(this)}>
+                        <i className="b-close-btn__img icon-emb-cancel"></i>
                     </div>
+                    {this.props.children}
                 </div>
             </Overlay>
         );

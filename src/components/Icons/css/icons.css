@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icons';
-  src: url('../font/icons.eot?63785702');
-  src: url('../font/icons.eot?63785702#iefix') format('embedded-opentype'),
-       url('../font/icons.woff?63785702') format('woff'),
-       url('../font/icons.ttf?63785702') format('truetype'),
-       url('../font/icons.svg?63785702#icons') format('svg');
+  src: url('../font/icons.eot?97874860');
+  src: url('../font/icons.eot?97874860#iefix') format('embedded-opentype'),
+       url('../font/icons.woff?97874860') format('woff'),
+       url('../font/icons.ttf?97874860') format('truetype'),
+       url('../font/icons.svg?97874860#icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'icons';
-    src: url('../font/icons.svg?63785702#icons') format('svg');
+    src: url('../font/icons.svg?97874860#icons') format('svg');
   }
 }
 */
@@ -60,3 +60,4 @@
 .icon-emb-star:before { content: '\e803'; } /* '' */
 .icon-emb-star-half-alt:before { content: '\e804'; } /* '' */
 .icon-emb-rouble:before { content: '\e805'; } /* '' */
+.icon-emb-cancel:before { content: '\e806'; } /* '' */
