@@ -7,6 +7,8 @@ import Tripadvisor from '../Tripadvisor';
 import { apiDateToJsDate, dateToDDMMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
+import ListType from '../PackagesSearchResultsPage/ListType.js';
+
 @withStyles(styles) class HotelCard extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +27,33 @@ import { pluralize } from '../../core/CountHelper.js';
             case 'AI':
                 return 'Все включено';
         }
+    }
+
+    actionClick() {
+        if (this.props.events && this.props.events.changeListType) {
+            this.props.events.changeListType(ListType.Packages);
+        }
+    }
+
+    renderActions() {
+        if (this.props.data) {
+            //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
+            if (this.props.data.CurrentListType == ListType.Avia) {
+                return (
+                    <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
+                        <div>Еще 189 вариантов отелей</div>
+                    </div>
+
+                );
+            }
+            else {
+                return (
+                    <a href="">Подробнее</a>
+                );
+            }
+        }
+
+        return null;
     }
 
     render() {
@@ -68,14 +97,12 @@ import { pluralize } from '../../core/CountHelper.js';
                             <div className="b-hotel-card-info__include">
                             </div>
                             <div className="b-hotel-card-info__votes">
-                                <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}} />
+                                <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}}/>
                             </div>
                         </div>
                     </div>
                     <div className="b-hotel-card__actions">
-                        <div className="b-hotel-card-actions">
-                            Еще 189 вариантов отелей
-                        </div>
+                        {this.renderActions()}
                     </div>
                 </div>
             );

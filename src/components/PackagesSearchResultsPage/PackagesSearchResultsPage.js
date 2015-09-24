@@ -3,14 +3,21 @@
 import React, { PropTypes } from 'react';
 import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
-import SearchForm from '../SearchForm';
+
+//api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
 
-import RecommendedBundle from '../RecommendedBundle';
+//helpers
 import { routeDateToApiDate } from '../../core/DateHelper.js'
 
+//controls
 import { WaitMsg } from '../ui/PopupMessages';
+import SearchForm from '../SearchForm';
+import RecommendedBundle from '../RecommendedBundle';
+import { PackagesFilters, AviaFilters } from '../ListFilters';
+
+import ListType from './ListType.js';
 
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
     constructor(props) {
@@ -26,6 +33,7 @@ import { WaitMsg } from '../ui/PopupMessages';
         };
 
         this.state = {
+            listType: ListType.Packages,
             hotelsData: null,
             //error: true
         };
@@ -50,6 +58,9 @@ import { WaitMsg } from '../ui/PopupMessages';
             //console.log('SearchHotels data', data);
 
             if (data) {
+                data.RecommendedPair.AviaInfo.CurrentListType = this.state.listType;
+                data.RecommendedPair.Hotel.CurrentListType = this.state.listType;
+
                 this.setState({
                     hotelsData: data,
                     recommendedData: data.RecommendedPair
@@ -70,6 +81,19 @@ import { WaitMsg } from '../ui/PopupMessages';
 
     componentDidMount() {
         this.getData();
+    }
+
+    changeListType(type) {
+        //переключаем список перелетов / пакетов
+        var pair = this.state.recommendedData;
+        if (pair) {
+            pair.AviaInfo.CurrentListType = type;
+            pair.Hotel.CurrentListType = type;
+        }
+        this.setState({
+            listType: type,
+            recommendedData: pair
+        });
     }
 
     renderOverlay() {
@@ -98,6 +122,11 @@ import { WaitMsg } from '../ui/PopupMessages';
     render() {
         let title = 'Инна-Тур - Динамические пакеты';
         this.context.onSetTitle(title);
+
+        let events = {
+            changeListType: this.changeListType.bind(this)
+        };
+
         return (
             <section className="b-packages-results-page">
                 {this.renderOverlay()}
@@ -107,10 +136,13 @@ import { WaitMsg } from '../ui/PopupMessages';
                 <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
-                    <RecommendedBundle data={this.state.recommendedData}/>
+                    <RecommendedBundle
+                        events={events}
+                        data={this.state.recommendedData}
+                        />
                 </div>
                 <div className="b-packages-results-page__filter">
-                    фильтры
+                    {this.state.listType == ListType.Packages ? <PackagesFilters /> : <AviaFilters />}
                 </div>
                 <div className="b-packages-results-page__results">
                     <div className="b-packages-results">

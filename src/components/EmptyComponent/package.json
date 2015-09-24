@@ -1,0 +1,6 @@
+{
+  "name": "EmptyComponent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./EmptyComponent.js"
+}
