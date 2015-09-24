@@ -29,9 +29,12 @@ import PopupMessage from '../PopupMessage.js';
                     <div className="b-wait-msg__text">
                         {data ? data.text : ''}
                     </div>
-                    <div className="b-wait-msg__cancel" onClick={this.cancelClick.bind(this)}>
-                        {data ? data.cancelText : ''}
-                    </div>
+                    {
+                        this.props.cancel ?
+                        <div className="b-wait-msg__cancel" onClick={this.cancelClick.bind(this)}>
+                            {data ? data.cancelText : ''}
+                        </div> : null
+                    }
                 </div>
             </PopupMessage>
         );

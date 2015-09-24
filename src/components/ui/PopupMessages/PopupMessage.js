@@ -23,9 +23,12 @@ import Overlay from '../Overlay';
         return (
             <Overlay>
                 <div className="b-popup-message">
-                    <div className="b-close-btn" onClick={this.closeClick.bind(this)}>
-                        <i className="b-close-btn__img icon-emb-cancel"></i>
-                    </div>
+                    {
+                        this.props.close ?
+                        <div className="b-close-btn" onClick={this.closeClick.bind(this)}>
+                            <i className="b-close-btn__img icon-emb-cancel"></i>
+                        </div> : null
+                    }
                     {this.props.children}
                 </div>
             </Overlay>
