@@ -22,7 +22,8 @@ import SuggestModel from './SuggestModel';
             options: [],
             showSuggest: false,
             optionCounter: 0,
-            onBlurDisabled: false
+            onBlurDisabled: false,
+            focus: false
         };
         this.setOptions = _.debounce(
             this.setOptions, 300,
@@ -44,6 +45,9 @@ import SuggestModel from './SuggestModel';
 
     handleFocus() {
         this.setShowSuggest(true);
+        this.setState({
+            focus: true
+        });
     }
 
 
@@ -51,7 +55,10 @@ import SuggestModel from './SuggestModel';
         if (this.state.onBlurDisabled) {
             this.setShowSuggest(true);
         } else {
-            this.setShowSuggest(false);
+            this.setShowSuggest(true);
+            this.setState({
+                focus: false
+            });
         }
     }
 
@@ -118,40 +125,31 @@ import SuggestModel from './SuggestModel';
     selectedOption(item) {
         this.onSetResult(item);
         this.setState({
-            value: `${item.Name}, ${item.CountryName}`
+            value: `${item.Name}, ${item.CountryName}`,
+            focus: false
         });
         this.setShowSuggest(false);
     }
 
 
-    renderSuggestInput(config) {
-        if (config.focus) {
-            return (
-                <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
-                       type="text"
-                       placeholder={this.state.placeholder}
-                       onFocus={this.handleFocus.bind(this)}
-                       onBlur={this.handleBlur.bind(this)}
-                       onChange={this.handleChange.bind(this)}
-                       onKeyDown={this.onKeyDown.bind(this)}
-                       value={this.state.value}
-                       autoFocus
-                    />
-            );
+    componentDidMount() {
+        //console.log('componentDidMount')
+        //this.focusedInputOverlay();
+    }
+
+    componentDidUpdate() {
+        var input;
+        if (this.props.viewport.width < 1100) {
+            input = ReactDOM.findDOMNode(this.refs.inputOverlay);
         } else {
-            return (
-                <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
-                       type="text"
-                       placeholder={this.state.placeholder}
-                       onFocus={this.handleFocus.bind(this)}
-                       onBlur={this.handleBlur.bind(this)}
-                       onChange={this.handleChange.bind(this)}
-                       onKeyDown={this.onKeyDown.bind(this)}
-                       value={this.state.value}
-                    />
-            );
+            input = ReactDOM.findDOMNode(this.refs.inputBase);
+        }
+        if (input && this.state.focus) {
+            input.focus();
+            input.setSelectionRange(input.value.length, input.value.length);
         }
     }
+
 
     renderSuggestOptions() {
         return (
@@ -181,8 +179,20 @@ import SuggestModel from './SuggestModel';
             if (this.props.viewport.width < 1100) {
                 return (
                     <Overlay>
-                        <div className="b-suggest__options" ref="overlaySuggest">
-                            {this.renderSuggestInput({focus: true})}
+                        <div className="b-suggest-overlay">
+                            <div className="b-suggest-overlay__close icon-emb-cancel"
+                                onClick={this.setShowSuggest.bind(this, false)}
+                                ></div>
+                            <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus b-suggest__input_overlay" : ""}`}
+                                   type="text"
+                                   placeholder={this.state.placeholder}
+                                   onFocus={this.handleFocus.bind(this)}
+                                   onBlur={this.handleBlur.bind(this)}
+                                   onChange={this.handleChange.bind(this)}
+                                   onKeyDown={this.onKeyDown.bind(this)}
+                                   value={this.state.value}
+                                   ref="inputOverlay"
+                                />
                             {this.renderSuggestOptions()}
                         </div>
                     </Overlay>
@@ -201,7 +211,16 @@ import SuggestModel from './SuggestModel';
     render() {
         return (
             <div className="b-suggest">
-                {this.renderSuggestInput({focus: false})}
+                <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
+                       type="text"
+                       placeholder={this.state.placeholder}
+                       onFocus={this.handleFocus.bind(this)}
+                       onBlur={this.handleBlur.bind(this)}
+                       onChange={this.handleChange.bind(this)}
+                       onKeyDown={this.onKeyDown.bind(this)}
+                       value={this.state.value}
+                       ref="inputBase"
+                    />
                 {this.renderSuggest()}
             </div>
         );
