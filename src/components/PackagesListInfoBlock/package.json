@@ -1,0 +1,6 @@
+{
+  "name": "PackagesListInfoBlock",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PackagesListInfoBlock.js"
+}

@@ -18,6 +18,7 @@ import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
 import PackagesResultsList from '../PackagesResultsList';
 import AviaResultsList from '../AviaResultsList';
+import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
 import ListType from './ListType.js';
 
@@ -59,7 +60,7 @@ import ListType from './ListType.js';
             };
 
             api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-                console.log('SearchHotels data', data);
+                //console.log('SearchHotels data', data);
 
                 if (data) {
                     let recPair = data.RecommendedPair;
@@ -205,15 +206,9 @@ import ListType from './ListType.js';
                             }
                         </div>
                         {
-                            this.state.listType == ListType.Packages ?
+                            (this.state.listType == ListType.Packages) ?
                             <div className="b-packages-results__info-block">
-                                <b>Включено в стоимость:</b><br/>
-                                Авиаперелет<br/>
-                                Проживание<br/>
-                                Мед.страховка<br/>
-                                Топливный сбор<br/>
-                                Дополнительно:<br/>
-                                Трансфер<br/>
+                                <PackagesListInfoBlock data={this.state.hotelsData} />
                             </div> :
                             null
                         }
@@ -222,7 +217,6 @@ import ListType from './ListType.js';
             </section>
         );
     }
-
 }
 
 export default PackagesSearchResultsPage;
