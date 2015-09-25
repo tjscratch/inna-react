@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import withViewport from '../../../decorators/withViewport';
 import api from '../../../core/ApiClient';
 import apiUrls from '../../../constants/ApiUrls.js';
@@ -18,38 +19,49 @@ import SuggestModel from './SuggestModel';
         this.state = {
             placeholder: props.data.placeholder,
             value: null,
-            options: null,
+            options: [],
             showSuggest: false,
             optionCounter: 0,
             onBlurDisabled: false
         };
-    }
-
-    handleFocus(event) {
-        this.setState({
-            showSuggest: true
-        });
-    }
-
-    handleBlur(event) {
-        if(this.state.onBlurDisabled){
-            this.setState({
-                showSuggest: true
+        this.setOptions = _.debounce(
+            this.setOptions, 300,
+            {
+                'leading': true,
+                'trailing': true
             });
-        }else{
+    }
+
+
+    setShowSuggest(stateSuggest) {
+        if (this.state.options.length > 0) {
             this.setState({
-                showSuggest: false
+                showSuggest: stateSuggest
             });
         }
     }
 
-    handleOptionHover(event){
-        if(event.type == "mouseenter"){
+
+    handleFocus() {
+        this.setShowSuggest(true);
+    }
+
+
+    handleBlur() {
+        if (this.state.onBlurDisabled) {
+            this.setShowSuggest(true);
+        } else {
+            this.setShowSuggest(false);
+        }
+    }
+
+    handleOptionHover(event) {
+        if (event.type == "mouseenter") {
             this.setState({
                 onBlurDisabled: true
             });
         }
-        if(event.type == "mouseleave"){
+        if (event.type == "mouseleave") {
             this.setState({
                 onBlurDisabled: false
             });
@@ -57,23 +69,27 @@ import SuggestModel from './SuggestModel';
     }
 
     handleChange(event) {
+        let user_input = event.target.value;
+
         this.setState({
-            value: event.target.value
+            value: user_input
         });
-        if (event.target.value) {
-            SuggestModel.getSuggest(event.target.value)
-                .then((data)=> {
-                    this.setState({
-                        options: SuggestModel.focusOptionItem(data, 0),
-                        showSuggest: true
-                    })
-                })
-        } else {
-            this.setState({
-                showSuggest: false
-            });
+        if (user_input) {
+            this.setOptions(user_input);
         }
     }
+
+
+    setOptions(text) {
+        SuggestModel.getSuggest(text)
+            .then((data)=> {
+                this.setState({
+                    options: SuggestModel.focusOptionItem(data, 0)
+                })
+                this.setShowSuggest(true);
+            })
+    }
+
 
     onSetResult(data) {
         if (this.props.setResult) {
@@ -102,24 +118,39 @@ import SuggestModel from './SuggestModel';
     selectedOption(item) {
         this.onSetResult(item);
         this.setState({
-            value: item.Name,
-            showSuggest: false
+            value: `${item.Name}, ${item.CountryName}`
         });
+        this.setShowSuggest(false);
     }
 
 
-    renderSuggestInput() {
-        return (
-            <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
-                   type="text"
-                   placeholder={this.state.placeholder}
-                   onFocus={this.handleFocus.bind(this)}
-                   onBlur={this.handleBlur.bind(this)}
-                   onChange={this.handleChange.bind(this)}
-                   onKeyDown={this.onKeyDown.bind(this)}
-                   value={this.state.value}
-                />
-        );
+    renderSuggestInput(config) {
+        if (config.focus) {
+            return (
+                <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
+                       type="text"
+                       placeholder={this.state.placeholder}
+                       onFocus={this.handleFocus.bind(this)}
+                       onBlur={this.handleBlur.bind(this)}
+                       onChange={this.handleChange.bind(this)}
+                       onKeyDown={this.onKeyDown.bind(this)}
+                       value={this.state.value}
+                       autoFocus
+                    />
+            );
+        } else {
+            return (
+                <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus" : ""}`}
+                       type="text"
+                       placeholder={this.state.placeholder}
+                       onFocus={this.handleFocus.bind(this)}
+                       onBlur={this.handleBlur.bind(this)}
+                       onChange={this.handleChange.bind(this)}
+                       onKeyDown={this.onKeyDown.bind(this)}
+                       value={this.state.value}
+                    />
+            );
+        }
     }
 
     renderSuggestOptions() {
@@ -150,8 +181,8 @@ import SuggestModel from './SuggestModel';
             if (this.props.viewport.width < 1100) {
                 return (
                     <Overlay>
-                        <div className="b-suggest__options">
-                            {this.renderSuggestInput()}
+                        <div className="b-suggest__options" ref="overlaySuggest">
+                            {this.renderSuggestInput({focus: true})}
                             {this.renderSuggestOptions()}
                         </div>
                     </Overlay>
@@ -170,7 +201,7 @@ import SuggestModel from './SuggestModel';
     render() {
         return (
             <div className="b-suggest">
-                {this.renderSuggestInput()}
+                {this.renderSuggestInput({focus: false})}
                 {this.renderSuggest()}
             </div>
         );

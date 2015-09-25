@@ -38,10 +38,9 @@ var SuggestModel = {
                 counter = inc(counter, maxCount, -1);
                 break;
             // enter
-            case 13:
-                counter = inc(counter, maxCount, -1);
-                break;
-
+            //case 13:
+            //    counter = inc(counter, maxCount, -1);
+            //    break;
         }
 
 
