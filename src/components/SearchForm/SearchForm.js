@@ -118,17 +118,17 @@ import Suggest from '../ui/Suggest';
                         </div>
                         <div className="b-search-form-action__date-from">
                             <div className="b-suggest">
-                                {this.state.fromDate ? this.state.fromDate : 'Туда'}
+                                <input className="b-suggest__input" placeholder="Туда" type="text"/>
                             </div>
                         </div>
                         <div className="b-search-form-action__date-to">
                             <div className="b-suggest">
-                                {this.state.toDate ? this.state.toDate : 'Обратно'}
+                                <input className="b-suggest__input" placeholder="Обратно" type="text"/>
                             </div>
                         </div>
                         <div className="b-search-form-action__people">
                             <div className="b-suggest">
-                                {this.getPeopleCount()}, <span>{this.getFlightClassName()}</span>
+                                <input className="b-suggest__input" placeholder="5 негров, в багажнике" type="text"/>
                             </div>
                         </div>
                         <div className="b-search-form-action__btn">
