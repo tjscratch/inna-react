@@ -17,6 +17,7 @@ import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
 import PackagesResultsList from '../PackagesResultsList';
+import AviaResultsList from '../AviaResultsList';
 
 import ListType from './ListType.js';
 
@@ -36,11 +37,55 @@ import ListType from './ListType.js';
         this.state = {
             listType: ListType.Packages,
             hotelsData: null,
+            ticketsData: null,
             //error: true
         };
     }
 
     getData() {
+        return new Promise((resolve, reject)=>{
+            let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
+            let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
+            let routeParams = this.props.routeParams;
+
+            let params = {
+                AddFilter: 'true',
+                Adult: routeParams.adultCount,
+                ArrivalId: routeParams.toId,
+                DepartureId: routeParams.fromId,
+                EndVoyageDate: toDateApi,
+                StartVoyageDate: fromDateApi,
+                TicketClass: routeParams.flightClass
+            };
+
+            api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
+                console.log('SearchHotels data', data);
+
+                if (data) {
+                    let recPair = data.RecommendedPair;
+                    //добавляем доп поля для карточки авиа и отеля
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    this.setState({
+                        hotelsData: data.Hotels,
+                        recommendedData: recPair
+                    });
+                    resolve(data);
+                }
+                else {
+                    console.log('PackagesSearchHotels data is null');
+                    this.setState({
+                        error: true
+                    });
+                    reject();
+                }
+            });
+        });
+    }
+
+    getAviaData() {
         let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
         let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
         let routeParams = this.props.routeParams;
@@ -52,23 +97,25 @@ import ListType from './ListType.js';
             DepartureId: routeParams.fromId,
             EndVoyageDate: toDateApi,
             StartVoyageDate: fromDateApi,
-            TicketClass: routeParams.flightClass
+            TicketClass: routeParams.flightClass,
+            HotelId: this.state.recommendedData.Hotel.HotelId,
+            TicketId: this.state.recommendedData.AviaInfo.VariantId1
         };
 
-        api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-            console.log('SearchHotels data', data);
+        api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
+            console.log('SearchTickets data', data);
 
             if (data) {
-                data.RecommendedPair.AviaInfo.CurrentListType = this.state.listType;
-                data.RecommendedPair.Hotel.CurrentListType = this.state.listType;
-
+                //добавляем доп поля для карточки авиа
+                var recPair = this.state.recommendedData;
+                recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
                 this.setState({
-                    hotelsData: data.Hotels,
-                    recommendedData: data.RecommendedPair
+                    ticketsData: data.AviaInfos,
+                    recommendedData: recPair
                 });
             }
             else {
-                console.log('PackagesSearchHotels data is null');
+                console.log('SearchTickets data is null');
                 this.setState({
                     error: true
                 });
@@ -81,7 +128,10 @@ import ListType from './ListType.js';
     };
 
     componentDidMount() {
-        this.getData();
+        this.getData().then(()=>{
+            //сразу запрашиваем данные по перелетам
+            this.getAviaData();
+        });
     }
 
     changeListType(type) {
@@ -151,18 +201,22 @@ import ListType from './ListType.js';
                             {
                                 this.state.listType == ListType.Packages ?
                                 <PackagesResultsList data={this.state.hotelsData} /> :
-                                <div></div>
+                                <AviaResultsList data={this.state.ticketsData} />
                             }
                         </div>
-                        <div className="b-packages-results__info-block">
-                            <b>Включено в стоимость:</b><br/>
-                            Авиаперелет<br/>
-                            Проживание<br/>
-                            Мед.страховка<br/>
-                            Топливный сбор<br/>
-                            Дополнительно:<br/>
-                            Трансфер<br/>
-                        </div>
+                        {
+                            this.state.listType == ListType.Packages ?
+                            <div className="b-packages-results__info-block">
+                                <b>Включено в стоимость:</b><br/>
+                                Авиаперелет<br/>
+                                Проживание<br/>
+                                Мед.страховка<br/>
+                                Топливный сбор<br/>
+                                Дополнительно:<br/>
+                                Трансфер<br/>
+                            </div> :
+                            null
+                        }
                     </div>
                 </div>
             </section>

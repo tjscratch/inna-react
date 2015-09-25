@@ -167,12 +167,17 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     }
 
     renderActions() {
-        if (this.props.data) {
+        var data = this.props.data;
+        if (data) {
             //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-            if (this.props.data.CurrentListType == ListType.Packages) {
+            if (data.CurrentListType == ListType.Packages) {
                 return (
                     <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
-                        <div>Еще 189 вариантов перелета</div>
+                        {
+                            data.TicketsCount ?
+                            <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} перелета</div> :
+                            <div>Еще варианты перелета</div>
+                        }
                     </div>
                 );
             }

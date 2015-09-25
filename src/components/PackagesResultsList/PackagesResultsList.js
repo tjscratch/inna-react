@@ -37,7 +37,9 @@ import PriceCard from '../PriceCard'
             );
         }
 
-        return null;
+        return (
+            <div>loading...</div>
+        );
     }
 
 }

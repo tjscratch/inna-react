@@ -1,10 +1,10 @@
 @import "../variables.scss";
 
-.b-packages-list {
+.b-avia-list {
     //background-color: #eee;
 }
 
-.b-packages-list-item {
+.b-avia-list-item {
     display: table;
     position: relative;
     width: 100%;
@@ -18,13 +18,13 @@
     }
 }
 
-.b-packages-list-item__hotel {
+.b-avia-list-item__hotel {
     display: table-cell;
     position: relative;
     width: 70%;
 }
 
-.b-packages-list-item__price {
+.b-avia-list-item__price {
     display: table-cell;
     position: relative;
     width: 29%;
@@ -33,12 +33,12 @@
 }
 
 @media(max-width: $recommended-bundle-max-mobile-width) {
-    .b-packages-list-item {
+    .b-avia-list-item {
         display: block;
     }
 
-    .b-packages-list-item__hotel,
-    .b-packages-list-item__price {
+    .b-avia-list-item__hotel,
+    .b-avia-list-item__price {
         display: block;
         width: 100%;
     }

@@ -36,12 +36,17 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     }
 
     renderActions() {
-        if (this.props.data) {
+        var data = this.props.data;
+        if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            if (this.props.data.CurrentListType == ListType.Avia) {
+            if (data.CurrentListType == ListType.Avia) {
                 return (
                     <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
-                        <div>Еще 189 вариантов отелей</div>
+                        {
+                            data.HotelsCount ?
+                            <div>Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['вариант', 'варианта', 'вариантов'])} отелей</div> :
+                            <div>Еще варианты отелей</div>
+                        }
                     </div>
 
                 );
