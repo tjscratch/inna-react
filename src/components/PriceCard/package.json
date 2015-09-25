@@ -1,0 +1,6 @@
+{
+  "name": "PriceCard",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PriceCard.js"
+}

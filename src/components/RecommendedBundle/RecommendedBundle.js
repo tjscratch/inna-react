@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import styles from './RecommendedBundle.scss';
 import withStyles from '../../decorators/withStyles';
 
-import AviaCard from './AviaCard.js';
-import HotelCard from './HotelCard.js';
-import PriceCard from './PriceCard.js';
+import AviaCard from '../AviaCard';
+import HotelCard from '../HotelCard';
+import PriceCard from '../PriceCard';
 
 @withStyles(styles) class RecommendedBundle extends React.Component {
     constructor(props) {
