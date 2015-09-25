@@ -5,6 +5,8 @@ import withStyles from '../../decorators/withStyles';
 import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
+import ListType from '../PackagesSearchResultsPage/ListType.js';
+
 @withStyles(styles) class AviaCard extends React.Component {
     constructor(props) {
         super(props);
@@ -104,7 +106,6 @@ import { pluralize } from '../../core/CountHelper.js';
                     </div>
 
 
-
                     <div className="b-flight-info b-flight-info_back">
                         <div className="b-flight-info__text">
                             <div className="b-flight-info-text">
@@ -159,13 +160,27 @@ import { pluralize } from '../../core/CountHelper.js';
         return null;
     }
 
+    actionClick() {
+        if (this.props.events && this.props.events.changeListType) {
+            this.props.events.changeListType(ListType.Avia);
+        }
+    }
+
     renderActions() {
         if (this.props.data) {
-            return (
-                <div className="b-avia-card-actions">
-                    Еще 189 вариантов перелета
-                </div>
-            );
+            //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
+            if (this.props.data.CurrentListType == ListType.Packages) {
+                return (
+                    <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
+                        <div>Еще 189 вариантов перелета</div>
+                    </div>
+                );
+            }
+            else {
+                return (
+                    <a href="">Подробнее</a>
+                );
+            }
         }
 
         return null;

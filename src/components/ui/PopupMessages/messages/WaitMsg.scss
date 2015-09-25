@@ -1,0 +1,21 @@
+.b-wait-msg {
+    margin-top: 20px;
+}
+
+.b-wait-msg__title {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.b-wait-msg__text {
+    color: #666;
+}
+
+.b-wait-msg__cancel {
+    display: inline-block;
+    margin-top: 5px;
+    color: #1e88c1;
+    font-size: .9em;
+    cursor: pointer;
+}

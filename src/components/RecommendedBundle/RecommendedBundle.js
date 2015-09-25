@@ -13,6 +13,7 @@ import PriceCard from './PriceCard.js';
 
     render() {
         //console.log('this.props.data', this.props.data);
+        var events = this.props.events;
         var aviaData = this.props.data ? this.props.data.AviaInfo : null;
         var hotelData = this.props.data ? this.props.data.Hotel : null;
         var priceData = this.props.data ? {price: this.props.data.Price } : null;
@@ -28,10 +29,10 @@ import PriceCard from './PriceCard.js';
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
                         <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>
-                            <AviaCard data={aviaData} />
+                            <AviaCard events={events} data={aviaData} />
                         </div>
                         <div className="b-bundle-content__dp">
-                            <HotelCard data={hotelData} />
+                            <HotelCard events={events} data={hotelData} />
                         </div>
                         <div className="b-bundle-content__price">
                             <PriceCard data={priceData} />
