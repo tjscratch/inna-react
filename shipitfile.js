@@ -34,7 +34,8 @@ module.exports = function (shipit) {
             'after.deploy::run.npm.install',
             'after.deploy::npm.install.fix',
             'after.deploy::run.build',
-            'after.deploy::restart.forever',
+            //'after.deploy::restart.forever',
+            'after.deploy::restart.service',
             'print.rollback'
         );
     });
@@ -71,10 +72,17 @@ module.exports = function (shipit) {
     //перезапускаем приложение
     //forever list | grep -q build.server.js - возвращает 0 - если не нашлось строки 'build.server.js', 1 - если нашлось
     //и соответственно запускается команда
-    shipit.blTask('after.deploy::restart.forever', function () {
+    //shipit.blTask('after.deploy::restart.forever', function () {
+    //    var cmd = '';
+    //    cmd += ' forever list | grep -q build.server.js && forever stop '+ shipit.currentPath + '/build/server.js;';
+    //    cmd += ' forever start '+ shipit.currentPath + '/build/server.js;';
+    //    return shipit.remote(cmd);
+    //});
+
+    shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += ' forever list | grep -q build.server.js && forever stop '+ shipit.currentPath + '/build/server.js;';
-        cmd += ' forever start '+ shipit.currentPath + '/build/server.js;';
+        cmd += 'sudo service inna-react stop; ';
+        cmd += 'sudo service inna-react start';
         return shipit.remote(cmd);
     });
 };
