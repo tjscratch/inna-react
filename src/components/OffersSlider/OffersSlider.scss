@@ -1,14 +1,12 @@
 @import '../variables.scss';
 
 .b-offers-slider {
-    height: 470px;
+    height: 500px;
     background-color: #f6f6f6;
-    background-image: url('https://s.inna.ru/Files/Photos/140220092948/141028191927/p_O.jpg');
+    background-image: url('../../public/images/bg-1.jpg');
     background-repeat: no-repeat;
     background-position: center top;
-    -webkit-background-size: auto 100%;
-       -moz-background-size: auto 100%;
-            background-size: auto 100%;
+    background-size: cover;
 }
 
 .b-offers-slider__content {

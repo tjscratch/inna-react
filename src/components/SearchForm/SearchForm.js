@@ -128,7 +128,7 @@ import Suggest from '../ui/Suggest';
                         </div>
                         <div className="b-search-form-action__people">
                             <div className="b-suggest">
-                                <input className="b-suggest__input" placeholder="5 негров, эконом" type="text"/>
+                                <input className="b-suggest__input" placeholder="5 негров, в багажнике" type="text"/>
                             </div>
                         </div>
                         <div className="b-search-form-action__btn">

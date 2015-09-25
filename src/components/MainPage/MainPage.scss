@@ -1,6 +1,12 @@
 @import '../variables.scss';
 
 
+.b-main-page__search-form{
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
 .b-main-page__offers-landing,
 .b-main-page__offers-list {
     background-color: #f6f6f6;
