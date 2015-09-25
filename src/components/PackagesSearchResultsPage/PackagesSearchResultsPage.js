@@ -16,6 +16,7 @@ import { WaitMsg } from '../ui/PopupMessages';
 import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
+import PackagesResultsList from '../PackagesResultsList';
 
 import ListType from './ListType.js';
 
@@ -55,14 +56,14 @@ import ListType from './ListType.js';
         };
 
         api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-            //console.log('SearchHotels data', data);
+            console.log('SearchHotels data', data);
 
             if (data) {
                 data.RecommendedPair.AviaInfo.CurrentListType = this.state.listType;
                 data.RecommendedPair.Hotel.CurrentListType = this.state.listType;
 
                 this.setState({
-                    hotelsData: data,
+                    hotelsData: data.Hotels,
                     recommendedData: data.RecommendedPair
                 });
             }
@@ -147,10 +148,20 @@ import ListType from './ListType.js';
                 <div className="b-packages-results-page__results">
                     <div className="b-packages-results">
                         <div className="b-packages-results__content">
-                            результаты
+                            {
+                                this.state.listType == ListType.Packages ?
+                                <PackagesResultsList data={this.state.hotelsData} /> :
+                                <div></div>
+                            }
                         </div>
                         <div className="b-packages-results__info-block">
-                            инфо блок
+                            <b>Включено в стоимость:</b><br/>
+                            Авиаперелет<br/>
+                            Проживание<br/>
+                            Мед.страховка<br/>
+                            Топливный сбор<br/>
+                            Дополнительно:<br/>
+                            Трансфер<br/>
                         </div>
                     </div>
                 </div>
