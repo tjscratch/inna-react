@@ -16,10 +16,11 @@ import SuggestModel from './SuggestModel';
 
     constructor(props) {
         super(props);
+
         this.state = {
             placeholder: props.data.placeholder,
             setCurrentLocation: props.data.setCurrentLocation,
-            value: null,
+            value: props.data.data ? `${props.data.data.Name}, ${props.data.data.CountryName}` : null,
             options: [],
             showSuggest: false,
             optionCounter: 0,
@@ -134,7 +135,7 @@ import SuggestModel from './SuggestModel';
 
 
     componentDidMount() {
-        if(this.state.setCurrentLocation){
+        if (this.state.setCurrentLocation) {
             SuggestModel.setCurrentLocation()
                 .then((data)=> {
                     this.selectedOption(data);
@@ -186,7 +187,7 @@ import SuggestModel from './SuggestModel';
                     <Overlay>
                         <div className="b-suggest-overlay">
                             <div className="b-suggest-overlay__close icon-emb-cancel"
-                                onClick={this.setShowSuggest.bind(this, false)}
+                                 onClick={this.setShowSuggest.bind(this, false)}
                                 ></div>
                             <input className={`b-suggest__input ${this.state.showSuggest ? "b-suggest__input_focus b-suggest__input_overlay" : ""}`}
                                    type="text"
