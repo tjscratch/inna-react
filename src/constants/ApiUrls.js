@@ -3,4 +3,5 @@ export default {
     DirectoryById: '/Dictionary/DirectoryById/',
     PackagesSearchHotels: '/Packages/SearchHotels',
     DictionaryHotel: '/Dictionary/Hotel',
+    GetCurrentLocation: '/Dictionary/GetCurrentLocation'
 }

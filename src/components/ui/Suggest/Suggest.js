@@ -18,6 +18,7 @@ import SuggestModel from './SuggestModel';
         super(props);
         this.state = {
             placeholder: props.data.placeholder,
+            setCurrentLocation: props.data.setCurrentLocation,
             value: null,
             options: [],
             showSuggest: false,
@@ -55,7 +56,7 @@ import SuggestModel from './SuggestModel';
         if (this.state.onBlurDisabled) {
             this.setShowSuggest(true);
         } else {
-            this.setShowSuggest(true);
+            this.setShowSuggest(false);
             this.setState({
                 focus: false
             });
@@ -133,8 +134,12 @@ import SuggestModel from './SuggestModel';
 
 
     componentDidMount() {
-        //console.log('componentDidMount')
-        //this.focusedInputOverlay();
+        if(this.state.setCurrentLocation){
+            SuggestModel.setCurrentLocation()
+                .then((data)=> {
+                    this.selectedOption(data);
+                })
+        }
     }
 
     componentDidUpdate() {

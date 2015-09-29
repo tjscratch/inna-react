@@ -13,6 +13,15 @@ var SuggestModel = {
         });
     },
 
+    setCurrentLocation: function () {
+        return new Promise((resolve, reject)=> {
+            api.get(apiUrls.GetCurrentLocation)
+                .then((data)=> {
+                    resolve(data);
+                });
+        });
+    },
+
     focusOptionItem: function (options, itemIndex) {
         var focusedItems = options.map(function (item, index) {
             if (itemIndex == index) {

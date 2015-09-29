@@ -111,7 +111,7 @@ import Suggest from '../ui/Suggest';
                 <div className="b-search-form__form">
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
-                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда'}}/>
+                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', setCurrentLocation: true}}/>
                         </div>
                         <div className="b-search-form-action__location-to">
                             <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда'}}/>
