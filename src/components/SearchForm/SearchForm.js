@@ -135,7 +135,6 @@ import Suggest from '../ui/Suggest';
                         </div>
                         <div className="b-search-form-action__people">
                             <div className="b-suggest">
-                                {this.state.fromDate ? this.state.fromDate : 'Туда'}
                                 <input className="b-suggest__input" placeholder="5 негров, в багажнике" type="text"/>
                             </div>
                         </div>
