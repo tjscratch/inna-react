@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
+import api from '../../core/ApiClient';
+import apiUrls from '../../constants/ApiUrls.js';
 import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
-
+import Storage from '../../storage.js';
 
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
@@ -11,7 +13,7 @@ import Suggest from '../ui/Suggest';
 
         //начальные данные для рендера на сервере
         let data = props ? props.data : null;
-        
+
         //формат данных:
         /*
          fromId
@@ -51,6 +53,7 @@ import Suggest from '../ui/Suggest';
                 toId: null
             };
         }
+
     }
 
     getFlightClassName() {
@@ -99,7 +102,6 @@ import Suggest from '../ui/Suggest';
         });
     }
 
-
     handleStartSearch() {
         let searchParams = [
             this.state.fromId,
@@ -108,6 +110,9 @@ import Suggest from '../ui/Suggest';
         window.location = `/packages/search/${searchParams}-01.10.2015-08.10.2015-0-2-2`;
     }
 
+    componentWillMount() {
+
+    }
 
     render() {
         return (
@@ -118,10 +123,10 @@ import Suggest from '../ui/Suggest';
                 <div className="b-search-form__form">
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
-                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', data: this.state.from}}/>
+                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
                         </div>
                         <div className="b-search-form-action__location-to">
-                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', data: this.state.to}}/>
+                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', location: this.state.to}}/>
                         </div>
                         <div className="b-search-form-action__date-from">
                             <div className="b-suggest">
