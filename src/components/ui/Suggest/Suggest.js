@@ -19,8 +19,8 @@ import SuggestModel from './SuggestModel';
 
         this.state = {
             placeholder: props.data.placeholder,
-            setCurrentLocation: props.data.setCurrentLocation,
-            value: props.data.data ? `${props.data.data.Name}, ${props.data.data.CountryName}` : null,
+            value: props.data.location ? `${props.data.location.Name}, ${props.data.location.CountryName}` : null,
+            setCurrentLocation: props.data.setCurrentLocation ? true : false,
             options: [],
             showSuggest: false,
             optionCounter: 0,
