@@ -1,0 +1,46 @@
+@import "../variables.scss";
+
+.b-avia-list {
+    //background-color: #eee;
+}
+
+.b-avia-list-item {
+    display: table;
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    height: 201px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: 1px solid #eee;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.b-avia-list-item__hotel {
+    display: table-cell;
+    position: relative;
+    width: 70%;
+}
+
+.b-avia-list-item__price {
+    display: table-cell;
+    position: relative;
+    width: 29%;
+    vertical-align: middle;
+    border-left: 1px solid #eee;
+}
+
+@media(max-width: $recommended-bundle-max-mobile-width) {
+    .b-avia-list-item {
+        display: block;
+    }
+
+    .b-avia-list-item__hotel,
+    .b-avia-list-item__price {
+        display: block;
+        width: 100%;
+    }
+}

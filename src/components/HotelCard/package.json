@@ -1,0 +1,6 @@
+{
+  "name": "HotelCard",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./HotelCard.js"
+}

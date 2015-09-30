@@ -1,0 +1,6 @@
+{
+  "name": "AviaCard",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AviaCard.js"
+}

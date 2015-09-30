@@ -58,10 +58,19 @@
 }
 
 .b-packages-results__content {
-    display: inline-block;
+    //display: inline-block;
 }
 
 .b-packages-results__info-block {
-    display: inline-block;
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+//===================================================
+//packages results list
+//===================================================
+.b-packages-results {
+    position: relative;
+    background-color: #f5f5f5;
 }

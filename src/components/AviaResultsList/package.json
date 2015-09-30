@@ -1,0 +1,6 @@
+{
+  "name": "AviaResultsList",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AviaResultsList.js"
+}
