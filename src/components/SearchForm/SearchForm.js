@@ -5,7 +5,8 @@ import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
-import Storage from '../../storage.js';
+import Datepicker from '../ui/Datepicker';
+
 
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
@@ -151,6 +152,7 @@ import Storage from '../../storage.js';
                             </span>
                         </div>
                     </div>
+                    <Datepicker/>
                 </div>
             </section>
         );
