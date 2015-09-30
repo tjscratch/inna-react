@@ -1,4 +1,5 @@
 @import '../../variables.scss';
+@import '../../Icons/css/icons.css';
 
 .b-suggest{
     position: relative;
@@ -8,7 +9,6 @@
     background-color: $white;
     border-radius: $b-suggest-border-radius;
 }
-
 .b-suggest__input{
     position: relative;
     z-index: 20;
@@ -28,7 +28,6 @@
 .b-suggest__input_focus{
     border-color: $green;
 }
-
 .b-suggest-list{
     position: absolute;
     left: 0;
@@ -42,9 +41,10 @@
 }
 .b-suggest-item{
     position: relative;
-    padding: 4px $padding-base-horizontal;
+    padding: 4px 45px 4px $padding-base-horizontal;
     list-style: none;
     cursor: pointer;
+    white-space: nowrap;
 
     &:hover{
         background-color: rgba(0, 0, 0, .1);
@@ -62,15 +62,73 @@
 }
 .b-suggest-item__iata{
     position: absolute;
-    right: 15px;
+    right: 10px;
     color: #888;
 }
-.b-suggest__list_overlay{
-    position: inherit;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: auto;
-    //width: 100%;
-    //height: 100%;
+//
+//
+// BEGIN
+// OPTIONS
+// OVERLAY
+//
+//
+.b-suggest-overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    .b-suggest-list{
+        left: 0;
+        top: 38px;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+    }
+    .b-suggest-item{
+        &:last-child{
+            margin-bottom: 10px;
+        }
+    }
 }
+.b-suggest-overlay__close{
+    position: absolute;
+    z-index: 21;
+    right: 1px;
+    top: 1px;
+    width: 36px;
+    height: 36px;
+    background: $b-suggest-overlay__close-bg;
+    font-size: 1.5em;
+    color: $b-suggest-overlay__close-color;
+    cursor: pointer;
+    transition: all .2s;
+    
+    &:before{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 24px;
+        height: 24px;
+        margin: auto;
+    }
+    
+    &:hover{
+        background: $b-suggest-overlay__close-bg_hover;
+        color: $b-suggest-overlay__close-color_hover;
+    }
+    &:active{
+        background: $b-suggest-overlay__close-bg_active;
+        color: $b-suggest-overlay__close-color_active;
+    }
+}
+//
+//
+// END 
+// OPTIONS
+// OVERLAY
+//
+//

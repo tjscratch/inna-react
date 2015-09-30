@@ -4,13 +4,14 @@ import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
 
+
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
         super(props);
 
         //начальные данные для рендера на сервере
         let data = props ? props.data : null;
-
+        
         //формат данных:
         /*
          fromId
@@ -38,23 +39,18 @@ import Suggest from '../ui/Suggest';
          NameEn: "Moscow"
          VisaGroup: 0
          */
-        
-        //if (data) {
-        //    this.state = {
-        //        ...data
-        //    };
-        //}
-        //else {
-        //    this.state = {
-        //        locationFrom: null,
-        //        locationTo: null,
-        //    };
-        //}
 
+        if (data) {
             this.state = {
-                locationFrom: null,
-                locationTo: null,
+                ...data
             };
+        }
+        else {
+            this.state = {
+                fromId: null,
+                toId: null
+            };
+        }
     }
 
     getFlightClassName() {
@@ -62,8 +58,10 @@ import Suggest from '../ui/Suggest';
         if (flightClass) {
             //прводим к числу
             switch (+flightClass) {
-                case 0: return 'эконом';
-                case 1: return 'бизнес';
+                case 0:
+                    return 'эконом';
+                case 1:
+                    return 'бизнес';
             }
         }
 
@@ -91,14 +89,23 @@ import Suggest from '../ui/Suggest';
 
     locationFrom(data) {
         this.setState({
-            locationFrom: data.Id
-        }); 
+            fromId: data.Id
+        });
     }
 
     locationTo(data) {
         this.setState({
-            locationTo: data.Id
+            toId: data.Id
         });
+    }
+
+
+    handleStartSearch() {
+        let searchParams = [
+            this.state.fromId,
+            this.state.toId
+        ].join('-');
+        window.location = `/packages/search/${searchParams}-01.10.2015-08.10.2015-0-2-2`;
     }
 
 
@@ -111,10 +118,10 @@ import Suggest from '../ui/Suggest';
                 <div className="b-search-form__form">
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
-                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда'}}/>
+                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', data: this.state.from}}/>
                         </div>
                         <div className="b-search-form-action__location-to">
-                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда'}}/>
+                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', data: this.state.to}}/>
                         </div>
                         <div className="b-search-form-action__date-from">
                             <div className="b-suggest">
@@ -132,13 +139,13 @@ import Suggest from '../ui/Suggest';
                             </div>
                         </div>
                         <div className="b-search-form-action__btn">
-                            <span className="btn btn-green">
+                            <span className="btn btn-green"
+                                  onClick={this.handleStartSearch.bind(this)}
+                                >
                                 Найти
                             </span>
                         </div>
                     </div>
-                    <div>locationFrom - {this.state.locationFrom}</div>
-                    <div>locationTo - {this.state.locationTo}</div>
                 </div>
             </section>
         );
