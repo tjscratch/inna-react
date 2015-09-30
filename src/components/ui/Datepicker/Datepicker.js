@@ -44,10 +44,16 @@ import Week from './Week.js';
     render() {
         return (
             <div className="b-datepicker">
-                <div className="header">
-                    <i className="control" onClick={this.previous.bind(this)}></i>
-                    {this.renderMonthLabel()}
-                    <i className="control" onClick={this.next.bind(this)}></i>
+                <div className="b-datepicker-head">
+                    <div className="b-datepicker-head__control" onClick={this.previous.bind(this)}>
+                        <i className="b-datepicker-head__icons icon-emb-angle-left"></i>
+                    </div>
+                    <div className="b-datepicker-head__label">
+                        {this.renderMonthLabel()}
+                    </div>
+                    <div className="b-datepicker-head__control" onClick={this.next.bind(this)}>
+                        <i className="b-datepicker-head__icons icon-emb-angle-right"></i>
+                    </div>
                 </div>
                 <DayNames />
                 {this.renderWeeks()}
