@@ -18,8 +18,7 @@ import Week from './Week.js';
         }
 
     }
-
-
+    
     previous() {
         console.log(this)
         var month = this.state.month;
@@ -35,8 +34,6 @@ import Week from './Week.js';
     }
 
     select(day) {
-        console.log(day)
-        console.log(day.date)
         this.setState({selected: day.date});
         this.forceUpdate();
     }
