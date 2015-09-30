@@ -20,7 +20,12 @@ class Week extends React.Component {
             days.push(
                 <span 
                     key={day.date.toString()} 
-                    className={"day" + (day.isToday ? " today" : "") + (day.isCurrentMonth ? "" : " different-month") + (day.date.isSame(this.props.selected) ? " selected" : "")} 
+                    className={
+                    "b-datepicker-week__day" + 
+                    (day.isToday ? " b-datepicker-week__today" : "") + 
+                    (day.isCurrentMonth ? "" : " b-datepicker-week__different-month") + 
+                    (day.date.isSame(this.props.selected) ? " b-datepicker-week__selected" : "")
+                    } 
                     onClick={this.props.select.bind(null, day)}>
                     {day.number}
                 </span>
@@ -30,7 +35,7 @@ class Week extends React.Component {
         }
         
         return (
-            <div className="week" key={days[0].toString()}>
+            <div className="b-datepicker-week" key={days[0].toString()}>
                 {days}
             </div>
         );

@@ -22,11 +22,12 @@ $small-border-radius: 1px;
 
 /* BEGIN COLORS */
 $black: #212121;
-$light-gray: rgba(0,0,0, .1);
+$gray: rgba(0, 0, 0, .4);
+$gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
 $white: #fff;
 $green: #89c13a;
-$red: #E30514;
+$red: #e30514;
 /* END COLORS */
 
 /* BEGIN b-search-form */
@@ -77,17 +78,28 @@ $recommended-bundle-max-mobile-width: 640px;
 /* END recommended bundle */
 
 /* BEGIN datepicker */
+$b-datepicker-offset: 5px;
 $b-datepicker-font-size: 15px;
 $b-datepicker-transition: all .1s ease;
 $b-datepicker-bg-color: $white;
-$b-datepicker-head__control-bg: $light-gray;
+$b-datepicker-head__control-bg: $gray-light;
 $b-datepicker-head__control-color: $black;
 $b-datepicker-head__control-bg-hover: $green;
 $b-datepicker-head__control-color-hover: $white;
 $b-datepicker-head__control-bg-active: darken($green, 5%);
 $b-datepicker-head__control-color-active: $white;
 $b-datepicker-head__height: 45px;
-$b-datepicker-head__offset: 5px;
-$b-datepicker-head__item-size: $b-datepicker-head__height - $b-datepicker-head__offset * 2; 
+$b-datepicker-head__offset: $b-datepicker-offset;
+$b-datepicker-head__item-size: $b-datepicker-head__height - $b-datepicker-head__offset * 2;
 $b-datepicker-item-border-radius: $base-border-radius;
+
+$b-datepicker-week-names-color: $gray;
+
+$b-datepicker-day-size: 35px;
+
+$b-datepicker-week__different-month-color: $gray;
+$b-datepicker-week__day-bg-hover: $gray-light;
+$b-datepicker-week__day-bg-active: $gray;
+$b-datepicker-week__selected-bg: $green;
+$b-datepicker-week__selected-color: $white;
 /* END datepicker */

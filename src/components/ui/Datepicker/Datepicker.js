@@ -16,7 +16,7 @@ import Week from './Week.js';
             month: moment().startOf("day").clone(),
             selected: null
         }
-        
+
     }
 
 
@@ -56,7 +56,9 @@ import Week from './Week.js';
                     </div>
                 </div>
                 <DayNames />
-                {this.renderWeeks()}
+                <div className="b-datepicker__body">
+                    {this.renderWeeks()}
+                </div>
             </div>
         );
     }
