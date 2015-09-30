@@ -1,64 +1,97 @@
+/*@font-face{*/
+    /*font-family: 'ProximaNova';*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+    /*src: url('fonts/proximanova-reg-webfont.eot');/!* IE9 Compat Modes *!/*/
+    /*src: url('fonts/proximanova-reg-webfont.eot?#iefix') format('eot'), /!* IE6-IE8 *!/ url('fonts/proximanova-reg-webfont.woff') format('woff'), /!* Modern Browsers *!/ url('fonts/proximanova-reg-webfont.ttf') format('truetype'), /!* Safari, Android, iOS *!/ url('fonts/proximanova-reg-webfont.svg#proxima_nova_rgregular') format('svg');/!* Legacy iOS *!/*/
+/*}*/
+/*@font-face{*/
+    /*font-family: 'ProximaNova';*/
+    /*font-weight: bold;*/
+    /*font-style: normal;*/
+    /*src: url('fonts/proximanova-bold-webfont.eot');*/
+    /*src: url('fonts/proximanova-bold-webfont.eot?#iefix') format('eot'),*/
+    /*url('fonts/proximanova-bold-webfont.woff') format('woff'),*/
+    /*url('fonts/proximanova-bold-webfont.ttf') format('truetype'),*/
+    /*url('fonts/proximanova-bold-webfont.svg#proxima_nova_rgregular') format('svg');*/
+/*}*/
+/*@font-face{*/
+    /*font-family: 'ProximaNovaLight';*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+    /*src: url('fonts/proximanova-light-webfont.eot');*/
+    /*src: url('fonts/proximanova-light-webfont.eot?#iefix') format('eot'),*/
+    /*url('fonts/proximanova-light-webfont.woff') format('woff'),*/
+    /*url('fonts/proximanova-light-webfont.ttf') format('truetype'),*/
+    /*url('fonts/proximanova-light-webfont.svg#proxima_nova_ltlight') format('svg');*/
+/*}*/
+/*@font-face{*/
+    /*font-family: 'ALSRubl-Arial';*/
+    /*font-weight: normal;*/
+    /*font-style: normal;*/
+    /*src: url('fonts/alsrubl-arial-regular.eot');*/
+    /*src: url('fonts/alsrubl-arial-regular.eot?#iefix') format('embedded-opentype'),*/
+    /*url('fonts/alsrubl-arial-regular.woff') format('woff'),*/
+    /*url('fonts/alsrubl-arial-regular.ttf') format('truetype'),*/
+    /*url('fonts/alsrubl-arial-regular.svg#ALSRublArialRegular') format('svg');*/
+/*}*/
+/*@font-face{*/
+    /*font-family: 'ALSRubl-Arial';*/
+    /*font-weight: bold;*/
+    /*font-style: normal;*/
+    /*src: url('fonts/alsrubl-arial-bold.eot');*/
+    /*src: url('fonts/alsrubl-arial-bold.eot?#iefix') format('embedded-opentype'),*/
+    /*url('fonts/alsrubl-arial-bold.woff') format('woff'),*/
+    /*url('fonts/alsrubl-arial-bold.ttf') format('truetype'),*/
+    /*url('fonts/alsrubl-arial-bold.svg#ALSRublArialBold') format('svg');*/
+/*}*/
+/*@font-face{*/
+    /*font-family: 'Rouble';*/
+    /*src: url('fonts/rouble.eot');*/
+    /*src: url('fonts/rouble.eot?#iefix') format('embedded-opentype'),*/
+    /*url('fonts/rouble.woff') format('woff'),*/
+    /*url('fonts/rouble.ttf') format('truetype'),*/
+    /*url('fonts/rouble.svg#ALSRubl') format('svg');*/
+/*}*/
 
-@font-face {
-    font-family: 'ProximaNova';
+
+/* font-family: "RobotoRegular"; */
+@font-face{
+    font-family: "RobotoRegular";
+    src: url("fonts/RobotoRegular/RobotoRegular.eot");
+    src: url("fonts/RobotoRegular/RobotoRegular.eot?#iefix") format("embedded-opentype"),
+    url("fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
+    url("fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+    font-style: normal;
     font-weight: normal;
-    font-style: normal;
-    src: url('fonts/proximanova-reg-webfont.eot');/* IE9 Compat Modes */
-    src: url('fonts/proximanova-reg-webfont.eot?#iefix') format('eot'),/* IE6-IE8 */
-    url('fonts/proximanova-reg-webfont.woff') format('woff'),/* Modern Browsers */
-    url('fonts/proximanova-reg-webfont.ttf') format('truetype'),/* Safari, Android, iOS */
-    url('fonts/proximanova-reg-webfont.svg#proxima_nova_rgregular') format('svg');/* Legacy iOS */
 }
-
-@font-face {
-    font-family: 'ProximaNova';
-    font-weight: bold;
+/* font-family: "RobotoLight"; */
+@font-face{
+    font-family: "RobotoLight";
+    src: url("fonts/RobotoLight/RobotoLight.eot");
+    src: url("fonts/RobotoLight/RobotoLight.eot?#iefix") format("embedded-opentype"),
+    url("fonts/RobotoLight/RobotoLight.woff") format("woff"),
+    url("fonts/RobotoLight/RobotoLight.ttf") format("truetype");
     font-style: normal;
-    src: url('fonts/proximanova-bold-webfont.eot');
-    src: url('fonts/proximanova-bold-webfont.eot?#iefix') format('eot'),
-    url('fonts/proximanova-bold-webfont.woff') format('woff'),
-    url('fonts/proximanova-bold-webfont.ttf') format('truetype'),
-    url('fonts/proximanova-bold-webfont.svg#proxima_nova_rgregular') format('svg');
-}
-
-@font-face {
-    font-family: 'ProximaNovaLight';
     font-weight: normal;
-    font-style: normal;
-    src: url('fonts/proximanova-light-webfont.eot');
-    src: url('fonts/proximanova-light-webfont.eot?#iefix') format('eot'),
-    url('fonts/proximanova-light-webfont.woff') format('woff'),
-    url('fonts/proximanova-light-webfont.ttf') format('truetype'),
-    url('fonts/proximanova-light-webfont.svg#proxima_nova_ltlight') format('svg');
 }
-
-@font-face {
-    font-family: 'ALSRubl-Arial';
+/* font-family: "RobotoMedium"; */
+@font-face{
+    font-family: "RobotoMedium";
+    src: url("fonts/RobotoMedium/RobotoMedium.eot");
+    src: url("fonts/RobotoMedium/RobotoMedium.eot?#iefix") format("embedded-opentype"),
+    url("fonts/RobotoMedium/RobotoMedium.woff") format("woff"),
+    url("fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
+    font-style: normal;
     font-weight: normal;
-    font-style: normal;
-    src: url('fonts/alsrubl-arial-regular.eot');
-    src: url('fonts/alsrubl-arial-regular.eot?#iefix') format('embedded-opentype'),
-    url('fonts/alsrubl-arial-regular.woff') format('woff'),
-    url('fonts/alsrubl-arial-regular.ttf') format('truetype'),
-    url('fonts/alsrubl-arial-regular.svg#ALSRublArialRegular') format('svg');
 }
-
-@font-face {
-    font-family: 'ALSRubl-Arial';
-    font-weight: bold;
+/* font-family: "RobotoBold"; */
+@font-face{
+    font-family: "RobotoBold";
+    src: url("fonts/RobotoBold/RobotoBold.eot");
+    src: url("fonts/RobotoBold/RobotoBold.eot?#iefix") format("embedded-opentype"),
+    url("fonts/RobotoBold/RobotoBold.woff") format("woff"),
+    url("fonts/RobotoBold/RobotoBold.ttf") format("truetype");
     font-style: normal;
-    src: url('fonts/alsrubl-arial-bold.eot');
-    src: url('fonts/alsrubl-arial-bold.eot?#iefix') format('embedded-opentype'),
-    url('fonts/alsrubl-arial-bold.woff') format('woff'),
-    url('fonts/alsrubl-arial-bold.ttf') format('truetype'),
-    url('fonts/alsrubl-arial-bold.svg#ALSRublArialBold') format('svg');
-}
-
-@font-face {
-    font-family: 'Rouble';
-    src: url('fonts/rouble.eot');
-    src: url('fonts/rouble.eot?#iefix') format('embedded-opentype'),
-    url('fonts/rouble.woff') format('woff'),
-    url('fonts/rouble.ttf') format('truetype'),
-    url('fonts/rouble.svg#ALSRubl') format('svg');
+    font-weight: normal;
 }
