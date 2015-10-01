@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 import api from '../../core/ApiClient';
 import apiUrls from '../../constants/ApiUrls.js';
 import styles from './SearchForm.scss';
@@ -51,7 +52,8 @@ import Datepicker from '../ui/Datepicker';
         else {
             this.state = {
                 fromId: null,
-                toId: null
+                toId: null,
+                fromDate: null
             };
         }
 
@@ -103,6 +105,12 @@ import Datepicker from '../ui/Datepicker';
         });
     }
 
+    dateFrom(data){
+        this.setState({
+            fromDate: data.format("DD MMMM")
+        })
+    }
+
     handleStartSearch() {
         let searchParams = [
             this.state.fromId,
@@ -131,7 +139,7 @@ import Datepicker from '../ui/Datepicker';
                         </div>
                         <div className="b-search-form-action__date-from">
                             <div className="b-suggest">
-                                <input className="b-suggest__input" placeholder="Туда" type="text"/>
+                                <input className="b-suggest__input" placeholder="Туда" type="text" value={this.state.fromDate}/>
                             </div>
                         </div>
                         <div className="b-search-form-action__date-to">
@@ -152,7 +160,7 @@ import Datepicker from '../ui/Datepicker';
                             </span>
                         </div>
                     </div>
-                    <Datepicker/>
+                    <Datepicker setDate={this.dateFrom.bind(this)}/>
                 </div>
             </section>
         );

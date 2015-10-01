@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
+moment.locale('ru');
 import styles from './Datepicker.scss';
 import withStyles from '../../../decorators/withStyles';
 import DayNames from './DayNames.js';
 import Week from './Week.js';
 
 
+
 @withStyles(styles) class Datepicker extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
 
         this.state = {
@@ -20,9 +22,7 @@ import Week from './Week.js';
     }
     
     previous() {
-        console.log(this)
         var month = this.state.month;
-        console.log(this)
         month.add(-1, "M");
         this.setState({month: month});
     }
@@ -35,6 +35,9 @@ import Week from './Week.js';
 
     select(day) {
         this.setState({selected: day.date});
+        if (this.props.setDate) {
+            this.props.setDate(day.date)
+        }
         this.forceUpdate();
     }
 
