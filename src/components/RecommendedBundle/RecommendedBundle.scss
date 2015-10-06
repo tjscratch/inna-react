@@ -76,8 +76,48 @@
     background-color: #fcf8e3;
 }
 
+.b-recommended-bundle__mobile-recommend-block {
+    display: none;
+}
+
+//кнопки рекомендованный и самый дешевый
+.b-mobile-recommended-btn-block {
+    margin: 4px 0;
+}
+
+.b-mobile-recommended-btn {
+    display: inline-block;
+    width: 49%;
+    margin-right: 1%;
+    padding: 8px 10px;
+    background-color: #fff;
+    font-size: .9em;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+    &:last-child {
+        float: right;
+        margin-right: 0;
+        margin-left: 1%;
+    }
+}
+
+.b-mobile-recommended-btn-active {
+    background-color: #f0fce9;
+}
+
 @media(max-width: $recommended-bundle-max-mobile-width) {
+    .b-recommended-bundle__title,
+    .b-recommended-bundle__collapse {
+        display: none;
+    }
+
     .b-bundle-content {
+        display: block;
+    }
+
+    .b-recommended-bundle__mobile-recommend-block {
         display: block;
     }
 
