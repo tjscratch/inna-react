@@ -16,6 +16,7 @@ import { WaitMsg } from '../ui/PopupMessages';
 import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
+import { MobileSelectedFilter } from '../MobileFilters';
 import PackagesResultsList from '../PackagesResultsList';
 import AviaResultsList from '../AviaResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
@@ -185,6 +186,9 @@ import ListType from './ListType.js';
                 <div className="b-packages-results-page__form">
                     <SearchForm data={this.formData}/>
                 </div>
+                <div className="b-packages-results-page__mobile-filter">
+                    <MobileSelectedFilter listType={this.state.listType} />
+                </div>
                 <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
@@ -213,6 +217,9 @@ import ListType from './ListType.js';
                             null
                         }
                     </div>
+                </div>
+                <div className="b-packages-results-page__mobile-buy-block">
+                    Купить
                 </div>
             </section>
         );

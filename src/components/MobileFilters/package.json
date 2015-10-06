@@ -1,0 +1,6 @@
+{
+  "name": "MobileFilters",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./exports.js"
+}

@@ -74,3 +74,36 @@
     position: relative;
     background-color: #f5f5f5;
 }
+
+.b-packages-results-page__mobile-filter {
+    display: none;
+}
+
+.b-packages-results-page__mobile-buy-block {
+    display: none;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-packages-results-page {
+        background-color: #ededed;
+    }
+
+    .b-packages-results-page__form,
+    .b-packages-results-page__filter,
+    .b-packages-results-page__results {
+        display: none;
+    }
+
+    .b-packages-results-page__mobile-filter {
+        display: block;
+    }
+
+    .b-packages-results-page__mobile-buy-block {
+        display: block;
+        height: 50px;
+        margin: 2px 5px;
+        background-color: #55c22b;
+        text-align: center;
+        color: #fff;
+    }
+}

@@ -227,3 +227,9 @@
         text-align: center;
     }
 }
+
+@media (max-width: $mobile-max-width) {
+    .footer {
+        display: none;
+    }
+}
