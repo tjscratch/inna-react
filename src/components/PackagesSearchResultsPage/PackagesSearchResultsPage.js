@@ -157,7 +157,7 @@ import ListType from './ListType.js';
     }
 
     renderOverlay() {
-        if (true || this.state.hotelsData == null) {
+        if (this.state.hotelsData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
