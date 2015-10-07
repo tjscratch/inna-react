@@ -54,8 +54,16 @@ function render(state) {
                     console.log('window.scrollTo location.hash', location.hash);
                 }
                 else {
-                    console.log('window.scrollTo 0 0');
-                    window.scrollTo(0, 0);
+                    //для ручного скрола к определенному месту на странице
+                    if (window.pageYScrollTo != null) {
+                        console.log('window.scrollTo 0', window.pageYScrollTo);
+                        window.scrollTo(0, window.pageYScrollTo);
+                        window.pageYScrollTo = null;
+                    }
+                    else {
+                        console.log('window.scrollTo 0 0');
+                        window.scrollTo(0, 0);
+                    }
                 }
             }
             cleanUp();

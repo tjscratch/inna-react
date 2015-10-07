@@ -44,8 +44,13 @@ import ListType from './ListType.js';
         };
     }
 
+    //скролим к выбранному варианту
+    setScrollPage() {
+        window.pageYScrollTo = 84;
+    }
+
     getData() {
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject)=> {
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
             let routeParams = this.props.routeParams;
@@ -130,10 +135,12 @@ import ListType from './ListType.js';
     };
 
     componentDidMount() {
-        this.getData().then(()=>{
+        this.getData().then(()=> {
             //сразу запрашиваем данные по перелетам
             this.getAviaData();
         });
+
+        this.setScrollPage();
     }
 
     changeListType(type) {
@@ -150,7 +157,7 @@ import ListType from './ListType.js';
     }
 
     renderOverlay() {
-        if (this.state.hotelsData == null) {
+        if (true || this.state.hotelsData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
@@ -160,7 +167,7 @@ import ListType from './ListType.js';
                     cancel={()=>{
                         alert('popup cancel')
                     }}
-                />
+                    />
             );
         }
         //else if (this.state.error) {
@@ -187,7 +194,7 @@ import ListType from './ListType.js';
                     <SearchForm data={this.formData}/>
                 </div>
                 <div className="b-packages-results-page__mobile-filter">
-                    <MobileSelectedFilter listType={this.state.listType} />
+                    <MobileSelectedFilter listType={this.state.listType}/>
                 </div>
                 <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
@@ -205,21 +212,18 @@ import ListType from './ListType.js';
                         <div className="b-packages-results__content">
                             {
                                 this.state.listType == ListType.Packages ?
-                                <PackagesResultsList data={this.state.hotelsData} /> :
-                                <AviaResultsList data={this.state.ticketsData} />
+                                    <PackagesResultsList data={this.state.hotelsData}/> :
+                                    <AviaResultsList data={this.state.ticketsData}/>
                             }
                         </div>
                         {
                             (this.state.listType == ListType.Packages) ?
-                            <div className="b-packages-results__info-block">
-                                <PackagesListInfoBlock data={this.state.hotelsData} />
-                            </div> :
-                            null
+                                <div className="b-packages-results__info-block">
+                                    <PackagesListInfoBlock data={this.state.hotelsData}/>
+                                </div> :
+                                null
                         }
                     </div>
-                </div>
-                <div className="b-packages-results-page__mobile-buy-block">
-                    Купить
                 </div>
             </section>
         );

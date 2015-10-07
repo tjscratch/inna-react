@@ -202,3 +202,14 @@
         overflow: auto;
     }
 }
+
+
+@media (max-width: $mobile-max-width) {
+    .b-avia-card__flight-info {
+        margin: 0;
+    }
+
+    //.b-flight-info_back {
+    //    margin-top: 0;
+    //}
+}

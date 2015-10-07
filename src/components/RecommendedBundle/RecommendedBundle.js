@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import styles from './RecommendedBundle.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import AviaCard from '../AviaCard';
 import HotelCard from '../HotelCard';
 import PriceCard from '../PriceCard';
 
+@withViewport
 @withStyles(styles) class RecommendedBundle extends React.Component {
     constructor(props) {
         super(props);

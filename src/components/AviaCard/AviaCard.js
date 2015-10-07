@@ -175,7 +175,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                     <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
                         {
                             data.TicketsCount ?
-                            <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} перелета</div> :
+                            <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
                             <div>Еще варианты перелета</div>
                         }
                     </div>

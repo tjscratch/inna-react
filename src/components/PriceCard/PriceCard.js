@@ -48,6 +48,10 @@ import { formatPrice } from '../../core/StringHelper.js';
                     <div className="b-price-card__buy">
                         <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
                     </div>
+
+                    <div className="b-mobile-price-card__buy">
+                        <a className="b-mobile-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
+                    </div>
                 </div>
             );
         }

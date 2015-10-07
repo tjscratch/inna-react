@@ -6,12 +6,17 @@ import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 import Navigation from '../Navigation';
 import NavMobile from '../NavMobile';
+import withViewport from '../../decorators/withViewport';
 
+@withViewport
 @withStyles(styles) class Header {
 
     render() {
+        let { width, height } = this.props.viewport;
+
         return (
             <header className="header">
+                <span ref="viewport" className="header-viewport">Viewport: {`${width}x${height}`}</span>
                 <div className="b-header">
                     <NavMobile className="b-header__nav-mobile"/>
                     <div className="b-header__brand">

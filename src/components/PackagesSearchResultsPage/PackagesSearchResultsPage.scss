@@ -98,17 +98,12 @@
         display: block;
     }
 
-    .b-packages-results-page__mobile-buy-block {
-        display: block;
-        height: 50px;
-        margin: 2px 5px;
-        background-color: #55c22b;
-        text-align: center;
-        color: #fff;
-    }
-
     //блок рекомендованного
     .b-recommended-bundle-bg {
         display: none;
+    }
+
+    .b-packages-results-page__recommended-bundle {
+        padding-bottom: 2px;
     }
 }

@@ -87,34 +87,29 @@
     }
 }
 
-@media(max-width: $recommended-bundle-max-mobile-width) {
-    .g-allow-mobile {
-        .b-price-card__link {
-            display: none;
-        }
+.b-mobile-price-card__buy {
+    display: none;
+    cursor: pointer;
+    color: #fff;
+}
 
-        .b-price-card__price {
-            position: relative;
-        }
+.b-mobile-price-card-buy {
+    display: inline-block;
+    width: 100%;
+    padding: 6px 0;
+    background-color: #55c22b;
+    font-size: 1.2em;
+    text-align: center;
+}
 
-        .b-price-card__buy {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            margin: auto;
-            width: 100%;
-            height: 100%;
-        }
+@media (max-width: $mobile-max-width) {
+    .b-price-card__link,
+    .b-price-card__price,
+    .b-price-card__buy {
+        display: none;
+    }
 
-        .b-price-card-buy {
-            display: block;
-            height: 90%;
-            width: auto;
-            border-radius: inherit;
-            padding: 0;
-            margin: 0 5px;
-        }
+    .b-mobile-price-card__buy {
+        display: block;
     }
 }
