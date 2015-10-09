@@ -55,15 +55,18 @@ function render(state) {
                 }
                 else {
                     //для ручного скрола к определенному месту на странице
-                    if (window.pageYScrollTo != null) {
-                        console.log('window.scrollTo 0', window.pageYScrollTo);
-                        window.scrollTo(0, window.pageYScrollTo);
-                        window.pageYScrollTo = null;
-                    }
-                    else {
-                        console.log('window.scrollTo 0 0');
-                        window.scrollTo(0, 0);
-                    }
+                    //if (window.pageYScrollTo != null) {
+                    //    console.log('window.scrollTo 0', window.pageYScrollTo);
+                    //    window.scrollTo(0, window.pageYScrollTo);
+                    //    window.pageYScrollTo = null;
+                    //}
+                    //else {
+                    //    console.log('window.scrollTo 0 0');
+                    //    window.scrollTo(0, 0);
+                    //}
+
+                    console.log('window.scrollTo 0 0');
+                    window.scrollTo(0, 0);
                 }
             }
             cleanUp();

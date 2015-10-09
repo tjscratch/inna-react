@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react';
 import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 //api
 import api from './../../core/ApiClient';
@@ -23,6 +24,7 @@ import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
 import ListType from './ListType.js';
 
+@withViewport
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -46,7 +48,12 @@ import ListType from './ListType.js';
 
     //скролим к выбранному варианту
     setScrollPage() {
-        window.pageYScrollTo = 84;
+        //window.pageYScrollTo = 84;
+
+        //if (this.props.viewport.height <= 460) {
+            //скролим страницу к рек. варианту
+            window.location.hash = 'recommended';
+        //}
     }
 
     getData() {
@@ -138,9 +145,10 @@ import ListType from './ListType.js';
         this.getData().then(()=> {
             //сразу запрашиваем данные по перелетам
             this.getAviaData();
-        });
 
-        this.setScrollPage();
+            //скролим
+            this.setScrollPage();
+        });
     }
 
     changeListType(type) {
