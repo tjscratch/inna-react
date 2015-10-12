@@ -95,14 +95,18 @@
 
 .b-mobile-price-card-buy {
     display: inline-block;
-    width: 100%;
+    flex: 1 1 auto;
     padding: 6px 0;
-    background-color: #55c22b;
     font-size: 1.2em;
     text-align: center;
 }
 
 @media (max-width: $mobile-max-width) {
+    .b-price-card {
+        display: flex;
+        flex: 1 1 auto;
+    }
+
     .b-price-card__link,
     .b-price-card__price,
     .b-price-card__buy {
@@ -110,6 +114,10 @@
     }
 
     .b-mobile-price-card__buy {
-        display: block;
+        display: flex;
+        flex: 1 1 auto;
+        align-items: center;
+        justify-content: center;
+        background-color: #55C22B;
     }
 }

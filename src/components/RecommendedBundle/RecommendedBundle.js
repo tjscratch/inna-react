@@ -28,8 +28,10 @@ import PriceCard from '../PriceCard';
         var hotelData = this.props.data ? this.props.data.Hotel : null;
         var priceData = this.props.data ? {price: this.props.data.Price} : null;
 
+        var recBlockHeight = this.props.viewport.width <= 480 ? {height:this.props.viewport.height} : null;
+
         return (
-            <div className="b-recommended-bundle">
+            <div className="b-recommended-bundle" style={recBlockHeight}>
                 <div className="b-recommended-bundle__mobile-recommend-block">
                     <div className="b-mobile-recommended-btn-block">
                         <div className="b-mobile-recommended-btn b-mobile-recommended-btn-active"
