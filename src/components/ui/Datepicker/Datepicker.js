@@ -7,20 +7,21 @@ import DayNames from './DayNames.js';
 import Week from './Week.js';
 
 
-
 @withStyles(styles) class Datepicker extends React.Component {
 
     constructor(props) {
         super(props);
 
+        let range = props.range ? true : false;
 
         this.state = {
             month: moment().startOf("day").clone(),
+            range: range,
             selected: null
         }
 
     }
-    
+
     previous() {
         var month = this.state.month;
         month.add(-1, "M");
@@ -34,9 +35,14 @@ import Week from './Week.js';
     }
 
     select(day) {
-        this.setState({selected: day.date});
+        
+        if (this.state.range) {
+            this.setState({
+                selected: day.date.format("DD MMMM")
+            });
+        }
         if (this.props.setDate) {
-            this.props.setDate(day.date)
+            this.props.setDate(day.date);
         }
         this.forceUpdate();
     }
@@ -50,12 +56,15 @@ import Week from './Week.js';
                     </div>
                     <div className="b-datepicker-head__label">
                         {this.renderMonthLabel()}
+                        —
+                        {this.state.selected}
                     </div>
                     <div className="b-datepicker-head__control" onClick={this.next.bind(this)}>
                         <i className="b-datepicker-head__icons icon-emb-angle-right"></i>
                     </div>
                 </div>
                 <DayNames />
+
                 <div className="b-datepicker__body">
                     {this.renderWeeks()}
                 </div>

@@ -104,7 +104,6 @@
     text-align: center;
     border-radius: $b-datepicker-item-border-radius;
     border: 2px solid transparent;
-    cursor: pointer;
 
     &:before{
         content: '';
@@ -113,6 +112,9 @@
         height: $b-datepicker-day-size;
         vertical-align: middle;
     }
+}
+.b-datepicker-week__day-active{
+    cursor: pointer;
     
     &:hover{
         background-color: $b-datepicker-week__day-bg-hover;
@@ -121,13 +123,13 @@
         background-color: $b-datepicker-week__day-bg-active;
     }
 }
-.b-datepicker-week__today{
+.b-datepicker-week__day-today{
     border-color: $green;
 }
-.b-datepicker-week__different-month{
+.b-datepicker-week__day-disabled{
     color: $b-datepicker-week__different-month-color;
 }
-.b-datepicker-week__selected{
+.b-datepicker-week__day-selected{
     background-color: $b-datepicker-week__selected-bg !important;
     color: $b-datepicker-week__selected-color !important;
     cursor: inherit;

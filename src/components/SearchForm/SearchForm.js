@@ -106,6 +106,7 @@ import Datepicker from '../ui/Datepicker';
     }
 
     dateFrom(data){
+        console.log(data)
         this.setState({
             fromDate: data.format("DD MMMM")
         })
@@ -160,7 +161,7 @@ import Datepicker from '../ui/Datepicker';
                             </span>
                         </div>
                     </div>
-                    <Datepicker setDate={this.dateFrom.bind(this)}/>
+                    <Datepicker setDate={this.dateFrom.bind(this)} range={true}/>
                 </div>
             </section>
         );
