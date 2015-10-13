@@ -33,7 +33,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
 
     actionClick() {
         if (this.props.events && this.props.events.changeListType) {
-            this.props.events.changeListType(ListType.Packages);
+            this.props.events.changeListType(ListType.Hotels);
         }
     }
 
@@ -41,7 +41,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         var data = this.props.data;
         if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Avia) {
+            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Tickets) {
                 return (
                     <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
                         {

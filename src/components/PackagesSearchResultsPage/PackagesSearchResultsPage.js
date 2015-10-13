@@ -4,6 +4,7 @@ import React, { PropTypes } from 'react';
 import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 //api
 import api from './../../core/ApiClient';
@@ -38,22 +39,39 @@ import ListType from './ListType.js';
             ...routeParams
         };
 
+        //берем из location.hash
+        var initialListType = this.getInitialListType();
+
         this.state = {
-            listType: ListType.Packages,
+            listType: initialListType,
             hotelsData: null,
             ticketsData: null,
             //error: true
         };
     }
 
+    getInitialListType() {
+        if (canUseDOM) {
+            var hashType = location.hash;
+            if (hashType) {
+                hashType = hashType.replace('#', '');
+            }
+            switch (hashType) {
+                case ListType.Hotels: return ListType.Hotels;
+                case ListType.Tickets: return ListType.Tickets;
+            }
+        }
+
+        return ListType.Hotels;
+    }
+
     //скролим к выбранному варианту
     setScrollPage() {
-        //window.pageYScrollTo = 84;
-
-        //if (this.props.viewport.height <= 460) {
+        //если что-то не передано
+        if (!window.location.hash) {
             //скролим страницу к рек. варианту
             window.location.hash = 'recommended';
-        //}
+        }
     }
 
     getData() {
@@ -162,6 +180,19 @@ import ListType from './ListType.js';
             listType: type,
             recommendedData: pair
         });
+
+        //проставляем хэш
+        location.hash = type;
+    }
+
+    chooseHotel() {
+
+    }
+
+    chooseTicket(ticket) {
+        console.log('ticket', ticket.VariantId1);
+        //location.search = '&ticket=' + ticket.VariantId1;
+        //location.hash = '&ticket=' + ticket.VariantId1;
     }
 
     renderOverlay() {
@@ -192,7 +223,9 @@ import ListType from './ListType.js';
         this.context.onSetTitle(title);
 
         let events = {
-            changeListType: this.changeListType.bind(this)
+            changeListType: this.changeListType.bind(this),
+            chooseHotel: this.chooseHotel.bind(this),
+            chooseTicket: this.chooseTicket.bind(this)
         };
 
         return (
@@ -213,19 +246,23 @@ import ListType from './ListType.js';
                         />
                 </div>
                 <div className="b-packages-results-page__filter">
-                    {this.state.listType == ListType.Packages ? <PackagesFilters /> : <AviaFilters />}
+                    {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                 </div>
                 <div className="b-packages-results-page__results">
                     <div className="b-packages-results">
                         <div className="b-packages-results__content">
                             {
-                                this.state.listType == ListType.Packages ?
-                                    <PackagesResultsList data={this.state.hotelsData}/> :
-                                    <AviaResultsList data={this.state.ticketsData}/>
+                                this.state.listType == ListType.Hotels ?
+                                    <PackagesResultsList
+                                        events={events}
+                                        data={this.state.hotelsData}/> :
+                                    <AviaResultsList
+                                        events={events}
+                                        data={this.state.ticketsData}/>
                             }
                         </div>
                         {
-                            (this.state.listType == ListType.Packages) ?
+                            (this.state.listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
                                     <PackagesListInfoBlock data={this.state.hotelsData}/>
                                 </div> :

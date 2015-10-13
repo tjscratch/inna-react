@@ -11,6 +11,13 @@ import PriceCard from '../PriceCard'
         super(props);
     }
 
+    chooseTicket(ticket) {
+        //если передан эвент - тригерим выбор
+        if (this.props.events.chooseTicket) {
+            this.props.events.chooseTicket(ticket);
+        }
+    }
+
     renderItem(ix, key) {
         var data = this.props.data;
         if (data) {
@@ -22,7 +29,9 @@ import PriceCard from '../PriceCard'
                         <AviaCard data={avia}/>
                     </div>
                     <div className="b-avia-list-item__price">
-                        <PriceCard data={{price: avia.Price}}/>
+                        <PriceCard
+                            onChoose={() => this.chooseTicket(avia)}
+                            data={{price: avia.Price}} mode='choose'/>
                     </div>
                 </div>
             )

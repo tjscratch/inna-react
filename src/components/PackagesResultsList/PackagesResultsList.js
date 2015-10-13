@@ -19,10 +19,12 @@ import PriceCard from '../PriceCard'
                 <div key={key} className="b-packages-list-item">
                     {ix}
                     <div className="b-packages-list-item__hotel">
-                        <HotelCard data={hotel}/>
+                        <HotelCard data={hotel} />
                     </div>
                     <div className="b-packages-list-item__price">
-                        <PriceCard data={{price: hotel.Price}}/>
+                        <PriceCard
+                            events={{chooseTicket: this.props.events.chooseTicket}}
+                            data={{price: hotel.Price}} mode='choose' />
                     </div>
                 </div>
             )
