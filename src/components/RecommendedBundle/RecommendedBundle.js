@@ -28,7 +28,7 @@ import PriceCard from '../PriceCard';
         var hotelData = this.props.data ? this.props.data.Hotel : null;
         var priceData = this.props.data ? {price: this.props.data.Price} : null;
 
-        var recBlockHeight = this.props.viewport.width <= 480 && this.props.viewport.height <= 500 ?
+        var recBlockHeight = this.props.viewport.isMobile && this.props.viewport.height <= 500 ?
             {height:this.props.viewport.height} : null;
 
         return (

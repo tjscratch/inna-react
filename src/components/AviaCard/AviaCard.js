@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import styles from './AviaCard.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
+@withViewport
 @withStyles(styles) class AviaCard extends React.Component {
     constructor(props) {
         super(props);
@@ -170,7 +172,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         var data = this.props.data;
         if (data) {
             //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-            if (data.CurrentListType == ListType.Packages) {
+            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Packages) {
                 return (
                     <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
                         {

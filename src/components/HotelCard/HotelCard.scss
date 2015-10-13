@@ -121,3 +121,9 @@
     //    padding: 5px 0 40px 10px;
     //}
 }
+
+@media (max-width: $mobile-max-width) and (max-height: 550px) {
+    .b-hotel-card__info {
+        line-height: 1.3;
+    }
+}

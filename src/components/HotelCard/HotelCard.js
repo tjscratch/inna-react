@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './HotelCard.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import Tripadvisor from '../Tripadvisor';
 
@@ -9,6 +10,7 @@ import { pluralize } from '../../core/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
+@withViewport
 @withStyles(styles) class HotelCard extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         var data = this.props.data;
         if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            if (data.CurrentListType == ListType.Avia) {
+            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Avia) {
                 return (
                     <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
                         {

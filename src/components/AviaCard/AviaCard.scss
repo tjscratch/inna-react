@@ -32,9 +32,9 @@
     //margin: 5px 0;
 }
 
-.b-flight-info_back {
-    margin-top: 5px;
-}
+//.b-flight-info_back {
+//    margin-top: 5px;
+//}
 
 .b-flight-info {
 
@@ -248,4 +248,10 @@
     //.b-flight-info_back {
     //    margin-top: 0;
     //}
+}
+
+@media (max-width: $mobile-max-width) and (max-height: 550px) {
+    .b-avia-card__flight-info {
+        line-height: 1.35;
+    }
 }
