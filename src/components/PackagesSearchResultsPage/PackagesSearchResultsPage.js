@@ -5,6 +5,8 @@ import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import Location from '../../core/Location';
+import { setSearchParam } from '../../core/LocationHelper';
 
 //api
 import api from './../../core/ApiClient';
@@ -27,6 +29,10 @@ import ListType from './ListType.js';
 
 @withViewport
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
+    static contextTypes = {
+        onSetTitle: PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
 
@@ -135,7 +141,7 @@ import ListType from './ListType.js';
         };
 
         api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
-            console.log('SearchTickets data', data);
+            //console.log('SearchTickets data', data);
 
             if (data) {
                 //добавляем доп поля для карточки авиа
@@ -155,12 +161,18 @@ import ListType from './ListType.js';
         });
     }
 
-    static contextTypes = {
-        onSetTitle: PropTypes.func.isRequired
-    };
+    setRecommendedInQueryString() {
+        if (this.state.recommendedData) {
+            var rec = this.state.recommendedData;
+            setSearchParam('hotel', rec.Hotel.HotelId, 'ticket', rec.AviaInfo.VariantId1);
+        }
+    }
 
     componentDidMount() {
         this.getData().then(()=> {
+            //проставляем ссылки на рек вариант
+            this.setRecommendedInQueryString();
+
             //сразу запрашиваем данные по перелетам
             this.getAviaData();
 
@@ -185,14 +197,16 @@ import ListType from './ListType.js';
         location.hash = type;
     }
 
-    chooseHotel() {
-
+    chooseHotel(hotel) {
+        console.log('hotel', hotel.HotelId);
+        //меняем параметры в урле через history api
+        setSearchParam('hotel', hotel.HotelId);
     }
 
     chooseTicket(ticket) {
         console.log('ticket', ticket.VariantId1);
-        //location.search = '&ticket=' + ticket.VariantId1;
-        //location.hash = '&ticket=' + ticket.VariantId1;
+        //меняем параметры в урле через history api
+        setSearchParam('ticket', ticket.VariantId1);
     }
 
     renderOverlay() {

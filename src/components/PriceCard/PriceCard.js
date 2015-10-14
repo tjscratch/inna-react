@@ -24,9 +24,9 @@ import { formatPrice } from '../../core/StringHelper.js';
         console.log('buy click');
     }
 
-    chooseClick(ev) {
-        //ev.stopPropagation();
-        ev.preventDefault();
+    chooseClick(e) {
+        //e.stopPropagation();
+        e.preventDefault();
         //если передан колбек выбора
         if (this.props.onChoose) {
             this.props.onChoose();
