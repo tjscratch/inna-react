@@ -90,6 +90,7 @@ function run() {
             state: location.state,
             context
         });
+        console.log('currentState', currentState);
         render(currentState);
     });
 

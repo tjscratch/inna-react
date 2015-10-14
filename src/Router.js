@@ -40,7 +40,7 @@ const router = new Router(on => {
             `${apiUrls.DirectoryById}${state.params.fromId}`,
             `${apiUrls.DirectoryById}${state.params.toId}`
         ]);
-        return <PackagesSearchResultsPage routeParams={state.params} data={data}/>
+        return <PackagesSearchResultsPage state={state} routeParams={state.params} data={data}/>
     });
 
     on('/contact', async () => <ContactPage />);

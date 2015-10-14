@@ -6,7 +6,7 @@ import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from '../../core/Location';
-import { setSearchParam } from '../../core/LocationHelper';
+import { setSearchParamsWithHash, setSearchParam, setHash } from '../../core/LocationHelper';
 
 //api
 import api from './../../core/ApiClient';
@@ -26,6 +26,7 @@ import AviaResultsList from '../AviaResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
 import ListType from './ListType.js';
+import DisplayEnum from './DisplayEnum.js';
 
 @withViewport
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
@@ -37,7 +38,7 @@ import ListType from './ListType.js';
         super(props);
 
         let data = props.data;
-        let routeParams = props.routeParams;
+        let routeParams = props.state.params;
 
         this.formData = {
             from: data[0],
@@ -45,39 +46,34 @@ import ListType from './ListType.js';
             ...routeParams
         };
 
+        //this.getHash()
         //берем из location.hash
-        var initialListType = this.getInitialListType();
-
         this.state = {
-            listType: initialListType,
+            listType: this.getInitialListType(),
             hotelsData: null,
             ticketsData: null,
+            //display: this.getHash() || DisplayEnum.Recommended,
             //error: true
         };
+
+        //console.log('init, state:', this.state);
     }
 
     getInitialListType() {
-        if (canUseDOM) {
-            var hashType = location.hash;
-            if (hashType) {
-                hashType = hashType.replace('#', '');
-            }
-            switch (hashType) {
-                case ListType.Hotels: return ListType.Hotels;
-                case ListType.Tickets: return ListType.Tickets;
-            }
+        var hashType = this.getHash();
+        switch (hashType) {
+            case ListType.Hotels: return ListType.Hotels;
+            case ListType.Tickets: return ListType.Tickets;
+            default: return ListType.Hotels;
         }
-
-        return ListType.Hotels;
     }
 
-    //скролим к выбранному варианту
-    setScrollPage() {
-        //если что-то не передано
-        if (!window.location.hash) {
-            //скролим страницу к рек. варианту
-            window.location.hash = 'recommended';
+    getHash() {
+        if (canUseDOM) {
+            return location.hash.substring(1);
         }
+
+        return null;
     }
 
     getData() {
@@ -162,9 +158,30 @@ import ListType from './ListType.js';
     }
 
     setRecommendedInQueryString() {
-        if (this.state.recommendedData) {
+        var hash = null;
+        var state = null;
+        //скролим к выбранному варианту
+        //если не передано что-нибудь
+        if (!window.location.hash) {
+            //скролим страницу к рек. варианту
+            hash = 'recommended';
+            state = {display: DisplayEnum.Recommended};
+        }
+
+        //если первый запрос, и не сохранили реком. отель и билет
+        var query = this.props.state.query;
+        if (!query.hotel || !query.ticket) {
             var rec = this.state.recommendedData;
-            setSearchParam('hotel', rec.Hotel.HotelId, 'ticket', rec.AviaInfo.VariantId1);
+
+            //проставляем в урл
+            setSearchParamsWithHash([
+                {name:'hotel', value:rec.Hotel.HotelId},
+                {name:'ticket', value:rec.AviaInfo.VariantId1}
+            ], hash, state);
+        }
+        else if (hash) {
+            //проставляем в урл
+            setHash(hash, state);
         }
     }
 
@@ -175,9 +192,6 @@ import ListType from './ListType.js';
 
             //сразу запрашиваем данные по перелетам
             this.getAviaData();
-
-            //скролим
-            this.setScrollPage();
         });
     }
 
@@ -188,13 +202,20 @@ import ListType from './ListType.js';
             pair.AviaInfo.CurrentListType = type;
             pair.Hotel.CurrentListType = type;
         }
+
+        var stateDisplay = type == ListType.Hotels ? DisplayEnum.Hotels : DisplayEnum.Tickets;
+
         this.setState({
             listType: type,
-            recommendedData: pair
+            recommendedData: pair,
+            //display: stateDisplay,
         });
 
+        //console.log('type', type, 'this.state.display', stateDisplay, 'stateDisplay', stateDisplay);
+
         //проставляем хэш
-        location.hash = type;
+        //location.hash = type;
+        setHash(type, {display: stateDisplay});
     }
 
     chooseHotel(hotel) {
@@ -242,6 +263,15 @@ import ListType from './ListType.js';
             chooseTicket: this.chooseTicket.bind(this)
         };
 
+        //флаг - показывать список отелей или билетов
+        //let displayList = (this.state.display == DisplayEnum.Hotels || this.state.display == DisplayEnum.Tickets);
+
+        //display из hash в урле, передается из роутера
+        var propsState = this.props.state.state;
+        var propsStateDisplay = propsState ? propsState.display : this.getHash();
+        var displayList = (propsStateDisplay == DisplayEnum.Hotels || propsStateDisplay == DisplayEnum.Tickets);
+        //console.log('displayList', displayList);
+
         return (
             <section className="b-packages-results-page">
                 {this.renderOverlay()}
@@ -251,7 +281,8 @@ import ListType from './ListType.js';
                 <div className="b-packages-results-page__mobile-filter">
                     <MobileSelectedFilter listType={this.state.listType}/>
                 </div>
-                <div id="recommended" className="b-packages-results-page__recommended-bundle">
+                <div id="recommended"
+                     className={`b-packages-results-page__recommended-bundle ${this.props.viewport.isMobile && displayList ? 'g-hidden' : ''}`}>
                     <div className="b-recommended-bundle-bg">
                     </div>
                     <RecommendedBundle
@@ -262,7 +293,7 @@ import ListType from './ListType.js';
                 <div className="b-packages-results-page__filter">
                     {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                 </div>
-                <div className="b-packages-results-page__results">
+                <div className={`b-packages-results-page__results ${this.props.viewport.isMobile && !displayList ? 'g-hidden' : ''}`}>
                     <div className="b-packages-results">
                         <div className="b-packages-results__content">
                             {

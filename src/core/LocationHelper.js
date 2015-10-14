@@ -3,21 +3,12 @@ import Location from './Location';
 
 let LocationHelper = (function () {
 
-    //добавляет или заменяет параметр в queryString'е
-    //до 4 одновременно
-    function setSearchParam(name1, value1, name2, value2, name3, value3, name4, value4) {
+    //добавить или заменить параметры в query string'е (name value)
+    function setSearchParamsWithHash(paramsArray, hashValue, state) {
+        //console.log('setSearchParamsWithHash', paramsArray, hashValue, state);
 
-        var setParamsArray = [];
-        setParamsArray.push({name: name1, value: value1});
-
-        if (name2 != undefined) {
-            setParamsArray.push({name: name2, value: value2});
-        }
-        if (name3 != undefined) {
-            setParamsArray.push({name: name3, value: value3});
-        }
-        if (name4 != undefined) {
-            setParamsArray.push({name: name4, value: value4});
+        if (hashValue) {
+            hashValue = '#' + hashValue;
         }
 
         //отрезаем ?
@@ -36,7 +27,7 @@ let LocationHelper = (function () {
         });
 
         //много параметров
-        setParamsArray.forEach((setPrm)=>{
+        paramsArray.forEach((setPrm)=>{
             //ищем в параметрах наш параметр
             var prmExists = false;
             params.forEach((prm)=>{
@@ -63,11 +54,43 @@ let LocationHelper = (function () {
         var searchString = `?${nameValueStrings.join('&')}`;
         //console.log('searchString', searchString);
 
-        Location.pushState(null, location.pathname + searchString + location.hash);
+        Location.pushState(state, location.pathname + searchString + hashValue);
+    }
+
+    //добавляет или заменяет параметр в queryString'е
+    //до 4 одновременно
+    function setSearchParam(name1, value1, name2, value2, name3, value3, name4, value4) {
+        //console.log('setSearchParam', name1, value1);
+
+        var paramsArray = [];
+        paramsArray.push({name: name1, value: value1});
+
+        if (name2 != undefined) {
+            paramsArray.push({name: name2, value: value2});
+        }
+        if (name3 != undefined) {
+            paramsArray.push({name: name3, value: value3});
+        }
+        if (name4 != undefined) {
+            paramsArray.push({name: name4, value: value4});
+        }
+
+        setSearchParamsWithHash(paramsArray, null, null);
+    }
+
+    function setHash(hashValue, state) {
+        //console.log('setHash', hashValue, state);
+
+        if (hashValue) {
+            hashValue = '#' + hashValue;
+            Location.pushState(state, location.pathname + location.search + hashValue);
+        }
     }
 
     return {
-        setSearchParam: setSearchParam
+        setSearchParam: setSearchParam,
+        setHash: setHash,
+        setSearchParamsWithHash: setSearchParamsWithHash,
     };
 })();
 
