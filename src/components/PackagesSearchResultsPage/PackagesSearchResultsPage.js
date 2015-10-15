@@ -6,7 +6,7 @@ import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from '../../core/Location';
-import { setSearchParamsWithHash, setSearchParam, setHash } from '../../core/LocationHelper';
+import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
 
 //api
 import api from './../../core/ApiClient';
@@ -38,42 +38,46 @@ import DisplayEnum from './DisplayEnum.js';
         super(props);
 
         let data = props.data;
-        let routeParams = props.state.params;
+        let routeParams = props.routeParams;
 
+        //данные для формы
         this.formData = {
             from: data[0],
             to: data[1],
             ...routeParams
         };
 
-        //this.getHash()
         //берем из location.hash
         this.state = {
-            listType: this.getInitialListType(),
             hotelsData: null,
             ticketsData: null,
-            //display: this.getHash() || DisplayEnum.Recommended,
+            
+            //тип списка - отели или билеты
+            listType: this.getListTypeFromProps(props),
+            
+            //из урла, или рекомендованный - текущая страница (для мобильной), реком. вар., список отелей или список билетов
+            display: props.routeQuery.display || DisplayEnum.Recommended,
+            
             //error: true
         };
 
         //console.log('init, state:', this.state);
     }
 
-    getInitialListType() {
-        var hashType = this.getHash();
-        switch (hashType) {
-            case ListType.Hotels: return ListType.Hotels;
-            case ListType.Tickets: return ListType.Tickets;
-            default: return ListType.Hotels;
-        }
+    componentWillReceiveProps(props) {
+        //this.props на данном этапе имеет предыдущее значение !!!
+        //props - новые свойства, которые получит контрол
+        //console.log('componentWillReceiveProps', JSON.stringify(props.routeQuery), JSON.stringify(this.props.routeQuery));
+
+        //флаги соответствия состояния и урла
+        this.setState({
+            listType: this.getListTypeFromProps(props),
+            display: props.routeQuery.display,
+        });
     }
 
-    getHash() {
-        if (canUseDOM) {
-            return location.hash.substring(1);
-        }
-
-        return null;
+    getListTypeFromProps(props) {
+        return props.routeQuery.display == ListType.Tickets ? ListType.Tickets : ListType.Hotels;
     }
 
     getData() {
@@ -109,7 +113,7 @@ import DisplayEnum from './DisplayEnum.js';
                     resolve(data);
                 }
                 else {
-                    console.log('PackagesSearchHotels data is null');
+                    console.error('PackagesSearchHotels data is null');
                     this.setState({
                         error: true
                     });
@@ -149,7 +153,7 @@ import DisplayEnum from './DisplayEnum.js';
                 });
             }
             else {
-                console.log('SearchTickets data is null');
+                console.error('SearchTickets data is null');
                 this.setState({
                     error: true
                 });
@@ -157,38 +161,29 @@ import DisplayEnum from './DisplayEnum.js';
         });
     }
 
-    setRecommendedInQueryString() {
-        var hash = null;
-        var state = null;
-        //скролим к выбранному варианту
-        //если не передано что-нибудь
-        if (!window.location.hash) {
-            //скролим страницу к рек. варианту
-            hash = 'recommended';
-            state = {display: DisplayEnum.Recommended};
-        }
-
+    setQueryString() {
         //если первый запрос, и не сохранили реком. отель и билет
-        var query = this.props.state.query;
+        var query = this.props.routeQuery;
         if (!query.hotel || !query.ticket) {
-            var rec = this.state.recommendedData;
+            var pair = this.state.recommendedData;
 
             //проставляем в урл
-            setSearchParamsWithHash([
-                {name:'hotel', value:rec.Hotel.HotelId},
-                {name:'ticket', value:rec.AviaInfo.VariantId1}
-            ], hash, state);
+            setSearchParams([
+                ['hotel', pair.Hotel.HotelId],
+                ['ticket', pair.AviaInfo.VariantId1],
+                ['display', DisplayEnum.Recommended]
+            ]);
         }
-        else if (hash) {
+        else if (!query.display) {
             //проставляем в урл
-            setHash(hash, state);
+            setSearchParam('display', DisplayEnum.Recommended);
         }
     }
 
     componentDidMount() {
         this.getData().then(()=> {
             //проставляем ссылки на рек вариант
-            this.setRecommendedInQueryString();
+            this.setQueryString();
 
             //сразу запрашиваем данные по перелетам
             this.getAviaData();
@@ -203,29 +198,25 @@ import DisplayEnum from './DisplayEnum.js';
             pair.Hotel.CurrentListType = type;
         }
 
-        var stateDisplay = type == ListType.Hotels ? DisplayEnum.Hotels : DisplayEnum.Tickets;
-
         this.setState({
-            listType: type,
             recommendedData: pair,
-            //display: stateDisplay,
         });
 
-        //console.log('type', type, 'this.state.display', stateDisplay, 'stateDisplay', stateDisplay);
-
-        //проставляем хэш
-        //location.hash = type;
-        setHash(type, {display: stateDisplay});
+        //меняем параметры в урле через history api
+        var stateDisplay = type == ListType.Hotels ? DisplayEnum.Hotels : DisplayEnum.Tickets;
+        setSearchParams([
+            ['hotel', pair.Hotel.HotelId],
+            ['ticket', pair.AviaInfo.VariantId1],
+            ['display', stateDisplay]
+        ]);
     }
 
     chooseHotel(hotel) {
-        console.log('hotel', hotel.HotelId);
         //меняем параметры в урле через history api
         setSearchParam('hotel', hotel.HotelId);
     }
 
     chooseTicket(ticket) {
-        console.log('ticket', ticket.VariantId1);
         //меняем параметры в урле через history api
         setSearchParam('ticket', ticket.VariantId1);
     }
@@ -264,11 +255,8 @@ import DisplayEnum from './DisplayEnum.js';
         };
 
         //флаг - показывать список отелей или билетов
-        //let displayList = (this.state.display == DisplayEnum.Hotels || this.state.display == DisplayEnum.Tickets);
-
-        //display из hash в урле, передается из роутера
-        var propsState = this.props.state.state;
-        var propsStateDisplay = propsState ? propsState.display : this.getHash();
+        //на десктопе - всегда показываем, на мобиле - в зависимости от состояния
+        var propsStateDisplay = this.props.routeQuery.display;
         var displayList = (propsStateDisplay == DisplayEnum.Hotels || propsStateDisplay == DisplayEnum.Tickets);
         //console.log('displayList', displayList);
 

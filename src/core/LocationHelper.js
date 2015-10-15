@@ -10,6 +10,9 @@ let LocationHelper = (function () {
         if (hashValue) {
             hashValue = '#' + hashValue;
         }
+        else {
+            hashValue = location.hash;
+        }
 
         //отрезаем ?
         var search = location.search.substring(1);
@@ -31,15 +34,15 @@ let LocationHelper = (function () {
             //ищем в параметрах наш параметр
             var prmExists = false;
             params.forEach((prm)=>{
-                if (prm.name == setPrm.name) {
+                if (prm.name == setPrm[0]) {
                     prmExists = true;
-                    prm.value = setPrm.value;
+                    prm.value = setPrm[1];
                 }
             });
 
             //если не нашли - добавляем новый
             if (!prmExists) {
-                params.push({name: setPrm.name, value: setPrm.value});
+                params.push({name: setPrm[0], value: setPrm[1]});
             }
         });
 
@@ -57,25 +60,18 @@ let LocationHelper = (function () {
         Location.pushState(state, location.pathname + searchString + hashValue);
     }
 
+    function setSearchParams(paramsArray) {
+        setSearchParamsWithHash(paramsArray);
+    }
+
     //добавляет или заменяет параметр в queryString'е
-    //до 4 одновременно
-    function setSearchParam(name1, value1, name2, value2, name3, value3, name4, value4) {
-        //console.log('setSearchParam', name1, value1);
+    function setSearchParam(name, value) {
+        //console.log('setSearchParam', name, value);
 
         var paramsArray = [];
-        paramsArray.push({name: name1, value: value1});
+        paramsArray.push([name, value]);
 
-        if (name2 != undefined) {
-            paramsArray.push({name: name2, value: value2});
-        }
-        if (name3 != undefined) {
-            paramsArray.push({name: name3, value: value3});
-        }
-        if (name4 != undefined) {
-            paramsArray.push({name: name4, value: value4});
-        }
-
-        setSearchParamsWithHash(paramsArray, null, null);
+        setSearchParamsWithHash(paramsArray);
     }
 
     function setHash(hashValue, state) {
@@ -89,6 +85,7 @@ let LocationHelper = (function () {
 
     return {
         setSearchParam: setSearchParam,
+        setSearchParams: setSearchParams,
         setHash: setHash,
         setSearchParamsWithHash: setSearchParamsWithHash,
     };
