@@ -76,6 +76,16 @@ import DisplayEnum from './DisplayEnum.js';
         });
     }
 
+    componentDidMount() {
+        this.getData().then(()=> {
+            //проставляем ссылки на рек вариант
+            this.setQueryString();
+
+            //сразу запрашиваем данные по перелетам
+            this.getAviaData();
+        });
+    }
+
     getListTypeFromProps(props) {
         return props.routeQuery.display == ListType.Tickets ? ListType.Tickets : ListType.Hotels;
     }
@@ -180,16 +190,6 @@ import DisplayEnum from './DisplayEnum.js';
         }
     }
 
-    componentDidMount() {
-        this.getData().then(()=> {
-            //проставляем ссылки на рек вариант
-            this.setQueryString();
-
-            //сразу запрашиваем данные по перелетам
-            this.getAviaData();
-        });
-    }
-
     changeListType(type) {
         //переключаем список перелетов / пакетов
         var pair = this.state.recommendedData;
@@ -244,11 +244,61 @@ import DisplayEnum from './DisplayEnum.js';
         return null;
     }
 
+    renderRecommended(events) {
+        //на мобиле скрываем когда на списке отелей или билетов
+        if (!(this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended)) {
+            return (
+                <div id="recommended"
+                     className="b-packages-results-page__recommended-bundle">
+                    <div className="b-recommended-bundle-bg">
+                    </div>
+                    <RecommendedBundle
+                        events={events}
+                        data={this.state.recommendedData}
+                        />
+                </div>
+            );
+        }
+        return null;
+    }
+
+    renderResults(events) {
+        //на мобиле список показываем, когда не на рекомендуемом
+        if (!(this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended)){
+            return (
+                <div className="b-packages-results-page__results">
+                    <div className="b-packages-results">
+                        <div className="b-packages-results__content">
+                            {
+                                this.state.listType == ListType.Hotels ?
+                                    <PackagesResultsList
+                                        events={events}
+                                        data={this.state.hotelsData}/> :
+                                    <AviaResultsList
+                                        events={events}
+                                        data={this.state.ticketsData}/>
+                            }
+                        </div>
+                        {
+                            (this.state.listType == ListType.Hotels) ?
+                                <div className="b-packages-results__info-block">
+                                    <PackagesListInfoBlock data={this.state.hotelsData}/>
+                                </div> :
+                                null
+                        }
+                    </div>
+                </div>
+            )
+        }
+
+        return null;
+    }
+
     render() {
-        let title = 'Инна-Тур - Динамические пакеты';
+        var title = 'Инна-Тур - Динамические пакеты';
         this.context.onSetTitle(title);
 
-        let events = {
+        var events = {
             changeListType: this.changeListType.bind(this),
             chooseHotel: this.chooseHotel.bind(this),
             chooseTicket: this.chooseTicket.bind(this)
@@ -263,48 +313,11 @@ import DisplayEnum from './DisplayEnum.js';
                 <div className="b-packages-results-page__mobile-filter">
                     <MobileSelectedFilter listType={this.state.listType}/>
                 </div>
-                {
-                    //на мобиле скрываем когда на списке отелей или билетов
-                    this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended ? null :
-                        <div id="recommended"
-                             className="b-packages-results-page__recommended-bundle">
-                            <div className="b-recommended-bundle-bg">
-                            </div>
-                            <RecommendedBundle
-                                events={events}
-                                data={this.state.recommendedData}
-                                />
-                        </div>
-                }
+                {this.renderRecommended(events)}
                 <div className="b-packages-results-page__filter">
                     {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                 </div>
-                {
-                    //на мобиле список показываем, когда не на рекомендуемом
-                    this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended ? null :
-                        <div className="b-packages-results-page__results">
-                            <div className="b-packages-results">
-                                <div className="b-packages-results__content">
-                                    {
-                                        this.state.listType == ListType.Hotels ?
-                                            <PackagesResultsList
-                                                events={events}
-                                                data={this.state.hotelsData}/> :
-                                            <AviaResultsList
-                                                events={events}
-                                                data={this.state.ticketsData}/>
-                                    }
-                                </div>
-                                {
-                                    (this.state.listType == ListType.Hotels) ?
-                                        <div className="b-packages-results__info-block">
-                                            <PackagesListInfoBlock data={this.state.hotelsData}/>
-                                        </div> :
-                                        null
-                                }
-                            </div>
-                        </div>
-                }
+                {this.renderResults(events)}
             </section>
         );
     }
