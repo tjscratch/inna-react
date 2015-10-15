@@ -41,7 +41,7 @@ const router = new Router(on => {
             `${apiUrls.DirectoryById}${state.params.toId}`
         ]);
         return <PackagesSearchResultsPage
-            routeQuery={state.query}
+            routeQuery={state.query ? state.query : {}}
             routeParams={state.params}
             data={data}/>
     });
