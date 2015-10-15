@@ -254,12 +254,6 @@ import DisplayEnum from './DisplayEnum.js';
             chooseTicket: this.chooseTicket.bind(this)
         };
 
-        //флаг - показывать список отелей или билетов
-        //на десктопе - всегда показываем, на мобиле - в зависимости от состояния
-        var propsStateDisplay = this.props.routeQuery.display;
-        var displayList = (propsStateDisplay == DisplayEnum.Hotels || propsStateDisplay == DisplayEnum.Tickets);
-        //console.log('displayList', displayList);
-
         return (
             <section className="b-packages-results-page">
                 {this.renderOverlay()}
@@ -269,40 +263,48 @@ import DisplayEnum from './DisplayEnum.js';
                 <div className="b-packages-results-page__mobile-filter">
                     <MobileSelectedFilter listType={this.state.listType}/>
                 </div>
-                <div id="recommended"
-                     className={`b-packages-results-page__recommended-bundle ${this.props.viewport.isMobile && displayList ? 'g-hidden' : ''}`}>
-                    <div className="b-recommended-bundle-bg">
-                    </div>
-                    <RecommendedBundle
-                        events={events}
-                        data={this.state.recommendedData}
-                        />
-                </div>
+                {
+                    //на мобиле скрываем когда на списке отелей или билетов
+                    this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended ? null :
+                        <div id="recommended"
+                             className="b-packages-results-page__recommended-bundle">
+                            <div className="b-recommended-bundle-bg">
+                            </div>
+                            <RecommendedBundle
+                                events={events}
+                                data={this.state.recommendedData}
+                                />
+                        </div>
+                }
                 <div className="b-packages-results-page__filter">
                     {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                 </div>
-                <div className={`b-packages-results-page__results ${this.props.viewport.isMobile && !displayList ? 'g-hidden' : ''}`}>
-                    <div className="b-packages-results">
-                        <div className="b-packages-results__content">
-                            {
-                                this.state.listType == ListType.Hotels ?
-                                    <PackagesResultsList
-                                        events={events}
-                                        data={this.state.hotelsData}/> :
-                                    <AviaResultsList
-                                        events={events}
-                                        data={this.state.ticketsData}/>
-                            }
+                {
+                    //на мобиле список показываем, когда не на рекомендуемом
+                    this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended ? null :
+                        <div className="b-packages-results-page__results">
+                            <div className="b-packages-results">
+                                <div className="b-packages-results__content">
+                                    {
+                                        this.state.listType == ListType.Hotels ?
+                                            <PackagesResultsList
+                                                events={events}
+                                                data={this.state.hotelsData}/> :
+                                            <AviaResultsList
+                                                events={events}
+                                                data={this.state.ticketsData}/>
+                                    }
+                                </div>
+                                {
+                                    (this.state.listType == ListType.Hotels) ?
+                                        <div className="b-packages-results__info-block">
+                                            <PackagesListInfoBlock data={this.state.hotelsData}/>
+                                        </div> :
+                                        null
+                                }
+                            </div>
                         </div>
-                        {
-                            (this.state.listType == ListType.Hotels) ?
-                                <div className="b-packages-results__info-block">
-                                    <PackagesListInfoBlock data={this.state.hotelsData}/>
-                                </div> :
-                                null
-                        }
-                    </div>
-                </div>
+                }
             </section>
         );
     }
