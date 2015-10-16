@@ -53,16 +53,16 @@ import Datepicker from '../ui/Datepicker';
             this.state = {
                 fromId: null,
                 toId: null,
-                dateBefore: null,
-                dateAfter: null
+                fromDate: null,
+                toDate: null
             };
         }
 
         this.state = {
-            datepickerBeforeShow: false,
-            datepickerAfterShow: false
+            datepickerStartShow: false,
+            datepickerEndShow: false
         }
-        
+
     }
 
     getFlightClassName() {
@@ -111,20 +111,6 @@ import Datepicker from '../ui/Datepicker';
         });
     }
 
-    setDateBefore(data){
-        this.setState({
-            dateBefore: data.format("DD MMMM")
-        })
-        this.openDatepicker('before', false);
-        this.openDatepicker('after', true);
-    }
-
-    setDateAfter(data){
-        this.setState({
-            dateAfter: data.format("DD MMMM")
-        })
-        this.openDatepicker('after', false);
-    }
 
     handleStartSearch() {
         let searchParams = [
@@ -133,34 +119,65 @@ import Datepicker from '../ui/Datepicker';
         ].join('-');
         window.location = `/packages/search/${searchParams}-01.10.2015-08.10.2015-0-2-2`;
     }
-    
-    openDatepicker(type, isShow){
-        if(type == 'before'){
+
+    openDatepicker(type, isShow) {
+        if (type == 'start') {
             this.setState({
-                datepickerBeforeShow: isShow,
-                datepickerAfterShow: !isShow
+                datepickerStartShow: isShow,
+                datepickerEndShow: !isShow
             })
         }
-        if(type == 'after'){
+        if (type == 'end') {
             this.setState({
-                datepickerAfterShow: isShow,
-                datepickerBeforeShow: !isShow
+                datepickerStartShow: !isShow,
+                datepickerEndShow: isShow
             })
         }
     }
 
-    renderDatepickerBefore(){
-        if(this.state.datepickerBeforeShow){
+    setSelectedDate(type, day) {
+        //console.table({
+        //    type: type,
+        //    data: data.format("DD MMMM")
+        //})
+        if (type == 'start') {
+            this.setState({
+                fromDate: day.date.format("DD MMMM")
+            })
+            this.openDatepicker('start', false);
+            this.openDatepicker('end', true);
+        }
+        if (type == 'end') {
+            this.setState({
+                toDate: day.date.format("DD MMMM")
+            })
+            this.openDatepicker('end', false);
+        }
+    }
+
+
+    renderDatepickerStart() {
+        if (this.state.datepickerStartShow) {
             return (
-                <Datepicker getDateBefore={this.setDateBefore.bind(this)} range={true} before={true}/>
+                <Datepicker
+                    range={true}
+                    setDate={this.setSelectedDate.bind(this)}
+                    start={this.state.datepickerStartShow}
+                    end={this.state.datepickerEndShow}
+                    />
             )
         }
     }
 
-    renderDatepickerAfter(){
-        if(this.state.datepickerAfterShow){
+    renderDatepickerEnd() {
+        if (this.state.datepickerEndShow) {
             return (
-                <Datepicker getDateAfter={this.setDateAfter.bind(this)} range={true} after={true}/>
+                <Datepicker
+                    range={true}
+                    setDate={this.setSelectedDate.bind(this)}
+                    start={this.state.datepickerStartShow}
+                    end={this.state.datepickerEndShow}
+                    />
             )
         }
     }
@@ -182,20 +199,20 @@ import Datepicker from '../ui/Datepicker';
                         <div className="b-search-form-action__date-from">
                             <div className="b-search-form-date">
                                 <input className="b-search-form-date__input" placeholder="Туда" type="text"
-                                       onFocus={this.openDatepicker.bind(this, 'before', true)}
-                                       value={this.state.dateBefore}/>
+                                       onFocus={this.openDatepicker.bind(this, 'start', true)}
+                                       value={this.state.fromDate}/>
                                 <i className="b-search-form-date__icon icon-emb-calendar"></i>
                             </div>
-                            {this.renderDatepickerBefore()}
+                            {this.renderDatepickerStart()}
                         </div>
                         <div className="b-search-form-action__date-to">
                             <div className="b-search-form-date">
                                 <input className="b-search-form-date__input" placeholder="Обратно" type="text"
-                                       onFocus={this.openDatepicker.bind(this, 'after', true)}
-                                       value={this.state.dateAfter}/>
+                                       onFocus={this.openDatepicker.bind(this, 'end', true)}
+                                       value={this.state.toDate}/>
                                 <i className="b-search-form-date__icon icon-emb-calendar"></i>
                             </div>
-                            {this.renderDatepickerAfter()}
+                            {this.renderDatepickerEnd()}
                         </div>
                         <div className="b-search-form-action__people">
                             <div className="b-suggest">

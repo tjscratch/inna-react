@@ -14,10 +14,9 @@ import Week from './Week.js';
 
         this.state = {
             month: moment().startOf("day").clone(),
-            range: props.range ? true : false,
             selected: null,
-            before_date: null,
-            after_date: null
+            selected_start: null,
+            selected_end: null
         }
     }
 
@@ -34,25 +33,33 @@ import Week from './Week.js';
     }
 
     select(day) {
-        console.log('this.props.before')
-        console.log(this.props.before)
-        console.log(this.state.range)
-        if (this.state.range && this.props.before) {
-            this.setState({
-                before_date: day.date.format("DD MMMM")
-            });
-            if (this.props.getDateBefore) {
-                this.props.getDateBefore(day.date);
-            }
-        }
-        if (this.state.range && this.props.after) {
-            this.setState({
-                after_date: day.date.format("DD MMMM")
-            });
-            if (this.props.getDateAfter) {
-                this.props.getDateAfter(day.date);
-            }
-        }
+        this.setState({
+            //selected_start: day.date.format()
+            selected_start: 444444
+        });
+        this.props.setDate('start', day);
+        //if(this.props.range){
+        //    if(this.props.start){
+        //        this.setState({
+        //selected_start: day.date.format()
+        //selected_start: 444444
+        //});
+        //if (this.props.setDate) {
+        //    this.props.setDate('start', day);
+        //}
+        //}else{
+        //    this.setState({
+        //        selected_end: day.date.format()
+        //    });
+        //    if (this.props.setDate) {
+        //        this.props.setDate('end', day);
+        //    }
+        //}
+        //}else{
+        //    this.setState({
+        //        selected: day.date.format()
+        //    });    
+        //}
         this.forceUpdate();
     }
 
@@ -63,14 +70,15 @@ import Week from './Week.js';
             monthIndex = date.month(),
             count      = 0;
 
-        //console.log('this.state.before_date')
-        //console.log(this.state.before_date)
-        
+
+        console.log('this.state.selected')
+        console.log(this.state)
+
         while (!done) {
             weeks.push(
                 <Week key={date.toString()}
                       date={date.clone()}
-                      startDate={this.state.before_date}
+                      startDate={this.state.selected_start}
                       month={this.state.month}
                       select={this.select.bind(this)}
                       selected={this.state.selected}/>

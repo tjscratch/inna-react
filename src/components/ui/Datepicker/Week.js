@@ -10,7 +10,7 @@ class Week extends React.Component {
             month     = this.props.month,
             startDate = this.props.startDate ? this.props.startDate : new Date();
 
-        //console.log(startDate);
+        //console.table({startDate: startDate});
 
         for (var i = 0; i < 7; i++) {
 
