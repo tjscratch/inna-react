@@ -21,6 +21,10 @@ import PriceCard from '../PriceCard';
         alert('cheapestClick');
     }
 
+    buyClick() {
+        alert('buy click');
+    }
+
     render() {
         //console.log('this.props.data', this.props.data);
         var events = this.props.events;
@@ -69,7 +73,7 @@ import PriceCard from '../PriceCard';
                             <HotelCard events={events} data={hotelData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__price">
-                            <PriceCard data={priceData}/>
+                            <PriceCard data={priceData} onBuy={this.buyClick.bind(this)} />
                         </div>
                     </div>
                 </div>

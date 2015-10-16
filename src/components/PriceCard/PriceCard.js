@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import styles from './PriceCard.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import { formatPrice } from '../../core/StringHelper.js';
 
+@withViewport
 @withStyles(styles) class PriceCard extends React.Component {
     constructor(props) {
         super(props);
@@ -13,15 +15,19 @@ import { formatPrice } from '../../core/StringHelper.js';
         };
     }
 
-    shareClick() {
+    shareClick(e) {
         var isOpen = this.state.shareOpen;
         this.setState({
             shareOpen: !isOpen
         })
     }
 
-    buyClick() {
-        console.log('buy click');
+    buyClick(e) {
+        e.preventDefault();
+        //если передан колбек выбора
+        if (this.props.onBuy) {
+            this.props.onBuy();
+        }
     }
 
     chooseClick(e) {
@@ -31,6 +37,19 @@ import { formatPrice } from '../../core/StringHelper.js';
         if (this.props.onChoose) {
             this.props.onChoose();
         }
+    }
+
+    renderPrice(data) {
+        if (this.props.viewport.isMobile) {
+            return (
+                <div className="b-price__price">
+                    <span className="b-price-value">{formatPrice(data.price)}</span>
+                    <i className="b-price-rub icon-emb-rouble"></i>
+                </div>
+            );
+        }
+
+        return null;
     }
 
     render() {
@@ -58,7 +77,10 @@ import { formatPrice } from '../../core/StringHelper.js';
                         {this.props.chooseMode ?
                             <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
                             :
-                            <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
+                            <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>
+                                <div className="b-price__caption">Купить</div>
+                                {this.renderPrice(data)}
+                            </a>
                         }
                     </div>
                 </div>

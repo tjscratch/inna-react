@@ -304,7 +304,15 @@ import DisplayEnum from './DisplayEnum.js';
         });
 
         //меняем параметры в урле через history api
-        setSearchParam('hotel', hotel.HotelId);
+        if (this.props.viewport.isMobile) {
+            setSearchParams([
+                ['hotel', hotel.HotelId],
+                ['display', null]
+                ]);
+        }
+        else {
+            setSearchParam('hotel', hotel.HotelId);
+        }
 
         this.getTicketData(hotel.HotelId);
     }
@@ -322,7 +330,15 @@ import DisplayEnum from './DisplayEnum.js';
         });
 
         //меняем параметры в урле через history api
-        setSearchParam('ticket', ticket.VariantId1);
+        if (this.props.viewport.isMobile) {
+            setSearchParams([
+                ['ticket', ticket.VariantId1],
+                ['display', null]
+            ]);
+        }
+        else {
+            setSearchParam('ticket', ticket.VariantId1);
+        }
 
         this.getHotelData(ticket.VariantId1);
     }

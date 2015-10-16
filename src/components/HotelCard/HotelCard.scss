@@ -126,6 +126,11 @@
     .b-hotel-card {
         padding: 5px 0 20px 10px;
     }
+
+    .b-hotel-card-actions {
+        width: 210px;
+        overflow: hidden;
+    }
 }
 
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
