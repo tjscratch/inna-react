@@ -41,6 +41,7 @@
         width: 100%;
     }
 }
+
 @mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
     padding: $padding-vertical $padding-horizontal;
     font-size: $font-size;
@@ -77,6 +78,64 @@
 .btn-green {
     @include btn-bg-color($btn-green-bg, $btn-green-color);
 }
+
+
+//
+//
+//
+// begin date ranges
+//
+//
+//
+.b-search-form-date{
+    position: relative;
+}
+.b-search-form-date__input{
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    padding: $padding-base-vertical 10px;
+    font-size: $font-size-base;
+    line-height: $line-height-computed;
+    background-color: $white;
+    border: 1px solid transparent;
+    border-radius: $b-suggest-border-radius;
+
+    &:focus{
+        border-color: $green;
+    }
+}
+.b-search-form-date__icon{
+    position: absolute;
+    right: 4px;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    font-size: 16px;
+    
+    
+    &:before{
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+    }
+    
+    &:after{
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+    
+}
+//
+//
+//
+// end date ranges
+//
+//
+//
 
 
 @media(max-width: 900px) {

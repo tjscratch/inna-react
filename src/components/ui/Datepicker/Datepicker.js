@@ -12,14 +12,13 @@ import Week from './Week.js';
     constructor(props) {
         super(props);
 
-        let range = props.range ? true : false;
-
         this.state = {
             month: moment().startOf("day").clone(),
-            range: range,
-            selected: null
+            range: props.range ? true : false,
+            selected: null,
+            before_date: null,
+            after_date: null
         }
-
     }
 
     previous() {
@@ -40,36 +39,11 @@ import Week from './Week.js';
             this.setState({
                 selected: day.date.format("DD MMMM")
             });
-        }
-        if (this.props.setDate) {
-            this.props.setDate(day.date);
+            if (this.props.getDateBefore) {
+                this.props.getDateBefore(day.date);
+            }
         }
         this.forceUpdate();
-    }
-
-    render() {
-        return (
-            <div className="b-datepicker">
-                <div className="b-datepicker-head">
-                    <div className="b-datepicker-head__control" onClick={this.previous.bind(this)}>
-                        <i className="b-datepicker-head__icons icon-emb-angle-left"></i>
-                    </div>
-                    <div className="b-datepicker-head__label">
-                        {this.renderMonthLabel()}
-                        —
-                        {this.state.selected}
-                    </div>
-                    <div className="b-datepicker-head__control" onClick={this.next.bind(this)}>
-                        <i className="b-datepicker-head__icons icon-emb-angle-right"></i>
-                    </div>
-                </div>
-                <DayNames />
-
-                <div className="b-datepicker__body">
-                    {this.renderWeeks()}
-                </div>
-            </div>
-        );
     }
 
     renderWeeks() {
@@ -91,6 +65,7 @@ import Week from './Week.js';
             done = count++ > 2 && monthIndex !== date.month();
             monthIndex = date.month();
         }
+        console.log(done);
 
         return weeks;
     }
@@ -99,6 +74,31 @@ import Week from './Week.js';
         return <span>{this.state.month.format("MMMM, YYYY")}</span>;
     }
 
+    render() {
+        return (
+            <div className="b-datepicker">
+                <div className="b-datepicker-head">
+                    <div className="b-datepicker-head__control" onClick={this.previous.bind(this)}>
+                        <i className="b-datepicker-head__icons icon-emb-angle-left"></i>
+                    </div>
+                    <div className="b-datepicker-head__label">
+                        {this.renderMonthLabel()}
+                    </div>
+                    <div className="b-datepicker-head__control" onClick={this.next.bind(this)}>
+                        <i className="b-datepicker-head__icons icon-emb-angle-right"></i>
+                    </div>
+                </div>
+                <DayNames />
+
+                <div className="b-datepicker__body">
+                    {this.renderWeeks()}
+                </div>
+                <div>
+                    {this.state.selected}
+                </div>
+            </div>
+        );
+    }
 }
 
 export default Datepicker;

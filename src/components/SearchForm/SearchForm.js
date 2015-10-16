@@ -53,7 +53,8 @@ import Datepicker from '../ui/Datepicker';
             this.state = {
                 fromId: null,
                 toId: null,
-                fromDate: null
+                dateBefore: null,
+                dateAfter: null
             };
         }
 
@@ -105,10 +106,17 @@ import Datepicker from '../ui/Datepicker';
         });
     }
 
-    dateFrom(data){
+    setDateBefore(data){
         console.log(data)
         this.setState({
-            fromDate: data.format("DD MMMM")
+            dateBefore: data.format("DD MMMM")
+        })
+    }
+
+    setDateAfter(data){
+        console.log(data)
+        this.setState({
+            dateAfter: data.format("DD MMMM")
         })
     }
 
@@ -139,13 +147,15 @@ import Datepicker from '../ui/Datepicker';
                             <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', location: this.state.to}}/>
                         </div>
                         <div className="b-search-form-action__date-from">
-                            <div className="b-suggest">
-                                <input className="b-suggest__input" placeholder="Туда" type="text" value={this.state.fromDate}/>
+                            <div className="b-search-form-date">
+                                <input className="b-search-form-date__input" placeholder="Туда" type="text" value={this.state.dateBefore}/>
+                                <i className="b-search-form-date__icon icon-emb-calendar"></i>
                             </div>
                         </div>
                         <div className="b-search-form-action__date-to">
-                            <div className="b-suggest">
-                                <input className="b-suggest__input" placeholder="Обратно" type="text"/>
+                            <div className="b-search-form-date">
+                                <input className="b-search-form-date__input" placeholder="Обратно" type="text" value={this.state.dateBefore}/>
+                                <i className="b-search-form-date__icon icon-emb-calendar"></i>
                             </div>
                         </div>
                         <div className="b-search-form-action__people">
@@ -161,7 +171,7 @@ import Datepicker from '../ui/Datepicker';
                             </span>
                         </div>
                     </div>
-                    <Datepicker setDate={this.dateFrom.bind(this)} range={true}/>
+                    <Datepicker getDateBefore={this.setDateBefore.bind(this)} range={true}/>
                 </div>
             </section>
         );
