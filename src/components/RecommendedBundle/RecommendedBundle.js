@@ -26,10 +26,19 @@ import PriceCard from '../PriceCard';
         var events = this.props.events;
         var aviaData = this.props.data ? this.props.data.AviaInfo : null;
         var hotelData = this.props.data ? this.props.data.Hotel : null;
-        var priceData = this.props.data ? {price: this.props.data.Price} : null;
+        var defaultRecommendedPair = this.props.defaultRecommendedPair;
+
+        var priceData = this.props.data ? {price: this.props.data.PackagePrice} : null;
 
         var recBlockHeight = this.props.viewport.isMobile && this.props.viewport.height <= 500 ?
             {height:this.props.viewport.height} : null;
+
+        var recommendedCaption = true;
+        if (aviaData && hotelData && defaultRecommendedPair &&
+            (hotelData.HotelId != defaultRecommendedPair.HotelId ||
+            aviaData.VariantId1 != defaultRecommendedPair.TicketId)) {
+            recommendedCaption = false;
+        }
 
         return (
             <div className="b-recommended-bundle" style={recBlockHeight}>
@@ -46,7 +55,7 @@ import PriceCard from '../PriceCard';
                     </div>
                 </div>
                 <div className="b-recommended-bundle__title">
-                    Выбранный вариант
+                    {recommendedCaption ? 'Рекомендуем' : 'Выбранный вариант'}
                 </div>
                 <div className="b-recommended-bundle__collapse">
                     Свернуть

@@ -118,8 +118,8 @@ import DisplayEnum from './DisplayEnum.js';
         });
     }
 
-    getHotelData() {
-        console.log('getHotelData');
+    getHotelData(selectedTicketId) {
+        //console.log('getHotelData');
         //url без отеля и билета
         //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&StartVoyageDate=2015-12-01&TicketClass=0
         //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931
@@ -147,12 +147,14 @@ import DisplayEnum from './DisplayEnum.js';
                 params.HotelId = this.state.hotelId;
             }
             if (this.state.ticketId) {
-                params.TicketId = this.state.ticketId;
+                params.TicketId = selectedTicketId ? selectedTicketId : this.state.ticketId;
             }
+
+            //console.log('getHotelData, params.TicketId', params.TicketId);
 
             api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
             //api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
-                //console.log('SearchHotels data', data);
+                console.log('SearchHotels data', data);
 
                 if (data) {
                     let recPair = data.RecommendedPair;
@@ -161,6 +163,9 @@ import DisplayEnum from './DisplayEnum.js';
                     recPair.Hotel.CurrentListType = this.state.listType;
                     recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
                     recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
                     //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
 
                     this.setState({
@@ -181,8 +186,8 @@ import DisplayEnum from './DisplayEnum.js';
         });
     }
 
-    getTicketData() {
-        console.log('getTicketData');
+    getTicketData(selectedHotelId) {
+        //console.log('getTicketData');
         return new Promise((resolve, reject)=> {
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
@@ -199,15 +204,17 @@ import DisplayEnum from './DisplayEnum.js';
             };
 
             if (this.state.hotelId) {
-                params.HotelId = this.state.hotelId;
+                params.HotelId = selectedHotelId ? selectedHotelId : this.state.hotelId;
             }
             if (this.state.ticketId) {
                 params.TicketId = this.state.ticketId;
             }
 
+            //console.log('getTicketData, params.HotelId', params.HotelId);
+
             api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
             //api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
-                //console.log('SearchTickets data', data);
+                console.log('SearchTickets data', data);
 
                 if (data) {
                     //добавляем доп поля для карточки авиа
@@ -216,6 +223,9 @@ import DisplayEnum from './DisplayEnum.js';
                     recPair.Hotel.CurrentListType = this.state.listType;
                     recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
                     recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
                     //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
 
                     this.setState({
@@ -280,19 +290,37 @@ import DisplayEnum from './DisplayEnum.js';
     chooseHotel(hotel) {
         console.log('this.state.recommendedData', this.state.recommendedData, 'hotel', hotel);
 
+        //меняем отель в паре
         var pair = this.state.recommendedData;
         pair.Hotel = hotel;
-        pair.Price = hotel.PackagePrice;
+        pair.PackagePrice = hotel.PackagePrice;
         this.setState({
-            recommendedData: pair
+            recommendedData: pair,
+            ticketsData: null
         });
+
         //меняем параметры в урле через history api
         setSearchParam('hotel', hotel.HotelId);
+
+        this.getTicketData(hotel.HotelId);
     }
 
     chooseTicket(ticket) {
+        console.log('this.state.recommendedData', this.state.recommendedData, 'ticket', ticket);
+
+        //меняем отель в паре
+        var pair = this.state.recommendedData;
+        pair.AviaInfo = ticket;
+        pair.PackagePrice = ticket.PackagePrice;
+        this.setState({
+            recommendedData: pair,
+            hotelsData: null
+        });
+
         //меняем параметры в урле через history api
         setSearchParam('ticket', ticket.VariantId1);
+
+        this.getHotelData(ticket.VariantId1);
     }
 
     renderOverlay() {
@@ -329,6 +357,7 @@ import DisplayEnum from './DisplayEnum.js';
                     <RecommendedBundle
                         events={events}
                         data={this.state.recommendedData}
+                        defaultRecommendedPair={this.state.defaultRecommendedPair}
                         />
                 </div>
             );

@@ -31,7 +31,7 @@ import PriceCard from '../PriceCard'
                     <div className="b-avia-list-item__price">
                         <PriceCard
                             onChoose={() => this.chooseTicket(avia)}
-                            data={{price: avia.Price}} mode='choose'/>
+                            data={{price: avia.PackagePrice}} mode='choose'/>
                     </div>
                 </div>
             )
