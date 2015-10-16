@@ -1,5 +1,6 @@
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import api from './core/ApiClient';
+import SessionStorageHelper from './core/SessionStorageHelper.js';
 
 //Singleton - хранилище
 var storage = (function () {
@@ -9,7 +10,7 @@ var storage = (function () {
         return new Promise((resolve, reject)=> {
             let key = url;
             if (canUseDOM) {
-                let data = sessionStorage.getItem(key);
+                let data = SessionStorageHelper.getItem(key);
                 if (data) {
                     console.log('client', url, 'from cache');
                     resolve(JSON.parse(data));
@@ -18,7 +19,7 @@ var storage = (function () {
                     api.get(url).then((data)=> {
                         //сохраняем данные
                         if (data) {
-                            sessionStorage.setItem(key, JSON.stringify(data));
+                            SessionStorageHelper.setItem(key, JSON.stringify(data));
                         }
 
                         console.log('client', url, 'from api');

@@ -238,17 +238,17 @@ import DisplayEnum from './DisplayEnum.js';
 
     setQueryString() {
         //если первый запрос, и не сохранили реком. отель и билет
-        //var query = this.props.routeQuery;
-        //if (!query.hotel || !query.ticket) {
-        //    var pair = this.state.recommendedData;
-        //
-        //    //проставляем в урл
-        //    setSearchParams([
-        //        ['hotel', pair.Hotel.HotelId],
-        //        ['ticket', pair.AviaInfo.VariantId1],
-        //        ['display', DisplayEnum.Recommended]
-        //    ]);
-        //}
+        var query = this.props.routeQuery;
+        if (!query.hotel || !query.ticket) {
+            var pair = this.state.recommendedData;
+
+            //проставляем в урл
+            setSearchParams([
+                ['hotel', pair.Hotel.HotelId],
+                ['ticket', pair.AviaInfo.VariantId1],
+                //['display', DisplayEnum.Recommended]
+            ]);
+        }
         //else if (!query.display) {
         //    //проставляем в урл
         //    setSearchParam('display', DisplayEnum.Recommended);
@@ -278,6 +278,14 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     chooseHotel(hotel) {
+        console.log('this.state.recommendedData', this.state.recommendedData, 'hotel', hotel);
+
+        var pair = this.state.recommendedData;
+        pair.Hotel = hotel;
+        pair.Price = hotel.PackagePrice;
+        this.setState({
+            recommendedData: pair
+        });
         //меняем параметры в урле через history api
         setSearchParam('hotel', hotel.HotelId);
     }

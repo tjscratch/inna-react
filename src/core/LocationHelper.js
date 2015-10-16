@@ -64,6 +64,17 @@ let LocationHelper = (function () {
             }
         });
 
+        //сортируем
+        params.sort((a,b)=>{
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return -1;
+            }
+            return 0;
+        });
+
         //готовим массив имя=значение
         var nameValueStrings = [];
         params.forEach((prm)=>{
