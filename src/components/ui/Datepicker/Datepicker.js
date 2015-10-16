@@ -42,6 +42,9 @@ import Week from './Week.js';
             if (this.props.getDateBefore) {
                 this.props.getDateBefore(day.date);
             }
+            if (this.props.getDateAfter) {
+                this.props.getDateAfter(day.date);
+            }
         }
         this.forceUpdate();
     }
@@ -65,7 +68,6 @@ import Week from './Week.js';
             done = count++ > 2 && monthIndex !== date.month();
             monthIndex = date.month();
         }
-        console.log(done);
 
         return weeks;
     }
