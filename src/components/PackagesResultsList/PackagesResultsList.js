@@ -54,7 +54,7 @@ import PriceCard from '../PriceCard'
                             length={data.length}
                             type='variable'
                             useTranslate3d={true}
-                            itemSizeGetter={()=> this.props.viewport.isMobile ? 184 : 182}
+                            itemSizeGetter={()=> this.props.viewport.isMobile ? 184+5 : 185+5}
                             />
                     </div>
                 </div>
