@@ -34,14 +34,21 @@ import Week from './Week.js';
     }
 
     select(day) {
-        
-        if (this.state.range) {
+        console.log('this.props.before')
+        console.log(this.props.before)
+        console.log(this.state.range)
+        if (this.state.range && this.props.before) {
             this.setState({
-                selected: day.date.format("DD MMMM")
+                before_date: day.date.format("DD MMMM")
             });
             if (this.props.getDateBefore) {
                 this.props.getDateBefore(day.date);
             }
+        }
+        if (this.state.range && this.props.after) {
+            this.setState({
+                after_date: day.date.format("DD MMMM")
+            });
             if (this.props.getDateAfter) {
                 this.props.getDateAfter(day.date);
             }
@@ -56,10 +63,14 @@ import Week from './Week.js';
             monthIndex = date.month(),
             count      = 0;
 
+        //console.log('this.state.before_date')
+        //console.log(this.state.before_date)
+        
         while (!done) {
             weeks.push(
                 <Week key={date.toString()}
                       date={date.clone()}
+                      startDate={this.state.before_date}
                       month={this.state.month}
                       select={this.select.bind(this)}
                       selected={this.state.selected}/>

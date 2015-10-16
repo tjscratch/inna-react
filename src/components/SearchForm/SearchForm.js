@@ -135,7 +135,6 @@ import Datepicker from '../ui/Datepicker';
     }
     
     openDatepicker(type, isShow){
-        console.log('23452')
         if(type == 'before'){
             this.setState({
                 datepickerBeforeShow: isShow,
@@ -153,7 +152,7 @@ import Datepicker from '../ui/Datepicker';
     renderDatepickerBefore(){
         if(this.state.datepickerBeforeShow){
             return (
-                <Datepicker getDateBefore={this.setDateBefore.bind(this)} range={true}/>
+                <Datepicker getDateBefore={this.setDateBefore.bind(this)} range={true} before={true}/>
             )
         }
     }
@@ -161,7 +160,7 @@ import Datepicker from '../ui/Datepicker';
     renderDatepickerAfter(){
         if(this.state.datepickerAfterShow){
             return (
-                <Datepicker getDateAfter={this.setDateAfter.bind(this)} range={true}/>
+                <Datepicker getDateAfter={this.setDateAfter.bind(this)} range={true} after={true}/>
             )
         }
     }

@@ -5,23 +5,26 @@ class Week extends React.Component {
 
     render() {
 
-        var days  = [],
-            date  = this.props.date,
-            month = this.props.month;
+        var days      = [],
+            date      = this.props.date,
+            month     = this.props.month,
+            startDate = this.props.startDate ? this.props.startDate : new Date();
+
+        //console.log(startDate);
 
         for (var i = 0; i < 7; i++) {
 
-            if (this.props.selected){
-                var isBefore = date.isBefore(new Date(), "day");
-            }else{
-                var isBefore = date.isBefore(new Date(), "day");
+            if (this.props.selected) {
+                var isBefore = date.isBefore(startDate, "day");
+            } else {
+                var isBefore = date.isBefore(startDate, "day");
             }
-            
+
             var day = {
                 name: date.format("dd").substring(0, 1),
                 number: date.date(),
                 isCurrentMonth: date.month() === month.month(),
-                isToday: date.isSame(new Date(), "day"),
+                isToday: date.isSame(startDate, "day"),
                 isBefore: isBefore,
                 date: date
             };
