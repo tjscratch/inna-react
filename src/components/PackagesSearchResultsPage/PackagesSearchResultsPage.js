@@ -51,13 +51,24 @@ import DisplayEnum from './DisplayEnum.js';
         this.state = {
             hotelsData: null,
             ticketsData: null,
-            
+            recommendedData: null,
+
+            //выбранный билет
+            ticketId: props.routeQuery.ticket || null,
+            //выбранный отель
+            hotelId: props.routeQuery.hotel || null,
+
+            //Cheapest: false
+            //HotelId: 47547
+            //TicketId: 2103344931
+            defaultRecommendedPair: null,
+
             //тип списка - отели или билеты
             listType: this.getListTypeFromProps(props),
-            
+
             //из урла, или рекомендованный - текущая страница (для мобильной), реком. вар., список отелей или список билетов
             display: props.routeQuery.display || DisplayEnum.Recommended,
-            
+
             //error: true
         };
 
@@ -73,6 +84,8 @@ import DisplayEnum from './DisplayEnum.js';
         this.setState({
             listType: this.getListTypeFromProps(props),
             display: props.routeQuery.display,
+            ticketId: props.routeQuery.ticket || null,
+            hotelId: props.routeQuery.hotel || null,
         });
     }
 
@@ -80,9 +93,6 @@ import DisplayEnum from './DisplayEnum.js';
         this.getData().then(()=> {
             //проставляем ссылки на рек вариант
             this.setQueryString();
-
-            //сразу запрашиваем данные по перелетам
-            this.getAviaData();
         });
     }
 
@@ -91,6 +101,32 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     getData() {
+        return new Promise((resolve) => {
+            //сначала запрашиваем билеты
+            if (this.state.display == DisplayEnum.Tickets) {
+                this.getTicketData().then(()=> {
+                    resolve();
+                    this.getHotelData();
+                });
+            }
+            else {
+                this.getHotelData().then(()=> {
+                    resolve();
+                    this.getTicketData();
+                });
+            }
+        });
+    }
+
+    getHotelData() {
+        //url без отеля и билета
+        //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&StartVoyageDate=2015-12-01&TicketClass=0
+        //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931
+
+        //url с отелем и билетом
+        //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931&hotel=47547&ticket=2103344931
+        //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931&hotel=47547&ticket=2103344931
+
         return new Promise((resolve, reject)=> {
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
@@ -106,7 +142,15 @@ import DisplayEnum from './DisplayEnum.js';
                 TicketClass: routeParams.flightClass
             };
 
-            api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
+            if (this.state.hotelId) {
+                params.HotelId = this.state.hotelId;
+            }
+            if (this.state.ticketId) {
+                params.TicketId = this.state.ticketId;
+            }
+
+            //api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
+            api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
                 //console.log('SearchHotels data', data);
 
                 if (data) {
@@ -114,11 +158,14 @@ import DisplayEnum from './DisplayEnum.js';
                     //добавляем доп поля для карточки авиа и отеля
                     recPair.AviaInfo.CurrentListType = this.state.listType;
                     recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
                     recPair.Hotel.HotelsCount = data.HotelCount;
+                    //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
 
                     this.setState({
                         hotelsData: data.Hotels,
-                        recommendedData: recPair
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair
                     });
                     resolve(data);
                 }
@@ -133,41 +180,57 @@ import DisplayEnum from './DisplayEnum.js';
         });
     }
 
-    getAviaData() {
-        let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
-        let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
-        let routeParams = this.props.routeParams;
+    getTicketData() {
+        return new Promise((resolve, reject)=> {
+            let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
+            let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
+            let routeParams = this.props.routeParams;
 
-        let params = {
-            AddFilter: 'true',
-            Adult: routeParams.adultCount,
-            ArrivalId: routeParams.toId,
-            DepartureId: routeParams.fromId,
-            EndVoyageDate: toDateApi,
-            StartVoyageDate: fromDateApi,
-            TicketClass: routeParams.flightClass,
-            HotelId: this.state.recommendedData.Hotel.HotelId,
-            TicketId: this.state.recommendedData.AviaInfo.VariantId1
-        };
+            let params = {
+                AddFilter: 'true',
+                Adult: routeParams.adultCount,
+                ArrivalId: routeParams.toId,
+                DepartureId: routeParams.fromId,
+                EndVoyageDate: toDateApi,
+                StartVoyageDate: fromDateApi,
+                TicketClass: routeParams.flightClass,
+            };
 
-        api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
-            //console.log('SearchTickets data', data);
-
-            if (data) {
-                //добавляем доп поля для карточки авиа
-                var recPair = this.state.recommendedData;
-                recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
-                this.setState({
-                    ticketsData: data.AviaInfos,
-                    recommendedData: recPair
-                });
+            if (this.state.hotelId) {
+                params.HotelId = this.state.hotelId;
             }
-            else {
-                console.error('SearchTickets data is null');
-                this.setState({
-                    error: true
-                });
+            if (this.state.ticketId) {
+                params.TicketId = this.state.ticketId;
             }
+
+            //api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
+            api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
+                //console.log('SearchTickets data', data);
+
+                if (data) {
+                    //добавляем доп поля для карточки авиа
+                    let recPair = data.RecommendedPair;
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+                    //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
+
+                    this.setState({
+                        ticketsData: data.AviaInfos,
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair,
+                    });
+                    resolve(data);
+                }
+                else {
+                    console.error('SearchTickets data is null');
+                    this.setState({
+                        error: true
+                    });
+                    reject();
+                }
+            });
         });
     }
 
@@ -222,7 +285,7 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     renderOverlay() {
-        if (this.state.hotelsData == null) {
+        if (this.state.recommendedData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
@@ -264,7 +327,7 @@ import DisplayEnum from './DisplayEnum.js';
 
     renderResults(events) {
         //на мобиле список показываем, когда не на рекомендуемом
-        if (!(this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended)){
+        if (!(this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended)) {
             return (
                 <div className="b-packages-results-page__results">
                     <div className="b-packages-results">
