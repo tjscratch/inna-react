@@ -83,7 +83,7 @@ import DisplayEnum from './DisplayEnum.js';
         //флаги соответствия состояния и урла
         this.setState({
             listType: this.getListTypeFromProps(props),
-            display: props.routeQuery.display,
+            display: props.routeQuery.display || DisplayEnum.Recommended,
             ticketId: props.routeQuery.ticket || null,
             hotelId: props.routeQuery.hotel || null,
         });
@@ -119,6 +119,7 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     getHotelData() {
+        console.log('getHotelData');
         //url без отеля и билета
         //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&StartVoyageDate=2015-12-01&TicketClass=0
         //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931
@@ -149,8 +150,8 @@ import DisplayEnum from './DisplayEnum.js';
                 params.TicketId = this.state.ticketId;
             }
 
-            //api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-            api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
+            api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
+            //api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
                 //console.log('SearchHotels data', data);
 
                 if (data) {
@@ -181,6 +182,7 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     getTicketData() {
+        console.log('getTicketData');
         return new Promise((resolve, reject)=> {
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
@@ -203,8 +205,8 @@ import DisplayEnum from './DisplayEnum.js';
                 params.TicketId = this.state.ticketId;
             }
 
-            //api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
-            api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
+            api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
+            //api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
                 //console.log('SearchTickets data', data);
 
                 if (data) {
@@ -236,21 +238,21 @@ import DisplayEnum from './DisplayEnum.js';
 
     setQueryString() {
         //если первый запрос, и не сохранили реком. отель и билет
-        var query = this.props.routeQuery;
-        if (!query.hotel || !query.ticket) {
-            var pair = this.state.recommendedData;
-
-            //проставляем в урл
-            setSearchParams([
-                ['hotel', pair.Hotel.HotelId],
-                ['ticket', pair.AviaInfo.VariantId1],
-                ['display', DisplayEnum.Recommended]
-            ]);
-        }
-        else if (!query.display) {
-            //проставляем в урл
-            setSearchParam('display', DisplayEnum.Recommended);
-        }
+        //var query = this.props.routeQuery;
+        //if (!query.hotel || !query.ticket) {
+        //    var pair = this.state.recommendedData;
+        //
+        //    //проставляем в урл
+        //    setSearchParams([
+        //        ['hotel', pair.Hotel.HotelId],
+        //        ['ticket', pair.AviaInfo.VariantId1],
+        //        ['display', DisplayEnum.Recommended]
+        //    ]);
+        //}
+        //else if (!query.display) {
+        //    //проставляем в урл
+        //    setSearchParam('display', DisplayEnum.Recommended);
+        //}
     }
 
     changeListType(type) {
@@ -266,10 +268,11 @@ import DisplayEnum from './DisplayEnum.js';
         });
 
         //меняем параметры в урле через history api
-        var stateDisplay = type == ListType.Hotels ? DisplayEnum.Hotels : DisplayEnum.Tickets;
+        //recommended - не проставляем в url
+        var stateDisplay = type == ListType.Tickets ? DisplayEnum.Tickets : (type == ListType.Hotels ? ListType.Hotels : null);
         setSearchParams([
-            ['hotel', pair.Hotel.HotelId],
-            ['ticket', pair.AviaInfo.VariantId1],
+            //['hotel', pair.Hotel.HotelId],
+            //['ticket', pair.AviaInfo.VariantId1],
             ['display', stateDisplay]
         ]);
     }
