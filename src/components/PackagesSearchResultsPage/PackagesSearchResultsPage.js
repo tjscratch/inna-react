@@ -104,13 +104,43 @@ import DisplayEnum from './DisplayEnum.js';
         return new Promise((resolve) => {
             //сначала запрашиваем билеты
             if (this.state.display == DisplayEnum.Tickets) {
-                this.getTicketData().then(()=> {
+                this.getTicketData().then((data)=> {
+                    //добавляем доп поля для карточки авиа
+                    let recPair = data.RecommendedPair;
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
+
+                    this.setState({
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair,
+                    });
+
                     resolve();
                     this.getHotelData();
                 });
             }
             else {
-                this.getHotelData().then(()=> {
+                this.getHotelData().then((data)=> {
+                    let recPair = data.RecommendedPair;
+                    //добавляем доп поля для карточки авиа и отеля
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
+
+                    this.setState({
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair
+                    });
+
                     resolve();
                     this.getTicketData();
                 });
@@ -157,21 +187,8 @@ import DisplayEnum from './DisplayEnum.js';
                 console.log('SearchHotels data', data);
 
                 if (data) {
-                    let recPair = data.RecommendedPair;
-                    //добавляем доп поля для карточки авиа и отеля
-                    recPair.AviaInfo.CurrentListType = this.state.listType;
-                    recPair.Hotel.CurrentListType = this.state.listType;
-                    recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
-                    recPair.Hotel.HotelsCount = data.HotelCount;
-
-                    //пока так, потом будет приходить нормальная сразу в объекте
-                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-                    //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
-
                     this.setState({
                         hotelsData: data.Hotels,
-                        recommendedData: recPair,
-                        defaultRecommendedPair: data.DefaultRecommendedPair
                     });
                     resolve(data);
                 }
@@ -217,21 +234,8 @@ import DisplayEnum from './DisplayEnum.js';
                 console.log('SearchTickets data', data);
 
                 if (data) {
-                    //добавляем доп поля для карточки авиа
-                    let recPair = data.RecommendedPair;
-                    recPair.AviaInfo.CurrentListType = this.state.listType;
-                    recPair.Hotel.CurrentListType = this.state.listType;
-                    recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
-                    recPair.Hotel.HotelsCount = data.HotelCount;
-
-                    //пока так, потом будет приходить нормальная сразу в объекте
-                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-                    //console.log(recPair.AviaInfo.TicketsCount, recPair.Hotel.HotelsCount);
-
                     this.setState({
                         ticketsData: data.AviaInfos,
-                        recommendedData: recPair,
-                        defaultRecommendedPair: data.DefaultRecommendedPair,
                     });
                     resolve(data);
                 }
