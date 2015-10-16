@@ -174,18 +174,22 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
             //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
             if (this.props.viewport.isMobile || data.CurrentListType == ListType.Hotels) {
                 return (
-                    <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
-                        {
-                            data.TicketsCount ?
-                            <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
-                            <div>Еще варианты перелета</div>
-                        }
+                    <div className="b-avia-card__actions">
+                        <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
+                            {
+                                data.TicketsCount ?
+                                <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
+                                <div>Еще варианты перелета</div>
+                            }
+                        </div>
                     </div>
                 );
             }
             else {
                 return (
-                    <a href="">Подробнее</a>
+                    <div className="b-avia-card__actions">
+                        <a href="">Подробнее</a>
+                    </div>
                 );
             }
         }
@@ -200,9 +204,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                     {this.renderTransporterInfo()}
                 </div>
                 {this.renderFlightInfo()}
-                <div className="b-avia-card__actions">
-                    {this.renderActions()}
-                </div>
+                {this.props.allowActions ? this.renderActions() : null}
             </div>
         );
     }

@@ -42,8 +42,14 @@
     color: #1e88c1;
 
     a {
+        display: inline-block;
+        width: 100%;
         color: #1e88c1;
         text-decoration: none;
+        word-break: keep-all;
+        word-wrap: normal;
+        white-space: nowrap;
+        overflow: hidden;
 
         &:hover {
             text-decoration: underline;
@@ -96,16 +102,16 @@
 
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-hotel-card__photo {
-        width: auto;
+        //width: auto;
         //margin-right: 5px;
     }
 
     .b-hotel-card__info {
-        width: auto;
+        //width: auto;
     }
 
     .b-hotel-card__actions {
-        left: inherit;
+        left: auto;
         right: 0;
         bottom: 5px;
     }
@@ -117,9 +123,9 @@
 }
 
 @media (max-width: $mobile-max-width) {
-    //.b-hotel-card {
-    //    padding: 5px 0 40px 10px;
-    //}
+    .b-hotel-card {
+        padding: 5px 0 20px 10px;
+    }
 }
 
 @media (max-width: $mobile-max-width) and (max-height: 550px) {

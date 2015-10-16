@@ -63,10 +63,10 @@ import PriceCard from '../PriceCard';
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
                         <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>
-                            <AviaCard events={events} data={aviaData}/>
+                            <AviaCard events={events} data={aviaData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__dp">
-                            <HotelCard events={events} data={hotelData}/>
+                            <HotelCard events={events} data={hotelData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__price">
                             <PriceCard data={priceData}/>

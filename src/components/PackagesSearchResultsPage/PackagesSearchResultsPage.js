@@ -387,7 +387,7 @@ import DisplayEnum from './DisplayEnum.js';
                             }
                         </div>
                         {
-                            (this.state.listType == ListType.Hotels) ?
+                            (!this.props.viewport.isMobile && this.state.listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
                                     <PackagesListInfoBlock data={this.state.hotelsData}/>
                                 </div> :

@@ -87,20 +87,6 @@
     }
 }
 
-.b-mobile-price-card__buy {
-    display: none;
-    cursor: pointer;
-    color: #fff;
-}
-
-.b-mobile-price-card-buy {
-    display: inline-block;
-    flex: 1 1 auto;
-    padding: 6px 0;
-    font-size: 1.2em;
-    text-align: center;
-}
-
 @media (max-width: $mobile-max-width) {
     .b-price-card {
         display: flex;
@@ -108,16 +94,31 @@
     }
 
     .b-price-card__link,
-    .b-price-card__price,
-    .b-price-card__buy {
+    .b-price-card__price {
         display: none;
     }
 
-    .b-mobile-price-card__buy {
+    .b-price-card__buy {
+        position: static;
         display: flex;
+        width: auto;
+        bottom: auto;
         flex: 1 1 auto;
         align-items: center;
         justify-content: center;
         background-color: #55C22B;
+        cursor: pointer;
+        color: #fff;
     }
+
+    .b-price-card-buy {
+        display: inline-block;
+        flex: 1 1 auto;
+        width: auto;
+        padding: 6px 0;
+        border-radius: 0;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
 }

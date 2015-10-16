@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import styles from './AviaResultsList.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import ReactList from 'react-list';
 import AviaCard from '../AviaCard';
 import PriceCard from '../PriceCard'
 
+@withViewport
 @withStyles(styles) class AviaResultsList extends React.Component {
     constructor(props) {
         super(props);
@@ -24,14 +26,14 @@ import PriceCard from '../PriceCard'
             var avia = data[ix];
             return (
                 <div key={key} className="b-avia-list-item">
-                    {ix}
+                    <span className="b-avia-list-item__index">{ix}</span>
                     <div className="b-avia-list-item__hotel">
                         <AviaCard data={avia}/>
                     </div>
                     <div className="b-avia-list-item__price">
                         <PriceCard
                             onChoose={() => this.chooseTicket(avia)}
-                            data={{price: avia.PackagePrice}} mode='choose'/>
+                            data={{price: avia.PackagePrice}} chooseMode={true} />
                     </div>
                 </div>
             )
@@ -52,7 +54,7 @@ import PriceCard from '../PriceCard'
                             length={data.length}
                             type='variable'
                             useTranslate3d={true}
-                            itemSizeGetter={()=>201}
+                            itemSizeGetter={()=> this.props.viewport.isMobile ? 187+5 : 190+5}
                             />
                     </div>
                 </div>

@@ -43,19 +43,22 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
             if (this.props.viewport.isMobile || data.CurrentListType == ListType.Tickets) {
                 return (
-                    <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
-                        {
-                            data.HotelsCount ?
-                            <div>Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}</div> :
-                            <div>Еще варианты отелей</div>
-                        }
+                    <div className="b-hotel-card__actions">
+                        <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
+                            {
+                                data.HotelsCount ?
+                                <div>Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}</div> :
+                                <div>Еще варианты отелей</div>
+                            }
+                        </div>
                     </div>
-
                 );
             }
             else {
                 return (
-                    <a href="">Подробнее</a>
+                    <div className="b-hotel-card__actions">
+                        <a href="">Подробнее</a>
+                    </div>
                 );
             }
         }
@@ -108,9 +111,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                             </div>
                         </div>
                     </div>
-                    <div className="b-hotel-card__actions">
-                        {this.renderActions()}
-                    </div>
+                    {this.props.allowActions ? this.renderActions() : null}
                 </div>
             );
         }

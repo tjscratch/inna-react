@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import styles from './PackagesResultsList.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import ReactList from 'react-list';
 import HotelCard from '../HotelCard';
 import PriceCard from '../PriceCard'
 
+@withViewport
 @withStyles(styles) class PackagesResultsList extends React.Component {
     constructor(props) {
         super(props);
@@ -24,14 +26,14 @@ import PriceCard from '../PriceCard'
             var hotel = data[ix];
             return (
                 <div key={key} className="b-packages-list-item">
-                    {ix}
+                    <span className="b-packages-list-item__index">{ix}</span>
                     <div className="b-packages-list-item__hotel">
                         <HotelCard data={hotel} />
                     </div>
                     <div className="b-packages-list-item__price">
                         <PriceCard
                             onChoose={() => this.chooseHotel(hotel)}
-                            data={{price: hotel.PackagePrice}} mode='choose' />
+                            data={{price: hotel.PackagePrice}} chooseMode={true} />
                     </div>
                 </div>
             )
@@ -52,7 +54,7 @@ import PriceCard from '../PriceCard'
                             length={data.length}
                             type='variable'
                             useTranslate3d={true}
-                            itemSizeGetter={()=>178}
+                            itemSizeGetter={()=> this.props.viewport.isMobile ? 184 : 182}
                             />
                     </div>
                 </div>

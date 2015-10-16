@@ -55,19 +55,11 @@ import { formatPrice } from '../../core/StringHelper.js';
                         </div>
                     </div>
                     <div className="b-price-card__buy">
-                        {this.props.mode == 'choose' ?
-                            <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>
-                                Выбрать
-                            </a>
+                        {this.props.chooseMode ?
+                            <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
                             :
-                            <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>
-                                Купить
-                            </a>
+                            <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
                         }
-                    </div>
-
-                    <div className="b-mobile-price-card__buy">
-                        <a className="b-mobile-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
                     </div>
                 </div>
             );

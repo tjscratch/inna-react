@@ -102,7 +102,16 @@
         display: none;
     }
 
+    .b-packages-results-page__results {
+        padding-bottom: 15px;
+    }
+
     .b-packages-results-page__recommended-bundle {
         padding-bottom: 2px;
+    }
+
+    //правая плашка - включено в стоимость
+    .b-packages-results__info-block {
+        display: none;
     }
 }
