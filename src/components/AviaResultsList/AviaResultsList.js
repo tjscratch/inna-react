@@ -46,15 +46,26 @@ import PriceCard from '../PriceCard'
         var data = this.props.data;
         if (data) {
             //console.log('AviaResultsList data[0]', data[0]);
+            //return (
+            //    <div className="b-avia-list">
+            //        <div className="b-avia-list__items">
+            //            <ReactList
+            //                itemRenderer={this.renderItem.bind(this)}
+            //                length={data.length}
+            //                type='variable'
+            //                useTranslate3d={true}
+            //                itemSizeGetter={()=> this.props.viewport.isMobile ? 187+5 : 190+5}
+            //                />
+            //        </div>
+            //    </div>
+            //);
+
             return (
                 <div className="b-avia-list">
                     <div className="b-avia-list__items">
                         <ReactList
                             itemRenderer={this.renderItem.bind(this)}
                             length={data.length}
-                            type='variable'
-                            useTranslate3d={true}
-                            itemSizeGetter={()=> this.props.viewport.isMobile ? 187+5 : 190+5}
                             />
                     </div>
                 </div>

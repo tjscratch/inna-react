@@ -46,15 +46,27 @@ import PriceCard from '../PriceCard'
         var data = this.props.data;
         if (data) {
             //console.log('PackagesResultsList data[0]', data[0]);
+
+            //return (
+            //    <div className="b-packages-list">
+            //        <div className="b-packages-list__items">
+            //            <ReactList
+            //                itemRenderer={this.renderItem.bind(this)}
+            //                length={data.length}
+            //                type='variable'
+            //                useTranslate3d={false}
+            //                itemSizeGetter={()=> this.props.viewport.isMobile ? 184+5 : 185+5}
+            //                />
+            //        </div>
+            //    </div>
+            //)
+
             return (
                 <div className="b-packages-list">
                     <div className="b-packages-list__items">
                         <ReactList
                             itemRenderer={this.renderItem.bind(this)}
                             length={data.length}
-                            type='variable'
-                            useTranslate3d={true}
-                            itemSizeGetter={()=> this.props.viewport.isMobile ? 184+5 : 185+5}
                             />
                     </div>
                 </div>
