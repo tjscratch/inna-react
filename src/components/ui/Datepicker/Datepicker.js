@@ -32,7 +32,12 @@ import Week from './Week.js';
 
     select(day) {
         this.setState({selected: day});
-        this.props.setDate('start', day);
+        if(this.props.start){
+            this.props.setDate('start', day);   
+        }
+        if(this.props.end){
+            this.props.setDate('end', day);   
+        }
         this.forceUpdate();
     }
 

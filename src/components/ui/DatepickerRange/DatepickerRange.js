@@ -51,8 +51,9 @@ import Datepicker from '../../ui/Datepicker';
         }
         if (type == 'end') {
             this.setState({
-                toDate: day.date.format("DD MMMM")
+                toDate: selectedDate
             })
+            this.props.setEndDate(selectedDateProps);
             this.openDatepicker('end', false);
         }
     }
@@ -63,9 +64,9 @@ import Datepicker from '../../ui/Datepicker';
             return (
                 <Datepicker
                     range={true}
-                    setDate={this.setSelectedDate.bind(this)}
                     start={this.state.datepickerStartShow}
                     end={this.state.datepickerEndShow}
+                    setDate={this.setSelectedDate.bind(this)}
                     startDate={this.props.startDate}
                     endDate={this.props.endDate}
                     />
