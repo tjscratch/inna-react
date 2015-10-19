@@ -49,16 +49,16 @@ import Week from './Week.js';
             count      = 0;
 
 
-        console.log('this.state.selected')
-        console.log(this.props)
-
         while (!done) {
             weeks.push(
                 <Week key={date.toString()}
                       date={date.clone()}
                       month={this.state.month}
                       select={this.select.bind(this)}
-                      selected={this.state.selected}/>
+                      selected={this.state.selected}
+                      startDate={this.props.startDate}
+                      endDate={this.props.endDate}
+                    />
             );
             date.add(1, "w");
             done = count++ > 2 && monthIndex !== date.month();

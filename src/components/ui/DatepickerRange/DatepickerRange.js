@@ -90,6 +90,16 @@ import Datepicker from '../../ui/Datepicker';
     }
 
     render() {
+
+        //var date = '19.10.2015';
+        //var dateParse = moment(date, "DD.MM.YYYY").format('YYYY-MM-DD', 'utc');
+        //var newDate = moment().format('YYYY-MM-DD', 'utc');
+        //console.log(moment().startOf("day"))
+        //console.log(dateParse);
+        //console.log(newDate);
+        //console.log(newDate.isBefore(dateParse, "day"))
+
+
         return (
             <div className="b-datepicker-range">
                 <div className="b-datepicker-range__item b-datepicker-range__item-start">

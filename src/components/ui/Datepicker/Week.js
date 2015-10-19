@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-//import moment from 'moment';
+import moment from 'moment';
 
 class Week extends React.Component {
 
@@ -9,7 +9,6 @@ class Week extends React.Component {
             date      = this.props.date,
             month     = this.props.month,
             startDate = this.props.startDate ? this.props.startDate : new Date();
-
 
         for (var i = 0; i < 7; i++) {
 
