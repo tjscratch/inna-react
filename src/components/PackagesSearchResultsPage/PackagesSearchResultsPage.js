@@ -22,7 +22,7 @@ import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
 import { MobileSelectedFilter } from '../MobileFilters';
 import HotelsResultsList from '../HotelsResultsList';
-import AviaResultsList from '../AviaResultsList';
+import TicketsResultsList from '../TicketsResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
 import ListType from './ListType.js';
@@ -397,7 +397,7 @@ import DisplayEnum from './DisplayEnum.js';
                                     <HotelsResultsList
                                         events={events}
                                         data={this.state.hotelsData}/> :
-                                    <AviaResultsList
+                                    <TicketsResultsList
                                         events={events}
                                         data={this.state.ticketsData}/>
                             }
