@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './PackagesResultsList.scss';
+import styles from './HotelsResultsList.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
@@ -8,7 +8,7 @@ import HotelCard from '../HotelCard';
 import PriceCard from '../PriceCard'
 
 @withViewport
-@withStyles(styles) class PackagesResultsList extends React.Component {
+@withStyles(styles) class HotelsResultsList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -45,7 +45,7 @@ import PriceCard from '../PriceCard'
     render() {
         var data = this.props.data;
         if (data) {
-            //console.log('PackagesResultsList data[0]', data[0]);
+            //console.log('HotelsResultsList data[0]', data[0]);
 
             //return (
             //    <div className="b-packages-list">
@@ -80,4 +80,4 @@ import PriceCard from '../PriceCard'
 
 }
 
-export default PackagesResultsList;
+export default HotelsResultsList;

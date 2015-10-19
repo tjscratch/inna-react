@@ -21,7 +21,7 @@ import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
 import { MobileSelectedFilter } from '../MobileFilters';
-import PackagesResultsList from '../PackagesResultsList';
+import HotelsResultsList from '../HotelsResultsList';
 import AviaResultsList from '../AviaResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
@@ -394,7 +394,7 @@ import DisplayEnum from './DisplayEnum.js';
                         <div className="b-packages-results__content">
                             {
                                 this.state.listType == ListType.Hotels ?
-                                    <PackagesResultsList
+                                    <HotelsResultsList
                                         events={events}
                                         data={this.state.hotelsData}/> :
                                     <AviaResultsList
