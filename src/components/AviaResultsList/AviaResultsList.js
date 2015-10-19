@@ -4,7 +4,7 @@ import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
 import ReactList from 'react-list';
-import AviaCard from '../AviaCard';
+import TicketCard from '../TicketCard';
 import PriceCard from '../PriceCard'
 
 @withViewport
@@ -28,7 +28,7 @@ import PriceCard from '../PriceCard'
                 <div key={key} className="b-avia-list-item">
                     <span className="b-avia-list-item__index">{ix}</span>
                     <div className="b-avia-list-item__hotel">
-                        <AviaCard data={avia}/>
+                        <TicketCard data={avia}/>
                     </div>
                     <div className="b-avia-list-item__price">
                         <PriceCard

@@ -3,7 +3,7 @@ import styles from './RecommendedBundle.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
-import AviaCard from '../AviaCard';
+import TicketCard from '../TicketCard';
 import HotelCard from '../HotelCard';
 import PriceCard from '../PriceCard';
 
@@ -67,7 +67,7 @@ import PriceCard from '../PriceCard';
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
                         <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>
-                            <AviaCard events={events} data={aviaData} allowActions={true} />
+                            <TicketCard events={events} data={aviaData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__dp">
                             <HotelCard events={events} data={hotelData} allowActions={true} />

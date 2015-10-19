@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './AviaCard.scss';
+import styles from './TicketCard.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
@@ -9,7 +9,7 @@ import { pluralize } from '../../core/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 @withViewport
-@withStyles(styles) class AviaCard extends React.Component {
+@withStyles(styles) class TicketCard extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -27,7 +27,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     renderTransporterInfo() {
         if (this.props.data) {
             var data = this.props.data.EtapsTo[0];
-            //console.log('AviaCard data', this.props.data);
+            //console.log('TicketCard data', this.props.data);
             return (
                 <div className="b-aircompany">
                     <img alt="logo" className="b-aircompany__logo"
@@ -210,4 +210,4 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     }
 }
 
-export default AviaCard;
+export default TicketCard;
