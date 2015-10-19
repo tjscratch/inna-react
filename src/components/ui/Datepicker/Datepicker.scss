@@ -99,12 +99,15 @@
     white-space: nowrap;
 }
 .b-datepicker-week__day{
+    position: relative;
     display: inline-block;
     width: $b-datepicker-day-size;
     height: $b-datepicker-day-size;
+    margin: 1px;
     text-align: center;
     border-radius: $b-datepicker-item-border-radius;
     border: 2px solid transparent;
+    vertical-align: top;
 
     &:before{
         content: '';
@@ -113,6 +116,15 @@
         height: $b-datepicker-day-size;
         vertical-align: middle;
     }
+}
+.b-datepicker-week__day-number{
+    display: inline-block;
+    line-height: 1;
+}
+.icon-emb-flight-1{
+    display: none;
+    position: absolute;
+    font-size: .85rem;
 }
 .b-datepicker-week__day-active{
     cursor: pointer;
@@ -134,5 +146,42 @@
     background-color: $b-datepicker-week__selected-bg !important;
     color: $b-datepicker-week__selected-color !important;
     cursor: inherit;
+}
+.b-datepicker-week__day-selected-start{
+    background-color: $b-datepicker-week__selected-bg !important;
+    color: $b-datepicker-week__selected-color !important;
+    cursor: inherit;
+    text-align: left;
+
+    .icon-emb-flight-1{
+        display: block;
+        right: -2px;
+        bottom: -2px;
+    }
+    .b-datepicker-week__day-number{
+        padding: 1px 0 0 2px;
+        vertical-align: top;
+    }
+}
+.b-datepicker-week__day-selected-end{
+    background-color: $b-datepicker-week__selected-bg !important;
+    color: $b-datepicker-week__selected-color !important;
+    cursor: inherit;
+    text-align: right;
+
+    .icon-emb-flight-1{
+        display: block;
+        left: -2px;
+        bottom: -4px;
+        transform: rotate(180deg);
+    }
+    .b-datepicker-week__day-number{
+        padding: 1px 2px 0 0;
+        vertical-align: top;
+    }
+}
+.b-datepicker-week__day-selected-range{
+    background-color: lighten($b-datepicker-week__selected-bg, 20%) !important;
+    color: $b-datepicker-week__selected-color !important;
 }
 // end b-datepicker-week

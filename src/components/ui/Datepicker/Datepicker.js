@@ -18,7 +18,6 @@ import Week from './Week.js';
         this.state = {
             month: month,
             selected: null,
-            afaf: null
         }
     }
 
@@ -60,6 +59,7 @@ import Week from './Week.js';
                       month={this.state.month}
                       select={this.select.bind(this)}
                       selected={this.state.selected}
+                      range={this.props.range}
                       startDate={this.props.startDate}
                       endDate={this.props.endDate}
                     />
