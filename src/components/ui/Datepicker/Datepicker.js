@@ -7,27 +7,29 @@ import DayNames from './DayNames.js';
 import Week from './Week.js';
 
 
+
 @withStyles(styles) class Datepicker extends React.Component {
 
     constructor(props) {
         super(props);
 
+        var month = moment().clone().utc().startOf("day");
+        
         this.state = {
-            month: moment().startOf("day").clone(),
-            selected: null
+            month: month,
+            selected: null,
+            afaf: null
         }
     }
 
     previous() {
         var month = this.state.month;
-        month.add(-1, "M");
-        this.setState({month: month});
+        this.setState({month: month.add(-1, "M")});
     }
 
     next() {
         var month = this.state.month;
-        month.add(1, "M");
-        this.setState({month: month});
+        this.setState({month: month.add(1, "M")});
     }
 
     select(day) {
@@ -42,11 +44,13 @@ import Week from './Week.js';
     }
 
     renderWeeks() {
+        
         var weeks      = [],
             done       = false,
-            date       = this.state.month.clone().startOf("month").add("w" - 1).day("Sunday"),
+            date       = this.state.month.clone().startOf("month").day("Sunday").add(1, 'd'),
             monthIndex = date.month(),
             count      = 0;
+
 
 
         while (!done) {

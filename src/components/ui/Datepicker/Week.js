@@ -8,8 +8,9 @@ class Week extends React.Component {
         var days      = [],
             date      = this.props.date,
             month     = this.props.month,
-            startDate = this.props.startDate ? this.props.startDate : new Date();
-
+            startDate = this.props.startDate ? moment.utc(this.props.startDate, "DD.MM.YYYY").clone().toDate() : new Date();
+        
+        
         for (var i = 0; i < 7; i++) {
 
             var isBefore = date.isBefore(startDate, "day");

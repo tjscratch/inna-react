@@ -134,11 +134,6 @@ import DatepickerRange from '../ui/DatepickerRange';
                     <TabsNav/>
                 </div>
                 <div className="b-search-form__form">
-                    <div>
-                        fromDate - {this.state.fromDate}
-                        <hr/>
-                        toDate - {this.state.toDate}
-                    </div>
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
                             <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
@@ -167,6 +162,11 @@ import DatepickerRange from '../ui/DatepickerRange';
                             </span>
                         </div>
                     </div>
+                </div>
+                <div>
+                    fromDate - {this.state.fromDate}
+                    <hr/>
+                    toDate - {this.state.toDate}
                 </div>
             </section>
         );
