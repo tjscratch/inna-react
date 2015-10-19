@@ -45,7 +45,7 @@ import Week from './Week.js';
 
 
         console.log('this.state.selected')
-        console.log(this.state)
+        console.log(this.props)
 
         while (!done) {
             weeks.push(

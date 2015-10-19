@@ -53,45 +53,45 @@ import DatepickerRange from '../ui/DatepickerRange';
             this.state = {
                 fromId: null,
                 toId: null,
-                startDate: null,
-                endDate: null
+                fromDate: null,
+                toDate: null
             };
         }
     }
 
-    getFlightClassName() {
-        var flightClass = this.state.flightClass;
-        if (flightClass) {
-            //прводим к числу
-            switch (+flightClass) {
-                case 0:
-                    return 'эконом';
-                case 1:
-                    return 'бизнес';
-            }
-        }
+    //getFlightClassName() {
+    //    var flightClass = this.state.flightClass;
+    //    if (flightClass) {
+    //        прводим к числу
+    //switch (+flightClass) {
+    //    case 0:
+    //        return 'эконом';
+    //    case 1:
+    //        return 'бизнес';
+    //}
+    //}
+    //
+    //return 'эконом';
+    //}
 
-        return 'эконом';
-    }
-
-    getPeopleCount() {
-        var adultCount = 0;
-        var childCount = 0;
-
-        if (this.state.adultCount) {
-            adultCount = +this.state.adultCount;
-        }
-        var childAges = this.state.childAges;
-        if (childAges) {
-            let agesArray = childAges.split('_');
-            if (agesArray) {
-                childCount = agesArray.length;
-            }
-        }
-
-        //ToDo: прикрутить множественную форму
-        return `${adultCount + childCount} человек`;
-    }
+    //getPeopleCount() {
+    //    var adultCount = 0;
+    //    var childCount = 0;
+    //
+    //    if (this.state.adultCount) {
+    //        adultCount = +this.state.adultCount;
+    //    }
+    //    var childAges = this.state.childAges;
+    //    if (childAges) {
+    //        let agesArray = childAges.split('_');
+    //        if (agesArray) {
+    //            childCount = agesArray.length;
+    //        }
+    //    }
+    //
+    //    //ToDo: прикрутить множественную форму
+    //    return `${adultCount + childCount} человек`;
+    //}
 
     locationFrom(data) {
         this.setState({
@@ -118,7 +118,7 @@ import DatepickerRange from '../ui/DatepickerRange';
     setFromDate(date) {
         this.setState({
             fromDate: date
-        })
+        });
     }
 
     setToDate(date) {
@@ -126,7 +126,6 @@ import DatepickerRange from '../ui/DatepickerRange';
             toDate: date
         })
     }
-
 
     render() {
         return (
@@ -149,8 +148,8 @@ import DatepickerRange from '../ui/DatepickerRange';
                         </div>
                         <div className="b-search-form-action__date">
                             <DatepickerRange
-                                startDate={this.state.startDate}
-                                endDate={this.state.endDate}
+                                startDate={this.state.fromDate}
+                                endDate={this.state.toDate}
                                 setStartDate={this.setFromDate.bind(this)}
                                 setEndDate={this.setToDate.bind(this)}
                                 />

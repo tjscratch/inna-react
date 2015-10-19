@@ -25,7 +25,8 @@ class Week extends React.Component {
             };
             if (day.isBefore) {
                 var dayItem = (
-                    <div className="b-datepicker-week__day b-datepicker-week__day-disabled">
+                    <div className="b-datepicker-week__day b-datepicker-week__day-disabled"
+                         key={day.date.toString()}>
                         {day.number}
                     </div>
                 )

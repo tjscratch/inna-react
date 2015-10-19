@@ -14,8 +14,8 @@ import Datepicker from '../../ui/Datepicker';
          toDate - 09.11.2015
          */
         this.state = {
-            startDate: this.props.startDate ? this.props.startDate : null,
-            endDate: this.props.endDate ? this.props.endDate : null,
+            fromDate: null,
+            toDate: null,
             datepickerStartShow: false,
             datepickerEndShow: false
         };
@@ -23,7 +23,6 @@ import Datepicker from '../../ui/Datepicker';
 
 
     openDatepicker(type, isShow) {
-        console.log(this.props);
         if (type == 'start') {
             this.setState({
                 datepickerStartShow: isShow,
@@ -39,11 +38,14 @@ import Datepicker from '../../ui/Datepicker';
     }
 
     setSelectedDate(type, day) {
+        let selectedDate = day.date.format("DD MMMM");
+        let selectedDateProps = day.date.format("DD.MM.YYYY");
+
         if (type == 'start') {
             this.setState({
-                fromDate: day.date.format("DD MMMM")
+                fromDate: selectedDate
             })
-            this.props.setStartDate(day.date.format("DD.MM.YYYY"));
+            this.props.setStartDate(selectedDateProps);
             this.openDatepicker('start', false);
             this.openDatepicker('end', true);
         }
@@ -64,8 +66,8 @@ import Datepicker from '../../ui/Datepicker';
                     setDate={this.setSelectedDate.bind(this)}
                     start={this.state.datepickerStartShow}
                     end={this.state.datepickerEndShow}
-                    fromDate={this.state.fromDate}
-                    toDate={this.state.toDate}
+                    startDate={this.props.startDate}
+                    endDate={this.props.endDate}
                     />
             )
         }
@@ -79,8 +81,8 @@ import Datepicker from '../../ui/Datepicker';
                     start={this.state.datepickerStartShow}
                     end={this.state.datepickerEndShow}
                     setDate={this.setSelectedDate.bind(this)}
-                    fromDate={this.state.fromDate}
-                    toDate={this.state.toDate}
+                    startDate={this.props.startDate}
+                    endDate={this.props.endDate}
                     />
             )
         }
