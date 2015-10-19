@@ -23,6 +23,7 @@ import Datepicker from '../../ui/Datepicker';
 
 
     openDatepicker(type, isShow) {
+        console.log(this.props);
         if (type == 'start') {
             this.setState({
                 datepickerStartShow: isShow,
@@ -42,6 +43,7 @@ import Datepicker from '../../ui/Datepicker';
             this.setState({
                 fromDate: day.date.format("DD MMMM")
             })
+            this.props.setStartDate(day.date.format("DD.MM.YYYY"));
             this.openDatepicker('start', false);
             this.openDatepicker('end', true);
         }

@@ -115,9 +115,15 @@ import DatepickerRange from '../ui/DatepickerRange';
     }
 
 
-    setStartDate(date) {
+    setFromDate(date) {
         this.setState({
             fromDate: date
+        })
+    }
+
+    setToDate(date) {
+        this.setState({
+            toDate: date
         })
     }
 
@@ -145,7 +151,8 @@ import DatepickerRange from '../ui/DatepickerRange';
                             <DatepickerRange
                                 startDate={this.state.startDate}
                                 endDate={this.state.endDate}
-                                setStartDate={this.setStartDate.bind(this)}
+                                setStartDate={this.setFromDate.bind(this)}
+                                setEndDate={this.setToDate.bind(this)}
                                 />
                         </div>
                         <div className="b-search-form-action__people">
