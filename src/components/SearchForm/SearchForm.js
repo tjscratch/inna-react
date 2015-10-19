@@ -6,7 +6,7 @@ import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
-import Datepicker from '../ui/Datepicker';
+import DatepickerRange from '../ui/DatepickerRange';
 
 
 @withStyles(styles) class SearchForm extends React.Component {
@@ -20,7 +20,7 @@ import Datepicker from '../ui/Datepicker';
         /*
          fromId
          toId
-         fromDate
+         fromDate - 09.11.2015
          toDate
          flightClass
          adultCount
@@ -53,16 +53,10 @@ import Datepicker from '../ui/Datepicker';
             this.state = {
                 fromId: null,
                 toId: null,
-                fromDate: null,
-                toDate: null
+                startDate: null,
+                endDate: null
             };
         }
-
-        this.state = {
-            datepickerStartShow: false,
-            datepickerEndShow: false
-        }
-
     }
 
     getFlightClassName() {
@@ -120,67 +114,13 @@ import Datepicker from '../ui/Datepicker';
         window.location = `/packages/search/${searchParams}-01.10.2015-08.10.2015-0-2-2`;
     }
 
-    openDatepicker(type, isShow) {
-        if (type == 'start') {
-            this.setState({
-                datepickerStartShow: isShow,
-                datepickerEndShow: !isShow
-            })
-        }
-        if (type == 'end') {
-            this.setState({
-                datepickerStartShow: !isShow,
-                datepickerEndShow: isShow
-            })
-        }
+
+    setStartDate(date) {
+        this.setState({
+            fromDate: date
+        })
     }
 
-    setSelectedDate(type, day) {
-        //console.table({
-        //    type: type,
-        //    data: data.format("DD MMMM")
-        //})
-        if (type == 'start') {
-            this.setState({
-                fromDate: day.date.format("DD MMMM")
-            })
-            this.openDatepicker('start', false);
-            this.openDatepicker('end', true);
-        }
-        if (type == 'end') {
-            this.setState({
-                toDate: day.date.format("DD MMMM")
-            })
-            this.openDatepicker('end', false);
-        }
-    }
-
-
-    renderDatepickerStart() {
-        if (this.state.datepickerStartShow) {
-            return (
-                <Datepicker
-                    range={true}
-                    setDate={this.setSelectedDate.bind(this)}
-                    start={this.state.datepickerStartShow}
-                    end={this.state.datepickerEndShow}
-                    />
-            )
-        }
-    }
-
-    renderDatepickerEnd() {
-        if (this.state.datepickerEndShow) {
-            return (
-                <Datepicker
-                    range={true}
-                    setDate={this.setSelectedDate.bind(this)}
-                    start={this.state.datepickerStartShow}
-                    end={this.state.datepickerEndShow}
-                    />
-            )
-        }
-    }
 
     render() {
         return (
@@ -189,6 +129,11 @@ import Datepicker from '../ui/Datepicker';
                     <TabsNav/>
                 </div>
                 <div className="b-search-form__form">
+                    <div>
+                        fromDate - {this.state.fromDate}
+                        <hr/>
+                        toDate - {this.state.toDate}
+                    </div>
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
                             <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
@@ -196,23 +141,12 @@ import Datepicker from '../ui/Datepicker';
                         <div className="b-search-form-action__location-to">
                             <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', location: this.state.to}}/>
                         </div>
-                        <div className="b-search-form-action__date-from">
-                            <div className="b-search-form-date">
-                                <input className="b-search-form-date__input" placeholder="Туда" type="text"
-                                       onFocus={this.openDatepicker.bind(this, 'start', true)}
-                                       value={this.state.fromDate}/>
-                                <i className="b-search-form-date__icon icon-emb-calendar"></i>
-                            </div>
-                            {this.renderDatepickerStart()}
-                        </div>
-                        <div className="b-search-form-action__date-to">
-                            <div className="b-search-form-date">
-                                <input className="b-search-form-date__input" placeholder="Обратно" type="text"
-                                       onFocus={this.openDatepicker.bind(this, 'end', true)}
-                                       value={this.state.toDate}/>
-                                <i className="b-search-form-date__icon icon-emb-calendar"></i>
-                            </div>
-                            {this.renderDatepickerEnd()}
+                        <div className="b-search-form-action__date">
+                            <DatepickerRange
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                setStartDate={this.setStartDate.bind(this)}
+                                />
                         </div>
                         <div className="b-search-form-action__people">
                             <div className="b-suggest">

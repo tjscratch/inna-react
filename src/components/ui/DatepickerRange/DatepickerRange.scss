@@ -1,0 +1,47 @@
+@import '../../variables.scss';
+
+.b-datepicker-range{
+    
+}
+
+.b-datepicker-range__item{
+    position: relative;
+}
+
+.b-datepicker-range__input{
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    padding: $padding-base-vertical 10px;
+    font-size: $font-size-base;
+    line-height: $line-height-computed;
+    background-color: $white;
+    border: 1px solid transparent;
+    border-radius: $b-suggest-border-radius;
+
+    &:focus{
+        border-color: $green;
+    }
+}
+.b-datepicker-range__icon{
+    position: absolute;
+    right: 9px;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    font-size: 16px;
+
+    &:before{
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    &:after{
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}

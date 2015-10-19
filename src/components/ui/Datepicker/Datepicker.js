@@ -14,9 +14,7 @@ import Week from './Week.js';
 
         this.state = {
             month: moment().startOf("day").clone(),
-            selected: null,
-            selected_start: null,
-            selected_end: null
+            selected: null
         }
     }
 
@@ -33,33 +31,8 @@ import Week from './Week.js';
     }
 
     select(day) {
-        this.setState({
-            //selected_start: day.date.format()
-            selected_start: 444444
-        });
+        this.setState({selected: day});
         this.props.setDate('start', day);
-        //if(this.props.range){
-        //    if(this.props.start){
-        //        this.setState({
-        //selected_start: day.date.format()
-        //selected_start: 444444
-        //});
-        //if (this.props.setDate) {
-        //    this.props.setDate('start', day);
-        //}
-        //}else{
-        //    this.setState({
-        //        selected_end: day.date.format()
-        //    });
-        //    if (this.props.setDate) {
-        //        this.props.setDate('end', day);
-        //    }
-        //}
-        //}else{
-        //    this.setState({
-        //        selected: day.date.format()
-        //    });    
-        //}
         this.forceUpdate();
     }
 
@@ -78,7 +51,6 @@ import Week from './Week.js';
             weeks.push(
                 <Week key={date.toString()}
                       date={date.clone()}
-                      startDate={this.state.selected_start}
                       month={this.state.month}
                       select={this.select.bind(this)}
                       selected={this.state.selected}/>

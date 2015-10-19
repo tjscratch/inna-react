@@ -10,15 +10,10 @@ class Week extends React.Component {
             month     = this.props.month,
             startDate = this.props.startDate ? this.props.startDate : new Date();
 
-        //console.table({startDate: startDate});
 
         for (var i = 0; i < 7; i++) {
 
-            if (this.props.selected) {
-                var isBefore = date.isBefore(startDate, "day");
-            } else {
-                var isBefore = date.isBefore(startDate, "day");
-            }
+            var isBefore = date.isBefore(startDate, "day");
 
             var day = {
                 name: date.format("dd").substring(0, 1),
