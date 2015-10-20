@@ -13,6 +13,7 @@ import ErrorPage from './components/ErrorPage';
 
 import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
+import HotelPage from './components/HotelPage';
 
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
@@ -41,6 +42,20 @@ const router = new Router(on => {
             `${apiUrls.DirectoryById}${state.params.toId}`
         ]);
         return <PackagesSearchResultsPage
+            routeQuery={state.query ? state.query : {}}
+            routeParams={state.params}
+            data={data}/>
+    });
+
+    //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4
+    //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4&Rooms=true
+    on('/packages/details/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:HotelId-:TicketId-:TicketBackId-:ProviderId', async (state) => {
+        //console.log('params', state.params);
+        //let data = await Storage.getPageData(state.context, [
+        //    `${apiUrls.HotelDetails}${state.params.fromId}`
+        //]);
+        let data = null;
+        return <HotelPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params}
             data={data}/>

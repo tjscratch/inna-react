@@ -16,7 +16,8 @@ import apiUrls from './../../constants/ApiUrls.js';
 import { routeDateToApiDate } from '../../core/DateHelper.js'
 
 //controls
-import { WaitMsg } from '../ui/PopupMessages';
+import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+
 import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
@@ -344,24 +345,36 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     renderOverlay() {
-        if (this.state.recommendedData == null) {
+        if (this.state.error) {
+            return (
+                <WaitMsg
+                    data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
+                    close={()=>{
+                                console.log('popup close');
+                                window.location = '/';
+                            }}
+                    cancel={()=>{
+                                console.log('popup cancel');
+                                window.location = '/';
+                            }}
+                    />
+            );
+        }
+        else if (this.state.recommendedData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
                     close={()=>{
-                        alert('popup close')
+                        console.log('popup close');
+                        window.location = '/';
                     }}
                     cancel={()=>{
-                        alert('popup cancel')
+                        console.log('popup cancel');
+                        window.location = '/';
                     }}
                     />
             );
         }
-        //else if (this.state.error) {
-        //    return (
-        //        <PopupMessage data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}} />
-        //    );
-        //}
 
         return null;
     }
