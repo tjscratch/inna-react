@@ -18,6 +18,8 @@ import HotelPage from './components/HotelPage';
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
 import siteUrls from './constants/SiteUrls.js';
+import { routeDateToApiDate } from './core/DateHelper.js'
+import _ from 'lodash';
 
 const router = new Router(on => {
 
@@ -53,8 +55,39 @@ const router = new Router(on => {
     //страница отеля
     //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4
     //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4&Rooms=true
+
+    //дети
+    //https://inna.ru/api/v1/Packages/SearchHotel?HotelId=47547&HotelProviderId=2&TicketToId=2109638805&TicketBackId=2109638826&Filter[action]=buy&Filter[displayHotel]=47547&Filter[DepartureId]=2767&Filter[ArrivalId]=6623&Filter[StartVoyageDate]=2015-12-01&Filter[EndVoyageDate]=2015-12-08&Filter[TicketClass]=0&Filter[Adult]=1&Filter[Children]=2_3&Filter[HotelId]=47547&Filter[TicketId]=2109638805&Filter[TicketBackId]=2109638826&Filter[ProviderId]=2
+    // &Filter[ChildrenAges][]=2&Filter[ChildrenAges][]=3&Rooms=true
+
+    //достаточно
+    //https://inna.ru/api/v1/Packages/SearchHotel?HotelId=407760&HotelProviderId=4
+    // &TicketToId=2109478486&TicketBackId=2109478583
+    // &Filter[DepartureId]=2767&Filter[ArrivalId]=6623
+    // &Filter[StartVoyageDate]=2015-12-01&Filter[EndVoyageDate]=2015-12-08&Filter[TicketClass]=0&Filter[Adult]=1
     on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:HotelId-:TicketId-:TicketBackId-:ProviderId`, async (state) => {
         //console.log('params', state.params);
+
+        var filter = _.cloneDeep(state.params);
+        _.assign(filter, {
+            StartVoyageDate: routeDateToApiDate(state.params.fromDate),
+            EndVoyageDate: routeDateToApiDate(state.params.toDate)
+        });
+
+        if (state.params.childAges) {
+            filter.ChildrenAges = state.params.childAges.split('_');
+        }
+
+        var prms = {
+            HotelId: state.params.HotelId,
+            HotelProviderId: state.params.ProviderId,
+            TicketToId: state.params.TicketId,
+            TicketBackId: state.params.TicketBackId,
+            Filter: {...filter}
+        };
+
+        console.log('prms', prms);
+
         let data = await Storage.getPageData(state.context, [
             `${apiUrls.HotelDetails}?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4`
         ]);
