@@ -22,7 +22,9 @@ import PriceCard from '../PriceCard';
     }
 
     buyClick() {
-        alert('buy click');
+        if (this.props.events.bundleBuyClick) {
+            this.props.events.bundleBuyClick();
+        }
     }
 
     render() {

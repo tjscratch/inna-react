@@ -17,6 +17,7 @@ import HotelPage from './components/HotelPage';
 
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
+import siteUrls from './constants/SiteUrls.js';
 
 const router = new Router(on => {
 
@@ -26,16 +27,18 @@ const router = new Router(on => {
         return component && <App context={state.context}>{component}</App>;
     });
 
-    on('/', async (state) => {
+    //главная страница
+    on(siteUrls.Root, async (state) => {
         let sectionId = 4;
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
         return <MainPage data={data}/>
     });
 
+    //страница результатов поиска ДП
     //https://inna.ru/#/packages/search/6733-6623-03.10.2015-10.10.2015-0-2-1_2_3
     //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
-    on('/packages/search/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?', async (state) => {
+    on(`${siteUrls.SearchPackages}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?`, async (state) => {
         //console.log('params', state.params);
         let data = await Storage.getPageData(state.context, [
             `${apiUrls.DirectoryById}${state.params.fromId}`,
@@ -47,14 +50,14 @@ const router = new Router(on => {
             data={data}/>
     });
 
+    //страница отеля
     //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4
     //http://test.inna.ru/api/v1/Packages/SearchHotel?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4&Rooms=true
-    on('/packages/details/:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:HotelId-:TicketId-:TicketBackId-:ProviderId', async (state) => {
+    on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:HotelId-:TicketId-:TicketBackId-:ProviderId`, async (state) => {
         //console.log('params', state.params);
-        //let data = await Storage.getPageData(state.context, [
-        //    `${apiUrls.HotelDetails}${state.params.fromId}`
-        //]);
-        let data = null;
+        let data = await Storage.getPageData(state.context, [
+            `${apiUrls.HotelDetails}?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4`
+        ]);
         return <HotelPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params}

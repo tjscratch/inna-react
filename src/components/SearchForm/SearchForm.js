@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import api from '../../core/ApiClient';
 import apiUrls from '../../constants/ApiUrls.js';
+import siteUrls from '../../constants/SiteUrls.js';
 import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
@@ -107,8 +108,8 @@ import Storage from '../../storage.js';
             this.state.fromId,
             this.state.toId
         ].join('-');
-        //window.location = `/packages/search/${searchParams}-01.10.2015-08.10.2015-0-2-2`;
-        window.location = `/packages/search/${searchParams}-01.12.2015-08.12.2015-0-2-2`;
+        //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
+        window.location = `${siteUrls.SearchPackages}${searchParams}-01.12.2015-08.12.2015-0-2-2`;
     }
 
     componentWillMount() {

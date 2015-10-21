@@ -11,6 +11,7 @@ import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
 //api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
+import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
 import { routeDateToApiDate } from '../../core/DateHelper.js'
@@ -95,6 +96,25 @@ import DisplayEnum from './DisplayEnum.js';
             //проставляем ссылки на рек вариант
             this.setQueryString();
         });
+    }
+
+    bundleBuyClick() {
+        console.log('bundle buy click');
+        //купить
+
+        //формируем урл на страницу отеля
+        var params = [];
+        var routeParams = this.props.routeParams;
+        for(var key in routeParams) {
+            params.push(routeParams[key]);
+        }
+        params.push(this.state.recommendedData.Hotel.HotelId);
+        params.push(this.state.recommendedData.AviaInfo.VariantId1);
+        params.push(this.state.recommendedData.AviaInfo.VariantId2);
+        params.push(this.state.recommendedData.Hotel.ProviderId);
+        var url = `${siteUrls.HotelDetails}${params.join('-')}`;
+        //console.log(url);
+        window.location = url;
     }
 
     getListTypeFromProps(props) {
@@ -436,7 +456,8 @@ import DisplayEnum from './DisplayEnum.js';
         var events = {
             changeListType: this.changeListType.bind(this),
             chooseHotel: this.chooseHotel.bind(this),
-            chooseTicket: this.chooseTicket.bind(this)
+            chooseTicket: this.chooseTicket.bind(this),
+            bundleBuyClick: this.bundleBuyClick.bind(this)
         };
 
         return (
