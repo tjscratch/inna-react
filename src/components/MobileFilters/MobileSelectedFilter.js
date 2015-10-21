@@ -8,7 +8,8 @@ import withStyles from '../../decorators/withStyles';
     }
 
     goBack() {
-        alert('goBack');
+        console.log('goBack');
+        window.history.back();
     }
 
     openFilter() {

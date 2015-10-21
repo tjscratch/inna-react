@@ -261,8 +261,7 @@ import DisplayEnum from './DisplayEnum.js';
             setSearchParams([
                 ['hotel', pair.Hotel.HotelId],
                 ['ticket', pair.AviaInfo.VariantId1],
-                //['display', DisplayEnum.Recommended]
-            ]);
+            ], true);//replace
         }
         //else if (!query.display) {
         //    //проставляем в урл

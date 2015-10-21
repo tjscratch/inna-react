@@ -4,8 +4,8 @@ import Location from './Location';
 let LocationHelper = (function () {
 
     //добавить или заменить параметры в query string'е (name value)
-    function setSearchParamsWithHash(paramsArray, hashValue, state) {
-        //console.log('setSearchParamsWithHash', paramsArray, hashValue, state);
+    function setSearchParamsWithHash(paramsArray, hashValue, state, doReplaceInsteadPushState) {
+        //console.log('setSearchParamsWithHash', paramsArray, hashValue, state, doReplaceInsteadPushState);
 
         if (hashValue) {
             hashValue = '#' + hashValue;
@@ -85,29 +85,40 @@ let LocationHelper = (function () {
         var searchString = nameValueStrings.length > 0 ? `?${nameValueStrings.join('&')}` : '';
         //console.log('searchString', searchString);
 
-        Location.pushState(state, location.pathname + searchString + hashValue);
+        if (doReplaceInsteadPushState) {
+            Location.replaceState(state, location.pathname + searchString + hashValue);
+        }
+        else {
+            Location.pushState(state, location.pathname + searchString + hashValue);
+        }
     }
 
-    function setSearchParams(paramsArray) {
-        setSearchParamsWithHash(paramsArray);
+    function setSearchParams(paramsArray, doReplaceInsteadPushState) {
+        setSearchParamsWithHash(paramsArray, null, null, doReplaceInsteadPushState);
     }
 
     //добавляет или заменяет параметр в queryString'е
-    function setSearchParam(name, value) {
+    function setSearchParam(name, value, doReplaceInsteadPushState) {
         //console.log('setSearchParam', name, value);
 
         var paramsArray = [];
         paramsArray.push([name, value]);
 
-        setSearchParamsWithHash(paramsArray);
+        setSearchParamsWithHash(paramsArray, null, null, doReplaceInsteadPushState);
     }
 
-    function setHash(hashValue, state) {
+    function setHash(hashValue, state, doReplaceInsteadPushState) {
         //console.log('setHash', hashValue, state);
 
         if (hashValue) {
             hashValue = '#' + hashValue;
-            Location.pushState(state, location.pathname + location.search + hashValue);
+
+            if (doReplaceInsteadPushState) {
+                Location.replaceState(state, location.pathname + location.search + hashValue);
+            }
+            else {
+                Location.pushState(state, location.pathname + location.search + hashValue);
+            }
         }
     }
 
