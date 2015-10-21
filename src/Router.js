@@ -58,6 +58,7 @@ const router = new Router(on => {
         let data = await Storage.getPageData(state.context, [
             `${apiUrls.HotelDetails}?HotelId=121667&HotelProviderId=4&TicketToId=800411550&TicketBackId=800411644&Filter%5Baction%5D=buy&Filter%5BdisplayHotel%5D=121667&Filter%5BDepartureId%5D=6733&Filter%5BArrivalId%5D=6623&Filter%5BStartVoyageDate%5D=2015-12-01&Filter%5BEndVoyageDate%5D=2015-12-15&Filter%5BTicketClass%5D=0&Filter%5BAdult%5D=2&Filter%5BHotelId%5D=121667&Filter%5BTicketId%5D=800411550&Filter%5BTicketBackId%5D=800411644&Filter%5BProviderId%5D=4`
         ]);
+        //data = null;
         return <HotelPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params}

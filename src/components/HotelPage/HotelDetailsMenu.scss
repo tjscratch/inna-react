@@ -1,0 +1,67 @@
+//menu
+.b-hotel-details-menu {
+    position: relative;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    //font-size: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.b-hotel-details-menu-item {
+    position: relative;
+    display: table-cell;
+    width: 1%;
+    padding: 6px 6px 6px 33px;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px #bdbdbd solid;
+    border-right: none;
+
+    &:last-child {
+        border-right: 1px #bdbdbd solid;;
+    }
+
+    &:hover {
+        background-color: #e0e0e0;
+        color: #59595c;
+    }
+}
+
+.b-hotel-details-menu-item-icon {
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    width: 20px;
+    height: 21px;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-image: url('./icon-menu.png');
+    background-repeat: no-repeat;
+}
+
+.b-hotel-details-menu-item-icon_description {
+    background-position: 0 -23px;
+}
+
+.b-hotel-details-menu-item-icon_room {
+    background-position: 0 -160px;
+}
+
+.b-hotel-details-menu-item-icon_service {
+    background-position: 0 -206px;
+}
+
+.b-hotel-details-menu-item-icon_map {
+    background-position: 0 -69px;
+}
+
+.b-hotel-details-menu-item-icon_votes {
+    background-position: 0 -114px;
+}

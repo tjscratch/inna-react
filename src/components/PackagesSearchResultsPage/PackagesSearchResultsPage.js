@@ -1,12 +1,12 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
+//default
 import React, { PropTypes } from 'react';
 import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from '../../core/Location';
-import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
 
 //api
 import api from './../../core/ApiClient';
@@ -15,6 +15,7 @@ import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
 import { routeDateToApiDate } from '../../core/DateHelper.js'
+import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
 
 //controls
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
@@ -27,6 +28,7 @@ import HotelsResultsList from '../HotelsResultsList';
 import TicketsResultsList from '../TicketsResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
+//enums
 import ListType from './ListType.js';
 import DisplayEnum from './DisplayEnum.js';
 
@@ -366,7 +368,7 @@ import DisplayEnum from './DisplayEnum.js';
     renderOverlay() {
         if (this.state.error) {
             return (
-                <WaitMsg
+                <ErrorMsg
                     data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
                     close={()=>{
                                 console.log('popup close');
