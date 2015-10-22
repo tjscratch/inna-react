@@ -65,7 +65,7 @@ function render(state) {
                     //    window.scrollTo(0, 0);
                     //}
 
-                    console.log('window.scrollTo 0 0');
+                    //console.log('window.scrollTo 0 0');
                     window.scrollTo(0, 0);
                 }
             }
@@ -90,7 +90,7 @@ function run() {
             state: location.state,
             context
         });
-        console.log('currentState', currentState);
+        //console.log('currentState', currentState);
         render(currentState);
     });
 

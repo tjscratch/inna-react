@@ -35,4 +35,9 @@
 
 .b-crumbs-item-link {
     color: #0277bd;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }

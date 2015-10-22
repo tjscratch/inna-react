@@ -30,7 +30,8 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
         this.state = {
             error: null,
             data: null,
-            hotel: null
+            hotel: null,
+            descriptionExpanded: false
         }
     }
 
@@ -82,7 +83,7 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
         return new Promise((resolve, reject)=> {
             var params = this.getParams();
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-            //api.get(apiUrls.HotelDetails, params).then((data)=> {
+                //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
                 if (data) {
                     this.setState({
@@ -107,7 +108,7 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
             params.Rooms = true;
 
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-            //api.get(apiUrls.HotelDetails, params).then((data)=> {
+                //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
                 if (data) {
                     var mergedData = _.merge(this.state.data, data);
@@ -124,6 +125,12 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
                     reject();
                 }
             });
+        });
+    }
+
+    toggleDescriptionExpand() {
+        this.setState({
+            descriptionExpanded: !this.state.descriptionExpanded
         });
     }
 
@@ -160,18 +167,24 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
     renderDescription(hotel) {
         if (hotel.Description) {
             return (
-                <div>
-                    {hotel.Description.map((item, ix)=> {
-                        return (
-                            <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
-                        )
-                    })}
-                    <p>
-                        <b>Подробные сведения</b><br/><br/>
-                        <b>Время прибытия:</b>&nbsp;{hotel.CheckInTime}
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <b>Выезд:</b>&nbsp;{hotel.CheckOutTime}
-                    </p>
+                <div className="b-hotel-details-description">
+                    <div className={`b-hotel-details-description-wrap ${this.state.descriptionExpanded ? 'b-hotel-details-description-wrap_expanded' : ''}`}>
+                        {hotel.Description.map((item, ix)=> {
+                            return (
+                                <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
+                            )
+                        })}
+                        <p>
+                            <b>Подробные сведения</b><br/><br/>
+                            <b>Время прибытия:</b>&nbsp;{hotel.CheckInTime}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>Выезд:</b>&nbsp;{hotel.CheckOutTime}
+                        </p>
+                    </div>
+                    <div className="b-hotel-details-description-toggle"
+                        onClick={this.toggleDescriptionExpand.bind(this)}>
+                        {this.state.descriptionExpanded ? 'Свернуть' : 'Развернуть'}
+                    </div>
                 </div>
             )
         }
