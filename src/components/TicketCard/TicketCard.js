@@ -168,29 +168,60 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         }
     }
 
+    changeTicket() {
+        if (this.props.events && this.props.events.changeTicket) {
+            this.props.events.changeTicket();
+        }
+    }
+
+    ticketAbout(e) {
+        e.preventDefault();
+
+        if (this.props.events && this.props.events.ticketAbout) {
+            this.props.events.ticketAbout();
+        }
+    }
+
     renderActions() {
         var data = this.props.data;
         if (data) {
-            //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Hotels) {
+            //вид на странице отеля
+            if (this.props.events && this.props.events.changeTicket && this.props.events.ticketAbout) {
                 return (
-                    <div className="b-avia-card__actions">
-                        <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
-                            {
-                                data.TicketsCount ?
-                                <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
-                                <div>Еще варианты перелета</div>
-                            }
+                    <div>
+                        <div className="b-avia-card__actions">
+                            <div className="b-avia-card-actions" onClick={this.changeTicket.bind(this)}>
+                                Заменить перелет
+                            </div>
                         </div>
+                        <a className="b-avia-card-actions__about-link" href=""
+                           onClick={(e)=>{this.ticketAbout(e)}}>Подробнее о перелете</a>
                     </div>
                 );
             }
             else {
-                return (
-                    <div className="b-avia-card__actions">
-                        <a href="">Подробнее</a>
-                    </div>
-                );
+                //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
+                if (this.props.viewport.isMobile || data.CurrentListType == ListType.Hotels) {
+                    return (
+                        <div className="b-avia-card__actions">
+                            <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
+                                {
+                                    data.TicketsCount ?
+                                        <div>
+                                            Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
+                                        <div>Еще варианты перелета</div>
+                                }
+                            </div>
+                        </div>
+                    );
+                }
+                else {
+                    return (
+                        <div className="b-avia-card__actions">
+                            <a href="">Подробнее</a>
+                        </div>
+                    );
+                }
             }
         }
 

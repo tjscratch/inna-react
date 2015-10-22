@@ -9,7 +9,8 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
-import { routeDateToApiDate } from '../../core/DateHelper.js'
+import { routeDateToApiDate, apiDateToJsDate, dateToDDMMMM } from '../../core/DateHelper.js';
+import { pluralize } from '../../core/CountHelper.js';
 import _ from 'lodash';
 
 //controls
@@ -17,6 +18,9 @@ import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
 import BreadCrumbs from '../BreadCrumbs';
 import HotelDetailsMenu from './HotelDetailsMenu.js';
 import HotelDetailsGallery from './HotelDetailsGallery.js';
+import Price from '../Price';
+import HotelCard from '../HotelCard';
+import TicketCard from '../TicketCard';
 
 @withViewport
 @withStyles(styles) class HotelPage extends React.Component {
@@ -134,6 +138,14 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
         });
     }
 
+    changeTicket() {
+        console.log('changeTicket click');
+    }
+
+    ticketAbout() {
+        console.log('ticketAbout click');
+    }
+
     renderOverlay() {
         //var data = this.props.data[0];
         var data = this.state.data;
@@ -168,7 +180,8 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
         if (hotel.Description) {
             return (
                 <div className="b-hotel-details-description">
-                    <div className={`b-hotel-details-description-wrap ${this.state.descriptionExpanded ? 'b-hotel-details-description-wrap_expanded' : ''}`}>
+                    <div
+                        className={`b-hotel-details-description-wrap ${this.state.descriptionExpanded ? 'b-hotel-details-description-wrap_expanded' : ''}`}>
                         {hotel.Description.map((item, ix)=> {
                             return (
                                 <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
@@ -182,7 +195,7 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
                         </p>
                     </div>
                     <div className="b-hotel-details-description-toggle"
-                        onClick={this.toggleDescriptionExpand.bind(this)}>
+                         onClick={this.toggleDescriptionExpand.bind(this)}>
                         {this.state.descriptionExpanded ? 'Свернуть' : 'Развернуть'}
                     </div>
                 </div>
@@ -198,13 +211,22 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
 
         //var data = this.props.data[0];
         var data = this.state.data;
+        var ticket = data ? data.AviaInfo : null;
         var hotel = data ? data.Hotel : null;
         var photos = (hotel && hotel.Photos) ? hotel.Photos.MediumPhotos.map((img, ix)=> {
             return hotel.Photos.BaseUrl + img;
         }) : null;
 
+        var checkInDate = hotel ? apiDateToJsDate(hotel.CheckIn) : null;
+        var checkOutDate = hotel ? apiDateToJsDate(hotel.CheckOut) : null;
+
         //console.log('data:', data);
         //console.log('hotel', hotel);
+
+        var events = {
+            changeTicket: this.changeTicket.bind(this),
+            ticketAbout: this.ticketAbout.bind(this)
+        };
 
         if (hotel) {
             return (
@@ -231,8 +253,30 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
                         {this.renderDescription(hotel)}
                     </div>
                     <div className="b-hotel-details__package">
+                        <div className="b-hotel-details-package__title">Пакет с этим отелем</div>
+                        <div className="b-hotel-details-package__price">
+                            Стоимость пакета, включая налоги и сборы:&nbsp;&nbsp;<Price data={hotel.PackagePrice}/>
+                        </div>
+                        <div className="b-hotel-details-package__include">
+                            В стоимость пакета включен перелет {ticket.CityFrom} – {ticket.CityTo} – {ticket.CityFrom},
+                            проживание {hotel.HotelName} с {dateToDDMMMM(checkInDate)}
+                            по {dateToDDMMMM(checkOutDate)} {checkOutDate.getFullYear()},
+                            на {hotel.NightCount} {pluralize(hotel.NightCount, ['ночь', 'ночи', 'ночей'])},
+                            медицинская страховка, топливный сбор. Стоимость окончательная со всеми налогами и сборами.
+                        </div>
+                        <div className="b-hotel-details-package__package">
+                            <div className="b-hotel-details-bundle">
+                                <div className="b-hotel-details-bundle__ticket">
+                                    <TicketCard events={events} data={ticket} allowActions={true} />
+                                </div>
+                                <div className="b-hotel-details-bundle__hotel">
+                                    <HotelCard data={hotel}/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="b-hotel-details__rooms">
+                        <div className="b-hotel-details-rooms__title">Выбор номера</div>
                     </div>
                     <div className="b-hotel-details__services">
                     </div>

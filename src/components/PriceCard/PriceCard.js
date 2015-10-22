@@ -5,6 +5,8 @@ import withViewport from '../../decorators/withViewport';
 
 import { formatPrice } from '../../core/StringHelper.js';
 
+import Price from '../Price';
+
 @withViewport
 @withStyles(styles) class PriceCard extends React.Component {
     constructor(props) {
@@ -43,8 +45,7 @@ import { formatPrice } from '../../core/StringHelper.js';
         if (this.props.viewport.isMobile) {
             return (
                 <div className="b-price__price">
-                    <span className="b-price-value">{formatPrice(data.price)}</span>
-                    <i className="b-price-rub icon-emb-rouble"></i>
+                    <Price data={data.price} />
                 </div>
             );
         }
@@ -68,8 +69,7 @@ import { formatPrice } from '../../core/StringHelper.js';
                                 Стоимость пакета
                             </div>
                             <div className="b-price__price">
-                                <span className="b-price-value">{formatPrice(data.price)}</span>
-                                <i className="b-price-rub icon-emb-rouble"></i>
+                                <Price data={data.price} />
                             </div>
                         </div>
                     </div>

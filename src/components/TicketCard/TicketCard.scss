@@ -181,6 +181,18 @@
     }
 }
 
+.b-avia-card-actions__about-link {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    color: #0277bd;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-flight-info__text {
         width: 44%;
