@@ -13,10 +13,11 @@ import withViewport from '../../decorators/withViewport';
 
     render() {
         let { width, height } = this.props.viewport;
+        this.renderCss(`.header-viewport:after {content:' ${width}x${height}';}`);
 
         return (
             <header className="header">
-                <span ref="viewport" className="header-viewport">Viewport: {`${width}x${height}`}</span>
+                <span ref="viewport" className="header-viewport">Viewport:</span>
                 <div className="b-header">
                     <NavMobile className="b-header__nav-mobile"/>
                     <div className="b-header__brand">
