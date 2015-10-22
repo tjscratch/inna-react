@@ -17,7 +17,7 @@ import withStyles from '../../decorators/withStyles';
                         <div className="b-gallery-img-list">
                             {data.map((img, ix)=> {
                                 return (
-                                    <img className="b-gallery-img" src={img}/>
+                                    <img key={ix} className="b-gallery-img" src={img}/>
                                 )
                             })}
                         </div>

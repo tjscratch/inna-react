@@ -9,6 +9,8 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
+import { routeDateToApiDate } from '../../core/DateHelper.js'
+import _ from 'lodash';
 
 //controls
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
@@ -25,38 +27,109 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
     constructor(props) {
         super(props);
 
-        //данные для страницы приходят из роутера
-        //var data = null;
-        //if (props.data && props.data.length > 0) {
-        //    data = props.data[0];
-        //}
-        //
-        //if (data) {
-        //    this.state = {
-        //        data: data,
-        //        hotel: data.Hotel,
-        //        ticket: data.AviaInfo,
-        //        error: null
-        //    };
-        //}
-        //else {
-        //    this.state = {
-        //        data: null,
-        //        hotel: null,
-        //        ticket: null,
-        //        error: null
-        //    };
-        //}
-        //
-        //console.log('hotel page, state:', this.state);
-
         this.state = {
-            error: null
+            error: null,
+            data: null,
+            hotel: null
         }
     }
 
+    componentDidMount() {
+        this.getData().then(()=> {
+        });
+    }
+
+    getParams() {
+        var routeParams = this.props.routeParams;
+        var filter = {
+            'Filter[DepartureId]': routeParams.fromId,
+            'Filter[ArrivalId]': routeParams.toId,
+            'Filter[StartVoyageDate]': routeDateToApiDate(routeParams.fromDate),
+            'Filter[EndVoyageDate]': routeDateToApiDate(routeParams.toDate),
+            'Filter[TicketClass]': routeParams.flightClass,
+            'Filter[Adult]': routeParams.adultCount,
+            'Filter[Children]': routeParams.childAges
+        };
+        if (routeParams.childAges) {
+            filter['Filter[ChildrenAges]'] = routeParams.childAges.split('_');
+        }
+
+        var params = {
+            HotelId: routeParams.HotelId,
+            HotelProviderId: routeParams.ProviderId,
+            TicketToId: routeParams.TicketId,
+            TicketBackId: routeParams.TicketBackId,
+            //Rooms: true,
+            ...filter
+        };
+        //console.log('params', params);
+        return params;
+    }
+
+    getData() {
+        return new Promise((resolve) => {
+            //инфа по отелю
+            this.getHotelData().then((data)=> {
+                resolve();
+
+                //инфа по комнатам
+                this.getRoomsData();
+            });
+        });
+    }
+
+    getHotelData() {
+        return new Promise((resolve, reject)=> {
+            var params = this.getParams();
+            api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
+            //api.get(apiUrls.HotelDetails, params).then((data)=> {
+                //console.log('HotelDetails data', data);
+                if (data) {
+                    this.setState({
+                        data: data
+                    });
+                    resolve(data);
+                }
+                else {
+                    console.error('HotelDetails data is null');
+                    this.setState({
+                        error: true
+                    });
+                    reject();
+                }
+            });
+        });
+    }
+
+    getRoomsData() {
+        return new Promise((resolve, reject)=> {
+            var params = this.getParams();
+            params.Rooms = true;
+
+            api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
+            //api.get(apiUrls.HotelDetails, params).then((data)=> {
+                //console.log('HotelDetails data', data);
+                if (data) {
+                    var mergedData = _.merge(this.state.data, data);
+                    this.setState({
+                        data: mergedData
+                    });
+                    resolve(data);
+                }
+                else {
+                    console.error('HotelDetails data is null');
+                    this.setState({
+                        error: true
+                    });
+                    reject();
+                }
+            });
+        });
+    }
+
     renderOverlay() {
-        var data = this.props.data[0];
+        //var data = this.props.data[0];
+        var data = this.state.data;
 
         if (this.state.error) {
             return (
@@ -84,19 +157,43 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
         return null;
     }
 
+    renderDescription(hotel) {
+        if (hotel.Description) {
+            return (
+                <div>
+                    {hotel.Description.map((item, ix)=> {
+                        return (
+                            <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
+                        )
+                    })}
+                    <p>
+                        <b>Подробные сведения</b><br/><br/>
+                        <b>Время прибытия:</b>&nbsp;{hotel.CheckInTime}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Выезд:</b>&nbsp;{hotel.CheckOutTime}
+                    </p>
+                </div>
+            )
+        }
+
+        return null;
+    }
+
     render() {
         var title = 'Инна-Тур - Отель';
         this.context.onSetTitle(title);
 
-        var data = this.props.data[0];
-        console.log('data:', data);
-        var hotel = data.Hotel;
-        console.log('hotel', hotel);
-        var photos = hotel.Photos ? hotel.Photos.MediumPhotos.map((img, ix)=>{
+        //var data = this.props.data[0];
+        var data = this.state.data;
+        var hotel = data ? data.Hotel : null;
+        var photos = (hotel && hotel.Photos) ? hotel.Photos.MediumPhotos.map((img, ix)=> {
             return hotel.Photos.BaseUrl + img;
         }) : null;
 
-        if (data) {
+        //console.log('data:', data);
+        //console.log('hotel', hotel);
+
+        if (hotel) {
             return (
                 <section className="b-hotel-details">
                     {this.renderOverlay()}
@@ -114,23 +211,11 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
                         <HotelDetailsMenu />
                     </div>
                     <div className="b-hotel-details__gallery">
-                        <HotelDetailsGallery data={photos} />
+                        <HotelDetailsGallery data={photos}/>
                     </div>
                     <div className="b-hotel-details__description">
                         <div className="b-hotel-details-description__title">Описание отеля</div>
-                        <div>
-                            {hotel.Description.map((item, ix)=>{
-                                return (
-                                    <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
-                                )
-                            })}
-                            <p>
-                                <b>Подробные сведения</b><br/><br/>
-                                <b>Время прибытия:</b>&nbsp;{hotel.CheckInTime}
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <b>Выезд:</b>&nbsp;{hotel.CheckOutTime}
-                            </p>
-                        </div>
+                        {this.renderDescription(hotel)}
                     </div>
                     <div className="b-hotel-details__package">
                     </div>
@@ -145,8 +230,13 @@ import HotelDetailsGallery from './HotelDetailsGallery.js';
                 </section>
             );
         }
-
-        return null;
+        else {
+            return (
+                <section className="b-hotel-details">
+                    {this.renderOverlay()}
+                </section>
+            );
+        }
     }
 }
 
