@@ -1,0 +1,78 @@
+@import "../variables.scss";
+
+.b-hotel-details-rooms__title {
+    font-size: $hotel-details-title-size;
+    font-weight: bold;
+}
+
+
+.b-rooms-list-item {
+    margin: 10px 0;
+    border-bottom: 1px solid #dedede;
+}
+
+.b-rooms-list-item__info {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.b-rooms-list-item-info__photo {
+    display: inline-block;
+    margin: 4px 10px 0 0;
+    vertical-align: top;
+}
+
+.b-rooms-list-item-info-photo {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.b-rooms-list-item-info__text {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.b-rooms-list-item-link {
+    color: #1e88c1;
+    text-decoration: underline;
+}
+
+.b-rooms-list-item-bed-type-list {
+    font-size: .85em;
+}
+
+.b-rooms-list-item-text-extra-list {
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+.b-rooms-list-item-text-extra-list-item {
+    display: inline-block;
+    margin-right: 7px;
+    margin-bottom: 5px;
+    padding: 3px;
+    border-radius: 2px;
+    border: 1px solid #bdbdbd;
+    color: #4c4c4c;
+    font-size: 12px;
+}
+
+.b-rooms-list-item__description {
+    height: 0px;
+    padding: 0 20px;
+    background: #f5f5f5;
+    transition: all $animation-speed;
+    overflow: hidden;
+    font-size: .9em;
+
+    &.b-rooms-list-item__description_expanded {
+        height: auto;
+        padding: 20px;
+        border: 1px solid #dedede;
+        border-width: 1px 0 0;
+    }
+
+    h3 {
+        font-size: 1.1em;
+    }
+}
