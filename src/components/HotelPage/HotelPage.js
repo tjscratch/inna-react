@@ -9,8 +9,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
-import { routeDateToApiDate, apiDateToJsDate, dateToDDMMMM } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
+import { routeDateToApiDate } from '../../core/DateHelper.js';
 import _ from 'lodash';
 
 //controls
@@ -18,9 +17,8 @@ import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
 import BreadCrumbs from '../BreadCrumbs';
 import HotelDetailsMenu from './HotelDetailsMenu.js';
 import HotelDetailsGallery from './HotelDetailsGallery.js';
-import Price from '../Price';
-import HotelCard from '../HotelCard';
-import TicketCard from '../TicketCard';
+import HotelDetailsDescription from './HotelDetailsDescription.js';
+import HotelDetailsPackage from './HotelDetailsPackage.js';
 
 @withViewport
 @withStyles(styles) class HotelPage extends React.Component {
@@ -34,8 +32,7 @@ import TicketCard from '../TicketCard';
         this.state = {
             error: null,
             data: null,
-            hotel: null,
-            descriptionExpanded: false
+            hotel: null
         }
     }
 
@@ -132,12 +129,6 @@ import TicketCard from '../TicketCard';
         });
     }
 
-    toggleDescriptionExpand() {
-        this.setState({
-            descriptionExpanded: !this.state.descriptionExpanded
-        });
-    }
-
     changeTicket() {
         console.log('changeTicket click');
     }
@@ -176,35 +167,6 @@ import TicketCard from '../TicketCard';
         return null;
     }
 
-    renderDescription(hotel) {
-        if (hotel.Description) {
-            return (
-                <div className="b-hotel-details-description">
-                    <div
-                        className={`b-hotel-details-description-wrap ${this.state.descriptionExpanded ? 'b-hotel-details-description-wrap_expanded' : ''}`}>
-                        {hotel.Description.map((item, ix)=> {
-                            return (
-                                <div key={ix} dangerouslySetInnerHTML={{__html: item.Content}}></div>
-                            )
-                        })}
-                        <p>
-                            <b>Подробные сведения</b><br/><br/>
-                            <b>Время прибытия:</b>&nbsp;{hotel.CheckInTime}
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <b>Выезд:</b>&nbsp;{hotel.CheckOutTime}
-                        </p>
-                    </div>
-                    <div className="b-hotel-details-description-toggle"
-                         onClick={this.toggleDescriptionExpand.bind(this)}>
-                        {this.state.descriptionExpanded ? 'Свернуть' : 'Развернуть'}
-                    </div>
-                </div>
-            )
-        }
-
-        return null;
-    }
-
     render() {
         var title = 'Инна-Тур - Отель';
         this.context.onSetTitle(title);
@@ -216,9 +178,6 @@ import TicketCard from '../TicketCard';
         var photos = (hotel && hotel.Photos) ? hotel.Photos.MediumPhotos.map((img, ix)=> {
             return hotel.Photos.BaseUrl + img;
         }) : null;
-
-        var checkInDate = hotel ? apiDateToJsDate(hotel.CheckIn) : null;
-        var checkOutDate = hotel ? apiDateToJsDate(hotel.CheckOut) : null;
 
         //console.log('data:', data);
         //console.log('hotel', hotel);
@@ -234,10 +193,10 @@ import TicketCard from '../TicketCard';
                     {this.renderOverlay()}
                     <div className="b-hotel-details__crumbs">
                         <BreadCrumbs data={[
-                    {link: '/', text: 'Главная'},
-                    {link: '/packages/search/2767-6623-01.12.2015-08.12.2015-0-1-', text: 'Результаты поиска'},
-                    {text: 'Описание отеля и выбор номера'},
-                    ]}/>
+                            {link: '/', text: 'Главная'},
+                            {link: '/packages/search/2767-6623-01.12.2015-08.12.2015-0-1-', text: 'Результаты поиска'},
+                            {text: 'Описание отеля и выбор номера'},
+                        ]}/>
                     </div>
                     <div className="b-hotel-details__title">
                         {hotel.HotelName}
@@ -249,31 +208,10 @@ import TicketCard from '../TicketCard';
                         <HotelDetailsGallery data={photos}/>
                     </div>
                     <div className="b-hotel-details__description">
-                        <div className="b-hotel-details-description__title">Описание отеля</div>
-                        {this.renderDescription(hotel)}
+                        <HotelDetailsDescription data={hotel} />
                     </div>
                     <div className="b-hotel-details__package">
-                        <div className="b-hotel-details-package__title">Пакет с этим отелем</div>
-                        <div className="b-hotel-details-package__price">
-                            Стоимость пакета, включая налоги и сборы:&nbsp;&nbsp;<Price data={hotel.PackagePrice}/>
-                        </div>
-                        <div className="b-hotel-details-package__include">
-                            В стоимость пакета включен перелет {ticket.CityFrom} – {ticket.CityTo} – {ticket.CityFrom},
-                            проживание {hotel.HotelName} с {dateToDDMMMM(checkInDate)}
-                            по {dateToDDMMMM(checkOutDate)} {checkOutDate.getFullYear()},
-                            на {hotel.NightCount} {pluralize(hotel.NightCount, ['ночь', 'ночи', 'ночей'])},
-                            медицинская страховка, топливный сбор. Стоимость окончательная со всеми налогами и сборами.
-                        </div>
-                        <div className="b-hotel-details-package__package">
-                            <div className="b-hotel-details-bundle">
-                                <div className="b-hotel-details-bundle__ticket">
-                                    <TicketCard events={events} data={ticket} allowActions={true} />
-                                </div>
-                                <div className="b-hotel-details-bundle__hotel">
-                                    <HotelCard data={hotel}/>
-                                </div>
-                            </div>
-                        </div>
+                        <HotelDetailsPackage events={events} data={data} />
                     </div>
                     <div className="b-hotel-details__rooms">
                         <div className="b-hotel-details-rooms__title">Выбор номера</div>

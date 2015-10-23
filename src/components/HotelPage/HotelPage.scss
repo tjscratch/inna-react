@@ -1,9 +1,7 @@
 @import "../variables.scss";
 
-$hotel-details-title-size: 1.4em;
-
 .b-hotel-details {
-
+    min-height: 500px;
 }
 
 .b-hotel-details__crumbs,
@@ -18,7 +16,7 @@ $hotel-details-title-size: 1.4em;
 .b-hotel-details__votes {
     max-width: $layout-max-width;
     padding: 0 $layout-horizontal-padding;
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 .b-hotel-details__title {
@@ -27,109 +25,16 @@ $hotel-details-title-size: 1.4em;
 }
 
 //description
-.b-hotel-details-description__title {
-    font-size: $hotel-details-title-size;
-    font-weight: bold;
-}
-
 .b-hotel-details__description {
-
-    p {
-        margin: 15px 0;
-
-        b {
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-    }
-}
-
-.b-hotel-details-description {
-
-}
-
-.b-hotel-details-description-wrap {
-    height: 85px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.b-hotel-details-description-toggle {
-    display: inline-block;
-    margin-top: 10px;
-    color: #0277bd;
-    cursor: pointer;
-}
-
-.b-hotel-details-description-wrap_expanded {
-    height: auto;
-}
-
-.b-hotel-details-description-wrap_expanded + .b-hotel-details-description-toggle {
-    margin-top: -5px;
 }
 
 //package
 .b-hotel-details__package {
-    margin-top: 20px;
 }
 
-.b-hotel-details-package__title {
-    display: inline-block;
-    font-size: $hotel-details-title-size;
-    font-weight: bold;
-}
-
-.b-hotel-details-package__price {
-    display: block;
-    float: right;
-    margin-top: 2px;
-}
-
-.b-hotel-details-package__include {
-    margin-top: 10px;
-}
-
-.b-hotel-details-package__package {
-    margin-top: 15px;
-}
-
-.b-hotel-details-bundle {
-    display: table;
-    width: 100%;
-    min-height: 200px;
-}
-
-.b-hotel-details-bundle__ticket,
-.b-hotel-details-bundle__hotel {
-    position: relative;
-    display: table-cell;
-    width: 50%;
-    vertical-align: top;
-    -webkit-transition: opacity 0.2s;
-    transition: opacity 0.2s;
-
-    &:after {
-        content: "";
-        height: 100%;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        z-index: -1;
-        outline: rgb(222, 222, 222) solid 1px;
-    }
-
-    &:last-child {
-        &:after {
-
-        }
-    }
-}
 
 //rooms
 .b-hotel-details__rooms {
-    margin-top: 15px;
 }
 
 .b-hotel-details-rooms__title {
