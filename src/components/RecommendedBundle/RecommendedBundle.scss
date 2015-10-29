@@ -1,6 +1,8 @@
 @import "../variables.scss";
 @import "../mixins";
 
+$mobile-padding: 1.5%;
+
 .g-invisible {
     opacity: 0;
 }
@@ -76,8 +78,52 @@
     background-color: #fcf8e3;
 }
 
+.b-recommended-bundle__mobile-recommend-block {
+    display: none;
+}
+
+//кнопки рекомендованный и самый дешевый
+.b-mobile-recommended-btn-block {
+    padding: 5px 0;
+}
+
+.b-mobile-recommended-btn {
+    display: inline-block;
+    width: 50% - $mobile-padding / 2;
+    margin-right: $mobile-padding / 2;
+    padding: 8px 10px;
+    background-color: #fff;
+    font-size: .9em;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+    &:last-child {
+        float: right;
+        margin-right: 0;
+        margin-left: $mobile-padding / 2;
+    }
+}
+
+.b-mobile-recommended-btn-active {
+    background-color: #f0fce9;
+}
+
 @media(max-width: $recommended-bundle-max-mobile-width) {
+    .b-recommended-bundle {
+        padding: 0 $mobile-padding;
+    }
+
+    .b-recommended-bundle__title,
+    .b-recommended-bundle__collapse {
+        display: none;
+    }
+
     .b-bundle-content {
+        display: block;
+    }
+
+    .b-recommended-bundle__mobile-recommend-block {
         display: block;
     }
 
@@ -86,5 +132,53 @@
     .b-bundle-content__price {
         display: block;
         width: 100%;
+    }
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-recommended-bundle {
+        display: flex;
+        flex-direction: column;
+        //background-color: red;
+    }
+
+    .b-recommended-bundle__mobile-recommend-block {
+        flex: 0 1 auto;
+        align-self: stretch;
+    }
+
+    .b-recommended-bundle__content {
+        display: flex;
+        flex: 1 1 auto;
+        align-self: stretch;
+        //background-color: aqua;
+    }
+
+
+    //content
+    .b-bundle-content {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+    }
+
+    .b-bundle-content__avia,
+    .b-bundle-content__dp {
+        flex: 4 1 auto;
+        margin-bottom: 5px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .b-bundle-content__price {
+        display: flex;
+        flex: 1 1 auto;
+        margin-bottom: 2px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .b-bundle-content__avia {
+        display: flex;
     }
 }

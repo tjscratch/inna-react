@@ -1,0 +1,43 @@
+
+
+.b-crumbs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.b-crumbs-item {
+    position: relative;
+    display: inline-block;
+    padding: 0 10px 0 5px;
+    font-size: 15px;
+    color: #212121;
+
+    &:after {
+        content: '';
+        position: absolute;
+        right: 1px;
+        top: 50%;
+        margin-top: -2px;
+        width: 4px;
+        height: 4px;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        background-color: #0277bd;
+    }
+
+    &:last-child {
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.b-crumbs-item-link {
+    color: #0277bd;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

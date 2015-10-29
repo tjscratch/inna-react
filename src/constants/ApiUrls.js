@@ -4,5 +4,6 @@ export default {
     PackagesSearchHotels: '/Packages/SearchHotels',
     PackagesSearchTickets: '/Packages/SearchTickets',
     DictionaryHotel: '/Dictionary/Hotel',
-    GetCurrentLocation: '/Dictionary/GetCurrentLocation'
+    GetCurrentLocation: '/Dictionary/GetCurrentLocation',
+    HotelDetails: '/Packages/SearchHotel'
 }

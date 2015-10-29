@@ -9,6 +9,7 @@ $padding-base-horizontal: 15px;
 $font-size-base: 14px;
 $line-height-base: 1.428571429;
 $line-height-computed: $font-size-base * $line-height-base;
+$mobile-max-width: 480px;
 /* END Layout */
 
 /* BEGIN Animations */
@@ -102,4 +103,8 @@ $b-datepicker-week__day-bg-hover: $gray-light;
 $b-datepicker-week__day-bg-active: $gray;
 $b-datepicker-week__selected-bg: $green;
 $b-datepicker-week__selected-color: $white;
-/* END datepicker */
+/* END datepicker *//* END recommended bundle */
+
+/* BEGIN hotel details page */
+$hotel-details-title-size: 1.4em;
+/* END hotel details page */

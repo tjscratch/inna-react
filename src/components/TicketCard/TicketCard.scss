@@ -29,12 +29,12 @@
 
 //карточка
 .b-avia-card__flight-info {
-    margin: 5px 0;
+    //margin: 5px 0;
 }
 
-.b-flight-info_back {
-    margin-top: 5px;
-}
+//.b-flight-info_back {
+//    margin-top: 5px;
+//}
 
 .b-flight-info {
 
@@ -161,7 +161,7 @@
     position: absolute;
     left: 10px;
     bottom: 10px;
-    padding-right: 10px;
+    //padding-right: 10px;
 }
 
 .b-avia-card-actions {
@@ -181,6 +181,18 @@
     }
 }
 
+.b-avia-card-actions__about-link {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    color: #0277bd;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-flight-info__text {
         width: 44%;
@@ -191,14 +203,72 @@
         margin-left: 4%;
     }
 
+    //.b-avia-card__actions {
+        //left: inherit;
+        //right: 0;
+        //bottom: 5px;
+    //}
+
+    //.b-avia-card-actions {
+    //    width: 230px;
+    //    overflow: auto;
+    //}
+}
+
+
+@media (max-width: $mobile-max-width) {
+    .b-avia-card {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        //align-items: stretch;
+        //align-content: stretch;
+        //justify-content: space-around;
+        padding: 5px 10px;
+        //background-color: aqua;
+    }
+
+    .b-avia-card__aircompany {
+        flex: 1 1 auto;
+        //background-color: blue;
+    }
+
+    .b-avia-card__flight-info {
+        display: flex;
+        flex-direction: column;
+        flex: 10 1 auto;
+        //margin: 0;
+        //background-color: #f6f6f6;
+    }
+
     .b-avia-card__actions {
-        left: inherit;
-        right: 0;
-        bottom: 5px;
+        flex: 1 1 auto;
+        align-self: flex-end;
+        position: static;
+        //background-color: yellow;
     }
 
     .b-avia-card-actions {
-        width: 230px;
-        overflow: auto;
+        width: 210px;
+        overflow: hidden;
+    }
+
+    //карточка перелета
+    .b-flight-info {
+        flex: 2 1 auto;
+    }
+
+    .b-flight-info-transfer {
+        flex: 1 1 auto;
+    }
+
+    //.b-flight-info_back {
+    //    margin-top: 0;
+    //}
+}
+
+@media (max-width: $mobile-max-width) and (max-height: 550px) {
+    .b-avia-card__flight-info {
+        line-height: 1.35;
     }
 }

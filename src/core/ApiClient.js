@@ -2,8 +2,10 @@
 
 import request from 'superagent';
 import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
+import SessionStorageHelper from './SessionStorageHelper.js';
 
 const apiPath = 'https://api.inna.ru/api/v1';
+//const apiPath = 'http://api.test.inna.ru/api/v1';
 const getUrl = (path) => {
     //path.startsWith('http')
     if (path.startsWith('http') || path.startsWith('https')) {
@@ -36,7 +38,7 @@ const ApiClient = {
 
     cachedGet: (path, params) => new Promise((resolve, reject) => {
         var key = getKey(path, params);
-        var res = sessionStorage.getItem(key);
+        var res = SessionStorageHelper.getItem(key);
         if (res) {
             resolve(JSON.parse(res));
         }
@@ -53,7 +55,7 @@ const ApiClient = {
                             reject(err);
                         }
                     } else {
-                        sessionStorage.setItem(key, JSON.stringify(res.body));
+                        SessionStorageHelper.setItem(key, JSON.stringify(res.body));
                         resolve(res.body);
                     }
                 });

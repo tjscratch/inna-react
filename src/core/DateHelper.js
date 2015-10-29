@@ -144,6 +144,15 @@ export function dateToDDMMMDay(date) {
     return null;
 }
 
+//05 ноября
+export function dateToDDMMMM(date) {
+    if (date) {
+        return `${addLeadZero(date.getDate())} ${dtr.translateMonthGenitive(date.getMonth())}`
+    }
+
+    return null;
+}
+
 //155 -> 2 ч 35 мин
 export function minutesToHHMM(seconds) {
     if (seconds != null) {

@@ -48,7 +48,7 @@
     max-width: 350px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: $mobile-max-width) {
     .b-landing-list__item {
         width: 100%;
     }

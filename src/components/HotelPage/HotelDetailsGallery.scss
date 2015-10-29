@@ -1,0 +1,26 @@
+
+.b-gallery-wrap {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.b-gallery-img-list {
+    height: 180px;
+    white-space: nowrap;
+}
+
+.b-gallery-img {
+    display: inline-block;
+    max-height: 180px;
+    padding-right: 2px;
+
+    &:last-child {
+        padding-right: 0;
+    }
+}
+
+.b-gallery-disclaimer {
+    margin-top: 10px;
+    font-size: .75em;
+    color: #878787;
+}

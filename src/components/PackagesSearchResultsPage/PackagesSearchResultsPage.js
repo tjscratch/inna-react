@@ -1,50 +1,187 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
+//default
 import React, { PropTypes } from 'react';
 import styles from './PackagesSearchResultsPage.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import Location from '../../core/Location';
 
 //api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
+import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
 import { routeDateToApiDate } from '../../core/DateHelper.js'
+import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
 
 //controls
-import { WaitMsg } from '../ui/PopupMessages';
+import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+
 import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
-import PackagesResultsList from '../PackagesResultsList';
-import AviaResultsList from '../AviaResultsList';
+import { MobileSelectedFilter } from '../MobileFilters';
+import HotelsResultsList from '../HotelsResultsList';
+import TicketsResultsList from '../TicketsResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
+//enums
 import ListType from './ListType.js';
+import DisplayEnum from './DisplayEnum.js';
 
+@withViewport
 @withStyles(styles) class PackagesSearchResultsPage extends React.Component {
+    static contextTypes = {
+        onSetTitle: PropTypes.func.isRequired
+    };
+
     constructor(props) {
         super(props);
 
         let data = props.data;
         let routeParams = props.routeParams;
 
+        //данные для формы
         this.formData = {
             from: data[0],
             to: data[1],
             ...routeParams
         };
 
+        //берем из location.hash
         this.state = {
-            listType: ListType.Packages,
             hotelsData: null,
             ticketsData: null,
+            recommendedData: null,
+
+            //выбранный билет
+            ticketId: props.routeQuery.ticket || null,
+            //выбранный отель
+            hotelId: props.routeQuery.hotel || null,
+
+            //Cheapest: false
+            //HotelId: 47547
+            //TicketId: 2103344931
+            defaultRecommendedPair: null,
+
+            //тип списка - отели или билеты
+            listType: this.getListTypeFromProps(props),
+
+            //из урла, или рекомендованный - текущая страница (для мобильной), реком. вар., список отелей или список билетов
+            display: props.routeQuery.display || DisplayEnum.Recommended,
+
             //error: true
         };
+
+        //console.log('init, state:', this.state);
+    }
+
+    componentWillReceiveProps(props) {
+        //this.props на данном этапе имеет предыдущее значение !!!
+        //props - новые свойства, которые получит контрол
+        //console.log('componentWillReceiveProps', JSON.stringify(props.routeQuery), JSON.stringify(this.props.routeQuery));
+
+        //флаги соответствия состояния и урла
+        this.setState({
+            listType: this.getListTypeFromProps(props),
+            display: props.routeQuery.display || DisplayEnum.Recommended,
+            ticketId: props.routeQuery.ticket || null,
+            hotelId: props.routeQuery.hotel || null,
+        });
+    }
+
+    componentDidMount() {
+        this.getData().then(()=> {
+            //проставляем ссылки на рек вариант
+            this.setQueryString();
+        });
+    }
+
+    bundleBuyClick() {
+        console.log('bundle buy click');
+        //купить
+
+        //формируем урл на страницу отеля
+        var params = [];
+        var routeParams = this.props.routeParams;
+        for(var key in routeParams) {
+            params.push(routeParams[key]);
+        }
+        params.push(this.state.recommendedData.Hotel.HotelId);
+        params.push(this.state.recommendedData.AviaInfo.VariantId1);
+        params.push(this.state.recommendedData.AviaInfo.VariantId2);
+        params.push(this.state.recommendedData.Hotel.ProviderId);
+        var url = `${siteUrls.HotelDetails}${params.join('-')}`;
+        //console.log(url);
+        window.location = url;
+    }
+
+    getListTypeFromProps(props) {
+        return props.routeQuery.display == ListType.Tickets ? ListType.Tickets : ListType.Hotels;
     }
 
     getData() {
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve) => {
+            //сначала запрашиваем билеты
+            if (this.state.display == DisplayEnum.Tickets) {
+                this.getTicketData().then((data)=> {
+                    //добавляем доп поля для карточки авиа
+                    let recPair = data.RecommendedPair;
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
+
+                    this.setState({
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair,
+                    });
+
+                    resolve();
+                    this.getHotelData();
+                });
+            }
+            else {
+                this.getHotelData().then((data)=> {
+                    let recPair = data.RecommendedPair;
+                    //добавляем доп поля для карточки авиа и отеля
+                    recPair.AviaInfo.CurrentListType = this.state.listType;
+                    recPair.Hotel.CurrentListType = this.state.listType;
+                    recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
+                    recPair.Hotel.HotelsCount = data.HotelCount;
+
+                    //пока так, потом будет приходить нормальная сразу в объекте
+                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
+
+                    this.setState({
+                        recommendedData: recPair,
+                        defaultRecommendedPair: data.DefaultRecommendedPair
+                    });
+
+                    resolve();
+                    this.getTicketData();
+                });
+            }
+        });
+    }
+
+    getHotelData(selectedTicketId) {
+        //console.log('getHotelData');
+        //url без отеля и билета
+        //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&StartVoyageDate=2015-12-01&TicketClass=0
+        //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931
+
+        //url с отелем и билетом
+        //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931&hotel=47547&ticket=2103344931
+        //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931&hotel=47547&ticket=2103344931
+
+        return new Promise((resolve, reject)=> {
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
             let routeParams = this.props.routeParams;
@@ -59,24 +196,27 @@ import ListType from './ListType.js';
                 TicketClass: routeParams.flightClass
             };
 
+            if (this.state.hotelId) {
+                params.HotelId = this.state.hotelId;
+            }
+            if (this.state.ticketId) {
+                params.TicketId = selectedTicketId ? selectedTicketId : this.state.ticketId;
+            }
+
+            //console.log('getHotelData, params.TicketId', params.TicketId);
+
             api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-                //console.log('SearchHotels data', data);
+            //api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
+                console.log('SearchHotels data', data);
 
                 if (data) {
-                    let recPair = data.RecommendedPair;
-                    //добавляем доп поля для карточки авиа и отеля
-                    recPair.AviaInfo.CurrentListType = this.state.listType;
-                    recPair.Hotel.CurrentListType = this.state.listType;
-                    recPair.Hotel.HotelsCount = data.HotelCount;
-
                     this.setState({
                         hotelsData: data.Hotels,
-                        recommendedData: recPair
                     });
                     resolve(data);
                 }
                 else {
-                    console.log('PackagesSearchHotels data is null');
+                    console.error('PackagesSearchHotels data is null');
                     this.setState({
                         error: true
                     });
@@ -86,53 +226,69 @@ import ListType from './ListType.js';
         });
     }
 
-    getAviaData() {
-        let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
-        let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
-        let routeParams = this.props.routeParams;
+    getTicketData(selectedHotelId) {
+        //console.log('getTicketData');
+        return new Promise((resolve, reject)=> {
+            let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
+            let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
+            let routeParams = this.props.routeParams;
 
-        let params = {
-            AddFilter: 'true',
-            Adult: routeParams.adultCount,
-            ArrivalId: routeParams.toId,
-            DepartureId: routeParams.fromId,
-            EndVoyageDate: toDateApi,
-            StartVoyageDate: fromDateApi,
-            TicketClass: routeParams.flightClass,
-            HotelId: this.state.recommendedData.Hotel.HotelId,
-            TicketId: this.state.recommendedData.AviaInfo.VariantId1
-        };
+            let params = {
+                AddFilter: 'true',
+                Adult: routeParams.adultCount,
+                ArrivalId: routeParams.toId,
+                DepartureId: routeParams.fromId,
+                EndVoyageDate: toDateApi,
+                StartVoyageDate: fromDateApi,
+                TicketClass: routeParams.flightClass,
+            };
 
-        api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
-            console.log('SearchTickets data', data);
-
-            if (data) {
-                //добавляем доп поля для карточки авиа
-                var recPair = this.state.recommendedData;
-                recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
-                this.setState({
-                    ticketsData: data.AviaInfos,
-                    recommendedData: recPair
-                });
+            if (this.state.hotelId) {
+                params.HotelId = selectedHotelId ? selectedHotelId : this.state.hotelId;
             }
-            else {
-                console.log('SearchTickets data is null');
-                this.setState({
-                    error: true
-                });
+            if (this.state.ticketId) {
+                params.TicketId = this.state.ticketId;
             }
+
+            //console.log('getTicketData, params.HotelId', params.HotelId);
+
+            api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
+            //api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
+                console.log('SearchTickets data', data);
+
+                if (data) {
+                    this.setState({
+                        ticketsData: data.AviaInfos,
+                    });
+                    resolve(data);
+                }
+                else {
+                    console.error('SearchTickets data is null');
+                    this.setState({
+                        error: true
+                    });
+                    reject();
+                }
+            });
         });
     }
 
-    static contextTypes = {
-        onSetTitle: PropTypes.func.isRequired
-    };
+    setQueryString() {
+        //если первый запрос, и не сохранили реком. отель и билет
+        var query = this.props.routeQuery;
+        if (!query.hotel || !query.ticket) {
+            var pair = this.state.recommendedData;
 
-    componentDidMount() {
-        this.getData().then(()=>{
-            //сразу запрашиваем данные по перелетам
-            this.getAviaData();
-        });
+            //проставляем в урл
+            setSearchParams([
+                ['hotel', pair.Hotel.HotelId],
+                ['ticket', pair.AviaInfo.VariantId1],
+            ], true);//replace
+        }
+        //else if (!query.display) {
+        //    //проставляем в урл
+        //    setSearchParam('display', DisplayEnum.Recommended);
+        //}
     }
 
     changeListType(type) {
@@ -142,41 +298,168 @@ import ListType from './ListType.js';
             pair.AviaInfo.CurrentListType = type;
             pair.Hotel.CurrentListType = type;
         }
+
         this.setState({
-            listType: type,
-            recommendedData: pair
+            recommendedData: pair,
         });
+
+        //меняем параметры в урле через history api
+        //recommended - не проставляем в url
+        var stateDisplay = type == ListType.Tickets ? DisplayEnum.Tickets : (type == ListType.Hotels ? ListType.Hotels : null);
+        setSearchParams([
+            //['hotel', pair.Hotel.HotelId],
+            //['ticket', pair.AviaInfo.VariantId1],
+            ['display', stateDisplay]
+        ]);
+    }
+
+    chooseHotel(hotel) {
+        console.log('this.state.recommendedData', this.state.recommendedData, 'hotel', hotel);
+
+        //меняем отель в паре
+        var pair = this.state.recommendedData;
+        pair.Hotel = hotel;
+        pair.PackagePrice = hotel.PackagePrice;
+        this.setState({
+            recommendedData: pair,
+            ticketsData: null
+        });
+
+        //меняем параметры в урле через history api
+        if (this.props.viewport.isMobile) {
+            setSearchParams([
+                ['hotel', hotel.HotelId],
+                ['display', null]
+                ]);
+        }
+        else {
+            setSearchParam('hotel', hotel.HotelId);
+        }
+
+        this.getTicketData(hotel.HotelId);
+    }
+
+    chooseTicket(ticket) {
+        console.log('this.state.recommendedData', this.state.recommendedData, 'ticket', ticket);
+
+        //меняем отель в паре
+        var pair = this.state.recommendedData;
+        pair.AviaInfo = ticket;
+        pair.PackagePrice = ticket.PackagePrice;
+        this.setState({
+            recommendedData: pair,
+            hotelsData: null
+        });
+
+        //меняем параметры в урле через history api
+        if (this.props.viewport.isMobile) {
+            setSearchParams([
+                ['ticket', ticket.VariantId1],
+                ['display', null]
+            ]);
+        }
+        else {
+            setSearchParam('ticket', ticket.VariantId1);
+        }
+
+        this.getHotelData(ticket.VariantId1);
     }
 
     renderOverlay() {
-        if (this.state.hotelsData == null) {
+        if (this.state.error) {
+            return (
+                <ErrorMsg
+                    data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
+                    close={()=>{
+                                console.log('popup close');
+                                window.location = '/';
+                            }}
+                    cancel={()=>{
+                                console.log('popup cancel');
+                                window.location = '/';
+                            }}
+                    />
+            );
+        }
+        else if (this.state.recommendedData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
                     close={()=>{
-                        alert('popup close')
+                        console.log('popup close');
+                        window.location = '/';
                     }}
                     cancel={()=>{
-                        alert('popup cancel')
+                        console.log('popup cancel');
+                        window.location = '/';
                     }}
-                />
+                    />
             );
         }
-        //else if (this.state.error) {
-        //    return (
-        //        <PopupMessage data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}} />
-        //    );
-        //}
+
+        return null;
+    }
+
+    renderRecommended(events) {
+        //на мобиле скрываем когда на списке отелей или билетов
+        if (!(this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended)) {
+            return (
+                <div id="recommended"
+                     className="b-packages-results-page__recommended-bundle">
+                    <div className="b-recommended-bundle-bg">
+                    </div>
+                    <RecommendedBundle
+                        events={events}
+                        data={this.state.recommendedData}
+                        defaultRecommendedPair={this.state.defaultRecommendedPair}
+                        />
+                </div>
+            );
+        }
+        return null;
+    }
+
+    renderResults(events) {
+        //на мобиле список показываем, когда не на рекомендуемом
+        if (!(this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended)) {
+            return (
+                <div className="b-packages-results-page__results">
+                    <div className="b-packages-results">
+                        <div className="b-packages-results__content">
+                            {
+                                this.state.listType == ListType.Hotels ?
+                                    <HotelsResultsList
+                                        events={events}
+                                        data={this.state.hotelsData}/> :
+                                    <TicketsResultsList
+                                        events={events}
+                                        data={this.state.ticketsData}/>
+                            }
+                        </div>
+                        {
+                            (!this.props.viewport.isMobile && this.state.listType == ListType.Hotels) ?
+                                <div className="b-packages-results__info-block">
+                                    <PackagesListInfoBlock data={this.state.hotelsData}/>
+                                </div> :
+                                null
+                        }
+                    </div>
+                </div>
+            )
+        }
 
         return null;
     }
 
     render() {
-        let title = 'Инна-Тур - Динамические пакеты';
+        var title = 'Инна-Тур - Динамические пакеты';
         this.context.onSetTitle(title);
 
-        let events = {
-            changeListType: this.changeListType.bind(this)
+        var events = {
+            changeListType: this.changeListType.bind(this),
+            chooseHotel: this.chooseHotel.bind(this),
+            chooseTicket: this.chooseTicket.bind(this),
+            bundleBuyClick: this.bundleBuyClick.bind(this)
         };
 
         return (
@@ -185,35 +468,14 @@ import ListType from './ListType.js';
                 <div className="b-packages-results-page__form">
                     <SearchForm data={this.formData}/>
                 </div>
-                <div id="recommended" className="b-packages-results-page__recommended-bundle">
-                    <div className="b-recommended-bundle-bg">
-                    </div>
-                    <RecommendedBundle
-                        events={events}
-                        data={this.state.recommendedData}
-                        />
+                <div className="b-packages-results-page__mobile-filter">
+                    <MobileSelectedFilter listType={this.state.listType}/>
                 </div>
+                {this.renderRecommended(events)}
                 <div className="b-packages-results-page__filter">
-                    {this.state.listType == ListType.Packages ? <PackagesFilters /> : <AviaFilters />}
+                    {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                 </div>
-                <div className="b-packages-results-page__results">
-                    <div className="b-packages-results">
-                        <div className="b-packages-results__content">
-                            {
-                                this.state.listType == ListType.Packages ?
-                                <PackagesResultsList data={this.state.hotelsData} /> :
-                                <AviaResultsList data={this.state.ticketsData} />
-                            }
-                        </div>
-                        {
-                            (this.state.listType == ListType.Packages) ?
-                            <div className="b-packages-results__info-block">
-                                <PackagesListInfoBlock data={this.state.hotelsData} />
-                            </div> :
-                            null
-                        }
-                    </div>
-                </div>
+                {this.renderResults(events)}
             </section>
         );
     }

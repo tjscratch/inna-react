@@ -1,9 +1,13 @@
 import React, { PropTypes } from 'react';
 import styles from './PriceCard.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import { formatPrice } from '../../core/StringHelper.js';
 
+import Price from '../Price';
+
+@withViewport
 @withStyles(styles) class PriceCard extends React.Component {
     constructor(props) {
         super(props);
@@ -13,15 +17,40 @@ import { formatPrice } from '../../core/StringHelper.js';
         };
     }
 
-    shareClick() {
+    shareClick(e) {
         var isOpen = this.state.shareOpen;
         this.setState({
             shareOpen: !isOpen
         })
     }
 
-    buyClick() {
-        alert('buy click');
+    buyClick(e) {
+        e.preventDefault();
+        //если передан колбек выбора
+        if (this.props.onBuy) {
+            this.props.onBuy();
+        }
+    }
+
+    chooseClick(e) {
+        //e.stopPropagation();
+        e.preventDefault();
+        //если передан колбек выбора
+        if (this.props.onChoose) {
+            this.props.onChoose();
+        }
+    }
+
+    renderPrice(data) {
+        if (this.props.viewport.isMobile) {
+            return (
+                <div className="b-price__price">
+                    <Price data={data.price} />
+                </div>
+            );
+        }
+
+        return null;
     }
 
     render() {
@@ -40,13 +69,19 @@ import { formatPrice } from '../../core/StringHelper.js';
                                 Стоимость пакета
                             </div>
                             <div className="b-price__price">
-                                <span className="b-price-value">{formatPrice(data.price)}</span>
-                                <i className="b-price-rub icon-emb-rouble"></i>
+                                <Price data={data.price} />
                             </div>
                         </div>
                     </div>
                     <div className="b-price-card__buy">
-                        <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>Купить</a>
+                        {this.props.chooseMode ?
+                            <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
+                            :
+                            <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>
+                                <div className="b-price__caption">Купить</div>
+                                {this.renderPrice(data)}
+                            </a>
+                        }
                     </div>
                 </div>
             );

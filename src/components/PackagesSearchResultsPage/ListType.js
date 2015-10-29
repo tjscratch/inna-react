@@ -1,7 +1,7 @@
 //enum
 var ListType = {
-    Packages: 'Packages',
-    Avia: 'Avia'
+    Hotels: 'Hotels',
+    Tickets: 'Tickets'
 };
 
 export default ListType

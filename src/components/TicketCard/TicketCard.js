@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react';
-import styles from './AviaCard.scss';
+import styles from './TicketCard.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
-@withStyles(styles) class AviaCard extends React.Component {
+@withViewport
+@withStyles(styles) class TicketCard extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -25,7 +27,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     renderTransporterInfo() {
         if (this.props.data) {
             var data = this.props.data.EtapsTo[0];
-            //console.log('AviaCard data', this.props.data);
+            //console.log('TicketCard data', this.props.data);
             return (
                 <div className="b-aircompany">
                     <img alt="logo" className="b-aircompany__logo"
@@ -162,29 +164,64 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
 
     actionClick() {
         if (this.props.events && this.props.events.changeListType) {
-            this.props.events.changeListType(ListType.Avia);
+            this.props.events.changeListType(ListType.Tickets);
+        }
+    }
+
+    changeTicket() {
+        if (this.props.events && this.props.events.changeTicket) {
+            this.props.events.changeTicket();
+        }
+    }
+
+    ticketAbout(e) {
+        e.preventDefault();
+
+        if (this.props.events && this.props.events.ticketAbout) {
+            this.props.events.ticketAbout();
         }
     }
 
     renderActions() {
         var data = this.props.data;
         if (data) {
-            //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-            if (data.CurrentListType == ListType.Packages) {
+            //вид на странице отеля
+            if (this.props.events && this.props.events.changeTicket && this.props.events.ticketAbout) {
                 return (
-                    <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
-                        {
-                            data.TicketsCount ?
-                            <div>Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} перелета</div> :
-                            <div>Еще варианты перелета</div>
-                        }
+                    <div>
+                        <div className="b-avia-card__actions">
+                            <div className="b-avia-card-actions" onClick={this.changeTicket.bind(this)}>
+                                Заменить перелет
+                            </div>
+                        </div>
+                        <a className="b-avia-card-actions__about-link" href=""
+                           onClick={(e)=>{this.ticketAbout(e)}}>Подробнее о перелете</a>
                     </div>
                 );
             }
             else {
-                return (
-                    <a href="">Подробнее</a>
-                );
+                //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
+                if (this.props.viewport.isMobile || data.CurrentListType == ListType.Hotels) {
+                    return (
+                        <div className="b-avia-card__actions">
+                            <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>
+                                {
+                                    data.TicketsCount ?
+                                        <div>
+                                            Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}</div> :
+                                        <div>Еще варианты перелета</div>
+                                }
+                            </div>
+                        </div>
+                    );
+                }
+                else {
+                    return (
+                        <div className="b-avia-card__actions">
+                            <a href="">Подробнее</a>
+                        </div>
+                    );
+                }
             }
         }
 
@@ -198,12 +235,10 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                     {this.renderTransporterInfo()}
                 </div>
                 {this.renderFlightInfo()}
-                <div className="b-avia-card__actions">
-                    {this.renderActions()}
-                </div>
+                {this.props.allowActions ? this.renderActions() : null}
             </div>
         );
     }
 }
 
-export default AviaCard;
+export default TicketCard;

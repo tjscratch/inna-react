@@ -9,7 +9,7 @@
     position: relative;
     width: 100%;
     max-width: 650px;
-    height: 201px;
+    height: 190px;
     margin-bottom: 5px;
     background-color: #fff;
     border: 1px solid #eee;
@@ -42,5 +42,18 @@
     .b-avia-list-item__price {
         display: block;
         width: 100%;
+    }
+
+    .b-avia-list-item__index {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-avia-list-item {
+        display: block;
+        height: 187px;
     }
 }

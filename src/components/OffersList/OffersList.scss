@@ -173,7 +173,7 @@ a.b-offer-title-wrap {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $mobile-max-width) {
     .b-offer {
         margin-bottom: 0;
     }

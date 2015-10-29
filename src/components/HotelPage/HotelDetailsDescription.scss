@@ -1,0 +1,43 @@
+@import "../variables.scss";
+
+.b-hotel-details-description__title {
+    font-size: $hotel-details-title-size;
+    font-weight: bold;
+}
+
+.b-hotel-details__description {
+
+    p {
+        margin: 15px 0;
+
+        b {
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+    }
+}
+
+.b-hotel-details-description {
+
+}
+
+.b-hotel-details-description-wrap {
+    height: 85px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.b-hotel-details-description-toggle {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0277bd;
+    cursor: pointer;
+}
+
+.b-hotel-details-description-wrap_expanded {
+    height: auto;
+}
+
+.b-hotel-details-description-wrap_expanded + .b-hotel-details-description-toggle {
+    margin-top: -5px;
+}
