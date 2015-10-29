@@ -16,7 +16,7 @@ import Datepicker from '../../ui/Datepicker';
         this.state = {
             fromDate: null,
             toDate: null,
-            datepickerStartShow: true,
+            datepickerStartShow: false,
             datepickerEndShow: false
         };
     }
@@ -43,18 +43,19 @@ import Datepicker from '../../ui/Datepicker';
 
         if (type == 'start') {
             this.setState({
-                fromDate: selectedDate
+                fromDate: selectedDate,
+                datepickerStartShow: false,
+                datepickerEndShow: true
             })
             this.props.setStartDate(selectedDateProps);
-            this.openDatepicker('start', false);
-            this.openDatepicker('end', true);
         }
         if (type == 'end') {
             this.setState({
-                toDate: selectedDate
+                toDate: selectedDate,
+                datepickerStartShow: false,
+                datepickerEndShow: false
             })
             this.props.setEndDate(selectedDateProps);
-            this.openDatepicker('end', false);
         }
     }
 

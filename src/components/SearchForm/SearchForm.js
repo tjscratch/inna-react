@@ -110,10 +110,12 @@ import DatepickerRange from '../ui/DatepickerRange';
     handleStartSearch() {
         let searchParams = [
             this.state.fromId,
-            this.state.toId
+            this.state.toId,
+            this.state.fromDate,
+            this.state.toDate,
         ].join('-');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
-        window.location = `${siteUrls.SearchPackages}${searchParams}-01.12.2015-08.12.2015-0-2-2`;
+        window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
     }
 
 
@@ -164,11 +166,6 @@ import DatepickerRange from '../ui/DatepickerRange';
                             </span>
                         </div>
                     </div>
-                </div>
-                <div>
-                    fromDate - {this.state.fromDate}
-                    <hr/>
-                    toDate - {this.state.toDate}
                 </div>
             </section>
         );

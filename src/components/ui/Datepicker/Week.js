@@ -12,7 +12,13 @@ class Week extends React.Component {
         var selectedEndDate = this.props.endDate ? moment.utc(this.props.endDate, "DD.MM.YYYY").clone().toDate() : null;
 
         if(this.props.range){
-            var startDate = selectedStartDate ? selectedStartDate : new Date();
+            //console.log("selectedStartDate", selectedStartDate)
+            //console.log("selectedEndDate", selectedEndDate)
+            if(this.props.start){
+                var startDate = new Date();
+            }else{
+                var startDate = selectedStartDate ? selectedStartDate : new Date();
+            }
         }else{
             var startDate = new Date();
         }
@@ -50,8 +56,7 @@ class Week extends React.Component {
                         key={day.date.toString()}
                         className={
                     "b-datepicker-week__day b-datepicker-week__day-active" + 
-                    (day.isToday ? " b-datepicker-week__day-today" : "") +  
-                    (day.date.isSame(this.props.selected) ? " b-datepicker-week__day-selected" : "") + 
+                    (day.isToday ? " b-datepicker-week__day-today" : "") +
                     (day.isStart ? " b-datepicker-week__day-selected-start" : "") + 
                     (day.isEnd ? " b-datepicker-week__day-selected-end" : "") +
                     (day.isRange ? " b-datepicker-week__day-selected-range" : "")

@@ -1,6 +1,7 @@
 @import '../../variables.scss';
 .b-datepicker{
     position: absolute;
+    z-index: 2;
     //width: 220px;
     background-color: $b-datepicker-bg-color;
     font-size: $b-datepicker-font-size;

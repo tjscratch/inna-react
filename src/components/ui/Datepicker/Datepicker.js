@@ -7,17 +7,16 @@ import DayNames from './DayNames.js';
 import Week from './Week.js';
 
 
-
 @withStyles(styles) class Datepicker extends React.Component {
 
     constructor(props) {
         super(props);
 
         var month = moment().clone().utc().startOf("day");
-        
+
         this.state = {
             month: month,
-            selected: null,
+            selected: null
         }
     }
 
@@ -33,23 +32,22 @@ import Week from './Week.js';
 
     select(day) {
         this.setState({selected: day});
-        if(this.props.start){
-            this.props.setDate('start', day);   
+        if (this.props.start) {
+            this.props.setDate('start', day);
         }
-        if(this.props.end){
-            this.props.setDate('end', day);   
+        if (this.props.end) {
+            this.props.setDate('end', day);
         }
         this.forceUpdate();
     }
 
     renderWeeks() {
-        
-        var weeks      = [],
-            done       = false,
-            date       = this.state.month.clone().startOf("month").day("Sunday").add(1, 'd'),
-            monthIndex = date.month(),
-            count      = 0;
 
+        var weeks = [],
+            done = false,
+            date = this.state.month.clone().startOf("month").day("Sunday").add(1, 'd'),
+            monthIndex = date.month(),
+            count = 0;
 
 
         while (!done) {
@@ -60,6 +58,7 @@ import Week from './Week.js';
                       select={this.select.bind(this)}
                       selected={this.state.selected}
                       range={this.props.range}
+                      start={this.props.start}
                       startDate={this.props.startDate}
                       endDate={this.props.endDate}
                     />
@@ -94,9 +93,6 @@ import Week from './Week.js';
 
                 <div className="b-datepicker__body">
                     {this.renderWeeks()}
-                </div>
-                <div>
-                    {this.state.selected}
                 </div>
             </div>
         );
