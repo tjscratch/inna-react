@@ -9,3 +9,6 @@
 .icon-emb-menu:before { content: '\e807'; } /* '' */
 .icon-emb-filter:before { content: '\e808'; } /* '' */
 .icon-emb-left-open:before { content: '\e809'; } /* '' */
+.icon-emb-calendar:before { content: '\e80a'; } /* '' */
+.icon-emb-angle-left:before { content: '\e80b'; } /* '' */
+.icon-emb-angle-right:before { content: '\e80c'; } /* '' */
