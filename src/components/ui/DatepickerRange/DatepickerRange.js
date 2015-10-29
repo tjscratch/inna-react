@@ -90,6 +90,26 @@ import Datepicker from '../../ui/Datepicker';
         }
     }
 
+    componentDidMount() {
+        document.body.addEventListener('click', this.bodyClick.bind(this));
+        document.querySelector(".b-datepicker-range").addEventListener('click', this.clickStop.bind(this));
+    }
+
+    componentDidUnmount() {
+        document.body.removeEventListener('click', this.bodyClick.bind(this));
+    }
+
+    bodyClick(event) {
+        this.setState({
+            datepickerStartShow: false,
+            datepickerEndShow: false
+        })
+    }
+
+    clickStop(event){
+        event.stopPropagation();
+    }
+
     render() {
         return (
             <div className="b-datepicker-range">
