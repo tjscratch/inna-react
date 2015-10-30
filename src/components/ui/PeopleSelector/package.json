@@ -1,0 +1,6 @@
+{
+  "name": "PeopleSelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PeopleSelector.js"
+}

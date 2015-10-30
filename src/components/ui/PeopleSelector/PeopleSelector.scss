@@ -1,0 +1,44 @@
+@import '../../variables.scss';
+
+.b-people-selector{
+    position: relative;
+}
+
+.b-people-selector__input{
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    padding: $b-people-selector-padding-vertical $b-people-selector-padding-horizontal;
+    font-size: $b-people-selector-font-size;
+    line-height: $b-people-selector-line-height;
+    background-color: $b-people-selector-bg-color;
+    border: 1px solid $b-people-selector-border-color;
+    border-radius: $b-people-selector-border-radius;
+
+    &:focus{
+        border-color: $b-people-selector-border-color-focus;
+    }
+}
+
+.b-datepicker-range__icon{
+    position: absolute;
+    right: 9px;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    font-size: 16px;
+
+    &:before{
+        display: inline-block;
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    &:after{
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+}

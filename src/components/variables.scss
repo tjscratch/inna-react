@@ -108,3 +108,15 @@ $b-datepicker-week__selected-color: $white;
 /* BEGIN hotel details page */
 $hotel-details-title-size: 1.4em;
 /* END hotel details page */
+
+/* BEGIN PeopleSelector */
+$b-people-selector-padding-vertical: $padding-base-vertical;
+$b-people-selector-padding-horizontal: 10px;
+$b-people-selector-font-size: $font-size-base;
+$b-people-selector-line-height: $line-height-computed;
+$b-people-selector-bg-color: $white;
+$b-people-selector-border-radius: $small-border-radius;
+$b-people-selector-border-color: transparent;
+$b-people-selector-border-color-focus: $green;
+/* END PeopleSelector */
+

@@ -8,6 +8,7 @@ import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
 import DatepickerRange from '../ui/DatepickerRange';
+import PeopleSelector from '../ui/PeopleSelector';
 
 
 @withStyles(styles) class SearchForm extends React.Component {
@@ -154,9 +155,7 @@ import DatepickerRange from '../ui/DatepickerRange';
                                 />
                         </div>
                         <div className="b-search-form-action__people">
-                            <div className="b-suggest">
-                                <input className="b-suggest__input" placeholder="5 негров, в багажнике" type="text"/>
-                            </div>
+                            <PeopleSelector/>
                         </div>
                         <div className="b-search-form-action__btn">
                             <span className="btn btn-green"

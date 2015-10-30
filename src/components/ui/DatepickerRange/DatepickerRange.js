@@ -94,7 +94,7 @@ import Datepicker from '../../ui/Datepicker';
         document.addEventListener('click', this.bodyClick.bind(this), false);
     }
 
-    componentDidUnmount() {
+    componentWillUnmount() {
         document.removeEventListener('click', this.bodyClick.bind(this), false);
     }
 
