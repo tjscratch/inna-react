@@ -91,12 +91,11 @@ import Datepicker from '../../ui/Datepicker';
     }
 
     componentDidMount() {
-        document.body.addEventListener('click', this.bodyClick.bind(this));
-        document.querySelector(".b-datepicker-range").addEventListener('click', this.clickStop.bind(this));
+        document.addEventListener('click', this.bodyClick.bind(this), false);
     }
 
     componentDidUnmount() {
-        document.body.removeEventListener('click', this.bodyClick.bind(this));
+        document.removeEventListener('click', this.bodyClick.bind(this), false);
     }
 
     bodyClick(event) {
@@ -106,13 +105,14 @@ import Datepicker from '../../ui/Datepicker';
         })
     }
 
-    clickStop(event){
+    stopPropagation(event) {
         event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation();
     }
 
     render() {
         return (
-            <div className="b-datepicker-range">
+            <div className="b-datepicker-range" onClick={this.stopPropagation.bind(this)}>
                 <div className="b-datepicker-range__item b-datepicker-range__item-start">
                     <input className="b-datepicker-range__input"
                            placeholder="Туда"
