@@ -5,6 +5,10 @@ import withStyles from '../../decorators/withStyles';
 //helpers
 import { stripTags } from '../../core/HtmlHelper.js';
 
+//controls
+import BuyBtn from '../ui/Buttons/BuyBtn';
+import Price from '../Price';
+
 @withStyles(styles) class HotelDetailsRooms extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +35,10 @@ import { stripTags } from '../../core/HtmlHelper.js';
                 rooms: this.state.rooms
             })
         }
+    }
+
+    buyClick() {
+        console.log('buyClick');
     }
 
     renderBedType(room) {
@@ -151,27 +159,58 @@ import { stripTags } from '../../core/HtmlHelper.js';
         var description = stripTags(room.Description);
         var extra = room.Extra;
 
+        var packagePrice = this.props.packagePrice;
+        var price = room.PackagePrice - packagePrice;
+
         return (
             <div key={ix} className="b-rooms-list-item">
-                <div className="b-rooms-list-item__info" onClick={()=>{this.toggleDescription(room)}}>
-                    <div className="b-rooms-list-item-info">
-                        {
-                            photo ?
-                                <div className="b-rooms-list-item-info__photo">
-                                    <img className="b-rooms-list-item-info-photo" src={photo}/>
-                                </div> : null
-                        }
+                <div className="b-rooms-list-item__head" onClick={()=>{this.toggleDescription(room)}}>
+                    <div className="b-rooms-list-item__info">
+                        <div className="b-rooms-list-item-info">
+                            {
+                                photo ?
+                                    <div className="b-rooms-list-item-info__photo">
+                                        <img className="b-rooms-list-item-info-photo" src={photo}/>
+                                    </div> : null
+                            }
 
-                        <div className="b-rooms-list-item-info__text">
-                            <div className="b-rooms-list-item-link">{room.RoomName}</div>
-                            {this.renderBedType(room)}
-                            {this.renderTextExtra(room)}
+                            <div className="b-rooms-list-item-info__text">
+                                <div className="b-rooms-list-item-link">{room.RoomName}</div>
+                                {this.renderBedType(room)}
+                                {this.renderTextExtra(room)}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="b-rooms-list-item__price">
-                </div>
-                <div className="b-rooms-list-item__buy">
+                    <div className="b-rooms-list-item__refund">
+                        {
+                            room.IsRefundable && room.IsReturnsWithFine ?
+                                <div className="b-rooms-list-item-refund">
+                                    Отмена бронирования <br/>со штрафом
+                                </div> : null
+                        }
+                        {
+                            !room.IsRefundable ?
+                                <div className="b-rooms-list-item-refund">
+                                    Без возможности <br/>возврата
+                                </div> : null
+                        }
+                    </div>
+                    <div className="b-rooms-list-item__price">
+                        <div className="b-rooms-list-item-price">
+                            <div className="b-rooms-list-item-price__include">
+                                {
+                                    ix == 0 ? <span>Включен в цену</span>
+                                        : <span>+ {price}</span>
+                                }
+                            </div>
+                            <div className="b-rooms-list-item-price__price">
+                                К оплате: <span className="b-rooms-list-item-price__price__value"><Price data={room.PackagePrice}/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="b-rooms-list-item__buy">
+                        <BuyBtn onBuy={this.buyClick.bind(this)}/>
+                    </div>
                 </div>
                 <div
                     className={`b-rooms-list-item__description ${room.expanded ? 'b-rooms-list-item__description_expanded' : ''}`}>

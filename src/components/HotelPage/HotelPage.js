@@ -189,6 +189,8 @@ import HotelDetailsRooms from './HotelDetailsRooms.js';
         };
 
         if (hotel) {
+            var packagePrice = hotel.PackagePrice;
+
             return (
                 <section className="b-hotel-details">
                     {this.renderOverlay()}
@@ -215,7 +217,7 @@ import HotelDetailsRooms from './HotelDetailsRooms.js';
                         <HotelDetailsPackage events={events} data={data} />
                     </div>
                     <div className="b-hotel-details__rooms">
-                        <HotelDetailsRooms data={data.Rooms} />
+                        <HotelDetailsRooms data={data.Rooms} packagePrice={packagePrice} />
                     </div>
                     <div className="b-hotel-details__services">
                     </div>

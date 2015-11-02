@@ -1,0 +1,6 @@
+{
+  "name": "BuyBtn",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BuyBtn.js"
+}

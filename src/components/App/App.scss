@@ -166,6 +166,13 @@ textarea {
     }
 }
 
+/*
+ * Icons fix
+ * ========================================================================== */
+[class^="icon-emb-"]:before, [class*=" icon-emb-"]:before {
+    margin-right: 0!important;
+}
+
 
 /*
  * Global classes

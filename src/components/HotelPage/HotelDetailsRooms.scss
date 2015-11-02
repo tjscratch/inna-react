@@ -11,8 +11,13 @@
     border-bottom: 1px solid #dedede;
 }
 
-.b-rooms-list-item__info {
+.b-rooms-list-item__head {
+    display: flex;
     cursor: pointer;
+}
+
+.b-rooms-list-item__info {
+    flex: 4 1 auto;
     margin-bottom: 10px;
 }
 
@@ -75,4 +80,39 @@
     h3 {
         font-size: 1.1em;
     }
+}
+
+.b-rooms-list-item__refund {
+    flex: 1 1 auto;
+}
+
+.b-rooms-list-item-refund {
+    font-size: .95em;
+}
+
+.b-rooms-list-item__price {
+    flex: 1 1 auto;
+}
+
+.b-rooms-list-item-price {
+    text-align: right;
+}
+
+.b-rooms-list-item-price__include {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.b-rooms-list-item-price__price {
+    font-size: .95em;
+}
+
+.b-rooms-list-item-price__price__value {
+    font-size: .8em;
+}
+
+.b-rooms-list-item__buy {
+    padding: 6px 0 0 0;
+    flex: 1 1 auto;
+    text-align: right;
 }

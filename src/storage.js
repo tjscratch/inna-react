@@ -49,7 +49,7 @@ var storage = (function () {
     }
 
     function getPageData(context, dataApiCalls) {
-        console.log('getPageData', context, dataApiCalls);
+        //console.log('getPageData', context, dataApiCalls);
         return new Promise((resolve, reject)=> {
             if (canUseDOM && window.__INITIAL_STATE__) {
                 console.log('getPageData from initial state');
