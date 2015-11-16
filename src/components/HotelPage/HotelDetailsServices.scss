@@ -1,0 +1,53 @@
+@import "../variables.scss";
+
+.b-hotel-details-services {
+
+}
+
+.b-hotel-details-services__title {
+    font-size: $hotel-details-title-size;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.b-hotel-details__services {
+    p {
+        margin: 15px 0;
+
+        b {
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+    }
+}
+
+
+.b-hotel-details-services-section {
+    padding: 15px;
+    border-top: 1px solid #c0c0c2;
+}
+
+.b-hotel-details-services-section__header {
+    display: inline-block;
+    float: left;
+}
+
+.b-hotel-details-services-section__list {
+    margin-left: 30%;
+}
+
+.b-hotel-details-services-section__list-part {
+    display: inline-block;
+    width: 45%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    font-size: 0.9em;
+}
+
+.b-hotel-details-services-section-item {
+    margin-right: 8%;
+    padding-bottom: 3px;
+    list-style: disc;
+    color: #757575;
+}
