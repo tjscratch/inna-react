@@ -85,7 +85,7 @@ import HotelDetailsRooms from './HotelDetailsRooms.js';
         return new Promise((resolve, reject)=> {
             var params = this.getParams();
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-                //api.get(apiUrls.HotelDetails, params).then((data)=> {
+            //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
                 if (data) {
                     this.setState({
@@ -110,7 +110,7 @@ import HotelDetailsRooms from './HotelDetailsRooms.js';
             params.Rooms = true;
 
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-                //api.get(apiUrls.HotelDetails, params).then((data)=> {
+            //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
                 if (data) {
                     var mergedData = _.merge(this.state.data, data);

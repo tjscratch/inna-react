@@ -130,7 +130,7 @@ import Price from '../Price';
     }
 
     renderAmenities(room) {
-        var roomAmenities = room ? room.RoomAmenities : null;
+        var roomAmenities = room && room.RoomAmenities && room.RoomAmenities.length > 0 ? room.RoomAmenities : null;
 
         if (roomAmenities) {
             return (
@@ -145,6 +145,21 @@ import Price from '../Price';
                             )
                         }, this)
                     }
+                </div>
+            )
+        }
+
+        return null;
+    }
+
+    renderCancellationRules(room) {
+        var roomCancellationRule = room ? room.CancellationRule : null;
+
+        if (roomCancellationRule) {
+            return (
+                <div>
+                    <h3>Правила отмены</h3>
+                    {roomCancellationRule}
                 </div>
             )
         }
@@ -217,6 +232,7 @@ import Price from '../Price';
                     <div dangerouslySetInnerHTML={{__html: description}}></div>
                     {this.renderExtra(room)}
                     {this.renderAmenities(room)}
+                    {this.renderCancellationRules(room)}
                 </div>
             </div>
         )
