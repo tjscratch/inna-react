@@ -9,14 +9,14 @@ import withStyles from '../../../decorators/withStyles';
         super(props);
 
         this.state = {
-            isOpen: true
+            isOpen: false
         };
     }
 
     bodyClick(event) {
         this.setState({
             isOpen: false
-        })
+        });
         document.removeEventListener('click', this.bodyClick.bind(this), false);
     }
 

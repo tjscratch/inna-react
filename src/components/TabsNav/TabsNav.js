@@ -9,7 +9,7 @@ import withStyles from '../../decorators/withStyles';
         return (
             <div className="b-tabs-nav">
                 <a href="#" className="b-tabs-nav__item b-tabs-nav__item_active">Перелет + отель</a>
-                <a href="#" className="b-tabs-nav__item">Авиабилеты</a>
+                { (false) ? <a href="#" className="b-tabs-nav__item">Авиабилеты</a> : null }
             </div>
         );
     }
