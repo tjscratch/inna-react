@@ -21,6 +21,7 @@ import HotelDetailsDescription from './HotelDetailsDescription.js';
 import HotelDetailsPackage from './HotelDetailsPackage.js';
 import HotelDetailsRooms from './HotelDetailsRooms.js';
 import HotelDetailsServices from './HotelDetailsServices.js';
+import HotelDetailsMap from './HotelDetailsMap.js';
 
 @withViewport
 @withStyles(styles) class HotelPage extends React.Component {
@@ -224,6 +225,7 @@ import HotelDetailsServices from './HotelDetailsServices.js';
                         <HotelDetailsServices data={hotel} />
                     </div>
                     <div className="b-hotel-details__map">
+                        <HotelDetailsMap data={hotel} />
                     </div>
                     <div className="b-hotel-details__votes">
                     </div>

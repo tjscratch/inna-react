@@ -1,14 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import styles from './HotelDetailsServices.scss';
 import withStyles from '../../decorators/withStyles';
 
-//helpers
-import { routeDateToApiDate, apiDateToJsDate, dateToDDMMMM } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
-
-//controls
-
-@withStyles(styles) class HotelDetailsServices extends React.Component {
+@withStyles(styles) class HotelDetailsServices extends Component {
     constructor(props) {
         super(props);
     }
@@ -62,8 +56,6 @@ import { pluralize } from '../../core/CountHelper.js';
 
     render() {
         var hotel = this.props.data;
-        console.log('hotel', hotel);
-
         var amenitiesList = this.getAmenitiesList(hotel);
 
         if (amenitiesList && amenitiesList.length > 0) {
