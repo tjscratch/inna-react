@@ -213,22 +213,22 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                     <div className="b-hotel-details__gallery">
                         <HotelDetailsGallery data={photos}/>
                     </div>
-                    <div className="b-hotel-details__description">
+                    <div id="hotel-details__description" className="b-hotel-details__description">
                         <HotelDetailsDescription data={hotel} />
                     </div>
                     <div className="b-hotel-details__package">
                         <HotelDetailsPackage events={events} data={data} />
                     </div>
-                    <div className="b-hotel-details__rooms">
+                    <div id="hotel-details__rooms" className="b-hotel-details__rooms">
                         <HotelDetailsRooms data={data.Rooms} packagePrice={packagePrice} />
                     </div>
-                    <div className="b-hotel-details__services">
+                    <div id="hotel-details__services" className="b-hotel-details__services">
                         <HotelDetailsServices data={hotel} />
                     </div>
-                    <div className="b-hotel-details__map">
+                    <div id="hotel-details__map" className="b-hotel-details__map">
                         <HotelDetailsMap data={hotel} />
                     </div>
-                    <div className="b-hotel-details__votes">
+                    <div id="hotel-details__votes" className="b-hotel-details__votes">
                         <HotelDetailsVotes data={hotel} />
                     </div>
                 </section>
