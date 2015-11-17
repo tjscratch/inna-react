@@ -462,6 +462,8 @@ import DisplayEnum from './DisplayEnum.js';
             bundleBuyClick: this.bundleBuyClick.bind(this)
         };
 
+        //console.log('form data', this.formData);
+
         return (
             <section className="b-packages-results-page">
                 {this.renderOverlay()}

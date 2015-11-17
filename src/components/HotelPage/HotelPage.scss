@@ -36,3 +36,10 @@
 //rooms
 .b-hotel-details__rooms {
 }
+
+
+@media (max-width: $mobile-max-width) {
+    .b-hotel-details__crumbs {
+        display: none;
+    }
+}

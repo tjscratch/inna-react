@@ -9,6 +9,7 @@ import { apiDateToJsDate, dateToDDMMM } from '../../core/DateHelper.js';
 import { pluralize } from '../../core/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
+import HotelStars from '../HotelStars';
 
 @withViewport
 @withStyles(styles) class HotelCard extends React.Component {
@@ -71,10 +72,6 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         var data = this.props.data;
 
         if (data) {
-            var stars = [];
-            for (let i = 0; i < data.Stars; i++) {
-                stars.push(i);
-            }
             var checkIn = apiDateToJsDate(data.CheckIn);
             var checkOut = apiDateToJsDate(data.CheckOut);
 
@@ -89,7 +86,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                     <div className="b-hotel-card__info">
                         <div className="b-hotel-card-info">
                             <div className="b-hotel-card-info__stars">
-                                {stars.map((item, ix)=>(<i key={ix} className="b-hotel-star icon-emb-star"></i>))}
+                                <HotelStars data={data.Stars}/>
                             </div>
                             <div className="b-hotel-card-info__title">
                                 <a href="">{data.HotelName}</a>
