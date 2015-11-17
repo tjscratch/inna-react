@@ -22,6 +22,7 @@ import HotelDetailsPackage from './HotelDetailsPackage.js';
 import HotelDetailsRooms from './HotelDetailsRooms.js';
 import HotelDetailsServices from './HotelDetailsServices.js';
 import HotelDetailsMap from './HotelDetailsMap.js';
+import HotelDetailsVotes from './HotelDetailsVotes.js';
 
 @withViewport
 @withStyles(styles) class HotelPage extends React.Component {
@@ -228,6 +229,7 @@ import HotelDetailsMap from './HotelDetailsMap.js';
                         <HotelDetailsMap data={hotel} />
                     </div>
                     <div className="b-hotel-details__votes">
+                        <HotelDetailsVotes data={hotel} />
                     </div>
                 </section>
             );
