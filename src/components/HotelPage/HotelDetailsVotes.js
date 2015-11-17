@@ -29,7 +29,7 @@ import config from '../../config.js';
                         <div className="b-hotel-details-votes__description">
                             <iframe className="b-hotel-details-iframe"
                                     src={frameUrl}
-                                    name="tripadvisor" height="500" width="100%" frameborder="0"></iframe>
+                                    name="tripadvisor" height="500" width="100%" frameBorder="0"></iframe>
                         </div>
                     </div>
                 );
