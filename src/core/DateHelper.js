@@ -10,6 +10,24 @@ export function routeDateToApiDate (date) {
     return null;
 }
 
+//15.12.2015
+export function routeDateToJsDate(date) {
+    if (date) {
+        var parts = date.split('.');
+        if (parts.length == 3) {
+            //день
+            var d = parseInt(parts[0], 10);
+            //месяц (в js месяцы начинаются с 0)
+            var m = parseInt(parts[1], 10) - 1;
+            //год
+            var y = parseInt(parts[2], 10);
+
+            return new Date(y, m, d);
+        }
+    }
+    return null;
+}
+
 //"2014-01-31T20:45:00"
 export function apiDateToJsDate(dParam) {
     if (dParam != null) {
@@ -167,5 +185,43 @@ export function minutesToHHMM(seconds) {
         else
             return h + " ч " + addMins + " мин";
     }
+    return null;
+}
+
+export function getNightsCount(fromDate, toDate) {
+    if (fromDate && toDate && fromDate <= toDate) {
+        if (fromDate == toDate) {
+            return 0;
+        }
+
+        var fDate = fromDate.getDate();
+        var fMonth = fromDate.getMonth();
+        var fYear = fromDate.getFullYear();
+
+        var tDate = toDate.getDate();
+        var tMonth = toDate.getMonth();
+        var tYear = toDate.getFullYear();
+
+        //если один день
+        if (fDate == tDate && fMonth == tMonth && fYear == tYear) {
+            return 0;
+        }
+
+        //если один год и месяц
+        if (fMonth == tMonth && fYear == tYear) {
+            return tDate - fDate;
+        }
+
+        var cur = new Date(fYear, fMonth, fDate);
+        var end = new Date(tYear, tMonth, tDate);
+        var nightsCount = 0;
+        while(cur < end) {
+            nightsCount++;
+            //сл. день
+            cur.setDate(cur.getDate() + 1);
+        }
+        return nightsCount;
+    }
+
     return null;
 }

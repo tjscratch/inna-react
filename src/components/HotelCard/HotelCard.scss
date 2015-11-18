@@ -114,6 +114,11 @@
 }
 
 @media (max-width: $mobile-max-width) {
+    .b-hotel-card-info__title,
+    .b-hotel-card-info__map {
+        margin-top: -5px;
+    }
+
     .b-hotel-card {
         padding: 5px 0 20px 10px;
     }

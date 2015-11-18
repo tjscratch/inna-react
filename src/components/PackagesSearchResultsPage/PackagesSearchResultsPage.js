@@ -16,6 +16,8 @@ import siteUrls from './../../constants/SiteUrls.js';
 //helpers
 import { routeDateToApiDate } from '../../core/DateHelper.js'
 import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
+import { routeDateToJsDate, dateToDDMMM, getNightsCount } from '../../core/DateHelper.js';
+import { pluralize } from '../../core/CountHelper.js';
 
 //controls
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
@@ -463,6 +465,10 @@ import DisplayEnum from './DisplayEnum.js';
         };
 
         //console.log('form data', this.formData);
+        var formData = this.formData;
+        var fromDate = routeDateToJsDate(formData.fromDate);
+        var toDate = routeDateToJsDate(formData.toDate);
+        var nightsCount = getNightsCount(fromDate, toDate);
 
         return (
             <section className="b-packages-results-page">
@@ -471,7 +477,13 @@ import DisplayEnum from './DisplayEnum.js';
                     <SearchForm data={this.formData}/>
                 </div>
                 <div className="b-packages-results-page__mobile-filter">
-                    <MobileSelectedFilter listType={this.state.listType}/>
+                    <MobileSelectedFilter>
+                        <div className="b-packages-results-page__head-filter__caption">{formData.to.CountryName}</div>
+                        <div className="b-packages-results-page__head-filter__description">
+                            {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
+                            &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
+                            &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
+                    </MobileSelectedFilter>
                 </div>
                 {this.renderRecommended(events)}
                 <div className="b-packages-results-page__filter">

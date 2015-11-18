@@ -25,8 +25,7 @@ import withStyles from '../../decorators/withStyles';
                     </div>
                     <div className="b-mobile-selected-filter__text">
                         <div className="b-mobile-selected-filter-text">
-                            <div className="b-mobile-selected-filter-text__caption">Египет</div>
-                            <div className="b-mobile-selected-filter-text__description">8 ночей с 7 по 15 фев 2 взрослых</div>
+                            {this.props.children}
                         </div>
                     </div>
                     <div className="b-mobile-selected-filter__filter icon-emb-filter"
