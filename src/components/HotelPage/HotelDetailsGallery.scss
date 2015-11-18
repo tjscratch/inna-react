@@ -1,3 +1,4 @@
+@import "../variables.scss";
 
 .b-gallery-wrap {
     overflow-y: hidden;
@@ -23,4 +24,10 @@
     margin-top: 10px;
     font-size: .75em;
     color: #878787;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-gallery-disclaimer {
+        display: none;
+    }
 }

@@ -14,6 +14,8 @@ import _ from 'lodash';
 
 //controls
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+import { MobileSelectedFilter } from '../MobileFilters';
+import HotelStars from '../HotelStars';
 import BreadCrumbs from '../BreadCrumbs';
 import HotelDetailsMenu from './HotelDetailsMenu.js';
 import HotelDetailsGallery from './HotelDetailsGallery.js';
@@ -23,6 +25,7 @@ import HotelDetailsRooms from './HotelDetailsRooms.js';
 import HotelDetailsServices from './HotelDetailsServices.js';
 import HotelDetailsMap from './HotelDetailsMap.js';
 import HotelDetailsVotes from './HotelDetailsVotes.js';
+
 
 @withViewport
 @withStyles(styles) class HotelPage extends React.Component {
@@ -186,6 +189,8 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         //console.log('data:', data);
         //console.log('hotel', hotel);
 
+        var isMobile = this.props.viewport.isMobile;
+
         var events = {
             changeTicket: this.changeTicket.bind(this),
             ticketAbout: this.ticketAbout.bind(this)
@@ -197,6 +202,16 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
             return (
                 <section className="b-hotel-details">
                     {this.renderOverlay()}
+                    <div className="b-hotel-details__mobile-filter">
+                        <MobileSelectedFilter>
+                            <div className="b-hotel-details__head-filter__caption">
+                                <HotelStars data={hotel.Stars}/>
+                            </div>
+                            <div className="b-hotel-details__head-filter__description">
+                                {hotel.HotelName}
+                            </div>
+                        </MobileSelectedFilter>
+                    </div>
                     <div className="b-hotel-details__crumbs">
                         <BreadCrumbs data={[
                             {link: '/', text: 'Главная'},
@@ -207,30 +222,74 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                     <div className="b-hotel-details__title">
                         {hotel.HotelName}
                     </div>
-                    <div className="b-hotel-details__menu">
-                        <HotelDetailsMenu />
-                    </div>
-                    <div className="b-hotel-details__gallery">
-                        <HotelDetailsGallery data={photos}/>
-                    </div>
-                    <div id="hotel-details__description" className="b-hotel-details__description">
-                        <HotelDetailsDescription data={hotel} />
-                    </div>
-                    <div className="b-hotel-details__package">
-                        <HotelDetailsPackage events={events} data={data} />
-                    </div>
+
+                    {
+                        isMobile ?
+                        <div>
+                            <div className="b-hotel-details__gallery">
+                                <HotelDetailsGallery data={photos}/>
+                            </div>
+                            <div className="b-hotel-details__menu">
+                                <HotelDetailsMenu />
+                            </div>
+                        </div>
+                        :
+                        <div>
+                            <div className="b-hotel-details__menu">
+                                <HotelDetailsMenu />
+                            </div>
+                            <div className="b-hotel-details__gallery">
+                                <HotelDetailsGallery data={photos}/>
+                            </div>
+                        </div>
+                    }
+
+                    {
+                        !isMobile ?
+                            <div id="hotel-details__description" className="b-hotel-details__description">
+                                <HotelDetailsDescription data={hotel} />
+                            </div> : null
+                    }
+
+                    {
+                        !isMobile ?
+                            <div className="b-hotel-details__package">
+                                <HotelDetailsPackage events={events} data={data} />
+                            </div> : null
+                    }
+
+
                     <div id="hotel-details__rooms" className="b-hotel-details__rooms">
                         <HotelDetailsRooms data={data.Rooms} packagePrice={packagePrice} />
                     </div>
-                    <div id="hotel-details__services" className="b-hotel-details__services">
-                        <HotelDetailsServices data={hotel} />
-                    </div>
-                    <div id="hotel-details__map" className="b-hotel-details__map">
-                        <HotelDetailsMap data={hotel} />
-                    </div>
-                    <div id="hotel-details__votes" className="b-hotel-details__votes">
-                        <HotelDetailsVotes data={hotel} />
-                    </div>
+
+                    {
+                        !isMobile ?
+                            <div id="hotel-details__services" className="b-hotel-details__services">
+                                <HotelDetailsServices data={hotel} />
+                            </div> : null
+                    }
+
+                    {
+                        !isMobile ?
+                            <div id="hotel-details__services" className="b-hotel-details__services">
+                                <HotelDetailsServices data={hotel} />
+                            </div> : null
+                    }
+
+                    {
+                        !isMobile ?
+                            <div id="hotel-details__map" className="b-hotel-details__map">
+                                <HotelDetailsMap data={hotel} />
+                            </div> : null
+                    }
+
+                    {
+                        !isMobile ?
+                            <div id="hotel-details__votes" className="b-hotel-details__votes">
+                                <HotelDetailsVotes data={hotel} />
+                            </div> : null
+                    }
                 </section>
             );
         }
