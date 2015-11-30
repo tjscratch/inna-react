@@ -1,5 +1,6 @@
 export default {
     Root: '/',
     SearchPackages: '/packages/search/',
-    HotelDetails: '/packages/details/'
+    HotelDetails: '/packages/details/',
+    PackageReservation: '/packages/reservation/'
 }

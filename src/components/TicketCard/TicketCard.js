@@ -216,11 +216,12 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
                     );
                 }
                 else {
-                    return (
-                        <div className="b-avia-card__actions">
-                            <a href="">Подробнее</a>
-                        </div>
-                    );
+                    return null;
+                    //return (
+                    //    <div className="b-avia-card__actions">
+                    //        <a href="">Подробнее</a>
+                    //    </div>
+                    //);
                 }
             }
         }

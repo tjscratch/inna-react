@@ -28,9 +28,9 @@ import TicketCard from '../TicketCard';
         if (data) {
             return (
                 <div className="b-hotel-details-package">
-                    <div className="b-hotel-details-package__title">Пакет с этим отелем</div>
+                    <div className="b-hotel-details-package__title">{this.props.title}</div>
                     <div className="b-hotel-details-package__price">
-                        Стоимость пакета, включая налоги и сборы:&nbsp;&nbsp;<Price data={hotel.PackagePrice}/>
+                        Стоимость пакета, включая налоги и сборы:&nbsp;&nbsp;<Price data={this.props.price}/>
                     </div>
                     <div className="b-hotel-details-package__include">
                         В стоимость пакета включен перелет {ticket.CityFrom} – {ticket.CityTo} – {ticket.CityFrom},

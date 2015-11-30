@@ -9,7 +9,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
-import { routeDateToApiDate } from '../../core/DateHelper.js';
+import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
 import _ from 'lodash';
 
 //controls
@@ -48,33 +48,6 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         });
     }
 
-    getParams() {
-        var routeParams = this.props.routeParams;
-        var filter = {
-            'Filter[DepartureId]': routeParams.fromId,
-            'Filter[ArrivalId]': routeParams.toId,
-            'Filter[StartVoyageDate]': routeDateToApiDate(routeParams.fromDate),
-            'Filter[EndVoyageDate]': routeDateToApiDate(routeParams.toDate),
-            'Filter[TicketClass]': routeParams.flightClass,
-            'Filter[Adult]': routeParams.adultCount,
-            'Filter[Children]': routeParams.childAges
-        };
-        if (routeParams.childAges) {
-            filter['Filter[ChildrenAges]'] = routeParams.childAges.split('_');
-        }
-
-        var params = {
-            HotelId: routeParams.HotelId,
-            HotelProviderId: routeParams.ProviderId,
-            TicketToId: routeParams.TicketId,
-            TicketBackId: routeParams.TicketBackId,
-            //Rooms: true,
-            ...filter
-        };
-        //console.log('params', params);
-        return params;
-    }
-
     getData() {
         return new Promise((resolve) => {
             //инфа по отелю
@@ -89,7 +62,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
 
     getHotelData() {
         return new Promise((resolve, reject)=> {
-            var params = this.getParams();
+            var params = getParamsForHotelDetails(this.props.routeParams);
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
             //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
@@ -112,7 +85,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
 
     getRoomsData() {
         return new Promise((resolve, reject)=> {
-            var params = this.getParams();
+            var params = getParamsForHotelDetails(this.props.routeParams);
             params.Rooms = true;
 
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
@@ -142,6 +115,43 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
 
     ticketAbout() {
         console.log('ticketAbout click');
+    }
+
+    onRoomBuyClick(room) {
+        //console.log('hotel onRoomBuyClick', room);
+        
+        var { routeParams } = this.props;
+        var { data } = this.state;
+        var { Hotel, AviaInfo } = this.state.data;
+
+        //console.log('routeParams', routeParams);
+        //console.log('hotel', Hotel);
+        //console.log('data', data);
+
+        var url = siteUrls.PackageReservation + [
+                routeParams.fromId,
+                routeParams.toId,
+                routeParams.fromDate,
+                routeParams.toDate,
+                routeParams.flightClass,
+                routeParams.adultCount,
+                routeParams.childAges,
+                routeParams.hotelId,
+                routeParams.ticketId,
+                routeParams.ticketBackId,
+                routeParams.providerId
+            ].join('-');
+
+        var search = [
+            `room=${room.RoomId}`,
+            `hotel=${Hotel.HotelId}`,
+            `ticket=${AviaInfo.VariantId1}`
+        ].join('&');
+
+        url = `${url}?${search}`;
+        //console.log('url', url);
+
+        window.location = url;
     }
 
     renderOverlay() {
@@ -254,13 +264,16 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                     {
                         !isMobile ?
                             <div className="b-hotel-details__package">
-                                <HotelDetailsPackage events={events} data={data} />
+                                <HotelDetailsPackage
+                                    title="Пакет с этим отелем"
+                                    price={hotel.PackagePrice}
+                                    events={events} data={data} />
                             </div> : null
                     }
 
 
                     <div id="hotel-details__rooms" className="b-hotel-details__rooms">
-                        <HotelDetailsRooms data={data.Rooms} packagePrice={packagePrice} />
+                        <HotelDetailsRooms onRoomBuyClick={(room)=>this.onRoomBuyClick(room)} data={data.Rooms} packagePrice={packagePrice} />
                     </div>
 
                     {

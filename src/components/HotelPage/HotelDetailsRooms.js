@@ -37,8 +37,12 @@ import Price from '../Price';
         }
     }
 
-    buyClick() {
-        console.log('buyClick');
+    buyClick(room) {
+        //console.log('room buyClick', room);
+        var { onRoomBuyClick } = this.props;
+        if (onRoomBuyClick) {
+            onRoomBuyClick(room);
+        }
     }
 
     renderBedType(room) {
@@ -224,7 +228,7 @@ import Price from '../Price';
                         </div>
                     </div>
                     <div className="b-rooms-list-item__buy">
-                        <BuyBtn onBuy={this.buyClick.bind(this)}/>
+                        <BuyBtn onBuy={()=>this.buyClick(room)}/>
                     </div>
                 </div>
                 <div

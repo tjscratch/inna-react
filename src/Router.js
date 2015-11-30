@@ -14,6 +14,7 @@ import ErrorPage from './components/ErrorPage';
 import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 import HotelPage from './components/HotelPage';
+import ReservationPage from './components/ReservationPage';
 
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
@@ -65,10 +66,16 @@ const router = new Router(on => {
     // &TicketToId=2109478486&TicketBackId=2109478583
     // &Filter[DepartureId]=2767&Filter[ArrivalId]=6623
     // &Filter[StartVoyageDate]=2015-12-01&Filter[EndVoyageDate]=2015-12-08&Filter[TicketClass]=0&Filter[Adult]=1
-    on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:HotelId-:TicketId-:TicketBackId-:ProviderId`, async (state) => {
+    on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
         //console.log('params', state.params);
 
         return <HotelPage
+            routeQuery={state.query ? state.query : {}}
+            routeParams={state.params} />
+    });
+
+    on(`${siteUrls.PackageReservation}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
+        return <ReservationPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params} />
     });

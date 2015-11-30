@@ -120,11 +120,11 @@ const config = {
             }]
     },
 
-    postcss: [
+    //postcss: [
     //    require('postcss-nested')(),
     //    require('cssnext')(),
     //    require('autoprefixer-core')(AUTOPREFIXER_BROWSERS)
-    ]
+    //]
 };
 
 //

@@ -1,0 +1,27 @@
+@import "../variables.scss";
+
+.b-reservation-page {
+    //min-height: 500px;
+}
+
+.b-reservation-page__header,
+.b-reservation-page__header-desc,
+.b-reservation-page__variant,
+.b-reservation-page__visa-alert,
+.b-reservation-page__tarifs-desc,
+.b-reservation-page__customer,
+.b-reservation-page__buy-request,
+.b-reservation-page__passengers,
+.b-reservation-page__comments,
+.b-reservation-page__additional-services,
+.b-reservation-page__agreement,
+.b-reservation-page__buy-block {
+    max-width: $layout-max-width;
+    padding: 0 $layout-horizontal-padding;
+    margin: 20px auto;
+}
+
+
+@media (max-width: $mobile-max-width) {
+
+}
