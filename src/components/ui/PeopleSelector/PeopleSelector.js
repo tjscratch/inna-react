@@ -3,6 +3,8 @@ import moment from 'moment';
 import styles from './PeopleSelector.scss';
 import withStyles from '../../../decorators/withStyles';
 
+import Checkbox from '../Checkbox';
+
 
 @withStyles(styles) class PeopleSelector extends React.Component {
     constructor(props) {
@@ -74,11 +76,7 @@ import withStyles from '../../../decorators/withStyles';
                     </div>
 
                     <div className="b-people-selector-dropdown__avia-class">
-                        <label className="ui-checkbox">
-                            <input className="ui-checkbox__input" name="roaming" type="checkbox"/>
-                            <span className="ui-checkbox__checkbox icon-emb-ok"></span>
-                            <span className="ui-checkbox__label">Бизнес-класс</span>
-                        </label>
+                        <Checkbox text="Бизнес-класс"/>
                     </div>
                 </div>
             </div>

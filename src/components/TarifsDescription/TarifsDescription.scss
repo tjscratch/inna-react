@@ -1,0 +1,13 @@
+
+.b-tarifs-description {
+    font-size: .85em;
+}
+
+.b-tarifs-description-link {
+    text-decoration: none;
+    color: #1e88c1;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

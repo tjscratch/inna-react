@@ -110,42 +110,7 @@
     padding: 10px 0 0 0;
     border-top: 1px solid rgba(0, 0, 0, .1);
 }
-.ui-checkbox{
-    display: flex;
-    align-items: center;
-}
-.ui-checkbox__input{
-    display: none;
-    
-    &:checked{
-        + .ui-checkbox__checkbox{
-            background-color: $green;
-        }
-    }
-}
-.ui-checkbox__checkbox{
-    position: relative;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin: 0 5px 0 0;
-    vertical-align: middle;
-    border: 2px solid $green;
-    border-radius: 2px;
-    color: #fff;
-    
-    &:before{
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 1px;
-        bottom: 0;
-        margin: auto;
-    }
-}
-.ui-checkbox__label{
-    
-}
+
 //
 //   open
 // dropdown

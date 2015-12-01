@@ -1,0 +1,40 @@
+
+.b-visa-alert {
+    padding: 20px 15px 20px 20px;
+    margin-left: -1px;
+    margin-right: -1px;
+    background: #fdf1c9;
+    font-size: .85em;
+}
+
+.b-visa-alert__img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.b-visa-alert-img {
+    margin: 0 10px;
+}
+
+.b-visa-alert__text {
+    display: inline-block;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.b-visa-alert__head {
+    font-weight: bold;
+}
+
+.b-visa-alert__body {
+
+}
+
+.b-visa-alert-link {
+    text-decoration: none;
+    color: #1e88c1;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

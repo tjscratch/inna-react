@@ -1,0 +1,66 @@
+.b-customer-info {
+
+}
+
+.b-customer-info__head {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.b-customer-info__body {
+    padding: 5px 20px;
+    background-color: #f5f5f5;
+}
+
+.b-customer-info-label {
+    font-size: .7em;
+    color: #878787;
+    white-space: nowrap;
+}
+
+.b-customer-info-field {
+    display: block;
+    padding: 4px 8px;
+}
+
+.b-customer-info-body__email {
+    display: inline-block;
+    width: 340px;
+    margin-right: 20px;
+    vertical-align: top;
+}
+
+.b-customer-info-field_email {
+    width: 100%;
+}
+
+.b-customer-info-body__phone {
+    display: inline-block;
+    width: 370px;
+    vertical-align: top;
+}
+
+.b-customer-info-phone__code {
+    display: inline-block;
+}
+
+.b-customer-info-field_code {
+    width: 80px;
+}
+
+.b-customer-info-phone__number {
+    display: inline-block;
+}
+
+.b-customer-info-field_number {
+    width: 200px;
+}
+
+.b-customer-info-phone-code-suggest {
+    display: none;
+}
+
+.b-customer-info-body__agreement {
+    margin: 15px 0 10px 0;
+}

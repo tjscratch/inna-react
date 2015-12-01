@@ -1,0 +1,6 @@
+{
+  "name": "VisaAlert",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./VisaAlert.js"
+}

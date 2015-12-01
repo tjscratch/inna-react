@@ -12,6 +12,10 @@ import siteUrls from './../../constants/SiteUrls.js';
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
 
+import VisaAlert from '../VisaAlert';
+import TarifsDescription from '../TarifsDescription';
+import CustomerInfo from '../CustomerInfo';
+
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
         super(props);
@@ -80,10 +84,13 @@ import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
                             events={events} data={data}/>
                     </div>
                     <div className="b-reservation-page__visa-alert">
+                        <VisaAlert />
                     </div>
                     <div className="b-reservation-page__tarifs-desc">
+                        <TarifsDescription />
                     </div>
                     <div className="b-reservation-page__customer">
+                        <CustomerInfo />
                     </div>
                     <div className="b-reservation-page__buy-request">
                     </div>
