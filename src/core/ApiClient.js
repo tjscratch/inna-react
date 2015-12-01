@@ -2,7 +2,7 @@
 
 import request from 'superagent';
 import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
-import SessionStorageHelper from './SessionStorageHelper.js';
+import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
 const apiPath = 'https://api.inna.ru/api/v1';
 //const apiPath = 'http://api.test.inna.ru/api/v1';

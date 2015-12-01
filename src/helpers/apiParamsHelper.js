@@ -1,4 +1,4 @@
-import { routeDateToApiDate } from '../core/DateHelper';
+import { routeDateToApiDate } from '../helpers/DateHelper';
 
 export function getParamsForHotelDetails(routeParams, roomId) {
     var filter = {

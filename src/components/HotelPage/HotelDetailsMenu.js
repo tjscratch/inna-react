@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './HotelDetailsMenu.scss';
 import withStyles from '../../decorators/withStyles';
 
-import {setHash} from '../../core/LocationHelper.js';
+import {setHash} from '../../helpers/LocationHelper.js';
 
 @withStyles(styles) class HotelDetailsMenu extends React.Component {
     constructor(props) {

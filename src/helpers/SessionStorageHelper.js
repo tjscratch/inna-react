@@ -25,11 +25,12 @@ var SessionStorageHelper = (function () {
 
     function clearAll() {
         console.log('sessionStorage clearAll');
-        var i = sessionStorage.length;
-        while(i--) {
-            var key = sessionStorage.key(i);
-            sessionStorage.removeItem(key);
-        }
+        sessionStorage.clear();
+        //var i = sessionStorage.length;
+        //while(i--) {
+        //    var key = sessionStorage.key(i);
+        //    sessionStorage.removeItem(key);
+        //}
     }
 
     return {

@@ -3,8 +3,8 @@ import styles from './HotelDetailsDescription.scss';
 import withStyles from '../../decorators/withStyles';
 
 //helpers
-import { routeDateToApiDate, apiDateToJsDate, dateToDDMMMM } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
+import { routeDateToApiDate, apiDateToJsDate, dateToDDMMMM } from '../../helpers/DateHelper.js';
+import { pluralize } from '../../helpers/CountHelper.js';
 
 //controls
 

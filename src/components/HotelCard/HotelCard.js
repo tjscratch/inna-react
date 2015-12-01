@@ -5,8 +5,8 @@ import withViewport from '../../decorators/withViewport';
 
 import Tripadvisor from '../Tripadvisor';
 
-import { apiDateToJsDate, dateToDDMMM } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
+import { apiDateToJsDate, dateToDDMMM } from '../../helpers/DateHelper.js';
+import { pluralize } from '../../helpers/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 import HotelStars from '../HotelStars';

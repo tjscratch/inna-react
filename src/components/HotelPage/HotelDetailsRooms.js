@@ -3,7 +3,7 @@ import styles from './HotelDetailsRooms.scss';
 import withStyles from '../../decorators/withStyles';
 
 //helpers
-import { stripTags } from '../../core/HtmlHelper.js';
+import { stripTags } from '../../helpers/HtmlHelper.js';
 
 //controls
 import BuyBtn from '../ui/Buttons/BuyBtn';

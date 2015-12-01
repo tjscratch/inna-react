@@ -1,6 +1,6 @@
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import api from './core/ApiClient';
-import SessionStorageHelper from './core/SessionStorageHelper.js';
+import SessionStorageHelper from './helpers/SessionStorageHelper.js';
 
 //Singleton - хранилище
 var storage = (function () {

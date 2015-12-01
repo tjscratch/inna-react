@@ -3,8 +3,8 @@ import styles from './TicketCard.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
-import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
+import { apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM } from '../../helpers/DateHelper.js';
+import { pluralize } from '../../helpers/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 

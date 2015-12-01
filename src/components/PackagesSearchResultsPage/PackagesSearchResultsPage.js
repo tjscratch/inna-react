@@ -14,10 +14,10 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
-import { routeDateToApiDate } from '../../core/DateHelper.js'
-import { setSearchParams, setSearchParam } from '../../core/LocationHelper';
-import { routeDateToJsDate, dateToDDMMM, getNightsCount } from '../../core/DateHelper.js';
-import { pluralize } from '../../core/CountHelper.js';
+import { routeDateToApiDate } from '../../helpers/DateHelper.js'
+import { setSearchParams, setSearchParam } from '../../helpers/LocationHelper';
+import { routeDateToJsDate, dateToDDMMM, getNightsCount } from '../../helpers/DateHelper.js';
+import { pluralize } from '../../helpers/CountHelper.js';
 
 //controls
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';

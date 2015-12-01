@@ -3,7 +3,7 @@ import styles from './PriceCard.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 
-import { formatPrice } from '../../core/StringHelper.js';
+import { formatPrice } from '../../helpers/StringHelper.js';
 
 import Price from '../Price';
 

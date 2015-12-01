@@ -19,7 +19,7 @@ import ReservationPage from './components/ReservationPage';
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
 import siteUrls from './constants/SiteUrls.js';
-import { routeDateToApiDate } from './core/DateHelper.js'
+import { routeDateToApiDate } from './helpers/DateHelper.js'
 import _ from 'lodash';
 
 const router = new Router(on => {

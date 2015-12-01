@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './Tripadvisor.scss';
 import withStyles from '../../decorators/withStyles';
 
-import { pluralize } from '../../core/CountHelper.js';
+import { pluralize } from '../../helpers/CountHelper.js';
 
 @withStyles(styles) class Tripadvisor extends React.Component {
     constructor(props) {

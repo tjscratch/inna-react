@@ -1,5 +1,5 @@
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
-import Location from './Location';
+import Location from '../core/Location';
 
 let LocationHelper = (function () {
 

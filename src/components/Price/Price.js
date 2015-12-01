@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './Price.scss';
 import withStyles from '../../decorators/withStyles';
-import { formatPrice } from '../../core/StringHelper.js';
+import { formatPrice } from '../../helpers/StringHelper.js';
 
 @withStyles(styles) class Price extends React.Component {
     constructor(props) {
