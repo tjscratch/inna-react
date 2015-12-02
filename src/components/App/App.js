@@ -9,7 +9,7 @@ import Feedback from '../Feedback';
 import Footer from '../Footer';
 
 @withContext
-@withStyles(styles) class App {
+@withStyles(styles) class App extends React.Component {
 
     static propTypes = {
         children: PropTypes.element.isRequired,

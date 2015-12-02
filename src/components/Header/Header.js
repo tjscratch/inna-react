@@ -9,7 +9,7 @@ import NavMobile from '../NavMobile';
 import withViewport from '../../decorators/withViewport';
 
 @withViewport
-@withStyles(styles) class Header {
+@withStyles(styles) class Header extends React.Component {
 
     render() {
         let { width, height } = this.props.viewport;

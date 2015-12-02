@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './OffersLanding.scss';
 import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles) class OffersLanding {
+@withStyles(styles) class OffersLanding extends React.Component {
 
     render() {
         return (

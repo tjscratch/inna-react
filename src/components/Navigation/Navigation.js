@@ -6,7 +6,7 @@ import styles from './Navigation.scss';
 import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 
-@withStyles(styles) class Navigation {
+@withStyles(styles) class Navigation extends React.Component {
 
     static propTypes = {
         className: PropTypes.string

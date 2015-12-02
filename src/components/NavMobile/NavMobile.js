@@ -6,7 +6,7 @@ import styles from './NavMobile.scss';
 import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 
-@withStyles(styles) class NavMobile {
+@withStyles(styles) class NavMobile extends React.Component {
 
     static propTypes = {
         className: PropTypes.string

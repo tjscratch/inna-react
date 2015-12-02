@@ -7,7 +7,7 @@ import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
 
 @withViewport
-@withStyles(styles) class footer {
+@withStyles(styles) class footer extends React.Component {
 
     static propTypes = {
         viewport: PropTypes.shape({

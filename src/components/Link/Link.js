@@ -11,7 +11,7 @@ function isModifiedEvent(event) {
   return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
-class Link {
+class Link extends React.Component {
 
   static propTypes = {
     to: PropTypes.string.isRequired,

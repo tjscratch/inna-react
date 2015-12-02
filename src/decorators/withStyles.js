@@ -1,24 +1,26 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
-import React, { PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+import React, { PropTypes, Component } from 'react'; // eslint-disable-line no-unused-vars
 import invariant from 'fbjs/lib/invariant';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 let count = 0;
 
 function withStyles(styles) {
-  return (ComposedComponent) => class WithStyles {
+  return (ComposedComponent) => class WithStyles extends Component {
 
     static contextTypes = {
-      onInsertCss: PropTypes.func
+      onInsertCss: PropTypes.func,
     };
 
     constructor() {
+      super();
       this.refCount = 0;
-      ComposedComponent.prototype.renderCss = function (css) {
+      ComposedComponent.prototype.renderCss = function render(css) {
         let style;
         if (canUseDOM) {
-          if (this.styleId && (style = document.getElementById(this.styleId))) {
+          style = this.styleId && document.getElementById(this.styleId);
+          if (style) {
             if ('textContent' in style) {
               style.textContent = css;
             } else {
@@ -59,7 +61,7 @@ function withStyles(styles) {
       if (this.styleId) {
         this.refCount--;
         if (this.refCount < 1) {
-          let style = document.getElementById(this.styleId);
+          const style = document.getElementById(this.styleId);
           if (style) {
             style.parentNode.removeChild(style);
           }

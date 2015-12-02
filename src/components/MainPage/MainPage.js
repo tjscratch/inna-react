@@ -6,7 +6,7 @@ import OffersLanding from '../OffersLanding';
 import OffersList from '../OffersList';
 import SearchForm from '../SearchForm';
 
-@withStyles(styles) class MainPage {
+@withStyles(styles) class MainPage extends React.Component {
 
     static contextTypes = {
         onSetTitle: PropTypes.func.isRequired

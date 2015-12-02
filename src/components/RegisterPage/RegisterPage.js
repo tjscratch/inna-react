@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 //import styles from './RegisterPage.css';
 
 //@withStyles(styles)
-class RegisterPage {
+class RegisterPage extends React.Component {
 
   static contextTypes = {
     onSetTitle: PropTypes.func.isRequired

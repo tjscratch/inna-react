@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 //import withStyles from '../../decorators/withStyles';
 
 //@withStyles(styles)
-class ContentPage {
+class ContentPage extends React.Component {
 
   static propTypes = {
     path: PropTypes.string.isRequired,

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './TabsNav.scss';
 import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles) class TabsNav {
+@withStyles(styles) class TabsNav extends React.Component {
 
 
     render() {

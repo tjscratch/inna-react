@@ -5,7 +5,7 @@ import React from 'react';
 //import withStyles from '../../decorators/withStyles';
 
 //@withStyles(styles)
-class Feedback {
+class Feedback extends React.Component {
 
   render() {
     return (

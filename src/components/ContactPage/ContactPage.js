@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 //import withStyles from '../../decorators/withStyles';
 //
 //@withStyles(styles)
-class ContactPage {
+class ContactPage extends React.Component {
 
   static contextTypes = {
     onSetTitle: PropTypes.func.isRequired

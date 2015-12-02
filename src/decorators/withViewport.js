@@ -1,6 +1,6 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
-import React, { Component } from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react'; // eslint-disable-line no-unused-vars
 import EventEmitter from 'eventemitter3';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
@@ -20,7 +20,7 @@ function handleWindowResize() {
 }
 
 function withViewport(ComposedComponent) {
-    return class WithViewport extends Component {
+    return class WithViewport extends React.Component {
 
         constructor() {
             super();
@@ -54,7 +54,7 @@ function withViewport(ComposedComponent) {
         }
 
         handleResize(value) {
-            this.setState({viewport: value});
+            this.setState({viewport: value}); // eslint-disable-line react/no-set-state
         }
 
     };

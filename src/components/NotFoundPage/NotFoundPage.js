@@ -5,7 +5,7 @@ import withStyles from '../../decorators/withStyles';
 import styles from './NotFoundPage.scss';
 
 @withStyles(styles)
-class NotFoundPage {
+class NotFoundPage extends React.Component {
 
   static contextTypes = {
     onSetTitle: PropTypes.func.isRequired,
