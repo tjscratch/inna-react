@@ -10,6 +10,7 @@ import siteUrls from './../../constants/SiteUrls.js';
 
 //helpers
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
+import { getPackagesSearchUrl } from '../../helpers/urlParamsHelper';
 import _ from 'lodash';
 
 //controls
@@ -225,7 +226,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                     <div className="b-hotel-details__crumbs">
                         <BreadCrumbs data={[
                             {link: '/', text: 'Главная'},
-                            {link: '/packages/search/2767-6623-01.12.2015-08.12.2015-0-1-', text: 'Результаты поиска'},
+                            {link: getPackagesSearchUrl(this.props.routeParams), text: 'Результаты поиска'},
                             {text: 'Описание отеля и выбор номера'},
                         ]}/>
                     </div>

@@ -8,7 +8,11 @@ export function getParamsForHotelDetails(routeParams, roomId) {
         'Filter[EndVoyageDate]': routeDateToApiDate(routeParams.toDate),
         'Filter[TicketClass]': routeParams.flightClass,
         'Filter[Adult]': routeParams.adultCount,
-        'Filter[Children]': routeParams.childAges
+        'Filter[Children]': routeParams.childAges,
+        'Filter[HotelId]': routeParams.hotelId,
+        'Filter[TicketId]': routeParams.ticketId,
+        'Filter[TicketBackId]': routeParams.ticketBackId,
+        'Filter[ProviderId]': routeParams.providerId
     };
     if (routeParams.childAges) {
         filter['Filter[ChildrenAges][]'] = routeParams.childAges.split('_');
