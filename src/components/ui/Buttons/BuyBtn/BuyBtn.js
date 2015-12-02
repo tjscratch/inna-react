@@ -20,9 +20,15 @@ import Price from '../../../Price';
     }
 
     render() {
+
+        var { text } = this.props;
+        if (!text) {
+            text = 'Купить';
+        }
+
         return (
             <a className="b-buy-btn" onClick={this.buyClick.bind(this)}>
-                <div className="b-buy-btn__caption">Купить</div>
+                <div className="b-buy-btn__caption">{text}</div>
             </a>
         );
     }

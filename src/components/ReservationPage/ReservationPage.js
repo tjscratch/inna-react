@@ -15,6 +15,8 @@ import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
 import VisaAlert from '../VisaAlert';
 import TarifsDescription from '../TarifsDescription';
 import CustomerInfo from '../CustomerInfo';
+import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+import BuyRequest from './BuyRequest';
 
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
@@ -46,7 +48,7 @@ import CustomerInfo from '../CustomerInfo';
             var params = getParamsForHotelDetails(this.props.routeParams, room);
             //console.log('params', params);
             api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-                //api.get(apiUrls.HotelDetails, params).then((data)=> {
+            //api.get(apiUrls.HotelDetails, params).then((data)=> {
                 //console.log('HotelDetails data', data);
                 if (data) {
                     this.setState({
@@ -65,6 +67,40 @@ import CustomerInfo from '../CustomerInfo';
         });
     }
 
+    onRequestSendClick() {
+        console.log('onRequestSendClick');
+    }
+
+    renderOverlay() {
+        //var data = this.props.data[0];
+        var data = this.state.data;
+
+        if (this.state.error) {
+            return (
+                <WaitMsg
+                    data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
+                    close={()=>{
+                                console.log('popup close');
+                                window.location = '/';
+                            }}
+                    cancel={()=>{
+                                console.log('popup cancel');
+                                window.location = '/';
+                            }}
+                    />
+            );
+        }
+        else if (data == null) {
+            return (
+                <WaitMsg
+                    data={{title:'Собираем данные', text:'Это может занять какое-то время'}}
+                    />
+            );
+        }
+
+        return null;
+    }
+
     render() {
         var { data } = this.state;
         //console.log('data', data);
@@ -73,6 +109,7 @@ import CustomerInfo from '../CustomerInfo';
         if (data) {
             return (
                 <section className="b-reservation-page">
+                    {this.renderOverlay()}
                     <div className="b-reservation-page__header">
                     </div>
                     <div className="b-reservation-page__header-desc">
@@ -93,6 +130,7 @@ import CustomerInfo from '../CustomerInfo';
                         <CustomerInfo />
                     </div>
                     <div className="b-reservation-page__buy-request">
+                        <BuyRequest onSendClick={this.onRequestSendClick.bind(this)} />
                     </div>
                     <div className="b-reservation-page__passengers">
                     </div>
@@ -110,6 +148,7 @@ import CustomerInfo from '../CustomerInfo';
 
         return (
             <section className="b-reservation-page">
+                {this.renderOverlay()}
                 <div className="b-reservation-page__header">
                     loading data...
                 </div>
