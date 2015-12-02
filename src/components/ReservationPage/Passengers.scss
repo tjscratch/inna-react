@@ -1,0 +1,78 @@
+
+.b-passenger-label {
+    font-size: .7em;
+    color: #878787;
+    white-space: nowrap;
+}
+
+.b-passenger-field {
+    display: block;
+    padding: 4px 8px;
+}
+
+.b-passengers-list-item__gender,
+.b-passengers-list-item__second-name,
+.b-passengers-list-item__name,
+.b-passengers-list-item__birth,
+.b-passengers-list-item__citizenship,
+.b-passengers-list-item__document,
+.b-passengers-list-item__series-number,
+.b-passengers-list-item__valid-to {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.b-passengers-list-item__gender {
+    margin-right: 5px;
+}
+
+.b-passengers-list-item__second-name {
+}
+
+.b-passenger-field_second-name {
+    width: 140px;
+}
+
+.b-passengers-list-item__name {
+    margin-right: 5px;
+}
+
+.b-passenger-field_name {
+    width: 110px;
+}
+
+.b-passengers-list-item__birth {
+    margin-right: 5px;
+}
+
+.b-passenger-field_birth {
+    width: 100px;
+}
+
+.b-passengers-list-item__citizenship {
+    margin-right: 5px;
+}
+
+.b-passenger-field_citizenship {
+    width: 140px;
+}
+
+.b-passenger-field_document {
+    width: 135px;
+}
+
+.b-passengers-list-item__series-number {
+    margin-right: 5px;
+}
+
+.b-passenger-field_series-number {
+    width: 130px;
+}
+
+.b-passenger-field_valid-to {
+    width: 105px;
+}
+
+.b-passengers-list-item__bonus-card {
+    margin: 15px 0 10px 0;
+}

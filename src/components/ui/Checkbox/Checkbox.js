@@ -8,11 +8,18 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     render() {
+
         return (
             <label className="ui-checkbox">
                 <input className="ui-checkbox__input" name="roaming" type="checkbox"/>
                 <span className="ui-checkbox__checkbox icon-emb-ok"></span>
-                <span className="ui-checkbox__label">{this.props.text}</span>
+                {
+                    this.props.text ?
+                        <span className="ui-checkbox__label">{this.props.text}</span>
+                        :
+                        <span className="ui-checkbox__label">{this.props.children}</span>
+                }
+
             </label>
         );
     }

@@ -28,6 +28,98 @@
     margin-top: 0;
 }
 
+.b-reservation-page-comments__head {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.b-reservation-page-comments__body {
+    position: relative;
+}
+
+.b-reservation-page-comments-text {
+    margin-right: 250px;
+
+    textarea {
+        width: 100%;
+        border: 1px solid #c0c0c2;
+        border-radius: 3px;
+        background-color: #f5f5f5;
+        resize: vertical;
+    }
+}
+
+.b-reservation-page-comments-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 240px;
+    padding: 5px 0 0;
+    color: #878787;
+    font-size: .7em;
+}
+
+.b-reservation-page-additional-services__head {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.b-reservation-page-additional-services__body {
+    font-size: .85em;
+}
+
+.b-reservation-page-additional-services-item {
+    margin: 5px 0;
+}
+
+.b-reservation-page-additional-services__lbl {
+    margin-bottom: 15px;
+    font-size: .7em;
+    color: #878787;
+}
+
+.b-reservation-page-agreement {
+    font-size: .85em;
+
+    a {
+        text-decoration: none;
+        color: #1e88c1;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.b-reservation-page__buy-block {
+    margin: 40px auto 30px;
+    text-align: center;
+}
+
+.b-reservation-page-buy-block__lbl,
+.b-reservation-page-buy-block__price,
+.b-reservation-page-buy-block__button {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.b-reservation-page-buy-block__lbl {
+    margin-right: 10px;
+    color: #878787;
+}
+
+.b-reservation-page-buy-block__price {
+    margin-right: 10px;
+    font-size: 1.6em;
+    line-height: 0;
+}
+
+.b-reservation-page-buy-block__button {
+    font-size: 1.2em;
+}
+
+
 @media (max-width: $mobile-max-width) {
 
 }

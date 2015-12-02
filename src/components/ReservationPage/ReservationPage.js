@@ -17,6 +17,10 @@ import TarifsDescription from '../TarifsDescription';
 import CustomerInfo from '../CustomerInfo';
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
 import BuyRequest from './BuyRequest';
+import Passengers from './Passengers';
+import Checkbox from '../ui/Checkbox';
+import Price from '../Price';
+import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
@@ -71,6 +75,10 @@ import BuyRequest from './BuyRequest';
         console.log('onRequestSendClick');
     }
 
+    buyClick() {
+        console.log('buyClick');
+    }
+
     renderOverlay() {
         //var data = this.props.data[0];
         var data = this.state.data;
@@ -106,6 +114,12 @@ import BuyRequest from './BuyRequest';
         //console.log('data', data);
         var events = null;
 
+        var { adultCount } = this.props.routeParams;
+        var passengersList = [];
+        for(let i=0; i<adultCount; i++) {
+            passengersList.push(i);
+        }
+
         if (data) {
             return (
                 <section className="b-reservation-page">
@@ -133,14 +147,51 @@ import BuyRequest from './BuyRequest';
                         <BuyRequest onSendClick={this.onRequestSendClick.bind(this)} />
                     </div>
                     <div className="b-reservation-page__passengers">
+                        <Passengers data={passengersList}/>
                     </div>
                     <div className="b-reservation-page__comments">
+                        <div className="b-reservation-page-comments__head">
+                            Пожелание к номеру
+                        </div>
+                        <div className="b-reservation-page-comments__body">
+                            <div className="b-reservation-page-comments-text">
+                                <textarea rows="4">
+                                </textarea>
+                            </div>
+                            <div className="b-reservation-page-comments-label">
+                                Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение. Пожалуйста, пишите ваши пожелания на английском языке.
+                            </div>
+                        </div>
                     </div>
                     <div className="b-reservation-page__additional-services">
+                        <div className="b-reservation-page-additional-services__head">
+                            Дополнительные услуги
+                        </div>
+                        <div className="b-reservation-page-additional-services__lbl">
+                            Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c Вами и предложит разные варианты.
+                        </div>
+                        <div className="b-reservation-page-additional-services__body">
+                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Виза"/></div>
+                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Трансфер"/></div>
+                        </div>
                     </div>
                     <div className="b-reservation-page__agreement">
+                        <Checkbox>
+                            <div className="b-reservation-page-agreement">
+                                Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>, <a href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих <br/>персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+                            </div>
+                        </Checkbox>
                     </div>
                     <div className="b-reservation-page__buy-block">
+                        <div className="b-reservation-page-buy-block__lbl">
+                            Сумма к оплате:
+                        </div>
+                        <div className="b-reservation-page-buy-block__price">
+                            <Price data={46388}/>
+                        </div>
+                        <div className="b-reservation-page-buy-block__button">
+                            <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)} />
+                        </div>
                     </div>
                 </section>
             );
