@@ -56,7 +56,9 @@ import PeopleSelector from '../ui/PeopleSelector';
                 fromId: null,
                 toId: null,
                 fromDate: null,
-                toDate: null
+                toDate: null,
+                flightClass: 0,
+                adultCount: 2,
             };
         }
     }
@@ -132,6 +134,13 @@ import PeopleSelector from '../ui/PeopleSelector';
         })
     }
 
+    setAdultCount(data){
+        console.log(data);
+        this.setState({
+            adultCount: data
+        })
+    }
+
     render() {
         return (
             <section className="b-search-form">
@@ -155,7 +164,10 @@ import PeopleSelector from '../ui/PeopleSelector';
                                 />
                         </div>
                         <div className="b-search-form-action__people">
-                            <PeopleSelector/>
+                            <PeopleSelector
+                                adultCount={this.state.adultCount}
+                                setAdultCount={this.setAdultCount.bind(this)}
+                                />
                         </div>
                         <div className="b-search-form-action__btn">
                             <span className="btn btn-green"

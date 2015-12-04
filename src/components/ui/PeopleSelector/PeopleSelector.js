@@ -35,6 +35,12 @@ import Checkbox from '../Checkbox';
         event.nativeEvent.stopImmediatePropagation();
     }
 
+
+    setPeooples(count) {
+        this.props.setAdultCount(count);
+    }
+
+
     render() {
         return (
             <div className={this.state.isOpen ? 'b-people-selector b-people-selector__open' : 'b-people-selector'}
@@ -44,6 +50,7 @@ import Checkbox from '../Checkbox';
 
                 <div className="b-people-selector__value">
                     <div className="b-people-selector__value-peoples">
+                        {this.props.adultCount}
                         2 человека,
                     </div>
                     <div className="b-people-selector__value-class">
@@ -60,10 +67,12 @@ import Checkbox from '../Checkbox';
                         Взрослые
                     </div>
                     <div className="b-people-selector-dropdown__btns">
-                        <div className="b-people-selector-dropdown__btns-btn">1</div>
-                        <div className="b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected">2</div>
-                        <div className="b-people-selector-dropdown__btns-btn">3</div>
-                        <div className="b-people-selector-dropdown__btns-btn">4</div>
+                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 1)}>1</div>
+                        <div className="b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected"
+                             onClick={this.setPeooples.bind(this, 2)}>2
+                        </div>
+                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 3)}>3</div>
+                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 4)}>4</div>
                     </div>
                     <div className="b-people-selector-dropdown__label">
                         Дети
