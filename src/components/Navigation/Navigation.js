@@ -17,8 +17,8 @@ import Link from '../Link';
             <div className={this.props.className} role="navigation">
                 <div className="b-nav" role="navigation">
                     <span className="b-nav__text b-nav__text-phone">+7 495 742-1212</span>
-                    <a className="b-nav__link" href="/about" onClick={Link.handleClick}>Где купить</a>
-                    <a className="b-nav__link" href="/contact" onClick={Link.handleClick}>Агентствам</a>
+                    <a className="b-nav__link" href="/about" onClick={Link.handleClick}>О проекте</a>
+                    <a className="b-nav__link" href="/contact" onClick={Link.handleClick}>Контакты</a>
                 </div>
             </div>
         );

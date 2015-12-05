@@ -7,8 +7,27 @@ import Slider from 'react-slick';
 @withViewport
 @withStyles(styles) class OffersSlider extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            height: this.props.viewport.height
+        };
+    }
+
+    static propTypes = {
+        viewport: PropTypes.shape({
+            width: PropTypes.number.isRequired,
+            height: PropTypes.number.isRequired
+        }).isRequired
+    };
+
+    
+
     render() {
-        var height = this.props.viewport.height;
+        let { width, height } = this.props.viewport;
+        this.renderCss(`.b-offers-slider {height:${height}px;}.slick-track {height:${height}px;}`);
+        
         var settings = {
             dots: false,
             arrows: false,
@@ -23,7 +42,7 @@ import Slider from 'react-slick';
             //lazyLoad: true
         };
         return (
-            <div className="b-offers-slider" style={{height: height + 'px'}}>
+            <div className="b-offers-slider">
                 <Slider {...settings}>
                     <div className="Slider-img" style={{backgroundImage: 'url(images/bg-1.jpg)'}}>
                         <div className="Slider-caption">
