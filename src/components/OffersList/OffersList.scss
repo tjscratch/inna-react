@@ -2,13 +2,13 @@
 
 .b-offers-list {
     max-width: $layout-max-width;
-    padding: 10px 15px 50px;
+    padding: 10px 15px 0;
     margin: 0 auto;
 }
 
 .b-offer {
     width: 100%;
-    max-width: 960px;
+    max-width: 100%;
     margin-bottom: 1.043%;
     overflow: hidden;
     vertical-align: top;
@@ -53,16 +53,16 @@
 }
 
 .b-offer-large + .b-offer-small {
-    margin-bottom: 1.043%;
+    margin-bottom: 1.041%;
 }
 
 .b-offer-margin {
-    margin-right: 1.043%;
+    margin-right: 1.041%;
 }
 
 .offer-left {
     float: left;
-    margin-right: 1.043%;
+    margin-right: 1.041%;
 
     &:after {
         clear: both;
@@ -72,7 +72,7 @@
 
 .offer-right {
     float: right;
-    margin-left: 1.043%;
+    margin-left: 1.041%;
 
     &:after {
         clear: both;

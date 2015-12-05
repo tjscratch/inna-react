@@ -19,7 +19,7 @@
 .b-footer {
     position: relative;
     max-width: $layout-max-width;
-    padding: 35px 15px 15px;
+    padding: 25px 15px;
     margin: 0 auto;
 }
 
@@ -159,12 +159,9 @@
 /*company*/
 
 .b-comp-info {
-    padding: 20px 0 50px;
-    margin-top: 30px;
-    font-size: 9px;
-    color: #818589;
+    font-size: 13px;
+    color: #a4a8ad;
     text-align: justify;
-    border-top: 1px solid #262626;
 }
 
 .b-comp-info a {
