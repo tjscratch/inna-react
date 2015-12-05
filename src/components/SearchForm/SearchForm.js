@@ -9,106 +9,19 @@ import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
 import DatepickerRange from '../ui/DatepickerRange';
 import PeopleSelector from '../ui/PeopleSelector';
-
+import Select from 'react-select';
 
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
         super(props);
 
-        //начальные данные для рендера на сервере
-        let data = props ? props.data : null;
-
-        //формат данных:
-        /*
-         fromId
-         toId
-         fromDate - 09.11.2015
-         toDate
-         flightClass
-         adultCount
-         childAges - опционально
-         from - объект directory - опционально
-         to - объект directory - опционально
-         */
-
-        //объект directory:
-        /*
-         Airport: Array[3]
-         Basic: 1
-         CodeIata: "MOW"
-         CodeIcao: ""
-         CodeSirena: "МОВ"
-         CountryId: 189
-         CountryName: "Россия"
-         Id: 6733
-         Name: "Москва"
-         NameEn: "Moscow"
-         VisaGroup: 0
-         */
-
-        if (data) {
-            this.state = {
-                ...data
-            };
-        }
-        else {
-            this.state = {
-                fromId: null,
-                toId: null,
-                fromDate: null,
-                toDate: null,
-                flightClass: 0,
-                adultCount: 2,
-            };
+        this.state = {
+            options: [
+                {value: 'one', label: 'One'},
+                {value: 'two', label: 'Two'}
+            ]
         }
     }
-
-    //getFlightClassName() {
-    //    var flightClass = this.state.flightClass;
-    //    if (flightClass) {
-    //        прводим к числу
-    //switch (+flightClass) {
-    //    case 0:
-    //        return 'эконом';
-    //    case 1:
-    //        return 'бизнес';
-    //}
-    //}
-    //
-    //return 'эконом';
-    //}
-
-    //getPeopleCount() {
-    //    var adultCount = 0;
-    //    var childCount = 0;
-    //
-    //    if (this.state.adultCount) {
-    //        adultCount = +this.state.adultCount;
-    //    }
-    //    var childAges = this.state.childAges;
-    //    if (childAges) {
-    //        let agesArray = childAges.split('_');
-    //        if (agesArray) {
-    //            childCount = agesArray.length;
-    //        }
-    //    }
-    //
-    //    //ToDo: прикрутить множественную форму
-    //    return `${adultCount + childCount} человек`;
-    //}
-
-    locationFrom(data) {
-        this.setState({
-            fromId: data.Id
-        });
-    }
-
-    locationTo(data) {
-        this.setState({
-            toId: data.Id
-        });
-    }
-
 
     handleStartSearch() {
         let searchParams = [
@@ -122,60 +35,25 @@ import PeopleSelector from '../ui/PeopleSelector';
     }
 
 
-    setFromDate(date) {
-        this.setState({
-            fromDate: date
-        });
+    logChange(val) {
+        console.log("Selected: " + val);
     }
 
-    setToDate(date) {
-        this.setState({
-            toDate: date
-        })
-    }
-
-    setAdultCount(data){
-        console.log(data);
-        this.setState({
-            adultCount: data
-        })
-    }
 
     render() {
         return (
             <section className="b-search-form">
-                <div className="b-search-form__tabs">
-                    <TabsNav/>
-                </div>
                 <div className="b-search-form__form">
-                    <div className="b-search-form__actions">
-                        <div className="b-search-form-action__location-from">
-                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
-                        </div>
-                        <div className="b-search-form-action__location-to">
-                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', location: this.state.to}}/>
-                        </div>
-                        <div className="b-search-form-action__date">
-                            <DatepickerRange
-                                startDate={this.state.fromDate}
-                                endDate={this.state.toDate}
-                                setStartDate={this.setFromDate.bind(this)}
-                                setEndDate={this.setToDate.bind(this)}
-                                />
-                        </div>
-                        <div className="b-search-form-action__people">
-                            <PeopleSelector
-                                adultCount={this.state.adultCount}
-                                setAdultCount={this.setAdultCount.bind(this)}
-                                />
-                        </div>
-                        <div className="b-search-form-action__btn">
-                            <span className="btn btn-green"
-                                  onClick={this.handleStartSearch.bind(this)}
-                                >
-                                Найти
-                            </span>
-                        </div>
+                    <Select
+                        name="form-field-name"
+                        value="one"
+                        options={this.state.options}
+                        onChange={this.logChange.bind(this)}
+                        />
+                    <div className="btn btn-green"
+                         onClick={this.handleStartSearch.bind(this)}
+                        >
+                        Найти
                     </div>
                 </div>
             </section>
