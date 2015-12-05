@@ -172,7 +172,13 @@ textarea {
 [class^="icon-emb-"]:before, [class*=" icon-emb-"]:before {
     margin-right: 0!important;
 }
-
+a{
+    color: blue;
+    
+    &:hover{
+        color: $red;
+    }
+}
 
 /*
  * Global classes
@@ -180,4 +186,44 @@ textarea {
 
 .g-hidden {
     display: none;
+}
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+    padding: $padding-vertical $padding-horizontal;
+    font-size: $font-size;
+    line-height: $line-height;
+    border-radius: $border-radius;
+}
+@mixin btn-bg-color($bg-color, $color) {
+    color: $color;
+    background-color: $bg-color;
+
+    &:hover{
+        background-color: lighten($bg-color, 5%);
+    }
+    &:active{
+        background-color: darken($bg-color, 5%);
+    }
+}
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    transition: all $animation-speed;
+    cursor: pointer;
+
+    @include button-size($btn-padding-vertical, $btn-padding-horizontal, $btn-font-size, $btn-line-height, $btn-border-radius);
+}
+.btn-green{
+    @include btn-bg-color($btn-green-bg, $btn-green-color);
+}
+.btn-orange{
+    @include btn-bg-color($red, $btn-green-color);
 }

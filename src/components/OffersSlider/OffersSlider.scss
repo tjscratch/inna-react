@@ -1,6 +1,5 @@
 @import '../variables.scss';
-
-.b-offers-slider {
+.b-offers-slider{
     //height: 600px;
     background-color: #f6f6f6;
     //background-image: url('../../public/images/bg-1.jpg');
@@ -8,8 +7,7 @@
     background-position: center top;
     background-size: cover;
 }
-
-.b-offers-slider__content {
+.b-offers-slider__content{
     max-width: $layout-max-width;
     padding: 40px 0 40px;
     margin: 0 auto;
@@ -82,13 +80,17 @@
     background-position: center center;
     //filter: blur(1px);
 
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+
     &:before{
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+        //content: '';
+        //position: absolute;
+        //left: 0;
+        //right: 0;
+        //top: 0;
+        //bottom: 0;
         //background-color: rgba(0, 0, 0, .3);
     }
 }
@@ -114,4 +116,41 @@
     display: block;
     height: auto;
     border: 1px solid transparent;
+}
+.Slider-caption{
+    position: relative;
+    z-index: 100;
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, .3);
+    color: #fff;
+    text-align: center;
+}
+.Slider-caption__title{
+    font-size: 3.5rem;
+    
+    a{
+        color: $white;
+
+        &:hover{
+            color: lighten($red, 20%);
+        }
+    }
+}
+.Slider-caption__text{
+    margin: 20px 0 0 0;
+    font-size: 1.5rem;
+
+    a{
+        color: $white;
+
+        &:hover{
+            color: lighten($red, 20%);
+        }
+    }
+    
+    .btn{
+        margin-left: 12px;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
 }
