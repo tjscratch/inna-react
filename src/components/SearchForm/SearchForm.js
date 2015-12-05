@@ -11,15 +11,19 @@ import DatepickerRange from '../ui/DatepickerRange';
 import PeopleSelector from '../ui/PeopleSelector';
 import Select from 'react-select';
 
+//data
+import suggestData from '../../rostravel/suggestData';
+
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            options: [
-                {value: 'one', label: 'One'},
-                {value: 'two', label: 'Two'}
-            ]
+            //options: [
+            //    {value: 'one', label: 'One'},
+            //    {value: 'two', label: 'Two'}
+            //]
+            options: suggestData.getOptions()
         }
     }
 
