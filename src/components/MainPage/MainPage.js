@@ -19,6 +19,7 @@ import SearchForm from '../SearchForm';
             <section className="b-main-page">
                 <div className="b-main-page__slider">
                     <OffersSlider />
+                    <SearchForm/>
                 </div>
                 <div className="b-main-page__offers-list">
                     <OffersList {...this.props} />
