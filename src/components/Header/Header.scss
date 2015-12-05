@@ -1,82 +1,78 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.scss';
-
-.header {
+.header{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
     color: #fff;
-    background: #232323;
+    background: rgba(0, 0, 0, .2);
 }
-
-.header-viewport {
+.header-viewport{
     position: absolute;
     top: 5px;
     right: 10px;
     color: rgba(255, 255, 255, .3);
     text-align: center;
 }
-
-.b-header {
+.b-header{
     max-width: $layout-max-width;
     padding: 5px 15px;
     margin: 0 auto;
     text-align: left;
 }
-
-.b-header__brand {
+.b-header__brand{
     display: inline-block;
     width: 270px;
 }
-
-.b-brand__text {
+.b-brand__text{
     display: inline-block;
     margin-left: 15px;
+    color: #fff;
+    font-size: 25px;
 }
-
-.b-header__nav {
+.b-header__nav{
     display: inline-block;
     float: right;
     margin-top: 10px;
 }
-
-.b-brand__img-mobile {
+.b-brand__img-mobile{
     display: none;
 }
-
-.b-header__nav-mobile {
+.b-header__nav-mobile{
     display: none;
 }
-
 @media (max-width: 650px) {
-    .b-header {
+    .b-header{
         text-align: center;
     }
 
-    .b-header__nav {
+    .b-header__nav{
         float: none;
         margin-bottom: 5px;
     }
 }
-
 @media (max-width: $mobile-max-width) {
     .b-brand__img,
     .b-brand__text,
-    .b-header__nav {
+    .b-header__nav{
         display: none;
     }
 
-    .b-header {
+    .b-header{
         padding: 5px 10px;
     }
 
-    .b-header__brand {
+    .b-header__brand{
         width: auto;
     }
 
-    .b-header__nav-mobile {
+    .b-header__nav-mobile{
         display: inline-block;
         float: left;
     }
 
-    .b-brand__img-mobile {
+    .b-brand__img-mobile{
         display: inline-block;
         margin-left: -40%;
     }

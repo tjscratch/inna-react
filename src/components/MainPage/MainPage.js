@@ -17,14 +17,8 @@ import SearchForm from '../SearchForm';
         this.context.onSetTitle(title);
         return (
             <section className="b-main-page">
-                <div className="b-main-page__search-form">
-                    <SearchForm/>
-                </div>
                 <div className="b-main-page__slider">
                     <OffersSlider />
-                </div>
-                <div className="b-main-page__offers-landing">
-                    <OffersLanding />
                 </div>
                 <div className="b-main-page__offers-list">
                     <OffersList {...this.props} />
