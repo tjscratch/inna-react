@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     top: 0;
+    z-index: 2;
     color: #fff;
     background: rgba(0, 0, 0, .2);
 }
@@ -20,10 +21,16 @@
     padding: 5px 15px;
     margin: 0 auto;
     text-align: left;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .b-header__brand{
-    display: inline-block;
+    display: block;
     width: 270px;
+    
+    
 }
 .b-brand__text{
     display: inline-block;
@@ -32,9 +39,7 @@
     font-size: 25px;
 }
 .b-header__nav{
-    display: inline-block;
-    float: right;
-    margin-top: 10px;
+    display: block;
 }
 .b-brand__img-mobile{
     display: none;

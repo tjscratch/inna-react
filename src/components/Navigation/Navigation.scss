@@ -1,14 +1,21 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+.b-nav{
+    display: flex;
+    align-items: center;
+}
 
 .b-nav__text {
     display: inline-block;
     padding: 0 4px;
     font-size: 15px;
     line-height: 19px;
-    color: #989898;
+    color: #fff;
     text-decoration: none;
 }
-
+.b-nav__text-phone{
+    margin-right: 40px;
+    font-size: 1.3rem;
+}
 .b-nav__text a {
     color: #989898;
 }
