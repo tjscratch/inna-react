@@ -102,13 +102,9 @@ a.b-offer-title-wrap {
     }
 
     &:hover {
-        font-size: 22px;
+        //font-size: 22px;
         cursor: pointer;
-        background-color: rgba(0, 0, 0, .6);
-
-        .b-offer-title__sub-text {
-            font-size: 1em;
-        }
+        background-color: rgba(0, 0, 0, .5);
     }
 }
 
@@ -144,7 +140,7 @@ a.b-offer-title-wrap {
 }
 
 .b-offer-title__sub-text {
-    font-size: 0;
+    font-size: 1em;
     transition: font-size $animation-speed;
 }
 
