@@ -50,7 +50,8 @@ import suggestData from '../../rostravel/suggestData';
                 <div className="b-search-form__form">
                     <Select
                         name="form-field-name"
-                        value="one"
+                        value=""
+                        placeholder="Выберите тип туризма или куда поехать"
                         options={this.state.options}
                         onChange={this.logChange.bind(this)}
                         />
