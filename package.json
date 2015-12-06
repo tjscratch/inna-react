@@ -30,6 +30,7 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-list": "^0.7.8",
+    "react-photoswipe": "^0.5.1",
     "react-routing": "0.0.5",
     "react-select": "^0.9.1",
     "react-slick": "^0.8.0",
