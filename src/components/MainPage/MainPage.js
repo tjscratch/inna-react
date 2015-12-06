@@ -76,6 +76,12 @@ import SearchForm from '../SearchForm';
 
             //берем топ 20
             data = data.items;
+            data = data.filter((i)=>{
+                if (i.price) {
+                    return true;
+                }
+                return false;
+            });
             data = data.splice(0,30);
 
             //берем тип
