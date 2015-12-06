@@ -60,10 +60,11 @@ import SearchForm from '../SearchForm';
         }
 
         function getOfferFromData(item, data) {
+            //console.log('getOfferFromData', item, data);
             return {
                 id: item.id,
-                locationId: item.locationId ? data.locationId : null,
-                price: item.price ? data.price : null,
+                locationId: item.locationId,
+                price: item.price,
                 Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
                 FrontTitleRow1: item.name
             }
