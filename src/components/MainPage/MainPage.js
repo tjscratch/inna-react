@@ -21,7 +21,7 @@ import SearchForm from '../SearchForm';
     };
 
     onItemsLoad(data) {
-        console.log('main page onItemsLoad, item 0', data[0]);
+        console.log('main page onItemsLoad, item 0', data ? data.items[0]: null);
         //console.log('this.refs',this.refs);
 
 
@@ -62,8 +62,8 @@ import SearchForm from '../SearchForm';
         function getOfferFromData(item, data) {
             return {
                 id: item.id,
-                locationId: data.locationId,
-                price: data.price,
+                locationId: item.locationId ? data.locationId : null,
+                price: item.price ? data.price : null,
                 Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
                 FrontTitleRow1: item.name
             }
