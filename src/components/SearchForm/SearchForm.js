@@ -20,12 +20,19 @@ import suggestData from '../../rostravel/suggestData';
     constructor(props) {
         super(props);
 
+        var options = suggestData.getOptions();
+        var label = 'Зимний отдых';
+        //var value = options.find((i)=>i.label == label);
+
+        //console.log('initial label', label, 'value', value);
+
         this.state = {
             //options: [
             //    {value: 'one', label: 'One'},
             //    {value: 'two', label: 'Two'}
             //]
-            options: suggestData.getOptions()
+            options: options,
+            value: label
         }
     }
 
@@ -61,7 +68,6 @@ import suggestData from '../../rostravel/suggestData';
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
         window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
     }
-
 
     logChange(val) {
         console.log("Selected: " + val);
@@ -103,6 +109,11 @@ import suggestData from '../../rostravel/suggestData';
                     console.log('api err', err);
                 })
             }
+
+            this.setState({
+                //value: val
+                value: this.state.options.find((i)=>i.value === val)
+            })
         }
     }
 
@@ -113,7 +124,7 @@ import suggestData from '../../rostravel/suggestData';
                 <div className="b-search-form__form">
                     <Select
                         name="form-field-name"
-                        value="Зимний отдых"
+                        value={this.state.value}
                         placeholder="Выберите тип туризма или куда поехать"
                         options={this.state.options}
                         onChange={this.logChange.bind(this)}
