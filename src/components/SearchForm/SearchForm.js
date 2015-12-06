@@ -58,8 +58,8 @@ import suggestData from '../../rostravel/suggestData';
                 })
             }
             else {
-                console.log('get by itemIds');
-                api.localGet('/api/getObjects', {itemIds:val.join(',')}).then((data)=>{
+                console.log('get by itemIds', val.itemsIds.join(','));
+                api.localGet('/api/getObjects', {itemIds:val.itemsIds.join(',')}).then((data)=>{
                     console.log('api data:', data);
                     if (data && data.items) {
                         self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
