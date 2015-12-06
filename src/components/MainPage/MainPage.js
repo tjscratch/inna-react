@@ -21,7 +21,7 @@ import SearchForm from '../SearchForm';
     };
 
     onItemsLoad(data) {
-        //console.log('main page onItemsLoad', data);
+        console.log('main page onItemsLoad, item 0', data[0]);
         //console.log('this.refs',this.refs);
 
 
@@ -32,8 +32,29 @@ import SearchForm from '../SearchForm';
         //Offer3
         //OfferLayoutType: "L2S"
 
+
+        if (data) {
+            data = data.splice(0,20);
+            var items = data.map((item)=>{
+                return {
+                    Offer1: {
+                        Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
+                        FrontTitleRow1: item.name
+                    },
+                    OfferLayoutType: 'XL'
+                }
+            });
+
+            var offersData = [{
+                SectionLayouts: [{
+                    OfferLayouts : items
+                }]
+            }]
+        }
+
+
         this.setState({
-            offersData: data
+            offersData: offersData
         })
     }
 
