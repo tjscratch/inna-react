@@ -103,11 +103,6 @@ import suggestData from '../../rostravel/suggestData';
                         options={this.state.options}
                         onChange={this.logChange.bind(this)}
                         />
-                    <div className="btn btn-green"
-                         onClick={this.handleStartSearch.bind(this)}
-                        >
-                        Найти
-                    </div>
                 </div>
             </section>
         );

@@ -35,7 +35,7 @@ import Slider from 'react-slick';
             dots: false,
             arrows: false,
             infinite: false,
-            speed: 1500,
+            speed: 2000,
             easing: 0.9,
             fade: true,
             slidesToShow: 1,
@@ -54,7 +54,7 @@ import Slider from 'react-slick';
                             </div>
                             <div className="Slider-caption__text">
                                 Перелет + Отель
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-2300-21.12.2015-27.12.2015-0-1-')}>от 11 850 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-2300-21.12.2015-27.12.2015-0-1-')}>от 15 256 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@ import Slider from 'react-slick';
                             </div>
                             <div className="Slider-caption__text">
                                 Перелет + Отель
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-6196-21.12.2015-27.12.2015-0-1-')}>от 31 681 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-6196-21.12.2015-27.12.2015-0-1-')}>от 34 848 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>
