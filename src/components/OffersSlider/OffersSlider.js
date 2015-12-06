@@ -44,7 +44,7 @@ import Slider from 'react-slick';
         return (
             <div className="b-offers-slider">
                 <Slider {...settings}>
-                    <div className="Slider-img" style={{backgroundImage: 'url(images/bg-1.jpg)'}}>
+                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-1.jpg)'}}>
                         <div className="Slider-caption">
                             <div className="Slider-caption__title">
                                 Камчатский край
@@ -60,7 +60,7 @@ import Slider from 'react-slick';
                             </div>
                         </div>
                     </div>
-                    <div className="Slider-img" style={{backgroundImage: 'url(images/bg-2.jpg)'}}>
+                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-2.jpg)'}}>
                         <div className="Slider-caption">
                             <div className="Slider-caption__title">
                                 Озеро Байкал
@@ -76,7 +76,7 @@ import Slider from 'react-slick';
                             </div>
                         </div>
                     </div>
-                    <div className="Slider-img" style={{backgroundImage: 'url(images/bg-3.jpg)'}}>
+                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-3.jpg)'}}>
                         <div className="Slider-caption">
                             <div className="Slider-caption__title">
                                 Вологда
