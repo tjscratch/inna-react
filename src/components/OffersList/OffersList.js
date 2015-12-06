@@ -23,16 +23,17 @@ import Link from '../Link';
     }
 
     renderOfferTitle(offer) {
-        //console.log('renderOfferTitle', offer);
+        console.log(offer.locationId)
         let url = `/details/${offer.id}`;
+        let innaUrl = `https://inna.ru/#/packages/search/6733-${offer.locationId}-21.12.2015-27.12.2015-0-2-`
 
         let html = '';
         html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow1}</a></div>` : '';
         html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow2}</a></div>` : '';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
-        html += offer.FrontPrice ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
-        html += offer.FrontPrice ? `<div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от ${offer.FrontPrice}</div>` : '';
+        html += offer.price ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
+        html += offer.price ? `<a class="btn btn-orange" href=${innaUrl} target="_blank">от ${offer.price} руб (за чел.)</a>` : '';
 
         //onClick={Link.handleClick}
         return (

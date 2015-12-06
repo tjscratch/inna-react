@@ -58,7 +58,7 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
         this.setState({
             isOpen: true,
             options: {
-                closeOnScroll: false
+                closeOnScroll: true
             }
         });
     };
@@ -106,7 +106,7 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
                             
                             <div className="b-details-head__buy">
                                 <div className="b-details-head__buy-d">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 35 000 руб.</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 35 000 руб (за чел.)</div>
                             </div>
                         </div>
                         

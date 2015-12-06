@@ -122,10 +122,17 @@
     z-index: 2;
     display: inline-block;
     vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
     
     .btn{
         margin: 10px 0 0 0;
         font-size: .8em;
+        text-decoration: none;
+        
+        &:hover{
+            color: #fff;
+        }
     }
 }
 
