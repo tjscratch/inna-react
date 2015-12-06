@@ -1,0 +1,28 @@
+@import '../variables.scss';
+.b-details{
+    padding: 40px;
+}
+.b-details-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.b-details-head__title{
+    margin: 0 0 20px;
+
+    font-family: RobotoRegular, Arial, sans-serif;
+    font-size: 35px;
+}
+.b-details-head__info{
+    flex-grow: 4;
+}
+.b-details-head__track{
+    width: 400px;
+    padding: 1px 0 1px 25px;
+    border-left: 1px solid #ccc;
+    margin-left: 25px;
+}
+.b-details-head__track-item{
+    margin: 10px 0;
+    color: rgba(0, 0, 0, .65);
+}

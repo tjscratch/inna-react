@@ -12,6 +12,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
 import MainPage from './components/MainPage';
+import DetailsPage from './components/DetailsPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 import HotelPage from './components/HotelPage';
 import ReservationPage from './components/ReservationPage';
@@ -36,6 +37,13 @@ const router = new Router(on => {
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
         return <MainPage data={data}/>
+    });
+
+    on(siteUrls.Details, async (state) => {
+        let sectionId = 4;
+        //получаем все данные (массив) для этой страницы сразу
+        let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
+        return <DetailsPage data={data}/>
     });
 
     //страница результатов поиска ДП
