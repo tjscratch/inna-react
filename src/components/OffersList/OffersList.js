@@ -37,13 +37,23 @@ import Link from '../Link';
 
         //onClick={Link.handleClick}
 
+        function getName(name) {
+            //console.log('name', name);
+            name = name.replace(/&amp;quot;/g, '\"');
+            return name;
+        }
+
         return (
             <div className="b-offer-title-wrap">
                 <a className="b-offer-link" href={url}></a>
 
                 <div className="b-offer-title">
-                    <div className="b-offer-title__text"><a href={url} dangerouslySetInnerHTML={{__html:offer.name}}></a></div>
-                    <div className="b-offer-title__sub-text">Перелет + Отель</div>
+                    <div className="b-offer-title__text"><a href={url} dangerouslySetInnerHTML={{__html:getName(offer.name)}}></a></div>
+                    {
+                        offer.price ?
+                            <div className="b-offer-title__sub-text">Перелет + Отель</div>
+                            : null
+                    }
                     {
                         offer.price ?
                             <a className="btn btn-orange" href={innaUrl} target="_blank">от {Math.trunc(offer.price/2)} руб (за чел.)</a>
