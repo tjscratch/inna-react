@@ -38,7 +38,7 @@ import SearchForm from '../SearchForm';
     }
 
     render() {
-        let title = 'Инна-Тур';
+        let title = 'Ростур';
         this.context.onSetTitle(title);
         return (
             <section className="b-main-page">

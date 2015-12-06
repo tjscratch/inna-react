@@ -4,16 +4,54 @@ import withStyles from '../../decorators/withStyles';
 import OffersSlider from '../OffersSlider';
 import OffersList from '../OffersList';
 import SearchForm from '../SearchForm';
+import {PhotoSwipe} from 'react-photoswipe';
 
 @withStyles(styles) class DetailsPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isOpen: true
+        }
+    }
+
 
     static contextTypes = {
         onSetTitle: PropTypes.func.isRequired
     };
 
+
+    handleClose(){
+        this.setState({
+            isOpen: false
+        });
+    };
+
+
     render() {
-        let title = 'Инна-Тур';
+        let title = 'Ростур';
         this.context.onSetTitle(title);
+
+        let items = [
+            {
+                src: 'http://lorempixel.com/1200/900/sports/1',
+                w: 1200,
+                h: 900,
+                title: 'Image 1'
+            },
+            {
+                src: 'http://lorempixel.com/1200/900/sports/2',
+                w: 1200,
+                h: 900,
+                title: 'Image 2'
+            }
+        ];
+
+        let options = {
+            //http://photoswipe.com/documentation/options.html
+        };
+
         return (
             <section className="b-main-page">
                 <div className="b-main-page__slider">
@@ -46,6 +84,8 @@ import SearchForm from '../SearchForm';
                         </div>
                         
                     </div>
+
+                    <PhotoSwipe isOpen={this.state.isOpen} items={items} options={options} onClose={this.state.handleClose}/>
                     
                 </div>
             </section>
