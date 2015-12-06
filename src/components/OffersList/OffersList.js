@@ -133,7 +133,7 @@ import Link from '../Link';
                     <div className="b-offer-large offer-left"
                          style={{backgroundImage: `url("https://s.inna.ru/Files/Photos/151030173212/151126161701/p_637x428.jpg")`}}>
                         <div className="b-offer-title-wrap">
-                            <a className="b-offer-link" href="/"></a>
+                            <a className="b-offer-link" href="/details"></a>
 
                             <div className="b-offer-title">
                                 <div className="b-offer-title__text">
