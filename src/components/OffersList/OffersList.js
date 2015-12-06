@@ -40,6 +40,7 @@ import Link from '../Link';
         function getName(name) {
             //console.log('name', name);
             name = name.replace(/&amp;quot;/g, '\"');
+            name = name.replace(/&amp;amp;quot;/g, '\"');
             return name;
         }
 
