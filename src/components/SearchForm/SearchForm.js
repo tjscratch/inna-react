@@ -10,10 +10,12 @@ import Suggest from '../ui/Suggest';
 import DatepickerRange from '../ui/DatepickerRange';
 import PeopleSelector from '../ui/PeopleSelector';
 import Select from 'react-select';
+import withViewport from '../../decorators/withViewport';
 
 //data
 import suggestData from '../../rostravel/suggestData';
 
+@withViewport
 @withStyles(styles) class SearchForm extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +35,14 @@ import suggestData from '../../rostravel/suggestData';
             value: label
         }
     }
+
+    static propTypes = {
+        viewport: PropTypes.shape({
+            width: PropTypes.number.isRequired,
+            height: PropTypes.number.isRequired
+        }).isRequired
+    };
+
 
     componentDidMount() {
         var self = this;
@@ -62,6 +72,9 @@ import suggestData from '../../rostravel/suggestData';
     logChange(val) {
         console.log("Selected: " + val);
 
+
+        let { width, height } = this.props.viewport;
+
         var self = this;
 
         if (val) {
@@ -70,6 +83,7 @@ import suggestData from '../../rostravel/suggestData';
                 console.log('get by tags');
                 api.localGet('/api/getObjects', {tagsIds:val.join(',')}).then((data)=>{
                     console.log('api data:', data);
+                    window.scrollTo(0, this.props.viewport.height);
                     if (data && data.items) {
                         self.props.onItemsLoad ? self.props.onItemsLoad({
                             items: data.items
@@ -83,6 +97,7 @@ import suggestData from '../../rostravel/suggestData';
                 console.log('get by itemIds', val.itemsIds.join(','));
                 api.localGet('/api/getObjects', {itemIds:val.itemsIds.join(',')}).then((data)=>{
                     console.log('api data:', data);
+                    window.scrollTo(0, this.props.viewport.height);
                     if (data && data.items) {
                         self.props.onItemsLoad ? self.props.onItemsLoad({
                             locationId: val.locationId,
