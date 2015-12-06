@@ -9,6 +9,8 @@ import rosApi from '../rostravel/rosTravelApiClient';
 
 import innaLocations from 'json!../rostravel/inna_locations.json';
 
+import regions from '../rostravel/regionsHelper';
+
 const router = new Router();
 
 router.get('/', async (req, res, next) => {
@@ -32,6 +34,10 @@ router.get('/', async (req, res, next) => {
                         }
                     }
 
+                    //регион
+                    if (item.addressRegion) {
+                        item.regionName = regions[item.addressRegion];
+                    }
                 })
             }
         }
