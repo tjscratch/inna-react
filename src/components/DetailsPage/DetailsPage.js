@@ -95,7 +95,7 @@ import api from './../../core/ApiClient';
     }
 
     render() {
-        let title = 'Ростур';
+        let title = 'BookInna';
         this.context.onSetTitle(title);
         return (
             <section className="b-main-page">

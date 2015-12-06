@@ -21,7 +21,7 @@ import withViewport from '../../decorators/withViewport';
                     <NavMobile className="b-header__nav-mobile"/>
                     <div className="b-header__brand">
                         <a className="b-brand" href="/" onClick={Link.handleClick}>
-                            <span className="b-brand__text">Ростур</span>
+                            <span className="b-brand__text">BookInna</span>
                         </a>
                     </div>
                     <Navigation className="b-header__nav"/>
