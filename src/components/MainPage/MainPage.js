@@ -59,17 +59,22 @@ import SearchForm from '../SearchForm';
             }
         }
 
-        function getOfferFromData(item) {
+        function getOfferFromData(item, data) {
             return {
                 id: item.id,
+                locationId: data.locationId,
+                price: data.price,
                 Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
                 FrontTitleRow1: item.name
             }
         }
 
 
-        if (data) {
+        if (data && data.items) {
+            var origData = data;
+
             //берем топ 20
+            data = data.items;
             data = data.splice(0,30);
 
             //берем тип
@@ -86,7 +91,7 @@ import SearchForm from '../SearchForm';
                 switch (offerType) {
                     case 'XL': {
                         offerLayouts.push({
-                            Offer1: getOfferFromData(offer1),
+                            Offer1: getOfferFromData(offer1, origData),
                             OfferLayoutType: 'XL'
                         });
                         curIndex++;
@@ -94,9 +99,9 @@ import SearchForm from '../SearchForm';
                     }
                     case 'L2S': {
                         offerLayouts.push({
-                            Offer1: getOfferFromData(offer1),
-                            Offer2: getOfferFromData(offer2),
-                            Offer3: getOfferFromData(offer3),
+                            Offer1: getOfferFromData(offer1, origData),
+                            Offer2: getOfferFromData(offer2, origData),
+                            Offer3: getOfferFromData(offer3, origData),
                             OfferLayoutType: 'L2S'
                         });
                         curIndex = curIndex + 3;
@@ -104,9 +109,9 @@ import SearchForm from '../SearchForm';
                     }
                     case '2SL': {
                         offerLayouts.push({
-                            Offer1: getOfferFromData(offer1),
-                            Offer2: getOfferFromData(offer2),
-                            Offer3: getOfferFromData(offer3),
+                            Offer1: getOfferFromData(offer1, origData),
+                            Offer2: getOfferFromData(offer2, origData),
+                            Offer3: getOfferFromData(offer3, origData),
                             OfferLayoutType: '2SL'
                         });
                         curIndex = curIndex + 3;
@@ -114,8 +119,8 @@ import SearchForm from '../SearchForm';
                     }
                     case '2M': {
                         offerLayouts.push({
-                            Offer1: getOfferFromData(offer1),
-                            Offer2: getOfferFromData(offer2),
+                            Offer1: getOfferFromData(offer1, origData),
+                            Offer2: getOfferFromData(offer2, origData),
                             OfferLayoutType: '2M'
                         });
                         curIndex = curIndex + 2;
@@ -123,9 +128,9 @@ import SearchForm from '../SearchForm';
                     }
                     case 'L3L3L3': {
                         offerLayouts.push({
-                            Offer1: getOfferFromData(offer1),
-                            Offer2: getOfferFromData(offer2),
-                            Offer3: getOfferFromData(offer3),
+                            Offer1: getOfferFromData(offer1, origData),
+                            Offer2: getOfferFromData(offer2, origData),
+                            Offer3: getOfferFromData(offer3, origData),
                             OfferLayoutType: 'L3L3L3'
                         });
                         curIndex = curIndex + 3;

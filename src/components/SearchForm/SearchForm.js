@@ -27,6 +27,20 @@ import suggestData from '../../rostravel/suggestData';
         }
     }
 
+    componentDidMount() {
+        var self = this;
+        api.localGet('/api/getObjects', {tagsIds:'2751d2f3,4a775725,65049910'}).then((data)=>{
+            console.log('init api data:', data);
+            if (data && data.items) {
+                self.props.onItemsLoad ? self.props.onItemsLoad({
+                    items: data.items
+                }) : null;
+            }
+        }).catch((err)=>{
+            console.log('api err', err);
+        })
+    }
+
     handleStartSearch() {
         let searchParams = [
             this.state.fromId,
@@ -51,7 +65,9 @@ import suggestData from '../../rostravel/suggestData';
                 api.localGet('/api/getObjects', {tagsIds:val.join(',')}).then((data)=>{
                     console.log('api data:', data);
                     if (data && data.items) {
-                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                        self.props.onItemsLoad ? self.props.onItemsLoad({
+                            items: data.items
+                        }) : null;
                     }
                 }).catch((err)=>{
                     console.log('api err', err);
@@ -62,7 +78,11 @@ import suggestData from '../../rostravel/suggestData';
                 api.localGet('/api/getObjects', {itemIds:val.itemsIds.join(',')}).then((data)=>{
                     console.log('api data:', data);
                     if (data && data.items) {
-                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                        self.props.onItemsLoad ? self.props.onItemsLoad({
+                            locationId: val.locationId,
+                            price: val.price,
+                            items: data.items
+                        }) : null;
                     }
                 }).catch((err)=>{
                     console.log('api err', err);
@@ -78,7 +98,7 @@ import suggestData from '../../rostravel/suggestData';
                 <div className="b-search-form__form">
                     <Select
                         name="form-field-name"
-                        value=""
+                        value="Зимний отдых"
                         placeholder="Выберите тип туризма или куда поехать"
                         options={this.state.options}
                         onChange={this.logChange.bind(this)}

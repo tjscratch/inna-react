@@ -33,10 +33,11 @@ const router = new Router(on => {
 
     //главная страница
     on(siteUrls.Root, async (state) => {
-        let sectionId = 4;
+        //let sectionId = 4;
         //получаем все данные (массив) для этой страницы сразу
-        let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
-        return <MainPage data={data}/>
+        //let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
+        //return <MainPage data={data}/>
+        return <MainPage />
     });
 
     on(`${siteUrls.Details}:id`, async (state) => {
