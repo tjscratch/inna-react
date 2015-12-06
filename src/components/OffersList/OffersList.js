@@ -10,14 +10,14 @@ import Link from '../Link';
     }
 
     getFullUrl(url) {
-        if (url && url.startsWith('/#/')) {
-            url = 'https://inna.ru' + url;
-        }
-        return url;
+        //if (url && url.startsWith('/#/')) {
+        //    url = 'https://inna.ru' + url;
+        //}
+        //return url;
+        window.location = `/details/${url}`;
     }
 
     goBuy(url) {
-        console.log(url);
         //window.location = url;
         window.open(url, '_blank')
     }
@@ -26,19 +26,20 @@ import Link from '../Link';
         //console.log('renderOfferTitle', offer);
 
         let html = '';
-        html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text">${offer.FrontTitleRow1}</div>` : '';
-        html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text">${offer.FrontTitleRow2}</div>` : '';
+        html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a onClick={this.getFullUrl.bind(this, offer.id)}>${offer.FrontTitleRow1}</a></div>` : '';
+        html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a onClick={this.getFullUrl.bind(this, offer.id)}>${offer.FrontTitleRow2}</a></div>` : '';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
-        html += offer.BackSubTitleRow2 ? `<div class="b-offer-title__sub-text">${offer.BackSubTitleRow2}</div>` : '';
-        html += offer.FrontPrice ? `<div>от <span class="b-offer-title__price">${offer.FrontPrice}<span/></div>` : '';
+        html += offer.BackSubTitleRow2 ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
+        html += offer.FrontPrice ? `<div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от ${offer.FrontPrice}</div>` : '';
 
         //onClick={Link.handleClick}
         return (
-            <a className="b-offer-title-wrap" href={this.getFullUrl(offer.Url)}>
+            <div className="b-offer-title-wrap">
+                <a className="b-offer-link" onClick={this.getFullUrl.bind(this, offer.id)}></a>
                 <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
                 </div>
-            </a>
+            </div>
         );
     }
 
