@@ -1,5 +1,4 @@
 import data from 'json!./suggest_tags_plus_locations.json';
-//var data = require('json!./suggest_tags_plus_locations.json');
 
 //console.log('data', data);
 

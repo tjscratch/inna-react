@@ -41,6 +41,34 @@ import suggestData from '../../rostravel/suggestData';
 
     logChange(val) {
         console.log("Selected: " + val);
+
+        var self = this;
+
+        if (val) {
+            //если массив - значит тут теги
+            if (isArray(val)) {
+                console.log('get by tags');
+                api.localGet('/api/getObjects', {tagsIds:val.join(',')}).then((data)=>{
+                    console.log('api data:', data);
+                    if (data && data.items) {
+                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                    }
+                }).catch((err)=>{
+                    console.log('api err', err);
+                })
+            }
+            else {
+                console.log('get by itemIds');
+                api.localGet('/api/getObjects', {itemIds:val.join(',')}).then((data)=>{
+                    console.log('api data:', data);
+                    if (data && data.items) {
+                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                    }
+                }).catch((err)=>{
+                    console.log('api err', err);
+                })
+            }
+        }
     }
 
 
@@ -68,3 +96,10 @@ import suggestData from '../../rostravel/suggestData';
 }
 
 export default SearchForm;
+
+function isArray(array) {
+    if (Object.prototype.toString.call(array) === '[object Array]') {
+        return true;
+    }
+    return false;
+}

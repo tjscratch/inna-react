@@ -18,6 +18,24 @@ const getUrl = (path) => {
 
 const ApiClient = {
 
+    localGet: (path, params) => new Promise((resolve, reject) => {
+        request
+            .get(path)
+            .query(params)
+            .accept('application/json')
+            .end((err, res) => {
+                if (err) {
+                    if (err.status === 404) {
+                        resolve(null);
+                    } else {
+                        reject(err);
+                    }
+                } else {
+                    resolve(res.body);
+                }
+            });
+    }),
+
     get: (path, params) => new Promise((resolve, reject) => {
         request
             .get(getUrl(path))

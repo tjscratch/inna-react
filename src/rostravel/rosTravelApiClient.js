@@ -3,7 +3,7 @@ import { inspect } from 'util';
 //import { md5 } from 'blueimp-md5'
 import config from '../config';
 import http from 'superagent';
-import fs from 'fs';
+//import fs from 'fs';
 
 import { createItemsWithFields } from './objectsFactory';
 
@@ -15,7 +15,7 @@ const apiClient = {
     //Справочник типов объектов
     getObjectTypes: () => new Promise((resolve, reject)=>{
         getRequest(buildXmlRequest('get-library', 'object-type')).then((data)=>{
-            resolve(createItemsWithFields(data, ['id','nid','name']));
+            resolve(createItemsWithFields(data, ['id','nid','name','group']));
         }).catch(reject);
     }),
 
@@ -54,7 +54,11 @@ const apiClient = {
         }).catch(reject);
     }),
 
-    findObjects: (itemId, regionIds, point, objectTypes) => new Promise((resolve, reject)=> {
+    findObjectsByTags: (objectTypes) => apiClient.findObjects(null, null, null, objectTypes),
+
+    findObjectsByItemIds: (itemIds) => apiClient.findObjects(itemIds),
+
+    findObjects: (itemIds, regionIds, point, objectTypes) => new Promise((resolve, reject)=> {
         function wrapIdTag(list) {
             if (list) {
                 list = list.map((item)=>`\<id>${item}</id>`);
@@ -63,13 +67,22 @@ const apiClient = {
             return '';
         }
 
+        function wrapItemIdTag(list) {
+            if (list) {
+                list = list.map((itemId)=>`\<item id="${itemId}"/>`);
+                return list;
+            }
+            return '';
+        }
+
+        var itemIdsString = itemIds ? wrapItemIdTag(itemIds).join('\n') : '';
         var objectTypesString = objectTypes ? wrapIdTag(objectTypes).join('\n') : '';
         var regionIdsString = regionIds ? wrapIdTag(regionIds).join('\n') : '';
 
         getRequest(buildXmlRequestRaw(
             `\<request action="get-objects-for-update" lastupdate="30.04.2014" page="1">
 <items>
-${itemId ? `\<item id="${itemId}"/>` : ''}
+${itemIdsString}
 </items>
 <addressRegion>
 ${regionIdsString}
@@ -83,37 +96,52 @@ ${objectTypesString}
     <url/>
     <geo/>
     <types/>
+    <photos/>
     <addressCountry/>
     <addressLocality/>
     <addressArea/>
     <addressRegion/>
     <streetAddress/>
-    <photos/>
-    <review/>
-    <videos/>
-    <addressRegion/>
-    <telephone/>
-    <ratingValue/>
-    <minPrice/>
-    <maxPrice/>
-    <priceRange/>
-    <eventLinks/>
-    <historyLinks/>
-    <factsLinks/>
-    <travelLinks/>
-    <tostayLinks/>
-    <factsLinks/>
-    <showYandexPanorama/>
-    <mediaFiles/>
-    <panoramas/>
 </attributes>
 </request>`
         )).then((data)=> {
-            resolve(data);
-            //resolve(createItemsWithFields(data, ['id','name']));
+            //resolve(data);
+            resolve(createItemsWithFields(data, ['id','name','types','image','photos','url']));
+            //resolve(createItemsWithFields(data, ['id','name','types','geo','image','telephone','addressCountry','addressRegion','streetAddress','photos','published']));
         }).catch(reject);
     })
 };
+
+
+/*
+ <name/>
+ <url/>
+ <geo/>
+ <types/>
+ <addressCountry/>
+ <addressLocality/>
+ <addressArea/>
+ <addressRegion/>
+ <streetAddress/>
+ <photos/>
+ <review/>
+ <videos/>
+ <addressRegion/>
+ <telephone/>
+ <ratingValue/>
+ <minPrice/>
+ <maxPrice/>
+ <priceRange/>
+ <eventLinks/>
+ <historyLinks/>
+ <factsLinks/>
+ <travelLinks/>
+ <tostayLinks/>
+ <factsLinks/>
+ <showYandexPanorama/>
+ <mediaFiles/>
+ <panoramas/>
+ */
 
 //http request
 
@@ -135,9 +163,9 @@ function getRequest(xml) {
             xml: xml
         };
 
-        console.log('request');
-        console.log(xml);
-        console.log('');
+        //console.log('request');
+        //console.log(xml);
+        //console.log('');
         //return;
 
         var reqObj = http

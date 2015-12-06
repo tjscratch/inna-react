@@ -6,21 +6,7 @@ import Link from '../Link';
 @withStyles(styles) class OffersList extends React.Component {
     constructor(props) {
         super(props);
-        //console.log('props', props);
-
-        //берем из массива данных первый элемент
-        let data = (props.data && props.data.length > 0) ? props.data[0] : null;
-        if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
-            //console.log('data', data.SectionLayouts);
-            this.state = {
-                sections: data.SectionLayouts
-            };
-        }
-        else {
-            this.state = {
-                sections: null
-            };
-        }
+        console.log('offers props', props);
     }
 
     getFullUrl(url) {
@@ -140,7 +126,7 @@ import Link from '../Link';
         }
     }
 
-    renderSections() {
+    renderSections(sections) {
         return (
             <div>
                 <div className="b-offer">
@@ -186,7 +172,7 @@ import Link from '../Link';
                         </div>
                     </div>
                 </div>
-                {this.state.sections.map((section, index)=> {
+                {sections.map((section, index)=> {
                     return (
                         <div key={index}>
                             {section.OfferLayouts.map(this.renderOffer, this)}
@@ -198,16 +184,22 @@ import Link from '../Link';
     }
 
     render() {
-        if (this.state.sections) {
-            return (
-                <div id="offersList" className="b-offers-list">
-                    {this.renderSections()}
-                </div>
-            );
+        //берем из массива данных первый элемент
+        let { data } = this.props;
+
+        if (data) {
+            var sections = data[0].SectionLayouts;
+
+            if (sections) {
+                return (
+                    <div id="offersList" className="b-offers-list">
+                        {this.renderSections(sections)}
+                    </div>
+                );
+            }
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 
 }
