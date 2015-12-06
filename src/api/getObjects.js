@@ -7,6 +7,8 @@ import fs from '../utils/fs';
 //ros tur
 import rosApi from '../rostravel/rosTravelApiClient';
 
+import innaLocations from 'json!../rostravel/inna_locations.json';
+
 const router = new Router();
 
 router.get('/', async (req, res, next) => {
@@ -15,10 +17,31 @@ router.get('/', async (req, res, next) => {
 
         console.log('req.query', req.query);
 
+        function addLocationIdsAndPrice(data) {
+            if (data && data.items) {
+                data.items.forEach((item)=>{
+                    for(var i=0;i<innaLocations.length;i++){
+                        var loc = innaLocations[i];
+                        if (loc.items) {
+                            var found = loc.items.filter((li)=>li == item.id)
+                            if (found) {
+                                item.locationId = loc.id;
+                                item.price = loc.price;
+                                break;
+                            }
+                        }
+                    }
+
+                })
+            }
+        }
+
         var { itemIds, tagsIds } = req.query;
         if (itemIds) {
             rosApi.findObjectsByItemIds(itemIds.split(',')).then((data)=>{
                 //console.log('api data:', data);
+                addLocationIdsAndPrice(data);
+
                 res.status(200).send(data);
             }).catch((err)=>{
                 //console.log('api err', err);
@@ -28,6 +51,8 @@ router.get('/', async (req, res, next) => {
         else if (tagsIds) {
             rosApi.findObjectsByTags(tagsIds.split(',')).then((data)=>{
                 //console.log('api data:', data);
+                addLocationIdsAndPrice(data);
+
                 res.status(200).send(data);
             }).catch((err)=>{
                 //console.log('api err', err);
