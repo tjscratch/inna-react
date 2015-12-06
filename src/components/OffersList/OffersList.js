@@ -6,7 +6,7 @@ import Link from '../Link';
 @withStyles(styles) class OffersList extends React.Component {
     constructor(props) {
         super(props);
-        console.log('offers props', props);
+        //console.log('offers props', props);
     }
 
     getFullUrl(url) {
@@ -23,27 +23,55 @@ import Link from '../Link';
     }
 
     renderOfferTitle(offer) {
-        console.log(offer.locationId)
+        //console.log(offer.locationId);
         let url = `/details/${offer.id}`;
         let innaUrl = `https://inna.ru/#/packages/search/6733-${offer.locationId}-21.12.2015-27.12.2015-0-2-`
 
-        let html = '';
-        html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow1}</a></div>` : '';
-        html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow2}</a></div>` : '';
-        html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
-        html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
-        html += offer.price ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
-        html += offer.price ? `<a class="btn btn-orange" href=${innaUrl} target="_blank">от ${offer.price} руб (за чел.)</a>` : '';
+        //let html = '';
+        //html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow1}</a></div>` : '';
+        //html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow2}</a></div>` : '';
+        //html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
+        //html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
+        //html += offer.price ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
+        //html += offer.price ? `<a class="btn btn-orange" href=${innaUrl} target="_blank">от ${offer.price} руб (за чел.)</a>` : '';
 
         //onClick={Link.handleClick}
+
+        function getName(name) {
+            //console.log('name', name);
+            name = name.replace(/&amp;quot;/g, '\"');
+            name = name.replace(/&amp;amp;quot;/g, '\"');
+            return name;
+        }
+
         return (
             <div className="b-offer-title-wrap">
                 <a className="b-offer-link" href={url}></a>
 
-                <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
+                <div className="b-offer-title">
+                    <div className="b-offer-title__text"><a href={url} dangerouslySetInnerHTML={{__html:getName(offer.name)}}></a></div>
+                    {
+                        offer.price ?
+                            <div className="b-offer-title__sub-text">Перелет + Отель</div>
+                            : null
+                    }
+                    {
+                        offer.price ?
+                            <a className="btn btn-orange" href={innaUrl} target="_blank">от {Math.trunc(offer.price/2)} руб (за чел.)</a>
+                            : null
+                    }
                 </div>
             </div>
         );
+
+        //return (
+        //    <div className="b-offer-title-wrap">
+        //        <a className="b-offer-link" href={url}></a>
+        //
+        //        <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
+        //        </div>
+        //    </div>
+        //);
     }
 
     renderOffer(offer, ix) {

@@ -66,7 +66,7 @@ import SearchForm from '../SearchForm';
                 locationId: item.locationId,
                 price: item.price,
                 Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
-                FrontTitleRow1: item.name
+                name: item.name,
             }
         }
 

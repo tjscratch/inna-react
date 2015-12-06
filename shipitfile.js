@@ -6,7 +6,7 @@ module.exports = function (shipit) {
             workspace: 'build',
             deployTo: '/home/deploy/www/inna-react',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-front-react.git',
-            branch: 'master',
+            branch: 'hackaton',
             ignores: ['.git', 'node_modules'],
             keepReleases: 2,
             deleteOnRollback: false,
