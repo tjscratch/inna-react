@@ -55,7 +55,7 @@ import Slider from 'react-slick';
                             <div className="Slider-caption__text">
                                 Туры в Камчатский край от
                                 <div className="btn btn-orange">
-                                    25 000 руб.
+                                    25 000 руб (за чел.)
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@ import Slider from 'react-slick';
                             <div className="Slider-caption__text">
                                 Туры в Камчатский край от
                                 <div className="btn btn-orange">
-                                    25 000 руб.
+                                    25 000 руб (за чел.)
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ import Slider from 'react-slick';
                             <div className="Slider-caption__text">
                                 Туры в Камчатский край от
                                 <div className="btn btn-orange">
-                                    25 000 руб.
+                                    25 000 руб (за чел.)
                                 </div>
                             </div>
                         </div>
