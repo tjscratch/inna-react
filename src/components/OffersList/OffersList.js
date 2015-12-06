@@ -50,6 +50,9 @@ import Link from '../Link';
 
                 <div className="b-offer-title">
                     <div className="b-offer-title__text"><a href={url} dangerouslySetInnerHTML={{__html:getName(offer.name)}}></a></div>
+                    <div className="b-offer-title__date">
+                        {offer.regionName}
+                    </div>
                     {
                         offer.price ?
                             <div className="b-offer-title__sub-text">Перелет + Отель</div>

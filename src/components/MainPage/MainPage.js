@@ -67,6 +67,7 @@ import SearchForm from '../SearchForm';
                 price: item.price,
                 Image: item.image ? item.image : (item.photos && item.photos.length > 0 ? item.photos[0].file['$t'] : ''), //item.photos[0].file['$t']
                 name: item.name,
+                regionName: item.regionName
             }
         }
 
