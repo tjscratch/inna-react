@@ -24,19 +24,21 @@ import Link from '../Link';
 
     renderOfferTitle(offer) {
         //console.log('renderOfferTitle', offer);
+        let url = `/details/${offer.id}`;
 
         let html = '';
-        html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a onClick={this.getFullUrl.bind(this, offer.id)}>${offer.FrontTitleRow1}</a></div>` : '';
-        html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a onClick={this.getFullUrl.bind(this, offer.id)}>${offer.FrontTitleRow2}</a></div>` : '';
+        html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow1}</a></div>` : '';
+        html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow2}</a></div>` : '';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
-        html += offer.BackSubTitleRow2 ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
+        html += offer.FrontPrice ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
         html += offer.FrontPrice ? `<div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от ${offer.FrontPrice}</div>` : '';
 
         //onClick={Link.handleClick}
         return (
             <div className="b-offer-title-wrap">
-                <a className="b-offer-link" onClick={this.getFullUrl.bind(this, offer.id)}></a>
+                <a className="b-offer-link" href={url}></a>
+
                 <div className="b-offer-title" dangerouslySetInnerHTML={{__html:html}}>
                 </div>
             </div>
@@ -130,49 +132,6 @@ import Link from '../Link';
     renderSections(sections) {
         return (
             <div>
-                <div className="b-offer">
-                    <div className="b-offer-large offer-left"
-                         style={{backgroundImage: `url("https://s.inna.ru/Files/Photos/151030173212/151126161701/p_637x428.jpg")`}}>
-                        <div className="b-offer-title-wrap">
-                            <a className="b-offer-link" href="/details"></a>
-
-                            <div className="b-offer-title">
-                                <div className="b-offer-title__text">
-                                    <a href="/">База отдыха «Мещерский скит»</a>
-                                </div>
-                                <div className="b-offer-title__date">Владимирская область / Чамерево</div>
-                                <div className="b-offer-title__sub-text">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 6 206 руб (за чел.)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="b-offer-small"
-                         style={{backgroundImage: `url("https://s.inna.ru/Files/Photos/151030173212/151126161701/p_637x428.jpg")`}}>
-                        <div className="b-offer-title-wrap">
-                            <a className="b-offer-link" href="/"></a>
-
-                            <div className="b-offer-title">
-                                <div className="b-offer-title__text">База отдыха «Мещерский скит»</div>
-                                <div className="b-offer-title__date">Владимирская область / Чамерево</div>
-                                <div className="b-offer-title__sub-text">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 6 206 руб (за чел.)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="b-offer-small"
-                         style={{backgroundImage: `url("https://s.inna.ru/Files/Photos/151030173212/151126161701/p_637x428.jpg")`}}>
-                        <div className="b-offer-title-wrap">
-                            <a className="b-offer-link" href="/"></a>
-
-                            <div className="b-offer-title">
-                                <div className="b-offer-title__text">База отдыха «Мещерский скит»</div>
-                                <div className="b-offer-title__date">Владимирская область / Чамерево</div>
-                                <div className="b-offer-title__sub-text">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 6 206 руб (за чел.)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {sections.map((section, index)=> {
                     return (
                         <div key={index}>

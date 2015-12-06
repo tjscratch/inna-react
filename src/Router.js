@@ -39,7 +39,7 @@ const router = new Router(on => {
         return <MainPage data={data}/>
     });
 
-    on(siteUrls.Details, async (state) => {
+    on(`${siteUrls.Details}:id`, async (state) => {
         let sectionId = 4;
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
