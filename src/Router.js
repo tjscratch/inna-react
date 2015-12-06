@@ -44,7 +44,7 @@ const router = new Router(on => {
         let sectionId = 4;
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
-        return <DetailsPage data={data}/>
+        return <DetailsPage id={state.params.id}/>
     });
 
     //страница результатов поиска ДП

@@ -23,6 +23,7 @@ import Link from '../Link';
     }
 
     renderOfferTitle(offer) {
+        console.log(offer)
         //console.log('renderOfferTitle', offer);
         let url = `/details/${offer.id}`;
 
@@ -31,8 +32,8 @@ import Link from '../Link';
         html += offer.FrontTitleRow2 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow2}</a></div>` : '';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
-        html += offer.FrontPrice ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
-        html += offer.FrontPrice ? `<div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от ${offer.FrontPrice}</div>` : '';
+        html += offer.price ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
+        html += offer.price ? `<div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от ${offer.price} руб.</div>` : '';
 
         //onClick={Link.handleClick}
         return (
