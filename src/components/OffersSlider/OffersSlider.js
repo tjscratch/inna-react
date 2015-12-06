@@ -22,7 +22,10 @@ import Slider from 'react-slick';
         }).isRequired
     };
 
-    
+    goBuy(url) {
+        //window.location = url;
+        window.open(url, '_blank')
+    }
 
     render() {
         let { width, height } = this.props.viewport;
@@ -44,51 +47,25 @@ import Slider from 'react-slick';
         return (
             <div className="b-offers-slider">
                 <Slider {...settings}>
-                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-1.jpg)'}}>
+                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-4.jpg)'}}>
                         <div className="Slider-caption">
                             <div className="Slider-caption__title">
-                                Камчатский край
+                                <a href="/details/16615">Горнолыжный курорт "Чегет"</a>
                             </div>
                             <div className="Slider-caption__text">
-                                <a href="#">10 причин посетить Камчатку</a>
-                            </div>
-                            <div className="Slider-caption__text">
-                                Туры в Камчатский край от
-                                <div className="btn btn-orange">
-                                    25 000 руб (за чел.)
-                                </div>
+                                Перелет + Отель
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-2300-21.12.2015-27.12.2015-0-1-')}>от 11 850 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>
-                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-2.jpg)'}}>
+                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-5.jpg)'}}>
                         <div className="Slider-caption">
                             <div className="Slider-caption__title">
-                                Озеро Байкал
+                                <a href="/details/292901">Горнолыжный курорт "Шерегеш"</a>
                             </div>
                             <div className="Slider-caption__text">
-                                <a href="#">10 причин посетить Камчатку</a>
-                            </div>
-                            <div className="Slider-caption__text">
-                                Туры в Камчатский край от
-                                <div className="btn btn-orange">
-                                    25 000 руб (за чел.)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="Slider-img" style={{backgroundImage: 'url(/images/bg-3.jpg)'}}>
-                        <div className="Slider-caption">
-                            <div className="Slider-caption__title">
-                                Вологда
-                            </div>
-                            <div className="Slider-caption__text">
-                                <a href="#">10 причин посетить Камчатку</a>
-                            </div>
-                            <div className="Slider-caption__text">
-                                Туры в Камчатский край от
-                                <div className="btn btn-orange">
-                                    25 000 руб (за чел.)
-                                </div>
+                                Перелет + Отель
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-6196-21.12.2015-27.12.2015-0-1-')}>от 31 681 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>

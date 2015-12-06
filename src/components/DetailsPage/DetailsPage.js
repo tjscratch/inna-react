@@ -5,6 +5,7 @@ import OffersSlider from '../OffersSlider';
 import OffersList from '../OffersList';
 import SearchForm from '../SearchForm';
 import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
+import api from './../../core/ApiClient';
 
 @withStyles(styles) class DetailsPage extends React.Component {
 
@@ -12,6 +13,8 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
         super(props);
 
         this.state = {
+            title: null,
+            streetAddress: null,
             isOpen: false,
             galleryItems: [
                 {
@@ -79,6 +82,13 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
     goBuy(url) {
         //window.location = url;
         window.open(url, '_blank')
+    }
+
+    componentDidMount(){
+        api.localGet('/api/getObjects', {itemIds: this.props.id})
+            .then((data)=> {
+                console.log(data)
+            })
     }
 
     render() {
