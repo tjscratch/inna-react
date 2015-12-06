@@ -58,7 +58,7 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
         this.setState({
             isOpen: true,
             options: {
-                closeOnScroll: false
+                closeOnScroll: true
             }
         });
     };
