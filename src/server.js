@@ -25,6 +25,7 @@ server.use(express.static(path.join(__dirname, 'public')));
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/getObjects', require('./api/getObjects'));
+server.use('/presentation', require('./api/link'));
 //server.use('/api/content', require('./api/content'));
 
 //
