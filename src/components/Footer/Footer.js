@@ -27,7 +27,7 @@ import Link from '../Link';
                     <div className="b-footer__company">
                         <div className="b-comp-info">
                             <div className="b-comp-info__text">
-                                &copy;&nbsp;1992&ndash;2014 &laquo;Ростур&raquo;, все права защищены.
+                                &copy;&nbsp;1992&ndash;2014 &laquo;BookInna&raquo;, все права защищены.
                                 <br/>
                                             Многопрофильный туроператор, оказывающий полный комплекс туристических услуг.
                                 <br/>
