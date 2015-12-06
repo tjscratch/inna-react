@@ -6,7 +6,10 @@ import OffersList from '../OffersList';
 import SearchForm from '../SearchForm';
 import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
 import api from './../../core/ApiClient';
+import withViewport from '../../decorators/withViewport';
 
+
+@withViewport
 @withStyles(styles) class DetailsPage extends React.Component {
 
     constructor(props) {
@@ -38,8 +41,14 @@ import api from './../../core/ApiClient';
     }
     
     componentDidMount() {
+
+        var { width, height } = this.props.viewport;
+        
         api.localGet('/api/getObjects', {itemIds: this.props.id})
             .then((data)=> {
+
+                console.log(data)
+                
                 let photos = []
                 for (var i = 0; i < data.item.photos.length; i++) {
                     photos.push({
@@ -98,9 +107,8 @@ import api from './../../core/ApiClient';
         let title = 'BookInna';
         this.context.onSetTitle(title);
         return (
-            <section className="b-main-page">
+            <section className="b-main-page b-main-page__details">
                 <div className="b-main-page__slider">
-                    <OffersSlider />
                     <SearchForm/>
                 </div>
                 <div className="b-details">

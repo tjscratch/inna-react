@@ -1,5 +1,13 @@
 @import '../variables.scss';
-
+.header{
+    background-color: #242424;
+    position: relative;
+}
+.b-main-page__details .b-search-form{
+    position: relative;
+    top: 0;
+    background-color: #242424;
+}
 .b-details{
     padding: 40px;
 }
@@ -7,7 +15,7 @@
     margin-bottom: 35px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ccc;
-    
+
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -37,11 +45,9 @@
     margin: 10px 0;
     color: rgba(0, 0, 0, .65);
 }
-
 .b-details-desc{
-    
-}
 
+}
 .b-details-head__buy{
     margin: 20px 0 0 0;
 }
@@ -50,18 +56,16 @@
     font-size: 1.2rem;
     font-weight: bold;
 }
-
 .pswp-gallery{
     margin: 10px 0 25px;
 }
 .pswp-thumbnails{
     position: relative;
     margin: 0 -5px;
-    
-    display: flex;
-    justify-content: flex-start;
+    font-size: 0;
 }
 .pswp-thumbnail{
+    display: inline-block;
     margin: 5px;
 }
 /*! PhotoSwipe main CSS by Dmitry Semenov | photoswipe.com | MIT license */
@@ -310,16 +314,16 @@
     height: 44px;
 }
 //@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
-    /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
-    //.pswp--svg .pswp__button,
-    //.pswp--svg .pswp__button--arrow--left:before,
-    //.pswp--svg .pswp__button--arrow--right:before{
-    //    background-image: url("default-skin.svg");
-    //}
-    //.pswp--svg .pswp__button--arrow--left,
-    //.pswp--svg .pswp__button--arrow--right{
-    //    background: none;
-    //}
+/* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
+//.pswp--svg .pswp__button,
+//.pswp--svg .pswp__button--arrow--left:before,
+//.pswp--svg .pswp__button--arrow--right:before{
+//    background-image: url("default-skin.svg");
+//}
+//.pswp--svg .pswp__button--arrow--left,
+//.pswp--svg .pswp__button--arrow--right{
+//    background: none;
+//}
 //}
 .pswp__button--close{
     background-position: 0 -44px;
