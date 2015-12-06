@@ -33,7 +33,7 @@ import Link from '../Link';
         html += offer.FrontSubTitleRow1 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow1}</div>` : '';
         html += offer.FrontSubTitleRow2 ? `<div class="b-offer-title__date">${offer.FrontSubTitleRow2}</div>` : '';
         html += offer.price ? `<div class="b-offer-title__sub-text">Перелет + Отель</div>` : '';
-        html += offer.price ? `<a class="btn btn-orange" href=${innaUrl} target="_blank">от ${offer.price} руб.</a>` : '';
+        html += offer.price ? `<a class="btn btn-orange" href=${innaUrl} target="_blank">от ${offer.price} руб. (за чел.)</a>` : '';
 
         //onClick={Link.handleClick}
         return (
