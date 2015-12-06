@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
                         var loc = innaLocations[i];
                         if (loc.items) {
                             var found = loc.items.filter((li)=>li == item.id)
-                            if (found) {
+                            if (found && found.length > 0) {
                                 item.locationId = loc.id;
                                 item.price = loc.price;
                                 break;
