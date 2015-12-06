@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
                     for(var i=0;i<innaLocations.length;i++){
                         var loc = innaLocations[i];
                         if (loc.items) {
-                            var found = loc.items.filter((li)=>li == item.id)
+                            var found = loc.items.filter((li)=>li == item.id);
                             if (found && found.length > 0) {
                                 item.locationId = loc.id;
                                 item.price = loc.price;
@@ -60,7 +60,7 @@ router.get('/', async (req, res, next) => {
             })
         }
         else {
-            res.status(200).send(null);
+            res.status(404).send(null);
         }
 
 
