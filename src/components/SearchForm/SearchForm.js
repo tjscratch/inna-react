@@ -51,7 +51,9 @@ import suggestData from '../../rostravel/suggestData';
                 api.localGet('/api/getObjects', {tagsIds:val.join(',')}).then((data)=>{
                     console.log('api data:', data);
                     if (data && data.items) {
-                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                        self.props.onItemsLoad ? self.props.onItemsLoad({
+                            items: data.items
+                        }) : null;
                     }
                 }).catch((err)=>{
                     console.log('api err', err);
@@ -62,7 +64,11 @@ import suggestData from '../../rostravel/suggestData';
                 api.localGet('/api/getObjects', {itemIds:val.itemsIds.join(',')}).then((data)=>{
                     console.log('api data:', data);
                     if (data && data.items) {
-                        self.props.onItemsLoad ? self.props.onItemsLoad(data.items) : null;
+                        self.props.onItemsLoad ? self.props.onItemsLoad({
+                            locationId: val.locationId,
+                            price: val.price,
+                            items: data.items
+                        }) : null;
                     }
                 }).catch((err)=>{
                     console.log('api err', err);
