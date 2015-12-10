@@ -4,7 +4,7 @@ module.exports = function (shipit) {
     shipit.initConfig({
         default: {
             workspace: 'build',
-            deployTo: '/home/deploy/www/inna-react',
+            deployTo: '/home/deploy/www/inna-ntp',
             repositoryUrl: 'git@bitbucket.org:innatec/inna-front-react.git',
             branch: 'hackaton',
             ignores: ['.git', 'node_modules'],
