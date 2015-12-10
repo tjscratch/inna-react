@@ -81,8 +81,8 @@ module.exports = function (shipit) {
 
     shipit.blTask('after.deploy::restart.service', function () {
         var cmd = '';
-        cmd += 'sudo service inna-react stop; ';
-        cmd += 'sudo service inna-react start';
+        cmd += 'sudo service inna-ntp stop; ';
+        cmd += 'sudo service inna-ntp start';
         return shipit.remote(cmd);
     });
 };
