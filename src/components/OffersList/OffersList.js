@@ -9,7 +9,7 @@ import Link from '../Link';
         //console.log('props', props);
 
         //берем из массива данных первый элемент
-        let data = (props.data && props.data.length > 0) ? props.data[0] : null;
+        var { data } = props;
         if (data && data.SectionLayouts && data.SectionLayouts.length > 0) {
             //console.log('data', data.SectionLayouts);
             this.state = {

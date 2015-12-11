@@ -21,22 +21,50 @@ import apiUrls from './constants/ApiUrls.js';
 import siteUrls from './constants/SiteUrls.js';
 import { routeDateToApiDate } from './helpers/DateHelper.js'
 import _ from 'lodash';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+
+//======================store=============================
+import { getMainPageData } from './actions/action_main';
+import { Provider } from 'react-redux';
+import { getStore } from './store/storeHolder';
+
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+//======================store=============================
+
+//оборачиваем в Redux провайдер, передаем store
+function wrapByProvider(component) {
+    //дебаг тулза
+    if (canUseDOM && __DEV__) {
+        return (
+            <div>
+                <Provider store={getStore()}>{component}</Provider>
+                <DebugPanel top right bottom>
+                    <DevTools store={getStore()} monitor={LogMonitor} />
+                </DebugPanel>
+            </div>
+        )
+    }
+    else {
+        return <Provider store={getStore()}>{component}</Provider>;
+    }
+}
 
 const router = new Router(on => {
 
     on('*', async (state, next) => {
         //console.log('route *');
         const component = await next();
-        return component && <App context={state.context}>{component}</App>;
+        //return component && <App context={state.context}>{component}</App>;
+
+        return component && wrapByProvider(<App context={state.context}>{component}</App>);
     });
 
     //главная страница
     on(siteUrls.Root, async (state) => {
         let sectionId = 4;
-        //var data = null;
-        //получаем все данные (массив) для этой страницы сразу
-        let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
-        return <MainPage data={data}/>
+        //получаем данные для главной страницы
+        await getStore().dispatch(getMainPageData(sectionId));
+        return <MainPage/>
     });
 
     //страница результатов поиска ДП
@@ -95,8 +123,10 @@ const router = new Router(on => {
     });
 
     on('error', (state, error) => state.statusCode === 404 ?
-            <App context={state.context} error={error}><NotFoundPage /></App> :
-            <App context={state.context} error={error}><ErrorPage /></App>
+        //<App context={state.context} error={error}><NotFoundPage /></App> :
+        //<App context={state.context} error={error}><ErrorPage /></App>
+        wrapByProvider(<App context={state.context} error={error}><NotFoundPage /></App>) :
+        wrapByProvider(<App context={state.context} error={error}><ErrorPage /></App>)
     );
 
 });

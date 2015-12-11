@@ -9,6 +9,11 @@ import Location from './core/Location';
 import ActionTypes from './constants/ActionTypes';
 import { addEventListener, removeEventListener } from './utils/DOMUtils';
 
+import { createStore, getStore } from './store/storeHolder';
+
+//создаем новое хранилище
+createStore();
+
 const container = document.getElementById('app');
 const context = {
     onSetTitle: value => document.title = value,

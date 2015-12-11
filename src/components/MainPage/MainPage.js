@@ -6,6 +6,8 @@ import OffersLanding from '../OffersLanding';
 import OffersList from '../OffersList';
 import SearchForm from '../SearchForm';
 
+import { connect } from 'react-redux';
+
 @withStyles(styles) class MainPage extends React.Component {
 
     static contextTypes = {
@@ -35,4 +37,14 @@ import SearchForm from '../SearchForm';
 
 }
 
-export default MainPage;
+//export default MainPage;
+
+function mapStateToProps(state) {
+    return {
+        data: state.main
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(MainPage)
