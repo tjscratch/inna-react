@@ -16,8 +16,10 @@ import PeopleSelector from '../ui/PeopleSelector';
     constructor(props) {
         super(props);
 
+        console.log('SearchForm props', props);
+
         //начальные данные для рендера на сервере
-        let { data } = props;
+        var { directory, routeParams } = props;
 
         //формат данных:
         /*
@@ -47,9 +49,11 @@ import PeopleSelector from '../ui/PeopleSelector';
          VisaGroup: 0
          */
 
-        if (data) {
+        if (routeParams) {
             this.state = {
-                ...data
+                ...routeParams,
+                from: directory[routeParams.fromId],
+                to: directory[routeParams.toId]
             };
         }
         else {
@@ -59,7 +63,7 @@ import PeopleSelector from '../ui/PeopleSelector';
                 fromDate: null,
                 toDate: null,
                 flightClass: 0,
-                adultCount: 2,
+                adultCount: 2
             };
         }
     }

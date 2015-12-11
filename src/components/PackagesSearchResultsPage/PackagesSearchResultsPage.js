@@ -8,6 +8,8 @@ import withViewport from '../../decorators/withViewport';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from '../../core/Location';
 
+import { connect } from 'react-redux';
+
 //api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
@@ -43,16 +45,7 @@ import DisplayEnum from './DisplayEnum.js';
     constructor(props) {
         super(props);
 
-        let { data, routeParams, routeQuery } = props;
-
-        if (data) {
-            //данные для формы
-            this.formData = {
-                from: data[0],
-                to: data[1],
-                ...routeParams
-            };
-        }
+        let { data, directory, routeParams, routeQuery } = props;
 
         //берем из location.hash
         this.state = {
@@ -465,8 +458,19 @@ import DisplayEnum from './DisplayEnum.js';
             bundleBuyClick: this.bundleBuyClick.bind(this)
         };
 
-        //console.log('form data', this.formData);
-        var formData = this.formData;
+        let { directory, routeParams, routeQuery } = this.props;
+
+        var formData = null;
+        if (directory) {
+            //данные для формы
+            formData = {
+                from: directory[routeParams.fromId],
+                to: directory[routeParams.toId],
+                ...routeParams
+            };
+        }
+
+        //console.log('form data', formData);
         if (formData) {
             var fromDate = routeDateToJsDate(formData.fromDate);
             var toDate = routeDateToJsDate(formData.toDate);
@@ -476,7 +480,7 @@ import DisplayEnum from './DisplayEnum.js';
                 <section className="b-packages-results-page">
                     {this.renderOverlay()}
                     <div className="b-packages-results-page__form">
-                        <SearchForm data={this.formData}/>
+                        <SearchForm {...this.props}/>
                     </div>
                     <div className="b-packages-results-page__mobile-filter">
                         <MobileSelectedFilter>
@@ -500,4 +504,15 @@ import DisplayEnum from './DisplayEnum.js';
     }
 }
 
-export default PackagesSearchResultsPage;
+//export default PackagesSearchResultsPage;
+
+function mapStateToProps(state) {
+    return {
+        directory: state.directory,
+        //data: state.searchResults
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(PackagesSearchResultsPage)

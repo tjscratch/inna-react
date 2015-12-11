@@ -25,37 +25,21 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 //======================store=============================
 import { getMainPageData } from './actions/action_main';
-import { Provider } from 'react-redux';
+import { getDirectoryById } from './actions/action_directory';
 import { getStore } from './store/storeHolder';
 
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import ProviderWrapper from './components/ProviderWrapper';
 //======================store=============================
 
 //оборачиваем в Redux провайдер, передаем store
 function wrapByProvider(component) {
-    //дебаг тулза
-    if (canUseDOM && __DEV__) {
-        return (
-            <div>
-                <Provider store={getStore()}>{component}</Provider>
-                <DebugPanel top right bottom>
-                    <DevTools store={getStore()} monitor={LogMonitor} />
-                </DebugPanel>
-            </div>
-        )
-    }
-    else {
-        return <Provider store={getStore()}>{component}</Provider>;
-    }
+    return (<ProviderWrapper component={component}/>)
 }
 
 const router = new Router(on => {
 
     on('*', async (state, next) => {
-        //console.log('route *');
         const component = await next();
-        //return component && <App context={state.context}>{component}</App>;
-
         return component && wrapByProvider(<App context={state.context}>{component}</App>);
     });
 
@@ -71,16 +55,13 @@ const router = new Router(on => {
     //https://inna.ru/#/packages/search/6733-6623-03.10.2015-10.10.2015-0-2-1_2_3
     //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
     on(`${siteUrls.SearchPackages}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?`, async (state) => {
-        //console.log('params', state.params);
-        //var data = null;
-        let data = await Storage.getPageData(state.context, [
-            `${apiUrls.DirectoryById}${state.params.fromId}`,
-            `${apiUrls.DirectoryById}${state.params.toId}`
-        ]);
+        //получаем данные для страницы результатов поиска
+        await getStore().dispatch(getDirectoryById(state.params.fromId));
+        await getStore().dispatch(getDirectoryById(state.params.toId));
+
         return <PackagesSearchResultsPage
             routeQuery={state.query ? state.query : {}}
-            routeParams={state.params}
-            data={data}/>
+            routeParams={state.params}/>
     });
 
     //страница отеля
@@ -97,8 +78,6 @@ const router = new Router(on => {
     // &Filter[DepartureId]=2767&Filter[ArrivalId]=6623
     // &Filter[StartVoyageDate]=2015-12-01&Filter[EndVoyageDate]=2015-12-08&Filter[TicketClass]=0&Filter[Adult]=1
     on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
-        //console.log('params', state.params);
-
         return <HotelPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params} />
