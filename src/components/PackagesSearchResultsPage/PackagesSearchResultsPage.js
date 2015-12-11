@@ -43,15 +43,16 @@ import DisplayEnum from './DisplayEnum.js';
     constructor(props) {
         super(props);
 
-        let data = props.data;
-        let routeParams = props.routeParams;
+        let { data, routeParams, routeQuery } = props;
 
-        //данные для формы
-        this.formData = {
-            from: data[0],
-            to: data[1],
-            ...routeParams
-        };
+        if (data) {
+            //данные для формы
+            this.formData = {
+                from: data[0],
+                to: data[1],
+                ...routeParams
+            };
+        }
 
         //берем из location.hash
         this.state = {
@@ -60,9 +61,9 @@ import DisplayEnum from './DisplayEnum.js';
             recommendedData: null,
 
             //выбранный билет
-            ticketId: props.routeQuery.ticket || null,
+            ticketId: routeQuery.ticket || null,
             //выбранный отель
-            hotelId: props.routeQuery.hotel || null,
+            hotelId: routeQuery.hotel || null,
 
             //Cheapest: false
             //HotelId: 47547
@@ -73,7 +74,7 @@ import DisplayEnum from './DisplayEnum.js';
             listType: this.getListTypeFromProps(props),
 
             //из урла, или рекомендованный - текущая страница (для мобильной), реком. вар., список отелей или список билетов
-            display: props.routeQuery.display || DisplayEnum.Recommended,
+            display: routeQuery.display || DisplayEnum.Recommended,
 
             //error: true
         };
@@ -466,32 +467,36 @@ import DisplayEnum from './DisplayEnum.js';
 
         //console.log('form data', this.formData);
         var formData = this.formData;
-        var fromDate = routeDateToJsDate(formData.fromDate);
-        var toDate = routeDateToJsDate(formData.toDate);
-        var nightsCount = getNightsCount(fromDate, toDate);
+        if (formData) {
+            var fromDate = routeDateToJsDate(formData.fromDate);
+            var toDate = routeDateToJsDate(formData.toDate);
+            var nightsCount = getNightsCount(fromDate, toDate);
 
-        return (
-            <section className="b-packages-results-page">
-                {this.renderOverlay()}
-                <div className="b-packages-results-page__form">
-                    <SearchForm data={this.formData}/>
-                </div>
-                <div className="b-packages-results-page__mobile-filter">
-                    <MobileSelectedFilter>
-                        <div className="b-packages-results-page__head-filter__caption">{formData.to.CountryName}</div>
-                        <div className="b-packages-results-page__head-filter__description">
-                            {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
-                            &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
-                            &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
-                    </MobileSelectedFilter>
-                </div>
-                {this.renderRecommended(events)}
-                <div className="b-packages-results-page__filter">
-                    {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
-                </div>
-                {this.renderResults(events)}
-            </section>
-        );
+            return (
+                <section className="b-packages-results-page">
+                    {this.renderOverlay()}
+                    <div className="b-packages-results-page__form">
+                        <SearchForm data={this.formData}/>
+                    </div>
+                    <div className="b-packages-results-page__mobile-filter">
+                        <MobileSelectedFilter>
+                            <div className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
+                            <div className="b-packages-results-page__head-filter__description">
+                                {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
+                                &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
+                                &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
+                        </MobileSelectedFilter>
+                    </div>
+                    {this.renderRecommended(events)}
+                    <div className="b-packages-results-page__filter">
+                        {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
+                    </div>
+                    {this.renderResults(events)}
+                </section>
+            );
+        }
+
+        return null;
     }
 }
 

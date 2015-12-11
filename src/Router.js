@@ -33,6 +33,7 @@ const router = new Router(on => {
     //главная страница
     on(siteUrls.Root, async (state) => {
         let sectionId = 4;
+        //var data = null;
         //получаем все данные (массив) для этой страницы сразу
         let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
         return <MainPage data={data}/>
@@ -43,6 +44,7 @@ const router = new Router(on => {
     //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
     on(`${siteUrls.SearchPackages}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?`, async (state) => {
         //console.log('params', state.params);
+        //var data = null;
         let data = await Storage.getPageData(state.context, [
             `${apiUrls.DirectoryById}${state.params.fromId}`,
             `${apiUrls.DirectoryById}${state.params.toId}`

@@ -19,6 +19,8 @@ import Datepicker from '../../ui/Datepicker';
             datepickerStartShow: false,
             datepickerEndShow: false
         };
+
+        this.clickFn = this.bodyClick.bind(this);
     }
 
 
@@ -91,11 +93,11 @@ import Datepicker from '../../ui/Datepicker';
     }
 
     componentDidMount() {
-        document.addEventListener('click', this.bodyClick.bind(this), false);
+        document.addEventListener('click', this.clickFn, false);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('click', this.bodyClick.bind(this), false);
+        document.removeEventListener('click', this.clickFn, false);
     }
 
     bodyClick(event) {
