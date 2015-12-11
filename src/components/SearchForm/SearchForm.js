@@ -16,7 +16,7 @@ import PeopleSelector from '../ui/PeopleSelector';
     constructor(props) {
         super(props);
 
-        console.log('SearchForm props', props);
+        //console.log('SearchForm props', props);
 
         //начальные данные для рендера на сервере
         var { directory, routeParams } = props;

@@ -9,6 +9,9 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import Location from '../../core/Location';
 
 import { connect } from 'react-redux';
+import { getStore } from '../../store/storeHolder';
+import { searchTickets } from '../../actions/action_search_tickets';
+import { searchHotels } from '../../actions/action_search_hotels';
 
 //api
 import api from './../../core/ApiClient';
@@ -103,7 +106,7 @@ import DisplayEnum from './DisplayEnum.js';
         //формируем урл на страницу отеля
         var params = [];
         var routeParams = this.props.routeParams;
-        for(var key in routeParams) {
+        for (var key in routeParams) {
             params.push(routeParams[key]);
         }
         params.push(this.state.recommendedData.Hotel.HotelId);
@@ -112,7 +115,12 @@ import DisplayEnum from './DisplayEnum.js';
         params.push(this.state.recommendedData.Hotel.ProviderId);
         var url = `${siteUrls.HotelDetails}${params.join('-')}`;
         //console.log(url);
-        window.location = url;
+
+        //открываем в новом окне (нахуя? - не понятно...)
+        //window.open(url);
+
+        //открываем в этом
+        Location.pushState(null, url);
     }
 
     getListTypeFromProps(props) {
@@ -126,18 +134,18 @@ import DisplayEnum from './DisplayEnum.js';
                 this.getTicketData().then((data)=> {
                     //добавляем доп поля для карточки авиа
                     let recPair = data.RecommendedPair;
-                    recPair.AviaInfo.CurrentListType = this.state.listType;
-                    recPair.Hotel.CurrentListType = this.state.listType;
-                    recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
-                    recPair.Hotel.HotelsCount = data.HotelCount;
+                    //recPair.AviaInfo.CurrentListType = this.state.listType;
+                    //recPair.Hotel.CurrentListType = this.state.listType;
+                    //recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
+                    //recPair.Hotel.HotelsCount = data.HotelCount;
+                    //
+                    ////пока так, потом будет приходить нормальная сразу в объекте
+                    //recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
 
-                    //пока так, потом будет приходить нормальная сразу в объекте
-                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-
-                    this.setState({
-                        recommendedData: recPair,
-                        defaultRecommendedPair: data.DefaultRecommendedPair,
-                    });
+                    //this.setState({
+                    //    recommendedData: recPair,
+                    //    defaultRecommendedPair: data.DefaultRecommendedPair
+                    //});
 
                     resolve();
                     this.getHotelData();
@@ -147,18 +155,18 @@ import DisplayEnum from './DisplayEnum.js';
                 this.getHotelData().then((data)=> {
                     let recPair = data.RecommendedPair;
                     //добавляем доп поля для карточки авиа и отеля
-                    recPair.AviaInfo.CurrentListType = this.state.listType;
-                    recPair.Hotel.CurrentListType = this.state.listType;
-                    recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
-                    recPair.Hotel.HotelsCount = data.HotelCount;
+                    //recPair.AviaInfo.CurrentListType = this.state.listType;
+                    //recPair.Hotel.CurrentListType = this.state.listType;
+                    //recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
+                    //recPair.Hotel.HotelsCount = data.HotelCount;
+                    //
+                    ////пока так, потом будет приходить нормальная сразу в объекте
+                    //recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
 
-                    //пока так, потом будет приходить нормальная сразу в объекте
-                    recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-
-                    this.setState({
-                        recommendedData: recPair,
-                        defaultRecommendedPair: data.DefaultRecommendedPair
-                    });
+                    //this.setState({
+                    //    recommendedData: recPair,
+                    //    defaultRecommendedPair: data.DefaultRecommendedPair
+                    //});
 
                     resolve();
                     this.getTicketData();
@@ -178,6 +186,8 @@ import DisplayEnum from './DisplayEnum.js';
         //https://inna.ru/api/v1/Packages/SearchTickets?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&HotelId=47547&StartVoyageDate=2015-12-01&TicketClass=0&TicketId=2103344931&hotel=47547&ticket=2103344931
 
         return new Promise((resolve, reject)=> {
+            var { store, dispatch } = this.props;
+
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
             let routeParams = this.props.routeParams;
@@ -199,32 +209,40 @@ import DisplayEnum from './DisplayEnum.js';
                 params.TicketId = selectedTicketId ? selectedTicketId : this.state.ticketId;
             }
 
-            //console.log('getHotelData, params.TicketId', params.TicketId);
+            dispatch(searchHotels(params))
+                .then(()=> {
+                    var state = getStore().getState();
+                    var data = state.searchHotels;
+                    //console.log('SearchHotels data', data);
 
-            api.cachedGet(apiUrls.PackagesSearchHotels, params).then((data)=> {
-            //api.get(apiUrls.PackagesSearchHotels, params).then((data)=> {
-                console.log('SearchHotels data', data);
-
-                if (data) {
-                    this.setState({
-                        hotelsData: data.Hotels,
-                    });
-                    resolve(data);
-                }
-                else {
-                    console.error('PackagesSearchHotels data is null');
+                    if (data) {
+                        //this.setState({
+                        //    hotelsData: data.Hotels,
+                        //});
+                        resolve(data);
+                    }
+                    else {
+                        console.error('PackagesSearchHotels data is null');
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
+                .catch((err)=> {
+                    console.error('PackagesSearchHotels err', err);
                     this.setState({
                         error: true
                     });
                     reject();
-                }
-            });
+                });
         });
     }
 
     getTicketData(selectedHotelId) {
-        //console.log('getTicketData');
         return new Promise((resolve, reject)=> {
+            var { store, dispatch } = this.props;
+
             let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
             let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
             let routeParams = this.props.routeParams;
@@ -236,7 +254,7 @@ import DisplayEnum from './DisplayEnum.js';
                 DepartureId: routeParams.fromId,
                 EndVoyageDate: toDateApi,
                 StartVoyageDate: fromDateApi,
-                TicketClass: routeParams.flightClass,
+                TicketClass: routeParams.flightClass
             };
 
             if (this.state.hotelId) {
@@ -246,26 +264,33 @@ import DisplayEnum from './DisplayEnum.js';
                 params.TicketId = this.state.ticketId;
             }
 
-            //console.log('getTicketData, params.HotelId', params.HotelId);
+            dispatch(searchTickets(params))
+                .then(()=> {
+                    var state = getStore().getState();
+                    var data = state.searchTickets;
+                    //console.log('SearchTickets data', data);
 
-            api.cachedGet(apiUrls.PackagesSearchTickets, params).then((data)=> {
-            //api.get(apiUrls.PackagesSearchTickets, params).then((data)=> {
-                console.log('SearchTickets data', data);
-
-                if (data) {
-                    this.setState({
-                        ticketsData: data.AviaInfos,
-                    });
-                    resolve(data);
-                }
-                else {
-                    console.error('SearchTickets data is null');
+                    if (data) {
+                        //this.setState({
+                        //    ticketsData: data.AviaInfos
+                        //});
+                        resolve(data);
+                    }
+                    else {
+                        console.error('SearchTickets data is null');
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
+                .catch((err)=> {
+                    console.error('SearchTickets err', err);
                     this.setState({
                         error: true
                     });
                     reject();
-                }
-            });
+                });
         });
     }
 
@@ -273,7 +298,7 @@ import DisplayEnum from './DisplayEnum.js';
         //если первый запрос, и не сохранили реком. отель и билет
         var query = this.props.routeQuery;
         if (!query.hotel || !query.ticket) {
-            var pair = this.state.recommendedData;
+            var pair = this.props.recommendedData;
 
             //проставляем в урл
             setSearchParams([
@@ -289,7 +314,7 @@ import DisplayEnum from './DisplayEnum.js';
 
     changeListType(type) {
         //переключаем список перелетов / пакетов
-        var pair = this.state.recommendedData;
+        var pair = this.props.recommendedData;
         if (pair) {
             pair.AviaInfo.CurrentListType = type;
             pair.Hotel.CurrentListType = type;
@@ -310,23 +335,23 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     chooseHotel(hotel) {
-        console.log('this.state.recommendedData', this.state.recommendedData, 'hotel', hotel);
+        console.log('chooseHotel recommendedData', this.props.recommendedData, 'hotel', hotel);
 
         //меняем отель в паре
-        var pair = this.state.recommendedData;
+        var pair = this.props.recommendedData;
         pair.Hotel = hotel;
         pair.PackagePrice = hotel.PackagePrice;
-        this.setState({
-            recommendedData: pair,
-            ticketsData: null
-        });
+        //this.setState({
+        //    recommendedData: pair,
+        //    ticketsData: null
+        //});
 
         //меняем параметры в урле через history api
         if (this.props.viewport.isMobile) {
             setSearchParams([
                 ['hotel', hotel.HotelId],
                 ['display', null]
-                ]);
+            ]);
         }
         else {
             setSearchParam('hotel', hotel.HotelId);
@@ -336,16 +361,16 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     chooseTicket(ticket) {
-        console.log('this.state.recommendedData', this.state.recommendedData, 'ticket', ticket);
+        console.log('chooseTicket recommendedData', this.props.recommendedData, 'ticket', ticket);
 
         //меняем отель в паре
-        var pair = this.state.recommendedData;
+        var pair = this.props.recommendedData;
         pair.AviaInfo = ticket;
         pair.PackagePrice = ticket.PackagePrice;
-        this.setState({
-            recommendedData: pair,
-            hotelsData: null
-        });
+        //this.setState({
+        //    recommendedData: pair,
+        //    hotelsData: null
+        //});
 
         //меняем параметры в урле через history api
         if (this.props.viewport.isMobile) {
@@ -377,7 +402,7 @@ import DisplayEnum from './DisplayEnum.js';
                     />
             );
         }
-        else if (this.state.recommendedData == null) {
+        else if (this.props.recommendedData == null) {
             return (
                 <WaitMsg
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
@@ -400,14 +425,13 @@ import DisplayEnum from './DisplayEnum.js';
         //на мобиле скрываем когда на списке отелей или билетов
         if (!(this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended)) {
             return (
-                <div id="recommended"
-                     className="b-packages-results-page__recommended-bundle">
+                <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
                     <RecommendedBundle
                         events={events}
-                        data={this.state.recommendedData}
-                        defaultRecommendedPair={this.state.defaultRecommendedPair}
+                        data={this.props.recommendedData}
+                        defaultRecommendedPair={this.props.defaultRecommendedPair}
                         />
                 </div>
             );
@@ -426,16 +450,16 @@ import DisplayEnum from './DisplayEnum.js';
                                 this.state.listType == ListType.Hotels ?
                                     <HotelsResultsList
                                         events={events}
-                                        data={this.state.hotelsData}/> :
+                                        data={this.props.hotelsData}/> :
                                     <TicketsResultsList
                                         events={events}
-                                        data={this.state.ticketsData}/>
+                                        data={this.props.ticketsData}/>
                             }
                         </div>
                         {
                             (!this.props.viewport.isMobile && this.state.listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
-                                    <PackagesListInfoBlock data={this.state.hotelsData}/>
+                                    <PackagesListInfoBlock data={this.props.hotelsData}/>
                                 </div> :
                                 null
                         }
@@ -484,7 +508,8 @@ import DisplayEnum from './DisplayEnum.js';
                     </div>
                     <div className="b-packages-results-page__mobile-filter">
                         <MobileSelectedFilter>
-                            <div className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
+                            <div
+                                className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
                             <div className="b-packages-results-page__head-filter__description">
                                 {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
                                 &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
@@ -509,6 +534,10 @@ import DisplayEnum from './DisplayEnum.js';
 function mapStateToProps(state) {
     return {
         directory: state.directory,
+        ticketsData: state.searchTickets ? state.searchTickets.AviaInfos : null,
+        hotelsData: state.searchHotels ? state.searchHotels.Hotels : null,
+        recommendedData: state.searchRecommended ? state.searchRecommended.recommendedData : null,
+        defaultRecommendedPair: state.searchRecommended ? state.searchRecommended.defaultRecommendedPair : null,
         //data: state.searchResults
     }
 }
