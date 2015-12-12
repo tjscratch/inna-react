@@ -1,11 +1,12 @@
 import apiClient from '../core/ApiClient';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import { processIf, processIfNotExists, multiProcessIf, multiProcessIfNotExists } from './action_index';
-import { SET_RECOMMENDED } from './action_search_recommended';
+import { SET_RECOMMENDED, RECOMMENDED__CHANGE_HOTEL } from './action_search_recommended';
 
 import apiUrls from '../constants/ApiUrls';
 
 export const SEARCH_HOTELS = 'SEARCH_HOTELS';
+export const FLUSH_HOTELS = 'FLUSH_HOTELS';
 
 export function searchHotels(params) {
     return (dispatch, getState) => {
@@ -41,8 +42,24 @@ export function searchHotels(params) {
     }
 }
 
+export function changeHotel(hotel, packagePrice) {
+    return {
+        type: RECOMMENDED__CHANGE_HOTEL,
+        data: {
+            Hotel: hotel,
+            PackagePrice: packagePrice
+        }
+    }
+}
+
+export function flushHotels() {
+    return {
+        type: FLUSH_HOTELS
+    }
+}
+
 function setRecommended(dispatch, getState, data) {
-    console.log('hotels setRecommended, data', data);
+    //console.log('hotels setRecommended, data', data);
 
     let recPair = null;
     var defaultRecommendedPair = null;

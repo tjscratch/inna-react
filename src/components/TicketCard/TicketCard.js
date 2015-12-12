@@ -25,8 +25,9 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
 
     //<i className="icon-emb-flight"></i>
     renderTransporterInfo() {
-        if (this.props.data) {
-            var data = this.props.data.EtapsTo[0];
+        var { data } = this.props;
+        if (data) {
+            data = data.EtapsTo[0];
             //console.log('TicketCard data', this.props.data);
             return (
                 <div className="b-aircompany">
@@ -46,8 +47,8 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     }
 
     renderFlightInfo() {
-        if (this.props.data) {
-            var data = this.props.data;
+        var { data } = this.props;
+        if (data) {
             //туда
             var DepartureDate = apiDateToJsDate(data.DepartureDate);
             var ArrivalDate = apiDateToJsDate(data.ArrivalDate);
@@ -163,30 +164,33 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
     }
 
     actionClick() {
-        if (this.props.events && this.props.events.changeListType) {
-            this.props.events.changeListType(ListType.Tickets);
+        var { events } = this.props;
+        if (events && events.changeListType) {
+            events.changeListType(ListType.Tickets);
         }
     }
 
     changeTicket() {
-        if (this.props.events && this.props.events.changeTicket) {
-            this.props.events.changeTicket();
+        var { events } = this.props;
+        if (events && events.changeTicket) {
+            events.changeTicket();
         }
     }
 
     ticketAbout(e) {
         e.preventDefault();
 
-        if (this.props.events && this.props.events.ticketAbout) {
-            this.props.events.ticketAbout();
+        var { events } = this.props;
+        if (events && events.ticketAbout) {
+            events.ticketAbout();
         }
     }
 
     renderActions() {
-        var data = this.props.data;
+        var { data, showChangeTickets, events, viewport } = this.props;
         if (data) {
             //вид на странице отеля
-            if (this.props.events && this.props.events.changeTicket && this.props.events.ticketAbout) {
+            if (events && events.changeTicket && events.ticketAbout) {
                 return (
                     <div>
                         <div className="b-avia-card__actions">
@@ -201,7 +205,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
             }
             else {
                 //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-                if (this.props.viewport.isMobile || data.CurrentListType == ListType.Hotels) {
+                if (viewport.isMobile || showChangeTickets) {
                     return (
                         <div className="b-avia-card__actions">
                             <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>

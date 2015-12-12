@@ -10,8 +10,8 @@ import Location from '../../core/Location';
 
 import { connect } from 'react-redux';
 import { getStore } from '../../store/storeHolder';
-import { searchTickets } from '../../actions/action_search_tickets';
-import { searchHotels } from '../../actions/action_search_hotels';
+import { searchTickets, changeTicket, flushTickets } from '../../actions/action_search_tickets';
+import { searchHotels, changeHotel, flushHotels } from '../../actions/action_search_hotels';
 
 //api
 import api from './../../core/ApiClient';
@@ -48,48 +48,9 @@ import DisplayEnum from './DisplayEnum.js';
     constructor(props) {
         super(props);
 
-        let { data, directory, routeParams, routeQuery } = props;
-
-        //берем из location.hash
         this.state = {
-            hotelsData: null,
-            ticketsData: null,
-            recommendedData: null,
-
-            //выбранный билет
-            ticketId: routeQuery.ticket || null,
-            //выбранный отель
-            hotelId: routeQuery.hotel || null,
-
-            //Cheapest: false
-            //HotelId: 47547
-            //TicketId: 2103344931
-            defaultRecommendedPair: null,
-
-            //тип списка - отели или билеты
-            listType: this.getListTypeFromProps(props),
-
-            //из урла, или рекомендованный - текущая страница (для мобильной), реком. вар., список отелей или список билетов
-            display: routeQuery.display || DisplayEnum.Recommended,
-
-            //error: true
+            error: false
         };
-
-        //console.log('init, state:', this.state);
-    }
-
-    componentWillReceiveProps(props) {
-        //this.props на данном этапе имеет предыдущее значение !!!
-        //props - новые свойства, которые получит контрол
-        //console.log('componentWillReceiveProps', JSON.stringify(props.routeQuery), JSON.stringify(this.props.routeQuery));
-
-        //флаги соответствия состояния и урла
-        this.setState({
-            listType: this.getListTypeFromProps(props),
-            display: props.routeQuery.display || DisplayEnum.Recommended,
-            ticketId: props.routeQuery.ticket || null,
-            hotelId: props.routeQuery.hotel || null,
-        });
     }
 
     componentDidMount() {
@@ -105,14 +66,14 @@ import DisplayEnum from './DisplayEnum.js';
 
         //формируем урл на страницу отеля
         var params = [];
-        var routeParams = this.props.routeParams;
+        var { routeParams, recommendedData } = this.props;
         for (var key in routeParams) {
             params.push(routeParams[key]);
         }
-        params.push(this.state.recommendedData.Hotel.HotelId);
-        params.push(this.state.recommendedData.AviaInfo.VariantId1);
-        params.push(this.state.recommendedData.AviaInfo.VariantId2);
-        params.push(this.state.recommendedData.Hotel.ProviderId);
+        params.push(recommendedData.Hotel.HotelId);
+        params.push(recommendedData.AviaInfo.VariantId1);
+        params.push(recommendedData.AviaInfo.VariantId2);
+        params.push(recommendedData.Hotel.ProviderId);
         var url = `${siteUrls.HotelDetails}${params.join('-')}`;
         //console.log(url);
 
@@ -123,51 +84,40 @@ import DisplayEnum from './DisplayEnum.js';
         Location.pushState(null, url);
     }
 
-    getListTypeFromProps(props) {
-        return props.routeQuery.display == ListType.Tickets ? ListType.Tickets : ListType.Hotels;
+    getListType() {
+        var { routeQuery } = this.props;
+        if (routeQuery && routeQuery.display == ListType.Tickets) {
+            return ListType.Tickets;
+        }
+
+        return ListType.Hotels;
+    }
+
+    getDisplayType() {
+        var { routeQuery } = this.props;
+        if (routeQuery) {
+            switch (routeQuery.display) {
+                case DisplayEnum.Hotels: return DisplayEnum.Hotels;
+                case DisplayEnum.Tickets: return DisplayEnum.Tickets;
+                default: return DisplayEnum.Recommended;
+            }
+        }
+
+        return DisplayEnum.Recommended;
     }
 
     getData() {
+        var display = this.getDisplayType();
         return new Promise((resolve) => {
             //сначала запрашиваем билеты
-            if (this.state.display == DisplayEnum.Tickets) {
-                this.getTicketData().then((data)=> {
-                    //добавляем доп поля для карточки авиа
-                    let recPair = data.RecommendedPair;
-                    //recPair.AviaInfo.CurrentListType = this.state.listType;
-                    //recPair.Hotel.CurrentListType = this.state.listType;
-                    //recPair.AviaInfo.TicketsCount = data.AviaInfos.length;
-                    //recPair.Hotel.HotelsCount = data.HotelCount;
-                    //
-                    ////пока так, потом будет приходить нормальная сразу в объекте
-                    //recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-
-                    //this.setState({
-                    //    recommendedData: recPair,
-                    //    defaultRecommendedPair: data.DefaultRecommendedPair
-                    //});
-
+            if (display == DisplayEnum.Tickets) {
+                this.getTicketData().then(()=> {
                     resolve();
                     this.getHotelData();
                 });
             }
             else {
-                this.getHotelData().then((data)=> {
-                    let recPair = data.RecommendedPair;
-                    //добавляем доп поля для карточки авиа и отеля
-                    //recPair.AviaInfo.CurrentListType = this.state.listType;
-                    //recPair.Hotel.CurrentListType = this.state.listType;
-                    //recPair.AviaInfo.TicketsCount = this.state.recommendedData ? this.state.recommendedData.AviaInfo.TicketsCount : null;
-                    //recPair.Hotel.HotelsCount = data.HotelCount;
-                    //
-                    ////пока так, потом будет приходить нормальная сразу в объекте
-                    //recPair.PackagePrice = this.state.recommendedData ? this.state.recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
-
-                    //this.setState({
-                    //    recommendedData: recPair,
-                    //    defaultRecommendedPair: data.DefaultRecommendedPair
-                    //});
-
+                this.getHotelData().then(()=> {
                     resolve();
                     this.getTicketData();
                 });
@@ -188,9 +138,9 @@ import DisplayEnum from './DisplayEnum.js';
         return new Promise((resolve, reject)=> {
             var { store, dispatch } = this.props;
 
-            let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
-            let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
-            let routeParams = this.props.routeParams;
+            let { routeParams } = this.props;
+            let fromDateApi = routeDateToApiDate(routeParams.fromDate);
+            let toDateApi = routeDateToApiDate(routeParams.toDate);
 
             let params = {
                 AddFilter: 'true',
@@ -202,33 +152,16 @@ import DisplayEnum from './DisplayEnum.js';
                 TicketClass: routeParams.flightClass
             };
 
-            if (this.state.hotelId) {
-                params.HotelId = this.state.hotelId;
+            var { ticket, hotel } = this.props.routeQuery;
+            if (ticket) {
+                params.TicketId = selectedTicketId ? selectedTicketId : ticket;
             }
-            if (this.state.ticketId) {
-                params.TicketId = selectedTicketId ? selectedTicketId : this.state.ticketId;
+            if (hotel) {
+                params.HotelId = hotel;
             }
 
             dispatch(searchHotels(params))
-                .then(()=> {
-                    var state = getStore().getState();
-                    var data = state.searchHotels;
-                    //console.log('SearchHotels data', data);
-
-                    if (data) {
-                        //this.setState({
-                        //    hotelsData: data.Hotels,
-                        //});
-                        resolve(data);
-                    }
-                    else {
-                        console.error('PackagesSearchHotels data is null');
-                        this.setState({
-                            error: true
-                        });
-                        reject();
-                    }
-                })
+                .then(resolve)
                 .catch((err)=> {
                     console.error('PackagesSearchHotels err', err);
                     this.setState({
@@ -243,9 +176,9 @@ import DisplayEnum from './DisplayEnum.js';
         return new Promise((resolve, reject)=> {
             var { store, dispatch } = this.props;
 
-            let fromDateApi = routeDateToApiDate(this.props.routeParams.fromDate);
-            let toDateApi = routeDateToApiDate(this.props.routeParams.toDate);
-            let routeParams = this.props.routeParams;
+            let { routeParams } = this.props;
+            let fromDateApi = routeDateToApiDate(routeParams.fromDate);
+            let toDateApi = routeDateToApiDate(routeParams.toDate);
 
             let params = {
                 AddFilter: 'true',
@@ -257,33 +190,16 @@ import DisplayEnum from './DisplayEnum.js';
                 TicketClass: routeParams.flightClass
             };
 
-            if (this.state.hotelId) {
-                params.HotelId = selectedHotelId ? selectedHotelId : this.state.hotelId;
+            var { ticket, hotel } = this.props.routeQuery;
+            if (ticket) {
+                params.TicketId = ticket;
             }
-            if (this.state.ticketId) {
-                params.TicketId = this.state.ticketId;
+            if (hotel) {
+                params.HotelId = selectedHotelId ? selectedHotelId : hotel;
             }
 
             dispatch(searchTickets(params))
-                .then(()=> {
-                    var state = getStore().getState();
-                    var data = state.searchTickets;
-                    //console.log('SearchTickets data', data);
-
-                    if (data) {
-                        //this.setState({
-                        //    ticketsData: data.AviaInfos
-                        //});
-                        resolve(data);
-                    }
-                    else {
-                        console.error('SearchTickets data is null');
-                        this.setState({
-                            error: true
-                        });
-                        reject();
-                    }
-                })
+                .then(resolve)
                 .catch((err)=> {
                     console.error('SearchTickets err', err);
                     this.setState({
@@ -296,58 +212,35 @@ import DisplayEnum from './DisplayEnum.js';
 
     setQueryString() {
         //если первый запрос, и не сохранили реком. отель и билет
-        var query = this.props.routeQuery;
-        if (!query.hotel || !query.ticket) {
-            var pair = this.props.recommendedData;
-
+        var { routeQuery, recommendedData } = this.props;
+        if (recommendedData && (!routeQuery.hotel || !routeQuery.ticket)) {
             //проставляем в урл
             setSearchParams([
-                ['hotel', pair.Hotel.HotelId],
-                ['ticket', pair.AviaInfo.VariantId1],
+                ['hotel', recommendedData.Hotel.HotelId],
+                ['ticket', recommendedData.AviaInfo.VariantId1]
             ], true);//replace
         }
-        //else if (!query.display) {
-        //    //проставляем в урл
-        //    setSearchParam('display', DisplayEnum.Recommended);
-        //}
     }
 
     changeListType(type) {
         //переключаем список перелетов / пакетов
-        var pair = this.props.recommendedData;
-        if (pair) {
-            pair.AviaInfo.CurrentListType = type;
-            pair.Hotel.CurrentListType = type;
-        }
-
-        this.setState({
-            recommendedData: pair,
-        });
-
-        //меняем параметры в урле через history api
         //recommended - не проставляем в url
         var stateDisplay = type == ListType.Tickets ? DisplayEnum.Tickets : (type == ListType.Hotels ? ListType.Hotels : null);
         setSearchParams([
-            //['hotel', pair.Hotel.HotelId],
-            //['ticket', pair.AviaInfo.VariantId1],
             ['display', stateDisplay]
         ]);
     }
 
     chooseHotel(hotel) {
-        console.log('chooseHotel recommendedData', this.props.recommendedData, 'hotel', hotel);
+        var { viewport, dispatch } = this.props;
 
         //меняем отель в паре
-        var pair = this.props.recommendedData;
-        pair.Hotel = hotel;
-        pair.PackagePrice = hotel.PackagePrice;
-        //this.setState({
-        //    recommendedData: pair,
-        //    ticketsData: null
-        //});
+        dispatch(changeHotel(hotel, hotel.PackagePrice));
+        //обнуляем список билетов
+        dispatch(flushTickets());
 
         //меняем параметры в урле через history api
-        if (this.props.viewport.isMobile) {
+        if (viewport.isMobile) {
             setSearchParams([
                 ['hotel', hotel.HotelId],
                 ['display', null]
@@ -361,19 +254,15 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     chooseTicket(ticket) {
-        console.log('chooseTicket recommendedData', this.props.recommendedData, 'ticket', ticket);
+        var { viewport, dispatch } = this.props;
 
-        //меняем отель в паре
-        var pair = this.props.recommendedData;
-        pair.AviaInfo = ticket;
-        pair.PackagePrice = ticket.PackagePrice;
-        //this.setState({
-        //    recommendedData: pair,
-        //    hotelsData: null
-        //});
+        //меняем билет в паре
+        dispatch(changeTicket(ticket, ticket.PackagePrice));
+        //обнуляем список отелей
+        dispatch(flushHotels());
 
         //меняем параметры в урле через history api
-        if (this.props.viewport.isMobile) {
+        if (viewport.isMobile) {
             setSearchParams([
                 ['ticket', ticket.VariantId1],
                 ['display', null]
@@ -422,16 +311,34 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     renderRecommended(events) {
+        var { viewport, recommendedData, defaultRecommendedPair } = this.props;
+        var display = this.getDisplayType();
+
+        //кнопки переключения на списки отелей и билетов
+        var listType = this.getListType();
+        var showChangeTickets = false;
+        var showChangeHotels = false;
+        switch (listType) {
+            case ListType.Hotels:
+                showChangeTickets = true;
+                break;
+            case ListType.Tickets:
+                showChangeHotels = true;
+                break;
+        }
+
         //на мобиле скрываем когда на списке отелей или билетов
-        if (!(this.props.viewport.isMobile && this.state.display != DisplayEnum.Recommended)) {
+        if (!(viewport.isMobile && display != DisplayEnum.Recommended)) {
             return (
                 <div id="recommended" className="b-packages-results-page__recommended-bundle">
                     <div className="b-recommended-bundle-bg">
                     </div>
                     <RecommendedBundle
                         events={events}
-                        data={this.props.recommendedData}
-                        defaultRecommendedPair={this.props.defaultRecommendedPair}
+                        showChangeTickets={showChangeTickets}
+                        showChangeHotels={showChangeHotels}
+                        data={recommendedData}
+                        defaultRecommendedPair={defaultRecommendedPair}
                         />
                 </div>
             );
@@ -440,26 +347,30 @@ import DisplayEnum from './DisplayEnum.js';
     }
 
     renderResults(events) {
+        var { viewport, ticketsData, hotelsData } = this.props;
+        var listType = this.getListType();
+        var display = this.getDisplayType();
+
         //на мобиле список показываем, когда не на рекомендуемом
-        if (!(this.props.viewport.isMobile && this.state.display == DisplayEnum.Recommended)) {
+        if (!(viewport.isMobile && display == DisplayEnum.Recommended)) {
             return (
                 <div className="b-packages-results-page__results">
                     <div className="b-packages-results">
                         <div className="b-packages-results__content">
                             {
-                                this.state.listType == ListType.Hotels ?
+                                listType == ListType.Hotels ?
                                     <HotelsResultsList
                                         events={events}
-                                        data={this.props.hotelsData}/> :
+                                        data={hotelsData}/> :
                                     <TicketsResultsList
                                         events={events}
-                                        data={this.props.ticketsData}/>
+                                        data={ticketsData}/>
                             }
                         </div>
                         {
-                            (!this.props.viewport.isMobile && this.state.listType == ListType.Hotels) ?
+                            (!viewport.isMobile && listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
-                                    <PackagesListInfoBlock data={this.props.hotelsData}/>
+                                    <PackagesListInfoBlock data={hotelsData}/>
                                 </div> :
                                 null
                         }
@@ -484,21 +395,19 @@ import DisplayEnum from './DisplayEnum.js';
 
         let { directory, routeParams, routeQuery } = this.props;
 
-        var formData = null;
         if (directory) {
             //данные для формы
-            formData = {
+            var formData = {
                 from: directory[routeParams.fromId],
                 to: directory[routeParams.toId],
                 ...routeParams
             };
-        }
 
-        //console.log('form data', formData);
-        if (formData) {
             var fromDate = routeDateToJsDate(formData.fromDate);
             var toDate = routeDateToJsDate(formData.toDate);
             var nightsCount = getNightsCount(fromDate, toDate);
+
+            var listType = this.getListType();
 
             return (
                 <section className="b-packages-results-page">
@@ -518,7 +427,7 @@ import DisplayEnum from './DisplayEnum.js';
                     </div>
                     {this.renderRecommended(events)}
                     <div className="b-packages-results-page__filter">
-                        {this.state.listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
+                        {listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
                     </div>
                     {this.renderResults(events)}
                 </section>

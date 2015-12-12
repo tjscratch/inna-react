@@ -4,6 +4,8 @@ import { processIf, processIfNotExists, multiProcessIf, multiProcessIfNotExists 
 import apiUrls from '../constants/ApiUrls';
 
 export const SET_RECOMMENDED = 'SET_RECOMMENDED';
+export const RECOMMENDED__CHANGE_HOTEL = 'RECOMMENDED__CHANGE_HOTEL';
+export const RECOMMENDED__CHANGE_TICKET = 'RECOMMENDED__CHANGE_TICKET';
 //
 //export function getRecommended(data) {
 //    dispatch({

@@ -33,16 +33,17 @@ import HotelStars from '../HotelStars';
     }
 
     actionClick() {
-        if (this.props.events && this.props.events.changeListType) {
-            this.props.events.changeListType(ListType.Hotels);
+        var { events } = this.props;
+        if (events && events.changeListType) {
+            events.changeListType(ListType.Hotels);
         }
     }
 
     renderActions() {
-        var data = this.props.data;
+        var { data, showChangeHotels } = this.props;
         if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            if (this.props.viewport.isMobile || data.CurrentListType == ListType.Tickets) {
+            if (this.props.viewport.isMobile || showChangeHotels) {
                 return (
                     <div className="b-hotel-card__actions">
                         <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
@@ -69,7 +70,7 @@ import HotelStars from '../HotelStars';
 
     render() {
         //console.log('HotelCard data', this.props.data);
-        var data = this.props.data;
+        var { data, allowActions } = this.props;
 
         if (data) {
             var checkIn = apiDateToJsDate(data.CheckIn);
@@ -108,7 +109,7 @@ import HotelStars from '../HotelStars';
                             </div>
                         </div>
                     </div>
-                    {this.props.allowActions ? this.renderActions() : null}
+                    {allowActions ? this.renderActions() : null}
                 </div>
             );
         }

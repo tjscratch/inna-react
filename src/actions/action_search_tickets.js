@@ -1,11 +1,12 @@
 import apiClient from '../core/ApiClient';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import { processIf, processIfNotExists, multiProcessIf, multiProcessIfNotExists } from './action_index';
-import { SET_RECOMMENDED } from './action_search_recommended';
+import { SET_RECOMMENDED, RECOMMENDED__CHANGE_TICKET } from './action_search_recommended';
 
 import apiUrls from '../constants/ApiUrls';
 
 export const SEARCH_TICKETS = 'SEARCH_TICKETS';
+export const FLUSH_TICKETS = 'FLUSH_TICKETS';
 
 export function searchTickets(params) {
     return (dispatch, getState) => {
@@ -41,8 +42,24 @@ export function searchTickets(params) {
     }
 }
 
+export function changeTicket(ticket, packagePrice) {
+    return {
+        type: RECOMMENDED__CHANGE_TICKET,
+        data: {
+            AviaInfo: ticket,
+            PackagePrice: packagePrice
+        }
+    }
+}
+
+export function flushTickets() {
+    return {
+        type: FLUSH_TICKETS
+    }
+}
+
 function setRecommended(dispatch, getState, data) {
-    console.log('tickets setRecommended, data', data);
+    //console.log('tickets setRecommended, data', data);
 
     let recPair = null;
     var defaultRecommendedPair = null;
