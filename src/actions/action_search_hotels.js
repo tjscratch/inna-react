@@ -59,31 +59,31 @@ export function flushHotels() {
 }
 
 function setRecommended(dispatch, getState, data) {
-    //console.log('hotels setRecommended, data', data);
+    //console.log('hotels setRecommended, state', getState());
 
     let recPair = null;
-    var defaultRecommendedPair = null;
+    var defaultRecPair = null;
     if (data) {
-        var { recommendedData } = getState();
-        recPair = data.RecommendedPair;
-        //добавляем доп поля для карточки авиа и отеля
-        //recPair.AviaInfo.CurrentListType = this.state.listType;
-        //recPair.Hotel.CurrentListType = this.state.listType;
+        var { searchRecommended } = getState();
+        searchRecommended = searchRecommended ? searchRecommended : {};
+        var { recommendedData, defaultRecommendedPair } = searchRecommended;
 
+        recPair = recommendedData ? recommendedData : data.RecommendedPair;
+        //добавляем доп поля для карточки авиа и отеля
         recPair.AviaInfo.TicketsCount = recommendedData ? recommendedData.AviaInfo.TicketsCount : null;
         recPair.Hotel.HotelsCount = data.HotelCount;
 
         //пока так, потом будет приходить нормальная сразу в объекте
         recPair.PackagePrice = recommendedData ? recommendedData.PackagePrice : data.RecommendedPair.Hotel.PackagePrice;
 
-        defaultRecommendedPair = data.DefaultRecommendedPair;
+        defaultRecPair = defaultRecommendedPair ? defaultRecommendedPair : data.DefaultRecommendedPair;
     }
 
     dispatch({
         type: SET_RECOMMENDED,
         data: {
             recommendedData: recPair,
-            defaultRecommendedPair: defaultRecommendedPair
+            defaultRecommendedPair: defaultRecPair
         }
     });
 }

@@ -19,6 +19,7 @@ export default function reducerSetRecommended(state = null, action = null) {
                 })
             });
         case RECOMMENDED__CHANGE_TICKET:
+            var { data } = action;
             return Object.assign({}, state, {
                 recommendedData: Object.assign({}, state.recommendedData, {
                     ...data
