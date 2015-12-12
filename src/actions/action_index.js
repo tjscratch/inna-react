@@ -1,5 +1,25 @@
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
+export function process(dispatch, state, field, ACTION_NAME, getDataCallback) {
+    return getDataCallback().then((data) => {
+        console.log(`action ${field} from api`);
+
+        dispatch({
+            type: ACTION_NAME,
+            data: data,
+            isFromServer: !canUseDOM
+        });
+    }).catch((err, data)=> {
+        console.log(`fail action ${field} from api`);
+
+        dispatch({
+            type: ACTION_NAME,
+            data: null,
+            isFromServer: !canUseDOM
+        });
+    })
+}
+
 //проверяет, если данные уже пришли с сервера - то не запрашивает их из API
 //повторный вызов с клиента - приведет к запросу данных из API
 export function processIf(dispatch, state, field, ACTION_NAME, getDataCallback) {
@@ -21,7 +41,7 @@ export function processIf(dispatch, state, field, ACTION_NAME, getDataCallback) 
                 data: data,
                 isFromServer: !canUseDOM
             });
-        }).catch((err, data)=>{
+        }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
             dispatch({
@@ -54,7 +74,7 @@ export function multiProcessIf(dispatch, state, field, ACTION_NAME, key, getData
                 key: key,
                 isFromServer: !canUseDOM
             });
-        }).catch((err, data)=>{
+        }).catch((err, data)=> {
             console.log(`fail action ${field} ${key} from api`);
 
             dispatch({
@@ -80,7 +100,7 @@ export function processIfNotExists(dispatch, state, field, ACTION_NAME, getDataC
                 data: data,
                 isFromServer: !canUseDOM
             });
-        }).catch((err, data)=>{
+        }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
             dispatch({
@@ -106,7 +126,7 @@ export function multiProcessIfNotExists(dispatch, state, field, ACTION_NAME, key
                 key: key,
                 isFromServer: !canUseDOM
             });
-        }).catch((err, data)=>{
+        }).catch((err, data)=> {
             console.log(`fail action ${field} ${key} from api`);
 
             dispatch({

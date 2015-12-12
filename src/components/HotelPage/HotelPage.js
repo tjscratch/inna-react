@@ -2,11 +2,15 @@ import React, { PropTypes } from 'react';
 import styles from './HotelPage.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
+import Location from '../../core/Location';
 
 //api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
+
+import { connect } from 'react-redux';
+import { getHotelDetails, getHotelRooms } from '../../actions/action_hotel_details';
 
 //helpers
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
@@ -38,9 +42,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         super(props);
 
         this.state = {
-            error: null,
-            data: null,
-            hotel: null
+            error: null
         }
     }
 
@@ -52,7 +54,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
     getData() {
         return new Promise((resolve) => {
             //инфа по отелю
-            this.getHotelData().then((data)=> {
+            this.getHotelData().then(()=> {
                 resolve();
 
                 //инфа по комнатам
@@ -62,51 +64,39 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
     }
 
     getHotelData() {
+        var { dispatch, routeParams } = this.props;
+
         return new Promise((resolve, reject)=> {
-            var params = getParamsForHotelDetails(this.props.routeParams);
-            api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-            //api.get(apiUrls.HotelDetails, params).then((data)=> {
-                //console.log('HotelDetails data', data);
-                if (data) {
-                    this.setState({
-                        data: data
-                    });
-                    resolve(data);
-                }
-                else {
+            var params = getParamsForHotelDetails(routeParams);
+
+            dispatch(getHotelDetails(params))
+                .then(resolve)
+                .catch(()=> {
                     console.error('HotelDetails data is null');
                     this.setState({
                         error: true
                     });
                     reject();
-                }
-            });
+                });
         });
     }
 
     getRoomsData() {
+        var { dispatch, routeParams } = this.props;
+
         return new Promise((resolve, reject)=> {
-            var params = getParamsForHotelDetails(this.props.routeParams);
+            var params = getParamsForHotelDetails(routeParams);
             params.Rooms = true;
 
-            api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-            //api.get(apiUrls.HotelDetails, params).then((data)=> {
-                //console.log('HotelDetails data', data);
-                if (data) {
-                    var mergedData = _.merge(this.state.data, data);
-                    this.setState({
-                        data: mergedData
-                    });
-                    resolve(data);
-                }
-                else {
-                    console.error('HotelDetails data is null');
+            dispatch(getHotelRooms(params))
+                .then(resolve)
+                .catch(()=> {
+                    console.error('HotelRooms data is null');
                     this.setState({
                         error: true
                     });
                     reject();
-                }
-            });
+                });
         });
     }
 
@@ -120,44 +110,41 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
 
     onRoomBuyClick(room) {
         //console.log('hotel onRoomBuyClick', room);
-        
-        var { routeParams } = this.props;
-        var { data } = this.state;
-        var { Hotel, AviaInfo } = this.state.data;
 
-        //console.log('routeParams', routeParams);
-        //console.log('hotel', Hotel);
-        //console.log('data', data);
+        var { data, routeParams } = this.props;
+        if (data) {
+            var { Hotel, AviaInfo } = data;
 
-        var url = siteUrls.PackageReservation + [
-                routeParams.fromId,
-                routeParams.toId,
-                routeParams.fromDate,
-                routeParams.toDate,
-                routeParams.flightClass,
-                routeParams.adultCount,
-                routeParams.childAges,
-                routeParams.hotelId,
-                routeParams.ticketId,
-                routeParams.ticketBackId,
-                routeParams.providerId
-            ].join('-');
+            var url = siteUrls.PackageReservation + [
+                    routeParams.fromId,
+                    routeParams.toId,
+                    routeParams.fromDate,
+                    routeParams.toDate,
+                    routeParams.flightClass,
+                    routeParams.adultCount,
+                    routeParams.childAges,
+                    routeParams.hotelId,
+                    routeParams.ticketId,
+                    routeParams.ticketBackId,
+                    routeParams.providerId
+                ].join('-');
 
-        var search = [
-            `room=${room.RoomId}`,
-            `hotel=${Hotel.HotelId}`,
-            `ticket=${AviaInfo.VariantId1}`
-        ].join('&');
+            var search = [
+                `room=${room.RoomId}`,
+                `hotel=${Hotel.HotelId}`,
+                `ticket=${AviaInfo.VariantId1}`
+            ].join('&');
 
-        url = `${url}?${search}`;
-        //console.log('url', url);
+            url = `${url}?${search}`;
+            //console.log('url', url);
 
-        window.location = url;
+            //window.location = url;
+            Location.pushState(null, url);
+        }
     }
 
     renderOverlay() {
-        //var data = this.props.data[0];
-        var data = this.state.data;
+        var { data } = this.props;
 
         if (this.state.error) {
             return (
@@ -189,8 +176,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         var title = 'Инна-Тур - Отель';
         this.context.onSetTitle(title);
 
-        //var data = this.props.data[0];
-        var data = this.state.data;
+        var { data, viewport } = this.props;
         var ticket = data ? data.AviaInfo : null;
         var hotel = data ? data.Hotel : null;
         var photos = (hotel && hotel.Photos) ? hotel.Photos.MediumPhotos.map((img, ix)=> {
@@ -200,7 +186,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         //console.log('data:', data);
         //console.log('hotel', hotel);
 
-        var isMobile = this.props.viewport.isMobile;
+        var isMobile = viewport.isMobile;
 
         var events = {
             changeTicket: this.changeTicket.bind(this),
@@ -227,7 +213,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                         <BreadCrumbs data={[
                             {link: '/', text: 'Главная'},
                             {link: getPackagesSearchUrl(this.props.routeParams), text: 'Результаты поиска'},
-                            {text: 'Описание отеля и выбор номера'},
+                            {text: 'Описание отеля и выбор номера'}
                         ]}/>
                     </div>
                     <div className="b-hotel-details__title">
@@ -236,29 +222,29 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
 
                     {
                         isMobile ?
-                        <div>
-                            <div className="b-hotel-details__gallery">
-                                <HotelDetailsGallery data={photos}/>
+                            <div>
+                                <div className="b-hotel-details__gallery">
+                                    <HotelDetailsGallery data={photos}/>
+                                </div>
+                                <div className="b-hotel-details__menu">
+                                    <HotelDetailsMenu />
+                                </div>
                             </div>
-                            <div className="b-hotel-details__menu">
-                                <HotelDetailsMenu />
+                            :
+                            <div>
+                                <div className="b-hotel-details__menu">
+                                    <HotelDetailsMenu />
+                                </div>
+                                <div className="b-hotel-details__gallery">
+                                    <HotelDetailsGallery data={photos}/>
+                                </div>
                             </div>
-                        </div>
-                        :
-                        <div>
-                            <div className="b-hotel-details__menu">
-                                <HotelDetailsMenu />
-                            </div>
-                            <div className="b-hotel-details__gallery">
-                                <HotelDetailsGallery data={photos}/>
-                            </div>
-                        </div>
                     }
 
                     {
                         !isMobile ?
                             <div id="hotel-details__description" className="b-hotel-details__description">
-                                <HotelDetailsDescription data={hotel} />
+                                <HotelDetailsDescription data={hotel}/>
                             </div> : null
                     }
 
@@ -268,40 +254,41 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                                 <HotelDetailsPackage
                                     title="Пакет с этим отелем"
                                     price={hotel.PackagePrice}
-                                    events={events} data={data} />
+                                    events={events} data={data}/>
                             </div> : null
                     }
 
 
                     <div id="hotel-details__rooms" className="b-hotel-details__rooms">
-                        <HotelDetailsRooms onRoomBuyClick={(room)=>this.onRoomBuyClick(room)} data={data.Rooms} packagePrice={packagePrice} />
+                        <HotelDetailsRooms onRoomBuyClick={(room)=>this.onRoomBuyClick(room)} data={data.Rooms}
+                                           packagePrice={packagePrice}/>
                     </div>
 
                     {
                         !isMobile ?
                             <div id="hotel-details__services" className="b-hotel-details__services">
-                                <HotelDetailsServices data={hotel} />
+                                <HotelDetailsServices data={hotel}/>
                             </div> : null
                     }
 
                     {
                         !isMobile ?
                             <div id="hotel-details__services" className="b-hotel-details__services">
-                                <HotelDetailsServices data={hotel} />
+                                <HotelDetailsServices data={hotel}/>
                             </div> : null
                     }
 
                     {
                         !isMobile ?
                             <div id="hotel-details__map" className="b-hotel-details__map">
-                                <HotelDetailsMap data={hotel} />
+                                <HotelDetailsMap data={hotel}/>
                             </div> : null
                     }
 
                     {
                         !isMobile ?
                             <div id="hotel-details__votes" className="b-hotel-details__votes">
-                                <HotelDetailsVotes data={hotel} />
+                                <HotelDetailsVotes data={hotel}/>
                             </div> : null
                     }
                 </section>
@@ -317,4 +304,14 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
     }
 }
 
-export default HotelPage;
+//export default HotelPage;
+
+function mapStateToProps(state) {
+    return {
+        data: state.hotelDetails
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(HotelPage)
