@@ -161,14 +161,19 @@ import DisplayEnum from './DisplayEnum.js';
             }
 
             dispatch(searchHotels(params))
-                .then(resolve)
-                .catch((err)=> {
-                    console.error('PackagesSearchHotels err', err);
-                    this.setState({
-                        error: true
-                    });
-                    reject();
-                });
+                .then((action)=>{
+                    var { data } = action;
+                    if (data) {
+                        resolve();
+                    }
+                    else {
+                        console.error('PackagesSearchHotels err', err);
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
         });
     }
 
@@ -199,14 +204,19 @@ import DisplayEnum from './DisplayEnum.js';
             }
 
             dispatch(searchTickets(params))
-                .then(resolve)
-                .catch((err)=> {
-                    console.error('SearchTickets err', err);
-                    this.setState({
-                        error: true
-                    });
-                    reject();
-                });
+                .then((action)=>{
+                    var { data } = action;
+                    if (data) {
+                        resolve();
+                    }
+                    else {
+                        console.error('SearchTickets err', err);
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
         });
     }
 
@@ -282,11 +292,11 @@ import DisplayEnum from './DisplayEnum.js';
                     data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
                     close={()=>{
                                 console.log('popup close');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     cancel={()=>{
                                 console.log('popup cancel');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     />
             );
@@ -297,11 +307,11 @@ import DisplayEnum from './DisplayEnum.js';
                     data={{title:'Ищем варианты', text:'Поиск займет не более 30 секунд', cancelText:'Прервать поиск'}}
                     close={()=>{
                         console.log('popup close');
-                        window.location = '/';
+                        Location.pushState(null, '/');
                     }}
                     cancel={()=>{
                         console.log('popup cancel');
-                        window.location = '/';
+                        Location.pushState(null, '/');
                     }}
                     />
             );

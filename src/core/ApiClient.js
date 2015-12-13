@@ -60,6 +60,16 @@ const ApiClient = {
                     }
                 });
         }
+    }),
+
+    //just for debug
+    test: (isSuccess) => new Promise((resolve, reject)=>{
+        if (isSuccess) {
+            resolve(isSuccess);
+        }
+        else {
+            reject(isSuccess);
+        }
     })
 };
 

@@ -13,16 +13,17 @@ export function getHotelDetails(params) {
         var ACTION_NAME = GET_HOTEL_DETAILS;
 
         return apiClient.get(apiUrls.HotelDetails, params).then((data) => {
+        //return apiClient.test(false).then((data) => {
             console.log(`action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data
             });
         }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null
             });
@@ -38,14 +39,14 @@ export function getHotelRooms(params) {
         return apiClient.get(apiUrls.HotelDetails, params).then((data) => {
             console.log(`action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data
             });
         }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null
             });

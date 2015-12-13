@@ -70,14 +70,19 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
             var params = getParamsForHotelDetails(routeParams);
 
             dispatch(getHotelDetails(params))
-                .then(resolve)
-                .catch(()=> {
-                    console.error('HotelDetails data is null');
-                    this.setState({
-                        error: true
-                    });
-                    reject();
-                });
+                .then((action)=> {
+                    var { data } = action;
+                    if (data) {
+                        resolve();
+                    }
+                    else {
+                        console.error('HotelDetails data is null');
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
         });
     }
 
@@ -89,14 +94,19 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
             params.Rooms = true;
 
             dispatch(getHotelRooms(params))
-                .then(resolve)
-                .catch(()=> {
-                    console.error('HotelRooms data is null');
-                    this.setState({
-                        error: true
-                    });
-                    reject();
-                });
+                .then((action)=> {
+                    var { data } = action;
+                    if (data){
+                        resolve();
+                    }
+                    else {
+                        console.error('HotelRooms data is null');
+                        this.setState({
+                            error: true
+                        });
+                        reject();
+                    }
+                })
         });
     }
 
@@ -152,11 +162,11 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
                     data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
                     close={()=>{
                                 console.log('popup close');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     cancel={()=>{
                                 console.log('popup cancel');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     />
             );

@@ -25,7 +25,7 @@ export function searchTickets(params) {
 
             setRecommended(dispatch, getState, data);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data
             });
@@ -34,7 +34,7 @@ export function searchTickets(params) {
 
             setRecommended(dispatch, getState, null);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null
             });
@@ -79,7 +79,7 @@ function setRecommended(dispatch, getState, data) {
         defaultRecPair = defaultRecommendedPair ? defaultRecommendedPair : data.DefaultRecommendedPair;
     }
 
-    dispatch({
+    return dispatch({
         type: SET_RECOMMENDED,
         data: {
             recommendedData: recPair,

@@ -4,7 +4,7 @@ export function process(dispatch, state, field, ACTION_NAME, getDataCallback) {
     return getDataCallback().then((data) => {
         console.log(`action ${field} from api`);
 
-        dispatch({
+        return dispatch({
             type: ACTION_NAME,
             data: data,
             isFromServer: !canUseDOM
@@ -12,7 +12,7 @@ export function process(dispatch, state, field, ACTION_NAME, getDataCallback) {
     }).catch((err, data)=> {
         console.log(`fail action ${field} from api`);
 
-        dispatch({
+        return dispatch({
             type: ACTION_NAME,
             data: null,
             isFromServer: !canUseDOM
@@ -36,7 +36,7 @@ export function processIf(dispatch, state, field, ACTION_NAME, getDataCallback) 
         return getDataCallback().then((data) => {
             console.log(`action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data,
                 isFromServer: !canUseDOM
@@ -44,7 +44,7 @@ export function processIf(dispatch, state, field, ACTION_NAME, getDataCallback) 
         }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null,
                 isFromServer: !canUseDOM
@@ -68,7 +68,7 @@ export function multiProcessIf(dispatch, state, field, ACTION_NAME, key, getData
         return getDataCallback().then((data) => {
             console.log(`action ${field} ${key} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data,
                 key: key,
@@ -77,7 +77,7 @@ export function multiProcessIf(dispatch, state, field, ACTION_NAME, key, getData
         }).catch((err, data)=> {
             console.log(`fail action ${field} ${key} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null,
                 key: key,
@@ -95,7 +95,7 @@ export function processIfNotExists(dispatch, state, field, ACTION_NAME, getDataC
         return getDataCallback().then((data) => {
             console.log(`action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data,
                 isFromServer: !canUseDOM
@@ -103,7 +103,7 @@ export function processIfNotExists(dispatch, state, field, ACTION_NAME, getDataC
         }).catch((err, data)=> {
             console.log(`fail action ${field} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null,
                 isFromServer: !canUseDOM
@@ -120,7 +120,7 @@ export function multiProcessIfNotExists(dispatch, state, field, ACTION_NAME, key
         return getDataCallback().then((data) => {
             console.log(`action ${field} ${key} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: data,
                 key: key,
@@ -129,7 +129,7 @@ export function multiProcessIfNotExists(dispatch, state, field, ACTION_NAME, key
         }).catch((err, data)=> {
             console.log(`fail action ${field} ${key} from api`);
 
-            dispatch({
+            return dispatch({
                 type: ACTION_NAME,
                 data: null,
                 key: key,
