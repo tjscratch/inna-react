@@ -17,15 +17,14 @@ import TicketCard from '../TicketCard';
     }
 
     render() {
-        var events = this.props.events;
-        var data = this.props.data;
+        var { data, events } = this.props;
         var ticket = data ? data.AviaInfo : null;
         var hotel = data ? data.Hotel : null;
 
         var checkInDate = hotel ? apiDateToJsDate(hotel.CheckIn) : null;
         var checkOutDate = hotel ? apiDateToJsDate(hotel.CheckOut) : null;
 
-        if (data) {
+        if (data && ticket) {
             return (
                 <div className="b-hotel-details-package">
                     <div className="b-hotel-details-package__title">{this.props.title}</div>
