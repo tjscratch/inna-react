@@ -7,7 +7,6 @@ import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 const apiPath = 'https://api.inna.ru/api/v1';
 //const apiPath = 'http://api.test.inna.ru/api/v1';
 const getUrl = (path) => {
-    //path.startsWith('http')
     if (path.startsWith('http') || path.startsWith('https')) {
         return path;
     }
@@ -28,7 +27,8 @@ const ApiClient = {
                     if (err.status === 404) {
                         resolve(null);
                     } else {
-                        reject(err);
+                        //reject(err);
+                        handleError(err, reject);
                     }
                 } else {
                     resolve(res.body);
@@ -60,8 +60,25 @@ const ApiClient = {
                     }
                 });
         }
+    }),
+
+    //just for debug
+    test: (isSuccess) => new Promise((resolve, reject)=>{
+        if (isSuccess) {
+            resolve(isSuccess);
+        }
+        else {
+            reject(isSuccess);
+        }
     })
 };
+
+function handleError(err, reject) {
+    reject({
+        message: err.response && err.response.body ? err.response.body.Message : err.message,
+        status: err.status
+    })
+}
 
 function getKey(path, params) {
     let prms = [];

@@ -245,35 +245,25 @@ import Price from '../Price';
     render() {
         var rooms = this.state.rooms;
 
-        if (rooms) {
-
-            //debug
-            //var rm = rooms[0];
-            //rm.Extra.Huil = {
-            //    CategoryName: "Без хуяния",
-            //    List: ["Без хуяния"]
-            //};
-
-            //console.log(rooms[0]);
-            return (
-                <div className="b-hotel-details-rooms">
-                    <div className="b-hotel-details-rooms__title">Выбор номера</div>
-                    <div className="b-hotel-details-rooms__list">
-                        <div className="b-rooms-list">
-                            {
-                                rooms.map((room, ix)=> {
-                                    return this.renderRoom(room, ix);
-                                }, this)
-                            }
-                        </div>
-                    </div>
+        return (
+            <div className="b-hotel-details-rooms">
+                <div className="b-hotel-details-rooms__title">Выбор номера</div>
+                <div className="b-hotel-details-rooms__list">
+                    {
+                        rooms ?
+                            <div className="b-rooms-list">
+                                {
+                                    rooms.map((room, ix)=> {
+                                        return this.renderRoom(room, ix);
+                                    }, this)
+                                }
+                            </div> :
+                            <div>Loading...</div>
+                    }
                 </div>
-            );
-        }
-
-        return null;
+            </div>
+        );
     }
-
 }
 
 export default HotelDetailsRooms;

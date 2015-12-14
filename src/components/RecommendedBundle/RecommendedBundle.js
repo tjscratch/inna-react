@@ -22,22 +22,21 @@ import PriceCard from '../PriceCard';
     }
 
     buyClick() {
-        if (this.props.events.bundleBuyClick) {
-            this.props.events.bundleBuyClick();
+        var { events } = this.props;
+        if (events && events.bundleBuyClick) {
+            events.bundleBuyClick();
         }
     }
 
     render() {
         //console.log('this.props.data', this.props.data);
-        var events = this.props.events;
-        var aviaData = this.props.data ? this.props.data.AviaInfo : null;
-        var hotelData = this.props.data ? this.props.data.Hotel : null;
-        var defaultRecommendedPair = this.props.defaultRecommendedPair;
+        var { data, events, defaultRecommendedPair, viewport } = this.props;
+        var { showChangeTickets, showChangeHotels } = this.props;
 
-        var priceData = this.props.data ? {price: this.props.data.PackagePrice} : null;
-
-        var recBlockHeight = this.props.viewport.isMobile && this.props.viewport.height <= 500 ?
-            {height:this.props.viewport.height} : null;
+        var aviaData = data ? data.AviaInfo : null;
+        var hotelData = data ? data.Hotel : null;
+        var priceData = data ? {price: data.PackagePrice} : null;
+        var recBlockHeight = viewport.isMobile && viewport.height <= 500 ? {height:viewport.height} : null;
 
         var recommendedCaption = true;
         if (aviaData && hotelData && defaultRecommendedPair &&
@@ -69,10 +68,10 @@ import PriceCard from '../PriceCard';
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
                         <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>
-                            <TicketCard events={events} data={aviaData} allowActions={true} />
+                            <TicketCard events={events} showChangeTickets={showChangeTickets} data={aviaData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__dp">
-                            <HotelCard events={events} data={hotelData} allowActions={true} />
+                            <HotelCard events={events} showChangeHotels={showChangeHotels} data={hotelData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__price">
                             <PriceCard data={priceData} onBuy={this.buyClick.bind(this)} />

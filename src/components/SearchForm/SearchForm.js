@@ -3,6 +3,7 @@ import moment from 'moment';
 import api from '../../core/ApiClient';
 import apiUrls from '../../constants/ApiUrls.js';
 import siteUrls from '../../constants/SiteUrls.js';
+import Location from '../../core/Location';
 import styles from './SearchForm.scss';
 import withStyles from '../../decorators/withStyles';
 import TabsNav from '../TabsNav';
@@ -15,8 +16,10 @@ import PeopleSelector from '../ui/PeopleSelector';
     constructor(props) {
         super(props);
 
+        //console.log('SearchForm props', props);
+
         //начальные данные для рендера на сервере
-        let data = props ? props.data : null;
+        var { directory, routeParams } = props;
 
         //формат данных:
         /*
@@ -46,9 +49,11 @@ import PeopleSelector from '../ui/PeopleSelector';
          VisaGroup: 0
          */
 
-        if (data) {
+        if (routeParams) {
             this.state = {
-                ...data
+                ...routeParams,
+                from: directory[routeParams.fromId],
+                to: directory[routeParams.toId]
             };
         }
         else {
@@ -58,7 +63,7 @@ import PeopleSelector from '../ui/PeopleSelector';
                 fromDate: null,
                 toDate: null,
                 flightClass: 0,
-                adultCount: 2,
+                adultCount: 2
             };
         }
     }
@@ -115,10 +120,12 @@ import PeopleSelector from '../ui/PeopleSelector';
             this.state.fromId,
             this.state.toId,
             this.state.fromDate,
-            this.state.toDate,
+            this.state.toDate
         ].join('-');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
-        window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
+        //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}-0-2-2`);
+        Location.pushState(null, '/packages/search/6733-6623-01.02.2016-08.02.2016-0-2-2');
+        //window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
     }
 
 
@@ -142,6 +149,8 @@ import PeopleSelector from '../ui/PeopleSelector';
     }
 
     render() {
+        let { data } = this.props;
+
         return (
             <section className="b-search-form">
                 <div className="b-search-form__tabs">
@@ -150,10 +159,12 @@ import PeopleSelector from '../ui/PeopleSelector';
                 <div className="b-search-form__form">
                     <div className="b-search-form__actions">
                         <div className="b-search-form-action__location-from">
-                            <Suggest setResult={this.locationFrom.bind(this)} data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
+                            <Suggest setResult={this.locationFrom.bind(this)}
+                                     data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
                         </div>
                         <div className="b-search-form-action__location-to">
-                            <Suggest setResult={this.locationTo.bind(this)} data={{placeholder: 'Куда', location: this.state.to}}/>
+                            <Suggest setResult={this.locationTo.bind(this)}
+                                     data={{placeholder: 'Куда', location: this.state.to}}/>
                         </div>
                         <div className="b-search-form-action__date">
                             <DatepickerRange

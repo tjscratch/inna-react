@@ -51,7 +51,7 @@ var storage = (function () {
     function getPageData(context, dataApiCalls) {
         //console.log('getPageData', context, dataApiCalls);
         return new Promise((resolve, reject)=> {
-            if (canUseDOM && window.__INITIAL_STATE__) {
+            if (false && canUseDOM && window.__INITIAL_STATE__) {
                 console.log('getPageData from initial state');
                 //если на клиенте, и есть данные для страницы - сразу возвращаем
                 resolve(JSON.parse(window.__INITIAL_STATE__));

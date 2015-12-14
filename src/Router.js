@@ -21,36 +21,61 @@ import apiUrls from './constants/ApiUrls.js';
 import siteUrls from './constants/SiteUrls.js';
 import { routeDateToApiDate } from './helpers/DateHelper.js'
 import _ from 'lodash';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+
+//======================store=============================
+import { getTestData } from './actions/action_test';
+import { getMainPageData } from './actions/action_main';
+import { getDirectoryById } from './actions/action_directory';
+import { getStore } from './store/storeHolder';
+
+import ProviderWrapper from './components/ProviderWrapper';
+//======================store=============================
+
+//оборачиваем в Redux провайдер, передаем store
+function wrapByProvider(component) {
+    return (<ProviderWrapper component={component}/>)
+}
 
 const router = new Router(on => {
 
     on('*', async (state, next) => {
-        //console.log('route *');
         const component = await next();
-        return component && <App context={state.context}>{component}</App>;
+        return component && wrapByProvider(<App context={state.context}>{component}</App>);
     });
 
     //главная страница
     on(siteUrls.Root, async (state) => {
+
+        //test data
+        //if (canUseDOM) {
+        //    var testAction = await getStore().dispatch(getTestData(false))
+        //        .then((action)=> {
+        //            console.log('getTestData success', action);
+        //        }).catch((err)=> {
+        //            console.log('getTestData error', err);
+        //        });
+        //    console.log('getTestData result', testAction);
+        //}
+
+
         let sectionId = 4;
-        //получаем все данные (массив) для этой страницы сразу
-        let data = await Storage.getPageData(state.context, [`${apiUrls.SectionGet}${sectionId}`]);
-        return <MainPage data={data}/>
+        //получаем данные для главной страницы
+        await getStore().dispatch(getMainPageData(sectionId));
+        return <MainPage/>
     });
 
     //страница результатов поиска ДП
     //https://inna.ru/#/packages/search/6733-6623-03.10.2015-10.10.2015-0-2-1_2_3
     //https://inna.ru/#/packages/search/6733-6623-01.10.2015-08.10.2015-0-2-2
     on(`${siteUrls.SearchPackages}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?`, async (state) => {
-        //console.log('params', state.params);
-        let data = await Storage.getPageData(state.context, [
-            `${apiUrls.DirectoryById}${state.params.fromId}`,
-            `${apiUrls.DirectoryById}${state.params.toId}`
-        ]);
+        //получаем данные для страницы результатов поиска
+        await getStore().dispatch(getDirectoryById(state.params.fromId));
+        await getStore().dispatch(getDirectoryById(state.params.toId));
+
         return <PackagesSearchResultsPage
             routeQuery={state.query ? state.query : {}}
-            routeParams={state.params}
-            data={data}/>
+            routeParams={state.params}/>
     });
 
     //страница отеля
@@ -67,17 +92,15 @@ const router = new Router(on => {
     // &Filter[DepartureId]=2767&Filter[ArrivalId]=6623
     // &Filter[StartVoyageDate]=2015-12-01&Filter[EndVoyageDate]=2015-12-08&Filter[TicketClass]=0&Filter[Adult]=1
     on(`${siteUrls.HotelDetails}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
-        //console.log('params', state.params);
-
         return <HotelPage
             routeQuery={state.query ? state.query : {}}
-            routeParams={state.params} />
+            routeParams={state.params}/>
     });
 
     on(`${siteUrls.PackageReservation}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
         return <ReservationPage
             routeQuery={state.query ? state.query : {}}
-            routeParams={state.params} />
+            routeParams={state.params}/>
     });
 
     on('/contact', async () => <ContactPage />);
@@ -93,8 +116,10 @@ const router = new Router(on => {
     });
 
     on('error', (state, error) => state.statusCode === 404 ?
-            <App context={state.context} error={error}><NotFoundPage /></App> :
-            <App context={state.context} error={error}><ErrorPage /></App>
+            //<App context={state.context} error={error}><NotFoundPage /></App> :
+            //<App context={state.context} error={error}><ErrorPage /></App>
+            wrapByProvider(<App context={state.context} error={error}><NotFoundPage /></App>) :
+            wrapByProvider(<App context={state.context} error={error}><ErrorPage /></App>)
     );
 
 });

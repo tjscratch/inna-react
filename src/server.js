@@ -9,6 +9,8 @@ import compression from 'compression';
 import ReactDOM from 'react-dom/server';
 import Router from './Router';
 
+import { createStore, getStore } from './store/storeHolder';
+
 const server = global.server = express();
 
 server.set('port', (process.env.PORT || 5000));
@@ -36,6 +38,9 @@ const template = _.template(fs.readFileSync(templateFile, 'utf8'));
 
 server.get('*', async (req, res, next) => {
     try {
+        //создаем новое хранилище на каждый запрос
+        createStore();
+
         let statusCode = 200;
         const data = {title: '', description: '', css: '', body: '', initialState: ''};
         const css = [];
@@ -44,13 +49,18 @@ server.get('*', async (req, res, next) => {
             onSetTitle: value => data.title = value,
             onSetMeta: (key, value) => data[key] = value,
             onPageNotFound: () => statusCode = 404,
-            onSetInitialState: (state) => data.initialState = state
+            //onSetInitialState: (state) => data.initialState = state
+            onSetInitialState: (state) => {}
         };
 
         await Router.dispatch({path: req.path, context}, (state, component) => {
             data.body = ReactDOM.renderToString(component);
             data.css = css.join('');
         });
+
+        //pass store to client
+        var state = getStore().getState();
+        data.initialState = JSON.stringify(state);
 
         const html = template(data);
         res.status(statusCode).send(html);

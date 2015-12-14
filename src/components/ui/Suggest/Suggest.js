@@ -12,21 +12,21 @@ import SuggestModel from './SuggestModel';
 
 @withViewport
 @withStyles(styles) class Suggest extends React.Component {
-
-
     constructor(props) {
         super(props);
 
+        var { data } = props;
         this.state = {
-            placeholder: props.data.placeholder,
-            value: props.data.location ? `${props.data.location.Name}, ${props.data.location.CountryName}` : null,
-            setCurrentLocation: props.data.setCurrentLocation ? true : false,
+            placeholder: data.placeholder,
+            value: data.location ? `${data.location.Name}, ${data.location.CountryName}` : null,
+            setCurrentLocation: data.setCurrentLocation ? true : false,
             options: [],
             showSuggest: false,
             optionCounter: 0,
             onBlurDisabled: false,
             focus: false
         };
+
         this.setOptions = _.debounce(
             this.setOptions, 300,
             {
@@ -94,7 +94,7 @@ import SuggestModel from './SuggestModel';
             .then((data)=> {
                 this.setState({
                     options: SuggestModel.focusOptionItem(data, 0)
-                })
+                });
                 this.setShowSuggest(true);
             })
     }
@@ -126,10 +126,12 @@ import SuggestModel from './SuggestModel';
 
     selectedOption(item) {
         this.onSetResult(item);
+
         this.setState({
             value: `${item.Name}, ${item.CountryName}`,
             focus: false
         });
+
         this.setShowSuggest(false);
     }
 

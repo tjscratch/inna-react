@@ -3,11 +3,15 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './ReservationPage.scss';
 import withStyles from '../../decorators/withStyles';
+import Location from '../../core/Location';
 
 //api
 import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
+
+import { connect } from 'react-redux';
+import { getHotelDetails } from '../../actions/action_reservation';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
@@ -27,8 +31,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
         super(props);
 
         this.state = {
-            error: null,
-            data: null
+            error: null
         }
     }
 
@@ -40,7 +43,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
     getData() {
         return new Promise((resolve) => {
             //инфа по отелю
-            this.getHotelData().then((data)=> {
+            this.getHotelData().then(()=> {
                 resolve();
             });
         });
@@ -48,26 +51,25 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 
     getHotelData() {
         return new Promise((resolve, reject)=> {
-            var { room } = this.props.routeQuery;
-            var params = getParamsForHotelDetails(this.props.routeParams, room);
-            //console.log('params', params);
-            api.cachedGet(apiUrls.HotelDetails, params).then((data)=> {
-            //api.get(apiUrls.HotelDetails, params).then((data)=> {
-                //console.log('HotelDetails data', data);
-                if (data) {
-                    this.setState({
-                        data: data
-                    });
-                    resolve(data);
-                }
-                else {
-                    console.error('HotelDetails data is null');
-                    this.setState({
-                        error: true
-                    });
-                    reject();
-                }
-            });
+            var { routeParams, routeQuery, dispatch } = this.props;
+            var { room } = routeQuery;
+
+            var params = getParamsForHotelDetails(routeParams, room);//roomId
+
+            dispatch(getHotelDetails(params))
+                .then((action)=> {
+                    var { data, err } = action;
+                    if (data) {
+                        resolve();
+                    }
+                    else {
+                        console.error('HotelDetails err', err);
+                        this.setState({
+                            error: true
+                        });
+                        //reject();
+                    }
+                });
         });
     }
 
@@ -80,20 +82,20 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
     }
 
     renderOverlay() {
-        //var data = this.props.data[0];
-        var data = this.state.data;
+        var { data } = this.props;
+        var { error } = this.state;
 
-        if (this.state.error) {
+        if (error) {
             return (
                 <WaitMsg
                     data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
                     close={()=>{
                                 console.log('popup close');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     cancel={()=>{
                                 console.log('popup cancel');
-                                window.location = '/';
+                                Location.pushState(null, '/');
                             }}
                     />
             );
@@ -110,17 +112,18 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
     }
 
     render() {
-        var { data } = this.state;
-        //console.log('data', data);
+        var { data, routeParams } = this.props;
         var events = null;
 
-        var { adultCount } = this.props.routeParams;
+        //console.log('render data:', data);
+
+        var { adultCount } = routeParams;
         var passengersList = [];
-        for(let i=0; i<adultCount; i++) {
+        for (let i = 0; i < adultCount; i++) {
             passengersList.push(i);
         }
 
-        if (data) {
+        if (true || data) {
             return (
                 <section className="b-reservation-page">
                     {this.renderOverlay()}
@@ -144,7 +147,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                         <CustomerInfo />
                     </div>
                     <div className="b-reservation-page__buy-request">
-                        <BuyRequest onSendClick={this.onRequestSendClick.bind(this)} />
+                        <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                     </div>
                     <div className="b-reservation-page__passengers">
                         <Passengers data={passengersList}/>
@@ -159,7 +162,8 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                                 </textarea>
                             </div>
                             <div className="b-reservation-page-comments-label">
-                                Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение. Пожалуйста, пишите ваши пожелания на английском языке.
+                                Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.
+                                Пожалуйста, пишите ваши пожелания на английском языке.
                             </div>
                         </div>
                     </div>
@@ -168,17 +172,21 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                             Дополнительные услуги
                         </div>
                         <div className="b-reservation-page-additional-services__lbl">
-                            Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c Вами и предложит разные варианты.
+                            Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c
+                            Вами и предложит разные варианты.
                         </div>
                         <div className="b-reservation-page-additional-services__body">
                             <div className="b-reservation-page-additional-services-item"><Checkbox text="Виза"/></div>
-                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Трансфер"/></div>
+                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Трансфер"/>
+                            </div>
                         </div>
                     </div>
                     <div className="b-reservation-page__agreement">
                         <Checkbox>
                             <div className="b-reservation-page-agreement">
-                                Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>, <a href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих <br/>персональных данных и передачи их третьим лицам (авиаперевозчику и пр.).
+                                Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>, <a
+                                href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих <br/>персональных
+                                данных и передачи их третьим лицам (авиаперевозчику и пр.).
                             </div>
                         </Checkbox>
                     </div>
@@ -190,7 +198,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                             <Price data={46388}/>
                         </div>
                         <div className="b-reservation-page-buy-block__button">
-                            <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)} />
+                            <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>
                         </div>
                     </div>
                 </section>
@@ -209,4 +217,14 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 
 }
 
-export default ReservationPage;
+//export default ReservationPage;
+
+function mapStateToProps(state) {
+    return {
+        data: state.reservation
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(ReservationPage)
