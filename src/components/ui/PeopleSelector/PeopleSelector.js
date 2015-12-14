@@ -51,7 +51,7 @@ import Checkbox from '../Checkbox';
                 <div className="b-people-selector__value">
                     <div className="b-people-selector__value-peoples">
                         {this.props.adultCount}
-                        2 человека,
+                        человека,
                     </div>
                     <div className="b-people-selector__value-class">
                         эконом
@@ -67,12 +67,18 @@ import Checkbox from '../Checkbox';
                         Взрослые
                     </div>
                     <div className="b-people-selector-dropdown__btns">
-                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 1)}>1</div>
-                        <div className="b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected"
+                        <div className={this.props.adultCount == 1 ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
+                             onClick={this.setPeooples.bind(this, 1)}>1
+                        </div>
+                        <div className={this.props.adultCount == 2 ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
                              onClick={this.setPeooples.bind(this, 2)}>2
                         </div>
-                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 3)}>3</div>
-                        <div className="b-people-selector-dropdown__btns-btn" onClick={this.setPeooples.bind(this, 4)}>4</div>
+                        <div className={this.props.adultCount == 3 ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
+                             onClick={this.setPeooples.bind(this, 3)}>3
+                        </div>
+                        <div className={this.props.adultCount == 4 ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
+                             onClick={this.setPeooples.bind(this, 4)}>4
+                        </div>
                     </div>
                     <div className="b-people-selector-dropdown__label">
                         Дети
