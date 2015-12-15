@@ -50,8 +50,7 @@ import Checkbox from '../Checkbox';
 
                 <div className="b-people-selector__value">
                     <div className="b-people-selector__value-peoples">
-                        {this.props.adultCount}
-                        человека,
+                        {this.props.adultCount} человека,
                     </div>
                     <div className="b-people-selector__value-class">
                         эконом

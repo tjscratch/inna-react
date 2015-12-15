@@ -63,7 +63,8 @@ import PeopleSelector from '../ui/PeopleSelector';
                 fromDate: null,
                 toDate: null,
                 flightClass: 0,
-                adultCount: 2
+                adultCount: 2,
+                childCount: 0
             };
         }
     }
@@ -120,12 +121,16 @@ import PeopleSelector from '../ui/PeopleSelector';
             this.state.fromId,
             this.state.toId,
             this.state.fromDate,
-            this.state.toDate
+            this.state.toDate,
+            this.state.flightClass,
+            this.state.adultCount,
+            this.state.childCount
         ].join('-');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
-        //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}-0-2-2`);
-        Location.pushState(null, '/packages/search/6733-6623-01.02.2016-08.02.2016-0-2-2');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
+        //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}-0-2-2`);
+        //Location.pushState(null, '/packages/search/6733-6623-01.02.2016-08.02.2016-0-2-2');
+        Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
     }
 
 
@@ -142,7 +147,6 @@ import PeopleSelector from '../ui/PeopleSelector';
     }
 
     setAdultCount(data){
-        console.log(data);
         this.setState({
             adultCount: data
         })
