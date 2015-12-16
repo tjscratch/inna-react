@@ -32,7 +32,7 @@ module.exports = function (shipit) {
         return shipit.start(
             'after.deploy::copy.package.json',
             'after.deploy::run.npm.install',
-            'after.deploy::npm.install.fix',
+            //'after.deploy::npm.install.fix',
             'after.deploy::run.build',
             //'after.deploy::restart.forever',
             'after.deploy::restart.service',
@@ -66,7 +66,7 @@ module.exports = function (shipit) {
 
     //запускаем build --release в текущем билде
     shipit.blTask('after.deploy::run.build', function () {
-        return shipit.remote('cd ' + shipit.currentPath + ' && npm run build --release');
+        return shipit.remote('cd ' + shipit.currentPath + ' && npm run build -- release');
     });
 
     //перезапускаем приложение
