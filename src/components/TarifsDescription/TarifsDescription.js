@@ -10,14 +10,24 @@ import withStyles from '../../decorators/withStyles';
     render() {
         return (
             <div className="b-tarifs-description">
-                <div>Внимание! К компонентам пакета применяются разные условия отмены бронирования.</div>
-                <div>
-                    Пожалуйста, ознакомьтесь с&nbsp;
-                    <a className="b-tarifs-description-link" href="#">правилами применения тарифа авиабилета</a>
-                    &nbsp;и&nbsp;
-                    <a className="b-tarifs-description-link" href="#">условиями бронирования отеля</a>
-                    &nbsp;и&nbsp;
-                    <a className="b-tarifs-description-link" href="#">правилами медицинского страхования.</a>
+                <div className="b-tarifs-description__desktop">
+                    <div>Внимание! К компонентам пакета применяются разные условия отмены бронирования.</div>
+                    <div>
+                        Пожалуйста, ознакомьтесь с&nbsp;
+                        <a className="b-tarifs-description-link" href="#">правилами применения тарифа авиабилета</a>
+                        &nbsp;и&nbsp;
+                        <a className="b-tarifs-description-link" href="#">условиями бронирования отеля</a>
+                        &nbsp;и&nbsp;
+                        <a className="b-tarifs-description-link" href="#">правилами медицинского страхования.</a>
+                    </div>
+                </div>
+                <div className="b-tarifs-description__mobile">
+                    <div className="b-tarifs-description-icon icon-emb-attention">
+                        &nbsp;
+                    </div>
+                    <div className="b-tarifs-description-text">
+                        Ознакомьтесь с правилами бронирования
+                    </div>
                 </div>
             </div>
         );

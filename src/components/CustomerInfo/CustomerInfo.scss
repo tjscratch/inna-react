@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .b-customer-info {
 
 }
@@ -63,4 +65,58 @@
 
 .b-customer-info-body__agreement {
     margin: 15px 0 10px 0;
+}
+
+.b-customer-info-body__phone-mobile {
+    display: none;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-customer-info-body__email,
+    .b-customer-info-body__phone-mobile {
+        display: block;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .b-customer-info-body__phone {
+        display: none;
+    }
+
+    .b-customer-info__head {
+        font-size: 1em;
+        font-weight: normal;
+        color: rgba(0,0,0,0.87);
+    }
+
+    .b-customer-info__body {
+        padding: 0;
+        background: none;
+    }
+
+
+    //.b-customer-info-body__email,
+    //.b-customer-info-body__phone {
+    //    width: 100%;
+    //}
+    //
+    //.b-customer-info-body__phone {
+    //    margin-top: 20px;
+    //}
+
+    .b-customer-info-label {
+        color: #4a4a4a;
+        font-size: 0.8em;
+    }
+
+    .b-customer-info-field {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #89c13a;
+        color: #000000;
+    }
+
+    .b-customer-info-body__agreement {
+        margin: 20px 0;
+    }
 }

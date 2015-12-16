@@ -1,3 +1,4 @@
+@import "../variables.scss";
 
 .b-visa-alert {
     padding: 20px 15px 20px 20px;
@@ -36,5 +37,38 @@
 
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.b-visa-alert__img-mobile {
+    display: none;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-visa-alert {
+        margin: 0;
+        padding: 5px 0;
+        background: none;
+    }
+
+    .b-visa-alert__img {
+        display: none;
+    }
+
+    .b-visa-alert__img-mobile {
+        display: inline-block;
+        float: left;
+        color: #9b9b9b;
+    }
+
+    .b-visa-alert__head {
+        display: none;
+    }
+
+    .b-visa-alert__text {
+        display: block;
+        margin-left: 25px;
+        margin-top: 2px;
+        font-size: .95em;
     }
 }

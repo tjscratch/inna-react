@@ -205,7 +205,8 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
             }
             else {
                 //сейчас выбраны пакеты - показываем кнопку переключения на авиабилеты
-                if (viewport.isMobile || showChangeTickets) {
+                //if (viewport.isMobile || showChangeTickets) {
+                if (showChangeTickets) {
                     return (
                         <div className="b-avia-card__actions">
                             <div className="b-avia-card-actions" onClick={this.actionClick.bind(this)}>

@@ -18,7 +18,7 @@ import Checkbox from '../ui/Checkbox';
                 <div className="b-customer-info__body">
                     <div className="b-customer-info-body">
                         <div className="b-customer-info-body__email">
-                            <label className="b-customer-info-label">E-mail</label>
+                            <label className="b-customer-info-label">Электронная почта</label>
                             <input className="b-customer-info-field b-customer-info-field_email"
                                    type="email"
                                    placeholder="ivan.ivanov@gmail.com"/>
@@ -42,8 +42,14 @@ import Checkbox from '../ui/Checkbox';
                                 </div>
                             </div>
                         </div>
+                        <div className="b-customer-info-body__phone-mobile">
+                            <label className="b-customer-info-label">Мобильный телефон</label>
+                            <input className="b-customer-info-field"
+                                   type="text"
+                                   placeholder="+7 (999) 999-99-99"/>
+                        </div>
                         <div className="b-customer-info-body__agreement">
-                            <Checkbox text="Я хочу получать рассылку спецпредложений"/>
+                            <Checkbox text="Я хочу получать спецпредложения"/>
                         </div>
                     </div>
                 </div>

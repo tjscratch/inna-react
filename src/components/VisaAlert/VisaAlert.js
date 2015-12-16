@@ -13,6 +13,9 @@ import withStyles from '../../decorators/withStyles';
                 <div className="b-visa-alert__img">
                     <img className="b-visa-alert-img" src={require('./visa-alert.png')} />
                 </div>
+                <div className="b-visa-alert__img-mobile icon-emb-attention">
+                    &nbsp;
+                </div>
                 <div className="b-visa-alert__text">
                     <div className="b-visa-alert__head">Обратите внимание</div>
                     <div className="b-visa-alert__body">Требуется виза. Рекомендуем ознакомиться с визовыми правилами для посещения стран:&nbsp;

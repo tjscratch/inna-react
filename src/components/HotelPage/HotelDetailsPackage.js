@@ -44,7 +44,7 @@ import TicketCard from '../TicketCard';
                                 <TicketCard events={events} data={ticket} allowActions={true} />
                             </div>
                             <div className="b-hotel-details-bundle__hotel">
-                                <HotelCard data={hotel}/>
+                                <HotelCard data={hotel}  allowActions={true}/>
                             </div>
                         </div>
                     </div>

@@ -21,6 +21,19 @@
     margin: 20px auto;
 }
 
+.b-reservation-page__mobile-filter {
+    background: #ececec;
+    display: none;
+}
+
+.b-reservation-page__head-filter__caption {
+    font-size: 1.4em;
+    color: rgba(0,0,0,0.87);
+    padding-top: 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #979797;
+}
+
 .b-reservation-page__variant {
     margin-bottom: 0;
 }
@@ -121,5 +134,28 @@
 
 
 @media (max-width: $mobile-max-width) {
+    .b-reservation-page__header,
+    .b-reservation-page__header-desc,
+    .b-reservation-page__variant {
+        margin: 0;
+        padding: 0;
+    }
 
+    .b-reservation-page__mobile-filter {
+        display: block;
+    }
+
+    .b-reservation-page__visa-alert {
+        margin: 0;
+        border-top: 1px solid rgba(0,0,0,0.12);
+        background: #fdf1c9;
+        color: #4a4a4a;
+    }
+
+    .b-reservation-page__tarifs-desc {
+        margin: 0;
+        border-top: 1px solid rgba(0,0,0,0.12);
+        background: #fdf1c9;
+        color: #4a4a4a;
+    }
 }

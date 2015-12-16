@@ -25,6 +25,7 @@ import Passengers from './Passengers';
 import Checkbox from '../ui/Checkbox';
 import Price from '../Price';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
+import { MobileSelectedFilter } from '../MobileFilters';
 
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
@@ -115,6 +116,8 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
         var { data, routeParams } = this.props;
         var events = null;
 
+        var price = data ? data.Price : 0;
+
         //console.log('render data:', data);
 
         var { adultCount } = routeParams;
@@ -127,6 +130,13 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
             return (
                 <section className="b-reservation-page">
                     {this.renderOverlay()}
+                    <div className="b-reservation-page__mobile-filter">
+                        <MobileSelectedFilter>
+                            <div className="b-reservation-page__head-filter__caption">
+                                <div>Оплата пакета</div>
+                            </div>
+                        </MobileSelectedFilter>
+                    </div>
                     <div className="b-reservation-page__header">
                     </div>
                     <div className="b-reservation-page__header-desc">
@@ -134,7 +144,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                     <div className="b-reservation-page__variant">
                         <HotelDetailsPackage
                             title="Оформление и оплата"
-                            price={data ? data.Price : 0}
+                            price={price}
                             events={events} data={data}/>
                     </div>
                     <div className="b-reservation-page__visa-alert">
@@ -195,7 +205,7 @@ import BuyBtn from '../../components/ui/Buttons/BuyBtn';
                             Сумма к оплате:
                         </div>
                         <div className="b-reservation-page-buy-block__price">
-                            <Price data={46388}/>
+                            <Price data={price}/>
                         </div>
                         <div className="b-reservation-page-buy-block__button">
                             <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>

@@ -1,3 +1,4 @@
+@import "../variables.scss";
 
 .b-tarifs-description {
     font-size: .85em;
@@ -9,5 +10,41 @@
 
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.b-tarifs-description__desktop {
+
+}
+
+.b-tarifs-description__mobile {
+    cursor: pointer;
+    display: none;
+}
+
+.b-tarifs-description-icon {
+    display: inline-block;
+    vertical-align: middle;
+    color: #9b9b9b;
+}
+
+.b-tarifs-description-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+    font-size: .95em;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-tarifs-description {
+        padding: 5px 0;
+    }
+
+    .b-tarifs-description__desktop {
+        display: none;
+    }
+
+    .b-tarifs-description__mobile {
+        display: block;
     }
 }

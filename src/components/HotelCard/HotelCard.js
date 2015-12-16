@@ -40,10 +40,11 @@ import HotelStars from '../HotelStars';
     }
 
     renderActions() {
-        var { data, showChangeHotels } = this.props;
+        var { data, showChangeHotels, viewport } = this.props;
         if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            if (this.props.viewport.isMobile || showChangeHotels) {
+            //if (viewport.isMobile || showChangeHotels) {
+            if (showChangeHotels) {
                 return (
                     <div className="b-hotel-card__actions">
                         <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>

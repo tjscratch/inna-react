@@ -52,3 +52,35 @@
         }
     }
 }
+
+@media (max-width: $mobile-max-width) {
+    .b-hotel-details-package__title,
+    .b-hotel-details-package__price,
+    .b-hotel-details-package__include {
+        display: none;
+    }
+
+    .b-hotel-details-bundle {
+        display: block;
+        width: auto;
+    }
+
+    .b-hotel-details-bundle__ticket,
+    .b-hotel-details-bundle__hotel {
+        display: block;
+        width: auto;
+        padding: 5px 0;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .b-hotel-details-bundle__hotel {
+        border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .b-hotel-details-package__package {
+        margin-top: 0;
+    }
+}
