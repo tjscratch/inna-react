@@ -41,6 +41,19 @@ import Checkbox from '../Checkbox';
     }
 
 
+    renderPeoples() {
+        var arr = new Array(4)
+        console.log(arr)
+        arr.forEach(function (item, i, arr) {
+            return (
+                <div>
+                    {i}
+                </div>
+            )
+        });
+    }
+
+
     render() {
         return (
             <div className={this.state.isOpen ? 'b-people-selector b-people-selector__open' : 'b-people-selector'}
@@ -62,6 +75,7 @@ import Checkbox from '../Checkbox';
                 </div>
 
                 <div className="b-people-selector-dropdown">
+                    {this.renderPeoples()}
                     <div className="b-people-selector-dropdown__label">
                         Взрослые
                     </div>
