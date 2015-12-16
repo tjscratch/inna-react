@@ -124,7 +124,7 @@ import PeopleSelector from '../ui/PeopleSelector';
             this.state.toDate,
             this.state.flightClass,
             this.state.adultCount,
-            this.state.childCount
+            ''//this.state.childCount //тут должно быть childAges 0_0_0
         ].join('-');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
         //window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
