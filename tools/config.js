@@ -13,7 +13,11 @@ import merge from 'lodash/object/merge';
 
 //import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-const DEBUG = false;//!process.argv.includes('release');
+console.log('');
+console.log('process.argv', process.argv);
+console.log('');
+
+const DEBUG = !process.argv.includes('release');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
 const VERBOSE = process.argv.includes('verbose');
 const STYLE_LOADER = 'style-loader/useable';
