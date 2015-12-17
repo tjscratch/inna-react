@@ -98,7 +98,7 @@
         flex: 1 1 auto;
         align-items: center;
         justify-content: center;
-        background-color: #55C22B;
+        background-color: #89c13a;
         cursor: pointer;
         color: #fff;
     }
@@ -107,20 +107,31 @@
         display: inline-block;
         flex: 1 1 auto;
         width: auto;
+        margin-top: 2px;
         padding: 6px 0;
         border-radius: 0;
         font-size: 1.2em;
         text-align: center;
+        background: none;
+
+        &:hover {
+            background: none;
+        }
     }
 
     .b-price__caption {
         display: inline-block;
-        font-size: 1em;
+        font-size: 1.1em;
     }
 
     .b-price__price {
         display: inline-block;
         margin-left: 10px;
-        font-size: 1.2em;
+        font-size: 1.1em;
+    }
+
+    .b-price-ctrl_normal {
+        font-size: 1em;
+        font-weight: normal;
     }
 }

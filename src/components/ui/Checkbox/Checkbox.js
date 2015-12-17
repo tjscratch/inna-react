@@ -8,18 +8,23 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     render() {
+        var { text, children, align } = this.props;
+
+        var classValue = 'ui-checkbox';
+        if (align == 'top') {
+            classValue += ' ui-checkbox_align-top';
+        }
 
         return (
-            <label className="ui-checkbox">
+            <label className={classValue}>
                 <input className="ui-checkbox__input" name="roaming" type="checkbox"/>
                 <span className="ui-checkbox__checkbox icon-emb-ok"></span>
                 {
-                    this.props.text ?
-                        <span className="ui-checkbox__label">{this.props.text}</span>
+                    text ?
+                        <span className="ui-checkbox__label">{text}</span>
                         :
-                        <span className="ui-checkbox__label">{this.props.children}</span>
+                        <span className="ui-checkbox__label">{children}</span>
                 }
-
             </label>
         );
     }

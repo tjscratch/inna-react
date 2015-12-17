@@ -71,9 +71,20 @@
     margin: 15px 0 10px 0;
 }
 
+.b-passenger-num {
+    display: none;
+}
+
 @media (max-width: $mobile-max-width) {
     .b-passenger {
         margin: 20px 0 10px;
+    }
+
+    .b-passenger-num {
+        display: block;
+        color: #89c13a;
+        font-size: .8em;
+        text-align: right;
     }
 
     .b-passenger-label {

@@ -25,6 +25,7 @@ import BuyRequest from './BuyRequest';
 import Passengers from './Passengers';
 import Checkbox from '../ui/Checkbox';
 import Price from '../Price';
+import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
 
@@ -119,6 +120,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
         var events = null;
 
         var price = data ? data.Price : 0;
+        var priceData = data ? {price: data.Price} : null;
 
         //console.log('render data:', data);
 
@@ -172,7 +174,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
                             <div className="b-reservation-page-comments-text">
                                 {
                                     viewport.isMobile ?
-                                        <textarea rows="1" placeholder="Please write your requests in English">
+                                        <textarea rows="1" placeholder="Please write your requests in english">
                                         </textarea>
                                         :
                                         <textarea rows="4">
@@ -200,7 +202,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
                         </div>
                     </div>
                     <div className="b-reservation-page__agreement">
-                        <Checkbox>
+                        <Checkbox align="top">
                             <div className="b-reservation-page-agreement">
                                 Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>, <a
                                 href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих <br/>персональных
@@ -218,6 +220,9 @@ import { MobileSelectedFilter } from '../MobileFilters';
                         <div className="b-reservation-page-buy-block__button">
                             <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>
                         </div>
+                    </div>
+                    <div className="b-reservation-page__buy-block-mobile">
+                        <PriceCard data={priceData} onBuy={this.buyClick.bind(this)} />
                     </div>
                 </section>
             );

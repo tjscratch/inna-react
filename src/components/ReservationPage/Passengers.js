@@ -5,6 +5,8 @@ import withStyles from '../../decorators/withStyles';
 import RadioSwitch from '../ui/RadioSwitch';
 import Checkbox from '../ui/Checkbox';
 
+import { numOrder } from '../../helpers/CountHelper.js';
+
 @withStyles(styles) class Passengers extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +15,9 @@ import Checkbox from '../ui/Checkbox';
     renderItem(item, ix) {
         return (
             <div key={ix} className="b-passenger">
+                <div className="b-passenger-num">
+                    {`${numOrder(ix+1)} турист`}
+                </div>
                 <div className="b-passenger-item b-passenger-item_gender">
                     <label className="b-passenger-label">Пол</label>
                     <RadioSwitch lbl1="М" lbl2="Ж"/>

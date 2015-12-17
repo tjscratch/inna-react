@@ -132,8 +132,15 @@
     font-size: 1.2em;
 }
 
+.b-reservation-page__buy-block-mobile {
+    display: none;
+}
 
 @media (max-width: $mobile-max-width) {
+    .b-reservation-page__buy-block {
+        display: none;
+    }
+
     .b-reservation-page__header,
     .b-reservation-page__header-desc,
     .b-reservation-page__variant {
@@ -207,10 +214,25 @@
 
     .b-reservation-page-additional-services__lbl {
         margin-top: 10px;
+        font-size: .8em;
+        color: #4a4a4a;
     }
 
     .b-reservation-page-additional-services-item {
         display: inline-block;
         width: 50%;
+    }
+
+    .b-reservation-page__buy-block-mobile {
+        display: block;
+        margin-top: 25px;
+        border-top: 1px solid rgba(0,0,0,0.12);
+    }
+
+    .b-reservation-page-agreement {
+        margin: 6px 0 0 0;
+        padding: 0 0 0 2px;
+        font-size: .8em;
+        color: #4a4a4a;
     }
 }

@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.ui-checkbox_align-top {
+    align-items: flex-start;
+}
+
 .ui-checkbox__input {
     display: none;
 
@@ -24,7 +28,6 @@
     margin: 0 5px 0 0;
     line-height: 20px;
     font-size: 14px;
-    vertical-align: middle;
     border: 2px solid $green;
     border-radius: 2px;
     color: transparent;

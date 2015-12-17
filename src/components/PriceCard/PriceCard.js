@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import styles from './PriceCard.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
@@ -8,7 +8,7 @@ import { formatPrice } from '../../helpers/StringHelper.js';
 import Price from '../Price';
 
 @withViewport
-@withStyles(styles) class PriceCard extends React.Component {
+@withStyles(styles) class PriceCard extends Component {
     constructor(props) {
         super(props);
 
@@ -26,26 +26,28 @@ import Price from '../Price';
 
     buyClick(e) {
         e.preventDefault();
+        var { onBuy } = this.props;
         //если передан колбек выбора
-        if (this.props.onBuy) {
-            this.props.onBuy();
+        if (onBuy) {
+            onBuy();
         }
     }
 
     chooseClick(e) {
-        //e.stopPropagation();
         e.preventDefault();
+        var { onChoose } = this.props;
         //если передан колбек выбора
-        if (this.props.onChoose) {
-            this.props.onChoose();
+        if (onChoose) {
+            onChoose();
         }
     }
 
     renderPrice(data) {
-        if (this.props.viewport.isMobile) {
+        var { viewport } = this.props;
+        if (viewport.isMobile) {
             return (
                 <div className="b-price__price">
-                    <Price data={data.price} />
+                    <Price data={data.price} customClass="b-price-ctrl_normal"/>
                 </div>
             );
         }
@@ -54,12 +56,13 @@ import Price from '../Price';
     }
 
     render() {
-        var data = this.props.data;
+        var { data, chooseMode } = this.props;
+        var { shareOpen } = this.state;
         if (data) {
             return (
                 <div className="b-price-card">
                     <div className="b-price-card__link">
-                        <div className={`b-share-link ${this.state.shareOpen ? 'b-share-link_active' : ''}`} onClick={this.shareClick.bind(this)}>
+                        <div className={`b-share-link ${shareOpen ? 'b-share-link_active' : ''}`} onClick={this.shareClick.bind(this)}>
                             <i className="b-share-img"></i>
                         </div>
                     </div>
@@ -69,12 +72,13 @@ import Price from '../Price';
                                 Стоимость пакета
                             </div>
                             <div className="b-price__price">
-                                <Price data={data.price} />
+                                <Price data={data.price}/>
                             </div>
                         </div>
                     </div>
                     <div className="b-price-card__buy">
-                        {this.props.chooseMode ?
+                        {
+                            chooseMode ?
                             <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
                             :
                             <a className="b-price-card-buy" onClick={this.buyClick.bind(this)}>
