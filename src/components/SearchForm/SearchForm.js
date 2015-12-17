@@ -64,7 +64,7 @@ import PeopleSelector from '../ui/PeopleSelector';
                 toDate: null,
                 flightClass: 0,
                 adultCount: 2,
-                childCount: 0
+                childAges: '2_4_0'
             };
         }
     }
@@ -124,7 +124,7 @@ import PeopleSelector from '../ui/PeopleSelector';
             this.state.toDate,
             this.state.flightClass,
             this.state.adultCount,
-            ''//this.state.childCount //тут должно быть childAges 0_0_0
+            this.state.childAges //тут должно быть childAges 0_0_0
         ].join('-');
         //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
         //window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
@@ -149,6 +149,12 @@ import PeopleSelector from '../ui/PeopleSelector';
     setAdultCount(data){
         this.setState({
             adultCount: data
+        })
+    }
+
+    setChildCount(data){
+        this.setState({
+            childAges: data
         })
     }
 
@@ -181,7 +187,9 @@ import PeopleSelector from '../ui/PeopleSelector';
                         <div className="b-search-form-action__people">
                             <PeopleSelector
                                 adultCount={this.state.adultCount}
+                                childAges={this.state.childAges}
                                 setAdultCount={this.setAdultCount.bind(this)}
+                                setChildCount={this.setChildCount.bind(this)}
                                 />
                         </div>
                         <div className="b-search-form-action__btn">
