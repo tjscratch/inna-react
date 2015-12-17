@@ -1,18 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './Passengers.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 import RadioSwitch from '../ui/RadioSwitch';
 import Checkbox from '../ui/Checkbox';
 
 import { numOrder } from '../../helpers/CountHelper.js';
 
+@withViewport
 @withStyles(styles) class Passengers extends Component {
     constructor(props) {
         super(props);
     }
 
     renderItem(item, ix) {
+        var { viewport } = this.props;
         return (
             <div key={ix} className="b-passenger">
                 <div className="b-passenger-num">
@@ -20,7 +23,14 @@ import { numOrder } from '../../helpers/CountHelper.js';
                 </div>
                 <div className="b-passenger-item b-passenger-item_gender">
                     <label className="b-passenger-label">Пол</label>
-                    <RadioSwitch lbl1="М" lbl2="Ж"/>
+                    {
+                        viewport.isMobile ?
+                            <input className="b-passenger-field b-passenger-field_gender"
+                                   type="text"
+                                   placeholder="Мужской"/>
+                            :
+                            <RadioSwitch lbl1="М" lbl2="Ж"/>
+                    }
                 </div>
                 <div className="b-passenger-item b-passenger-item_second-name">
                     <label className="b-passenger-label">Фамилия</label>
