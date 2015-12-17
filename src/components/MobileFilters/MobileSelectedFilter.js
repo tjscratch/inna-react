@@ -17,6 +17,12 @@ import withStyles from '../../decorators/withStyles';
     }
 
     render() {
+        var isFilterBtnEnabled = true;
+        var { disableFilterBtn } = this.props;
+        if (disableFilterBtn) {
+            isFilterBtnEnabled = false;
+        }
+
         return (
             <div className="b-mobile-filters">
                 <div className="b-mobile-selected-filter">
@@ -28,9 +34,12 @@ import withStyles from '../../decorators/withStyles';
                             {this.props.children}
                         </div>
                     </div>
-                    <div className="b-mobile-selected-filter__filter icon-emb-filter"
-                        onClick={this.openFilter}>
-                    </div>
+                    {
+                        isFilterBtnEnabled ?
+                            <div className="b-mobile-selected-filter__filter icon-emb-filter"
+                                 onClick={this.openFilter}>
+                            </div> : null
+                    }
                 </div>
             </div>
         );

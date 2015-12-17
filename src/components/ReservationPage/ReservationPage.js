@@ -3,6 +3,7 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './ReservationPage.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 import Location from '../../core/Location';
 
 //api
@@ -27,6 +28,7 @@ import Price from '../Price';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
 
+@withViewport
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
         super(props);
@@ -113,7 +115,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
     }
 
     render() {
-        var { data, routeParams } = this.props;
+        var { data, routeParams, viewport } = this.props;
         var events = null;
 
         var price = data ? data.Price : 0;
@@ -131,7 +133,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
                 <section className="b-reservation-page">
                     {this.renderOverlay()}
                     <div className="b-reservation-page__mobile-filter">
-                        <MobileSelectedFilter>
+                        <MobileSelectedFilter disableFilterBtn={false}>
                             <div className="b-reservation-page__head-filter__caption">
                                 <div>Оплата пакета</div>
                             </div>
@@ -164,16 +166,22 @@ import { MobileSelectedFilter } from '../MobileFilters';
                     </div>
                     <div className="b-reservation-page__comments">
                         <div className="b-reservation-page-comments__head">
-                            Пожелание к номеру
+                            Пожелания к номеру
                         </div>
                         <div className="b-reservation-page-comments__body">
                             <div className="b-reservation-page-comments-text">
-                                <textarea rows="4">
-                                </textarea>
+                                {
+                                    viewport.isMobile ?
+                                        <textarea rows="1" placeholder="Please write your requests in English">
+                                        </textarea>
+                                        :
+                                        <textarea rows="4">
+                                        </textarea>
+                                }
                             </div>
                             <div className="b-reservation-page-comments-label">
-                                Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.
-                                Пожалуйста, пишите ваши пожелания на английском языке.
+                                <span className="b-reservation-page-comments-label_one">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.</span>
+                                <span className="b-reservation-page-comments-label_two">Пожалуйста, пишите ваши пожелания на английском языке.</span>
                             </div>
                         </div>
                     </div>

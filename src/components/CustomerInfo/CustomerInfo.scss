@@ -106,14 +106,22 @@
 
     .b-customer-info-label {
         color: #4a4a4a;
-        font-size: 0.8em;
+        font-size: .8em;
     }
 
     .b-customer-info-field {
+        display: inline-block;
         width: 100%;
         border: none;
+        margin-bottom: 1px;
+        padding: 4px 0;
         border-bottom: 1px solid #89c13a;
         color: #000000;
+
+        &:focus {
+            margin-bottom: 0;
+            border-bottom: 2px solid #89c13a;
+        }
     }
 
     .b-customer-info-body__agreement {

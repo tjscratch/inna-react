@@ -42,3 +42,29 @@
 .ui-checkbox__label {
 
 }
+
+@media (max-width: $mobile-max-width) {
+    .ui-checkbox__checkbox {
+        opacity: 0.54;
+        border: 2px solid #010101;
+    }
+
+    .ui-checkbox__input {
+
+        &:checked{
+            + .ui-checkbox__checkbox {
+                opacity: 1;
+                border: 2px solid #89c13a;
+                background-color: #89c13a;
+            }
+        }
+    }
+
+    .ui-checkbox__label {
+        display: inline-block;
+        margin-left: 5px;
+        margin-bottom: -8px;
+        font-size: 1em;
+        color: rgba(0,0,0,0.87);
+    }
+}

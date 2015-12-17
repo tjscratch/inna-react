@@ -49,7 +49,7 @@ import Checkbox from '../ui/Checkbox';
                                    placeholder="+7 (999) 999-99-99"/>
                         </div>
                         <div className="b-customer-info-body__agreement">
-                            <Checkbox text="Я хочу получать спецпредложения"/>
+                            <Checkbox text="Хочу получать спецпредложения"/>
                         </div>
                     </div>
                 </div>
