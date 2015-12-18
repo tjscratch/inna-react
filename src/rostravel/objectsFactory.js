@@ -1,7 +1,18 @@
+//import { inspect } from 'util';
+
 export function createItemsWithFields(data, fields) {
+    //console.log(inspect(data, { colors: true, depth: Infinity }));
+
     var items = getRawItems(data);
     if (items) {
         var res = {};
+
+        if (data && data.response && data.response.items) {
+            //pages
+            res.page = data.response.items.page;
+            res.totalPages = data.response.items.totalPages;
+        }
+
         for(var key in data.response) {
             switch (key) {
                 case 'items':
@@ -22,7 +33,8 @@ export function createItemsWithFields(data, fields) {
                         fields.forEach((key)=> {
                             mapItem(itemData, key, item);
                         });
-                        res.item = item;
+                        //res.item = item;
+                        res.items = [item];
                     }
                     break;
                 default: res[key] = data.response[key]; break;

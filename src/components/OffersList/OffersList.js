@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import styles from './OffersList.scss';
 import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
+import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
 
 @withStyles(styles) class OffersList extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ import Link from '../Link';
     renderOfferTitle(offer) {
         //console.log(offer.locationId);
         let url = `/details/${offer.id}`;
-        let innaUrl = `https://inna.ru/#/packages/search/6733-${offer.locationId}-21.12.2015-27.12.2015-0-2-`;
+        let innaUrl = urlToInnaSearch(offer.locationId);
 
         //let html = '';
         //html += offer.FrontTitleRow1 ? `<div class="b-offer-title__text"><a href=${url}>${offer.FrontTitleRow1}</a></div>` : '';

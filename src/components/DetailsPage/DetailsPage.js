@@ -8,6 +8,7 @@ import {PhotoSwipe, PhotoSwipeGallery} from 'react-photoswipe';
 import api from './../../core/ApiClient';
 import withViewport from '../../decorators/withViewport';
 
+import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
 
 @withViewport
 @withStyles(styles) class DetailsPage extends React.Component {
@@ -126,7 +127,7 @@ import withViewport from '../../decorators/withViewport';
 
                             <div className="b-details-head__buy">
                                 <div className="b-details-head__buy-d">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, 'https://inna.ru/#/packages/search/6733-18820-21.12.2015-27.12.2015-0-2-')}>от 35 000 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(18820))}>от 35 000 руб (за чел.)</div>
                             </div>
                         </div>
 
