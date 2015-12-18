@@ -35,10 +35,10 @@
     @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__people {
-    @include form-item(18%, $b-search-form__form-offset-ceil-horizontal, 0);
+    @include form-item(19%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__btn {
-    @include form-item(10%, 0, 0);
+    @include form-item(9%, 0, 0);
 
     .btn {
         width: 100%;

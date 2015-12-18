@@ -17,18 +17,18 @@ class PeopleSelector extends React.Component {
         };
     }
 
-    bodyClick(event) {
-        this.setState({
-            isOpen: false
-        });
-        document.removeEventListener('click', this.bodyClick.bind(this), false);
-    }
+    //bodyClick(event) {
+    //    this.setState({
+    //        isOpen: false
+    //    });
+    //    document.removeEventListener('click', this.bodyClick.bind(this), false);
+    //}
 
     handleOpen(event) {
         this.setState({
             isOpen: !this.state.isOpen
         })
-        document.addEventListener('click', this.bodyClick.bind(this), false);
+        //document.addEventListener('click', this.bodyClick.bind(this), false);
     }
 
     stopPropagation(event) {
@@ -96,8 +96,9 @@ class PeopleSelector extends React.Component {
         );
     }
 
+    
     renderChildsBtns() {
-        
+
         var childCount = 0;
         var childAges = this.props.childAges;
         if (childAges) {
@@ -106,7 +107,7 @@ class PeopleSelector extends React.Component {
                 childCount = agesArray.length;
             }
         }
-        
+
         var btns = [];
         for (var i = 0; i < 4; i++) {
             btns.push(
@@ -116,17 +117,19 @@ class PeopleSelector extends React.Component {
             )
         }
         
+        var options = [];
+        for (var i = 0; i < 18; i++) {
+            options.push(<option>{i}</option>)
+        }
         var selects = [];
-        for (var i = 0; i < childCount; i++){
+        for (var i = 0; i < childCount; i++) {
             selects.push(
                 <select className="b-people-selector-dropdown__selects-select">
-                    <option>adc</option>
-                    <option>adc</option>
-                    <option>adc</option>
+                    {options}
                 </select>
             )
         }
-        
+
         return (
             <div>
                 <div className="b-people-selector-dropdown__label">
@@ -149,14 +152,14 @@ class PeopleSelector extends React.Component {
     render() {
         return (
             <div className={this.state.isOpen ? 'b-people-selector b-people-selector__open' : 'b-people-selector'}
-                 onClick={this.stopPropagation.bind(this)}
+                //onClick={this.stopPropagation.bind(this)}
             >
-                <input className="b-people-selector__input" onFocus={this.handleOpen.bind(this)}/>
-
-                {this.getPeopleCount()}
-
-                <div className="b-people-selector__icon-action">
-                    {this.state.isOpen ? <i className="icon-emb-angle-up"></i> : <i className="icon-emb-angle-down"></i>}
+                <div className="b-people-selector-dropdown__toggle" onClick={this.handleOpen.bind(this)}>
+                    <input className="b-people-selector__input" onFocus={this.handleOpen.bind(this)}/>
+                    {this.getPeopleCount()}
+                    <div className="b-people-selector__icon-action">
+                        {this.state.isOpen ? <i className="icon-emb-angle-up"></i> : <i className="icon-emb-angle-down"></i>}
+                    </div>
                 </div>
 
                 <div className="b-people-selector-dropdown">
