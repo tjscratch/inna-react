@@ -153,6 +153,7 @@ import PeopleSelector from '../ui/PeopleSelector';
     }
 
     setChildCount(data){
+        console.log(data)
         this.setState({
             childAges: data
         })
@@ -186,6 +187,7 @@ import PeopleSelector from '../ui/PeopleSelector';
                         </div>
                         <div className="b-search-form-action__people">
                             <PeopleSelector
+                                flightClass={this.state.flightClass}
                                 adultCount={this.state.adultCount}
                                 childAges={this.state.childAges}
                                 setAdultCount={this.setAdultCount.bind(this)}

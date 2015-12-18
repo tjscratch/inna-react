@@ -96,6 +96,11 @@ class PeopleSelector extends React.Component {
         );
     }
 
+    setChildAge(index, event){
+        var childCountArr = this.props.childAges.split('_');
+        childCountArr[index] = event.target.value;
+        this.props.setChildCount(childCountArr.join('_'));
+    }
     
     renderChildsBtns() {
 
@@ -124,7 +129,9 @@ class PeopleSelector extends React.Component {
         var selects = [];
         for (var i = 0; i < childCount; i++) {
             selects.push(
-                <select className="b-people-selector-dropdown__selects-select">
+                <select className="b-people-selector-dropdown__selects-select"
+                        onChange={this.setChildAge.bind(this, i)}
+                        value={this.props.childAges.split('_')[i]}>
                     {options}
                 </select>
             )
