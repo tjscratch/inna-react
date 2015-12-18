@@ -13,7 +13,8 @@ class PeopleSelector extends React.Component {
 
         this.state = {
             isOpen: false,
-            childCount: 0
+            childCount: 0,
+            flightClass: this.props.flightClass ? 'бизнес' : 'эконом'
         };
     }
 
@@ -31,11 +32,11 @@ class PeopleSelector extends React.Component {
         //document.addEventListener('click', this.bodyClick.bind(this), false);
     }
 
-    stopPropagation(event) {
-        this.handleOpen();
-        event.stopPropagation();
-        event.nativeEvent.stopImmediatePropagation();
-    }
+    //stopPropagation(event) {
+    //    this.handleOpen();
+    //    event.stopPropagation();
+    //    event.nativeEvent.stopImmediatePropagation();
+    //}
 
     counter(type, count) {
         if (type == 'adult') {
@@ -46,7 +47,7 @@ class PeopleSelector extends React.Component {
             for (var i = 0; i < count; i++) {
                 childCount.push(0);
             }
-            this.props.setChildCount(childCount.join('_'));
+            this.props.setChildAges(childCount.join('_'));
         }
     }
 
@@ -63,13 +64,22 @@ class PeopleSelector extends React.Component {
                 childCount = agesArray.length;
             }
         }
+        
+        var peopleCount = adultCount + childCount;
+        if(peopleCount == 1 || peopleCount == 5 || peopleCount == 6 || peopleCount == 7){
+            peopleCount = `${peopleCount} человек`
+        }
+        if(peopleCount == 2 || peopleCount == 3 || peopleCount == 4){
+            peopleCount = `${peopleCount} человека`
+        }
+        
         return (
             <div className="b-people-selector__value">
                 <div className="b-people-selector__value-peoples">
-                    {adultCount + childCount} человек
-                </div>
+                    {peopleCount}
+                </div>,
                 <div className="b-people-selector__value-class">
-                    эконом
+                    {this.state.flightClass}
                 </div>
             </div>
         )
@@ -99,7 +109,7 @@ class PeopleSelector extends React.Component {
     setChildAge(index, event){
         var childCountArr = this.props.childAges.split('_');
         childCountArr[index] = event.target.value;
-        this.props.setChildCount(childCountArr.join('_'));
+        this.props.setChildAges(childCountArr.join('_'));
     }
     
     renderChildsBtns() {
@@ -155,6 +165,19 @@ class PeopleSelector extends React.Component {
         );
     }
 
+    changeFlightClass(data){
+        if(data){
+            this.props.setFlightClass(1);
+            this.setState({
+                flightClass: 'бизнес'
+            });
+        }else{
+            this.props.setFlightClass(0);
+            this.setState({
+                flightClass: 'эконом'
+            });
+        }
+    }
 
     render() {
         return (
@@ -173,7 +196,9 @@ class PeopleSelector extends React.Component {
                     {this.renderPeoplesBtns()}
                     {this.renderChildsBtns()}
                     <div className="b-people-selector-dropdown__avia-class">
-                        <Checkbox text="Бизнес-класс"/>
+                        <Checkbox text="Бизнес-класс" 
+                                  checked={this.props.flightClass} 
+                                  checkboxChange={this.changeFlightClass.bind(this)}/>
                     </div>
                 </div>
             </div>

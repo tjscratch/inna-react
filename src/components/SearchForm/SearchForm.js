@@ -12,7 +12,8 @@ import DatepickerRange from '../ui/DatepickerRange';
 import PeopleSelector from '../ui/PeopleSelector';
 
 
-@withStyles(styles) class SearchForm extends React.Component {
+@withStyles(styles)
+class SearchForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -62,46 +63,12 @@ import PeopleSelector from '../ui/PeopleSelector';
                 toId: null,
                 fromDate: null,
                 toDate: null,
-                flightClass: 0,
+                flightClass: 1,
                 adultCount: 2,
-                childAges: '2_4_0'
+                childAges: null
             };
         }
     }
-
-    //getFlightClassName() {
-    //    var flightClass = this.state.flightClass;
-    //    if (flightClass) {
-    //        прводим к числу
-    //switch (+flightClass) {
-    //    case 0:
-    //        return 'эконом';
-    //    case 1:
-    //        return 'бизнес';
-    //}
-    //}
-    //
-    //return 'эконом';
-    //}
-
-    //getPeopleCount() {
-    //    var adultCount = 0;
-    //    var childCount = 0;
-    //
-    //    if (this.state.adultCount) {
-    //        adultCount = +this.state.adultCount;
-    //    }
-    //    var childAges = this.state.childAges;
-    //    if (childAges) {
-    //        let agesArray = childAges.split('_');
-    //        if (agesArray) {
-    //            childCount = agesArray.length;
-    //        }
-    //    }
-    //
-    //    //ToDo: прикрутить множественную форму
-    //    return `${adultCount + childCount} человек`;
-    //}
 
     locationFrom(data) {
         this.setState({
@@ -124,12 +91,8 @@ import PeopleSelector from '../ui/PeopleSelector';
             this.state.toDate,
             this.state.flightClass,
             this.state.adultCount,
-            this.state.childAges //тут должно быть childAges 0_0_0
+            this.state.childAges
         ].join('-');
-        //window.location = `${siteUrls.SearchPackages}${searchParams}-01.10.2015-08.10.2015-0-2-2`;
-        //window.location = `${siteUrls.SearchPackages}${searchParams}-0-2-2`;
-        //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}-0-2-2`);
-        //Location.pushState(null, '/packages/search/6733-6623-01.02.2016-08.02.2016-0-2-2');
         Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
     }
 
@@ -146,16 +109,21 @@ import PeopleSelector from '../ui/PeopleSelector';
         })
     }
 
-    setAdultCount(data){
+    setAdultCount(data) {
         this.setState({
             adultCount: data
         })
     }
 
-    setChildCount(data){
-        console.log(data)
+    setChildAges(data) {
         this.setState({
             childAges: data
+        })
+    }
+
+    setFlightClass(data){
+        this.setState({
+            flightClass: data
         })
     }
 
@@ -183,21 +151,22 @@ import PeopleSelector from '../ui/PeopleSelector';
                                 endDate={this.state.toDate}
                                 setStartDate={this.setFromDate.bind(this)}
                                 setEndDate={this.setToDate.bind(this)}
-                                />
+                            />
                         </div>
                         <div className="b-search-form-action__people">
                             <PeopleSelector
-                                flightClass={this.state.flightClass}
                                 adultCount={this.state.adultCount}
-                                childAges={this.state.childAges}
                                 setAdultCount={this.setAdultCount.bind(this)}
-                                setChildCount={this.setChildCount.bind(this)}
-                                />
+                                childAges={this.state.childAges}
+                                setChildAges={this.setChildAges.bind(this)}
+                                flightClass={this.state.flightClass}
+                                setFlightClass={this.setFlightClass.bind(this)}
+                            />
                         </div>
                         <div className="b-search-form-action__btn">
                             <span className="btn btn-green"
                                   onClick={this.handleStartSearch.bind(this)}
-                                >
+                            >
                                 Найти
                             </span>
                         </div>

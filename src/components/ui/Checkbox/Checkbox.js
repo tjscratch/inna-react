@@ -8,8 +8,7 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     checkboxChange(event){
-        console.log(event.target)
-        console.log(event.target.checked)
+        this.props.checkboxChange(event.target.checked)
     }
 
     render() {
@@ -22,7 +21,10 @@ import withStyles from '../../../decorators/withStyles';
 
         return (
             <label className={classValue}>
-                <input className="ui-checkbox__input" name="roaming" type="checkbox" onChange={this.checkboxChange.bind(this)}/>
+                <input className="ui-checkbox__input" name="roaming" type="checkbox" 
+                       onChange={this.checkboxChange.bind(this)}
+                       checked={this.props.checked}
+                />
                 <span className="ui-checkbox__checkbox icon-emb-ok"></span>
                 {
                     text ?
