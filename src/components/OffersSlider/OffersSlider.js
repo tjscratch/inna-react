@@ -56,7 +56,7 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
                             </div>
                             <div className="Slider-caption__text">
                                 Перелет + Отель
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(2300))}>от 15 256 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(2300))}>от 11 847 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
                             </div>
                             <div className="Slider-caption__text">
                                 Перелет + Отель
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(6196))}>от 34 848 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(6196))}>от 30 194 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>

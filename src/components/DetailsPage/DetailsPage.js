@@ -17,10 +17,12 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
         super(props);
 
         this.state = {
+            locationId: null,
             title: null,
             streetAddress: null,
             url: null,
             isOpen: false,
+            price: 0,
             galleryItems: [
                 {
                     src: 'http://lorempixel.com/1200/900/nightlife/1',
@@ -47,27 +49,30 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
         
         api.localGet('/api/getObjects', {itemIds: this.props.id})
             .then((data)=> {
+                
+                let item = data.items[0];
 
-                console.log(data)
+                console.log(item)
                 
                 let photos = []
-                for (var i = 0; i < data.item.photos.length; i++) {
+                for (var i = 0; i < item.photos.length; i++) {
                     photos.push({
-                        src: data.item.photos[i].file.$t,
-                        thumbnail: data.item.photos[i].file.$t,
+                        src: item.photos[i].file.$t,
+                        thumbnail: item.photos[i].file.$t,
                         w: 1200,
                         h: 900,
-                        title: data.item.photos[i].file.name
+                        title: item.photos[i].file.name
                     })
                 }
                 
                 this.setState({
-                    title: this.getName(data.item.name),
-                    streetAddress: data.item.streetAddress,
-                    url: data.item.url,
-                    galleryItems: photos
+                    locationId: item.locationId,
+                    title: this.getName(item.name),
+                    streetAddress: item.streetAddress,
+                    url: item.url,
+                    price: item.price/2,
+                    galleryItems: photos,
                 });
-                console.log(data)
             })
     }
 
@@ -127,34 +132,16 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
 
                             <div className="b-details-head__buy">
                                 <div className="b-details-head__buy-d">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(18820))}>от 35 000 руб (за чел.)</div>
-                            </div>
-                        </div>
-
-                        <div className="b-details-head__track">
-                            <div className="b-details-head__track-item">
-                                <b>Часы работы:</b> ПН – 14:00-21:00 ВТ-ЧТ – 11:00-21:00 ПТ – 11:00-22:00 СБ – 10:00-22:00 ВС – 10:00-21:00
-                            </div>
-                            <div className="b-details-head__track-item">
-                                <b>Как добраться до объекта:</b> Автомобиль: выезд из Казани по ул. Горьковское шоссе по федеральной трассе М7. На кольцевой развязке следовать по указателю на
-                                                                 Ульяновск.
-                                                                 После моста через Волгу ехать прямо по московскому направлению, далее направо по указателю на ГСОК «Казань».
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(this.state.locationId))}>от {this.state.price} руб (за чел.)</div>
                             </div>
                         </div>
 
                     </div>
 
-                    <h2 className="b-details-gallery__title">Горнолыжный комплекс «Казань» - фото</h2>
+                    <h2 className="b-details-gallery__title">{this.state.title} - фото</h2>
                     <PhotoSwipeGallery items={this.state.galleryItems} thumbnailContent={this.getThumbnailContent.bind(this)}/>
 
                     <div className="b-details-desc">
-                        Горнолыжный спортивно-оздоровительный комплекс (ГСОК) «Казань» – уникальный курорт, расположенный в живописнейшем месте слияния трех рек – Волги, Свияги и Сулицы. Он известен
-                        своими качественными горнолыжными трассами. Их здесь пять, и все они имеют различную сложность и протяженность – от 730 до 1050 метров. А максимальный перепад высот здесь
-                        составляет 165 метров. ГСОК «Казань» имеет две трассы для катания на сноутюбингах. Особенностью комплекса является преимущественно северная ориентация склонов. Основные услуги:
-                        прокат, ремонт и хранение инвентаря, обучение катанию на горных лыжах и сноуборде, проведение конференций и торжеств, бронирование номеров, бассейн, сауны, гольф, боулинг и
-                        даже стрельбище. Остановиться посетителям предлагается в одной из трех гостиниц («Дежавю», «Станция», «Каскад») с номерами разных категорий, либо в альпийских домиках. На
-                        территории комплекса располагается множество кафе и ресторанов с разнообразной кухней народов мира и ценовой категорией. Горнолыжный сезон на ГСОК «Казань» начинается в ноябре
-                        - декабре и заканчивается в марте - апреле.
                     </div>
 
                 </div>
