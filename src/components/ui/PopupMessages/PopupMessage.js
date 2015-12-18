@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './PopupMessage.scss';
 import withStyles from '../../../decorators/withStyles';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 import Overlay from '../Overlay';
 

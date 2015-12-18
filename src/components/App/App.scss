@@ -181,3 +181,10 @@ textarea {
 .g-hidden {
     display: none;
 }
+
+
+@media (max-width: $mobile-max-width) {
+    html {
+        color: $base-text-color-mobile;
+    }
+}

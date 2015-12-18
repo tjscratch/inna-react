@@ -1,3 +1,4 @@
+@import "../variables.scss";
 
 .b-passenger-label {
     font-size: .7em;
@@ -10,30 +11,23 @@
     padding: 4px 8px;
 }
 
-.b-passengers-list-item__gender,
-.b-passengers-list-item__second-name,
-.b-passengers-list-item__name,
-.b-passengers-list-item__birth,
-.b-passengers-list-item__citizenship,
-.b-passengers-list-item__document,
-.b-passengers-list-item__series-number,
-.b-passengers-list-item__valid-to {
+.b-passenger-item {
     display: inline-block;
     vertical-align: top;
 }
 
-.b-passengers-list-item__gender {
+.b-passengers-list-item_gender {
     margin-right: 5px;
 }
 
-.b-passengers-list-item__second-name {
+.b-passengers-list-item_second-name {
 }
 
 .b-passenger-field_second-name {
     width: 140px;
 }
 
-.b-passengers-list-item__name {
+.b-passengers-list-item_name {
     margin-right: 5px;
 }
 
@@ -41,7 +35,7 @@
     width: 110px;
 }
 
-.b-passengers-list-item__birth {
+.b-passengers-list-item_birth {
     margin-right: 5px;
 }
 
@@ -49,7 +43,7 @@
     width: 100px;
 }
 
-.b-passengers-list-item__citizenship {
+.b-passengers-list-item_citizenship {
     margin-right: 5px;
 }
 
@@ -61,7 +55,7 @@
     width: 135px;
 }
 
-.b-passengers-list-item__series-number {
+.b-passengers-list-item_series-number {
     margin-right: 5px;
 }
 
@@ -73,6 +67,68 @@
     width: 105px;
 }
 
-.b-passengers-list-item__bonus-card {
+.b-passenger-item_bonus-card {
     margin: 15px 0 10px 0;
+}
+
+.b-passenger-num {
+    display: none;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-passenger {
+        margin: 20px 0 10px;
+    }
+
+    .b-passenger-num {
+        display: block;
+        color: #89c13a;
+        font-size: .8em;
+        text-align: right;
+    }
+
+    .b-passenger-label {
+        font-size: .8em;
+        color: #4a4a4a;
+    }
+
+    .b-passenger-field {
+        display: inline-block;
+        width: 100%;
+        border: none;
+        margin-bottom: 1px;
+        padding: 4px 0;
+        border-bottom: 1px solid #89c13a;
+        color: #000000;
+
+        &:focus {
+            margin-bottom: 0;
+            border-bottom: 2px solid #89c13a;
+        }
+    }
+
+    .b-passenger-item {
+        display: inline-block;
+        width: 48%;
+        margin: 5px 0;
+
+        &:nth-child(2n) {
+            margin-right: 2%;
+        }
+    }
+
+    .b-passenger-field_second-name,
+    .b-passenger-field_name,
+    .b-passenger-field_birth,
+    .b-passenger-field_citizenship,
+    .b-passenger-field_document,
+    .b-passenger-field_series-number,
+    .b-passenger-field_valid-to {
+        width: 100%;
+    }
+
+    .b-passenger-item_bonus-card {
+        width: 100%;
+        margin: 10px 0;
+    }
 }
