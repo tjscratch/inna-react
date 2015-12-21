@@ -14,8 +14,9 @@ import { numOrder } from '../../helpers/CountHelper.js';
         super(props);
     }
 
-    renderItem(item, ix) {
+    renderItem(passenger, ix) {
         var { viewport } = this.props;
+
         return (
             <div key={ix} className="b-passenger">
                 <div className="b-passenger-num">
@@ -35,43 +36,43 @@ import { numOrder } from '../../helpers/CountHelper.js';
                 <div className="b-passenger-item b-passenger-item_second-name">
                     <label className="b-passenger-label">Фамилия</label>
                     <input className="b-passenger-field b-passenger-field_second-name"
-                           type="text"
+                           type="text" {...passenger.name}
                            placeholder="IVANOV"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_name">
                     <label className="b-passenger-label">Имя</label>
                     <input className="b-passenger-field b-passenger-field_name"
-                           type="text"
+                           type="text" {...passenger.lastName}
                            placeholder="IVAN"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_birth">
                     <label className="b-passenger-label">Дата рождения</label>
                     <input className="b-passenger-field b-passenger-field_birth"
-                           type="text"
+                           type="text" {...passenger.birth}
                            placeholder="дд.мм.гггг"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_citizenship">
                     <label className="b-passenger-label">Гражданство</label>
                     <input className="b-passenger-field b-passenger-field_citizenship"
-                           type="text"
+                           type="text" {...passenger.citizenship}
                            placeholder="Россия"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_document">
                     <label className="b-passenger-label">Документ</label>
                     <input className="b-passenger-field b-passenger-field_document"
-                           type="text"
+                           type="text" {...passenger.docType}
                            placeholder="Загранпаспорт"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_series-number">
                     <label className="b-passenger-label">Серия и номер</label>
                     <input className="b-passenger-field b-passenger-field_series-number"
-                           type="text"
+                           type="text" {...passenger.docNumber}
                            placeholder="123456789"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_valid-to">
                     <label className="b-passenger-label">Действителен до</label>
                     <input className="b-passenger-field b-passenger-field_valid-to"
-                           type="text"
+                           type="text" {...passenger.docExpires}
                            placeholder="дд.мм.гггг"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_bonus-card">
@@ -82,6 +83,13 @@ import { numOrder } from '../../helpers/CountHelper.js';
     }
 
     render() {
+        const {
+            fields: {passengers},
+            handleSubmit,
+            resetForm,
+            submitting
+            } = this.props;
+
         return (
             <div className="b-passengers-list">
                 <div className="b-passengers-list__head">
@@ -89,7 +97,7 @@ import { numOrder } from '../../helpers/CountHelper.js';
                 </div>
                 <div className="b-passengers-list__body">
                     <div className="b-passengers-list-container">
-                        {this.props.data.map(this.renderItem, this)}
+                        {passengers.map(this.renderItem, this)}
                     </div>
                 </div>
             </div>

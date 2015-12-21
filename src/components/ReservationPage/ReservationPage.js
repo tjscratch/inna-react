@@ -29,6 +29,27 @@ import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
 
+import {reduxForm} from 'redux-form';
+export const fields = [
+    'email',
+    'phone_suffix',
+    'phone_number',
+    'phone',
+    'passengers[].gender',
+    'passengers[].name',
+    'passengers[].lastName',
+    'passengers[].birth',
+    'passengers[].citizenship',
+    'passengers[].docType',
+    'passengers[].docNumber',
+    'passengers[].docExpires',
+    'passengers[].haveBonusCard',
+    'passengers[].bonusCardNumber',
+    'passengers[].bonusCardExpires'
+];
+
+import validate from './validateForm';
+
 @withViewport
 @withStyles(styles) class ReservationPage extends Component {
     constructor(props) {
@@ -124,11 +145,12 @@ import { MobileSelectedFilter } from '../MobileFilters';
 
         //console.log('render data:', data);
 
-        var { adultCount } = routeParams;
-        var passengersList = [];
-        for (let i = 0; i < adultCount; i++) {
-            passengersList.push(i);
-        }
+        const {
+            fields: {passengers},
+            handleSubmit,
+            resetForm,
+            submitting
+            } = this.props;
 
         if (true || data) {
             return (
@@ -157,73 +179,79 @@ import { MobileSelectedFilter } from '../MobileFilters';
                     <div className="b-reservation-page__tarifs-desc">
                         <TarifsDescription />
                     </div>
-                    <div className="b-reservation-page__customer">
-                        <CustomerInfo />
-                    </div>
-                    <div className="b-reservation-page__buy-request">
-                        <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
-                    </div>
-                    <div className="b-reservation-page__passengers">
-                        <Passengers data={passengersList}/>
-                    </div>
-                    <div className="b-reservation-page__comments">
-                        <div className="b-reservation-page-comments__head">
-                            Пожелания к номеру
+                    <form onSubmit={handleSubmit}>
+                        <div className="b-reservation-page__customer">
+                            <CustomerInfo {...this.props}/>
                         </div>
-                        <div className="b-reservation-page-comments__body">
-                            <div className="b-reservation-page-comments-text">
-                                {
-                                    viewport.isMobile ?
-                                        <textarea rows="1" placeholder="Please write your requests in english">
+                        <div className="b-reservation-page__buy-request">
+                            <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
+                        </div>
+                        <div className="b-reservation-page__passengers">
+                            <Passengers {...this.props}/>
+                        </div>
+                        <div className="b-reservation-page__comments">
+                            <div className="b-reservation-page-comments__head">
+                                Пожелания к номеру
+                            </div>
+                            <div className="b-reservation-page-comments__body">
+                                <div className="b-reservation-page-comments-text">
+                                    {
+                                        viewport.isMobile ?
+                                            <textarea rows="1" placeholder="Please write your requests in english">
                                         </textarea>
-                                        :
-                                        <textarea rows="4">
+                                            :
+                                            <textarea rows="4">
                                         </textarea>
-                                }
-                            </div>
-                            <div className="b-reservation-page-comments-label">
-                                <span className="b-reservation-page-comments-label_one">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.</span>
-                                <span className="b-reservation-page-comments-label_two">Пожалуйста, пишите ваши пожелания на английском языке.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="b-reservation-page__additional-services">
-                        <div className="b-reservation-page-additional-services__head">
-                            Дополнительные услуги
-                        </div>
-                        <div className="b-reservation-page-additional-services__lbl">
-                            Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется c
-                            Вами и предложит разные варианты.
-                        </div>
-                        <div className="b-reservation-page-additional-services__body">
-                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Виза"/></div>
-                            <div className="b-reservation-page-additional-services-item"><Checkbox text="Трансфер"/>
+                                    }
+                                </div>
+                                <div className="b-reservation-page-comments-label">
+                                    <span className="b-reservation-page-comments-label_one">Ваши пожелания мы передадим в отель, но не можем гарантировать их исполнение.</span>
+                                    <span className="b-reservation-page-comments-label_two">Пожалуйста, пишите ваши пожелания на английском языке.</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="b-reservation-page__agreement">
-                        <Checkbox align="top">
-                            <div className="b-reservation-page-agreement">
-                                Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>, <a
-                                href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих <br/>персональных
-                                данных и передачи их третьим лицам (авиаперевозчику и пр.).
+                        <div className="b-reservation-page__additional-services">
+                            <div className="b-reservation-page-additional-services__head">
+                                Дополнительные услуги
                             </div>
-                        </Checkbox>
-                    </div>
-                    <div className="b-reservation-page__buy-block">
-                        <div className="b-reservation-page-buy-block__lbl">
-                            Сумма к оплате:
+                            <div className="b-reservation-page-additional-services__lbl">
+                                Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется
+                                c
+                                Вами и предложит разные варианты.
+                            </div>
+                            <div className="b-reservation-page-additional-services__body">
+                                <div className="b-reservation-page-additional-services-item"><Checkbox text="Виза"/>
+                                </div>
+                                <div className="b-reservation-page-additional-services-item"><Checkbox text="Трансфер"/>
+                                </div>
+                            </div>
                         </div>
-                        <div className="b-reservation-page-buy-block__price">
-                            <Price data={price}/>
+                        <div className="b-reservation-page__agreement">
+                            <Checkbox align="top">
+                                <div className="b-reservation-page-agreement">
+                                    Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>,
+                                    <a
+                                        href="#">ТКП</a>, <a href="#">тарифов</a>, и не возражаю против обработки моих
+                                    <br/>персональных
+                                    данных и передачи их третьим лицам (авиаперевозчику и пр.).
+                                </div>
+                            </Checkbox>
                         </div>
-                        <div className="b-reservation-page-buy-block__button">
-                            <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>
+                        <div className="b-reservation-page__buy-block">
+                            <div className="b-reservation-page-buy-block__lbl">
+                                Сумма к оплате:
+                            </div>
+                            <div className="b-reservation-page-buy-block__price">
+                                <Price data={price}/>
+                            </div>
+                            <div className="b-reservation-page-buy-block__button">
+                                <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="b-reservation-page__buy-block-mobile">
-                        <PriceCard data={priceData} onBuy={this.buyClick.bind(this)} />
-                    </div>
+                        <div className="b-reservation-page__buy-block-mobile">
+                            <PriceCard data={priceData} onBuy={this.buyClick.bind(this)}/>
+                        </div>
+                    </form>
                 </section>
             );
         }
@@ -242,12 +270,30 @@ import { MobileSelectedFilter } from '../MobileFilters';
 
 //export default ReservationPage;
 
+function generatePassengers(count) {
+    var res = [];
+    for (var i = 0; i < count; i++) {
+        res.push({});
+    }
+    return res;
+}
+
 function mapStateToProps(state) {
     return {
-        data: state.reservation
+        data: state.reservation,
+        initialValues: {
+            //генерим пассажиров по кол-ву билетов
+            passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : []
+        }
     }
 }
 
-export default connect(
-    mapStateToProps
-)(ReservationPage)
+//export default connect(
+//    mapStateToProps
+//)(ReservationPage)
+
+export default reduxForm({
+    form: 'customer',
+    fields,
+    validate
+}, mapStateToProps)(ReservationPage);

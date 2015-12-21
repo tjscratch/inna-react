@@ -10,6 +10,13 @@ import Checkbox from '../ui/Checkbox';
     }
 
     render() {
+        const {
+            fields: {email, phone, phone_suffix, phone_number},
+            handleSubmit,
+            resetForm,
+            submitting
+            } = this.props;
+
         return (
             <div className="b-customer-info">
                 <div className="b-customer-info__head">
@@ -20,15 +27,16 @@ import Checkbox from '../ui/Checkbox';
                         <div className="b-customer-info-body__email">
                             <label className="b-customer-info-label">Электронная почта</label>
                             <input className="b-customer-info-field b-customer-info-field_email"
-                                   type="email"
+                                   type="email" {...email}
                                    placeholder="ivan.ivanov@gmail.com"/>
                         </div>
                         <div className="b-customer-info-body__phone">
                             <label className="b-customer-info-label">Мобильный телефон</label>
+
                             <div className="b-customer-info-phone">
                                 <div className="b-customer-info-phone__code">
                                     <input className="b-customer-info-field b-customer-info-field_code"
-                                           type="text"
+                                           type="text" {...phone_suffix}
                                            defaultValue="+7"/>
                                     <ul className="b-customer-info-phone-code-suggest">
                                         <li>Россия +7</li>
@@ -37,7 +45,7 @@ import Checkbox from '../ui/Checkbox';
                                 </div>
                                 <div className="b-customer-info-phone__number">
                                     <input className="b-customer-info-field b-customer-info-field_number"
-                                           type="tel"
+                                           type="tel" {...phone_number}
                                            placeholder="(999) 999-99-99"/>
                                 </div>
                             </div>
@@ -45,7 +53,7 @@ import Checkbox from '../ui/Checkbox';
                         <div className="b-customer-info-body__phone-mobile">
                             <label className="b-customer-info-label">Мобильный телефон</label>
                             <input className="b-customer-info-field"
-                                   type="text"
+                                   type="text" {...phone}
                                    placeholder="+7 (999) 999-99-99"/>
                         </div>
                         <div className="b-customer-info-body__agreement">

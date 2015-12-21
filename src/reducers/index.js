@@ -7,6 +7,8 @@ import searchRecommended from './reducer_search_recommended';
 import hotelDetails from './reducer_hotel_details';
 import reservation from './reducer_reservation';
 
+import form from './reducer_form';
+
 const rootReducer = combineReducers({
     main,
     directory,
@@ -14,7 +16,8 @@ const rootReducer = combineReducers({
     searchHotels,
     searchRecommended,
     hotelDetails,
-    reservation
+    reservation,
+    form
 });
 
 export default rootReducer;
