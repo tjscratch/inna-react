@@ -53,6 +53,12 @@ function mapItem(itemData, key, item) {
                 fillTextField(itemData, key, item);
             }
             break;
+        case 'review':
+            item[key] = itemData[key] ? itemData[key].text[0]['$t'] : null;
+            if (!item[key]) {
+                fillTextField(itemData, key, item);
+            }
+            break;
         case 'types':
             item[key] = itemData[key] ? itemData[key].type: null;
             if (!isArray(item[key])) {

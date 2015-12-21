@@ -21,6 +21,7 @@ class DetailsPage extends React.Component {
             id: null,
             locationId: null,
             title: null,
+            review: null,
             streetAddress: null,
             telephone: null,
             email: null,
@@ -73,11 +74,12 @@ class DetailsPage extends React.Component {
                     id: item.id,
                     locationId: item.locationId,
                     title: this.getName(item.name),
+                    review: item.review,
                     streetAddress: item.streetAddress,
                     telephone: item.telephone,
                     email: item.email,
                     url: item.url,
-                    price: item.price / 2,
+                    price: item.price ? Math.ceil(item.price / 2) : null,
                     galleryItems: photos,
                 });
             })
@@ -164,9 +166,6 @@ class DetailsPage extends React.Component {
 
                     <h2 className="b-details-gallery__title">{this.state.title} - фото</h2>
                     <PhotoSwipeGallery items={this.state.galleryItems} thumbnailContent={this.getThumbnailContent.bind(this)}/>
-
-                    <div className="b-details-desc">
-                    </div>
 
                 </div>
             </section>

@@ -127,11 +127,12 @@ ${objectTypesString}
     <addressRegion/>
     <streetAddress/>
     <telephone/>
+    <review/>
 </attributes>
 </request>`
         )).then((data)=> {
             //resolve(data);
-            resolve(createItemsWithFields(data, ['id', 'name', 'types', 'image', 'photos', 'url', 'addressCountry', 'addressRegion', 'streetAddress', 'telephone']));
+            resolve(createItemsWithFields(data, ['id', 'name', 'types', 'image', 'photos', 'url', 'addressCountry', 'addressRegion', 'streetAddress', 'telephone', 'review']));
 
             //resolve(createItemsWithFields(data, ['id','name','types','image','photos','url']));
             //resolve(createItemsWithFields(data, ['id','name','types','geo','image','telephone','addressCountry','addressRegion','streetAddress','photos','published']));
