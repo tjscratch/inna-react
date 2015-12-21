@@ -92,8 +92,9 @@
     .b-search-form-action__location-to{
         @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
     }
-    .b-search-form-action__date-from,
-    .b-search-form-action__date-to,
+    .b-search-form-action__date{
+        @include form-item(50%, 0, 0);
+    }
     .b-search-form-action__people{
         @include form-item(25%, $b-search-form__form-offset-ceil-horizontal, 0);
     }
@@ -106,11 +107,12 @@
     .b-search-form-action__location-to{
         @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
     }
-    .b-search-form-action__date-from{
-        @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
+    .b-search-form-action__date{
+        @include form-item(100%, 0, 0);
+        padding-bottom: 5px;
     }
-    .b-search-form-action__date-to{
-        @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
+    .b-datepicker-range__item-end{
+        padding-right: 0;
     }
     .b-search-form-action__people{
         @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
