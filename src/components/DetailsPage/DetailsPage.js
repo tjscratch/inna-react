@@ -11,15 +11,19 @@ import withViewport from '../../decorators/withViewport';
 import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
 
 @withViewport
-@withStyles(styles) class DetailsPage extends React.Component {
+@withStyles(styles)
+class DetailsPage extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
+            id: null,
             locationId: null,
             title: null,
             streetAddress: null,
+            phone: null,
+            email: null,
             url: null,
             isOpen: false,
             price: 0,
@@ -42,18 +46,18 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
         name = name.replace(/&amp;amp;quot;/g, '\"');
         return name;
     }
-    
+
     componentDidMount() {
 
         var { width, height } = this.props.viewport;
-        
+
         api.localGet('/api/getObjects', {itemIds: this.props.id})
             .then((data)=> {
-                
+
                 let item = data.items[0];
 
                 console.log(item)
-                
+
                 let photos = []
                 for (var i = 0; i < item.photos.length; i++) {
                     photos.push({
@@ -64,13 +68,16 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
                         title: item.photos[i].file.name
                     })
                 }
-                
+
                 this.setState({
+                    id: item.id,
                     locationId: item.locationId,
                     title: this.getName(item.name),
                     streetAddress: item.streetAddress,
+                    phone: item.phone,
+                    email: item.email,
                     url: item.url,
-                    price: item.price/2,
+                    price: item.price / 2,
                     galleryItems: photos,
                 });
             })
@@ -109,6 +116,27 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
         window.open(url, '_blank')
     }
 
+    renderBuy() {
+        if (this.state.price && this.state.id != 292901) {
+            return (
+                <div className="b-details-head__buy">
+                    <div className="b-details-head__buy-d">Перелет + Отель</div>
+                    <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(this.state.locationId))}>
+                        от {this.state.price} руб (за чел.)
+                    </div>
+                </div>
+            )
+        }
+        if (this.state.id == 292901) {
+            return (
+                <div className="b-details-head__buy">
+                    <div className="b-details-head__buy-d">Перелет + Отель</div>
+                    <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(6196))}>от 30 194 руб (за чел.)</div>
+                </div>
+            )
+        }
+    }
+
     render() {
         let title = 'BookInna';
         this.context.onSetTitle(title);
@@ -125,15 +153,11 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
                             <h1 className="b-details-head__title">
                                 {this.state.title}
                             </h1>
-                            <div>Адрес: <b>{this.state.streetAddress}</b></div>
-                            <div>Телефон: <b>+7 (843) 221-66-11, +7 (843) 221-66-01</b></div>
-                            <div>Email: <b>info@ski-kazan.ru</b></div>
-                            <div>Сайт: <a href={this.state.url} target="_blank">{this.state.url}</a></div>
-
-                            <div className="b-details-head__buy">
-                                <div className="b-details-head__buy-d">Перелет + Отель</div>
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(this.state.locationId))}>от {this.state.price} руб (за чел.)</div>
-                            </div>
+                            {this.state.streetAddress ? <div>Адрес: <b>{this.state.streetAddress}</b></div> : null}
+                            {this.state.phone ? <div>Телефон: <b>{this.state.phone}</b></div> : null}
+                            {this.state.email ? <div>Email: <b>{this.state.email}</b></div> : null}
+                            {this.state.url ? <div>Сайт: <a href={this.state.url} target="_blank">{this.state.url}</a></div> : null}
+                            {this.renderBuy()}
                         </div>
 
                     </div>

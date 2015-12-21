@@ -56,7 +56,7 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
                             </div>
                             <div className="Slider-caption__text">
                                 Перелет + Отель
-                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(2300))}>от 11 847 руб (за чел.)</div>
+                                <div className="btn btn-orange" onClick={this.goBuy.bind(this, urlToInnaSearch(2300))}>от 11 234 руб (за чел.)</div>
                             </div>
                         </div>
                     </div>
