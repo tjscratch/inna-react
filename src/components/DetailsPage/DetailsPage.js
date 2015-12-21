@@ -22,7 +22,7 @@ class DetailsPage extends React.Component {
             locationId: null,
             title: null,
             streetAddress: null,
-            phone: null,
+            telephone: null,
             email: null,
             url: null,
             isOpen: false,
@@ -74,7 +74,7 @@ class DetailsPage extends React.Component {
                     locationId: item.locationId,
                     title: this.getName(item.name),
                     streetAddress: item.streetAddress,
-                    phone: item.phone,
+                    telephone: item.telephone,
                     email: item.email,
                     url: item.url,
                     price: item.price / 2,
@@ -154,7 +154,7 @@ class DetailsPage extends React.Component {
                                 {this.state.title}
                             </h1>
                             {this.state.streetAddress ? <div>Адрес: <b>{this.state.streetAddress}</b></div> : null}
-                            {this.state.phone ? <div>Телефон: <b>{this.state.phone}</b></div> : null}
+                            {this.state.telephone ? <div>Телефон: <b dangerouslySetInnerHTML={{__html:this.state.telephone}}></b></div> : null}
                             {this.state.email ? <div>Email: <b>{this.state.email}</b></div> : null}
                             {this.state.url ? <div>Сайт: <a href={this.state.url} target="_blank">{this.state.url}</a></div> : null}
                             {this.renderBuy()}
