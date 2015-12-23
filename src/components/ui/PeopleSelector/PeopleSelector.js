@@ -89,7 +89,7 @@ class PeopleSelector extends React.Component {
         var btns = [];
         for (var i = 1; i < 5; i++) {
             btns.push(
-                <div className={this.props.adultCount == i ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
+                <div key={i} className={this.props.adultCount == i ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
                      onClick={this.counter.bind(this, 'adult', i)}>{i}
                 </div>
             )
@@ -126,7 +126,7 @@ class PeopleSelector extends React.Component {
         var btns = [];
         for (var i = 0; i < 4; i++) {
             btns.push(
-                <div className={childCount == i ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
+                <div key={i} className={childCount == i ? 'b-people-selector-dropdown__btns-btn b-people-selector-dropdown__btns-btn_selected' : 'b-people-selector-dropdown__btns-btn'}
                      onClick={this.counter.bind(this, 'child', i)}>{i}
                 </div>
             )
@@ -139,7 +139,7 @@ class PeopleSelector extends React.Component {
         var selects = [];
         for (var i = 0; i < childCount; i++) {
             selects.push(
-                <select className="b-people-selector-dropdown__selects-select"
+                <select key={i} className="b-people-selector-dropdown__selects-select"
                         onChange={this.setChildAge.bind(this, i)}
                         value={this.props.childAges.split('_')[i]}>
                     {options}
