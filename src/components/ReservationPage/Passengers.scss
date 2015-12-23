@@ -6,13 +6,26 @@
     white-space: nowrap;
 }
 
+.b-passenger-err-label {
+    display: inline-block;
+    position: absolute;
+    font-size: .85em;
+    color: #f44336;//red
+    white-space: nowrap;
+}
+
 .b-passenger-field {
     display: block;
     padding: 4px 8px;
 }
 
+.b-passenger-field_error {
+    border: 2px solid #f44336;
+}
+
 .b-passenger-item {
     display: inline-block;
+    position: relative;
     vertical-align: top;
 }
 
@@ -92,6 +105,10 @@
         color: #4a4a4a;
     }
 
+    .b-passenger-err-label {
+        position: static;
+    }
+
     .b-passenger-field {
         display: inline-block;
         width: 100%;
@@ -104,6 +121,17 @@
         &:focus {
             margin-bottom: 0;
             border-bottom: 2px solid #89c13a;
+        }
+    }
+
+    .b-passenger-field_error {
+        border: none;
+        border-bottom: 1px solid #f44336;
+
+        &:focus {
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #f44336;
         }
     }
 

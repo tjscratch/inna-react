@@ -26,10 +26,10 @@ import Checkbox from '../ui/Checkbox';
                     <div className="b-customer-info-body">
                         <div className="b-customer-info-body__email">
                             <label className="b-customer-info-label">Электронная почта</label>
-                            <input className="b-customer-info-field b-customer-info-field_email"
+                            <input className={`b-customer-info-field b-customer-info-field_email ${email.touched && email.error ? 'b-customer-info-field_error' : ''}`}
                                    type="email" {...email}
                                    placeholder="ivan.ivanov@gmail.com"/>
-                            {email.touched && email.error && <div>{email.error}</div>}
+                            {email.touched && email.error && <div className="b-customer-info-err-label">{email.error}</div>}
                         </div>
                         <div className="b-customer-info-body__phone">
                             <label className="b-customer-info-label">Мобильный телефон</label>
@@ -53,9 +53,10 @@ import Checkbox from '../ui/Checkbox';
                         </div>
                         <div className="b-customer-info-body__phone-mobile">
                             <label className="b-customer-info-label">Мобильный телефон</label>
-                            <input className="b-customer-info-field"
+                            <input className={`b-customer-info-field ${phone.touched && phone.error ? 'b-customer-info-field_error' : ''}`}
                                    type="text" {...phone}
                                    placeholder="+7 (999) 999-99-99"/>
+                            {phone.touched && phone.error && <div className="b-customer-info-err-label">{phone.error}</div>}
                         </div>
                         <div className="b-customer-info-body__agreement">
                             <Checkbox text="Хочу получать спецпредложения"/>

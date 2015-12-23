@@ -9,11 +9,13 @@ const validateAddress = requireFields('street', 'city');
 const validateChild = requireFields('name', 'age');
 
 const validateForm = data => {
-    console.log('validateForm', data);
+    //console.log('validateForm', data);
     const errors = {};
 
     if (!data.email) {
         errors.email = 'Нужно ввести email';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data.email)) {
+        errors.email = 'Неправильный email';
     }
 
     if (!data.phone) {
@@ -31,20 +33,20 @@ const validateForm = data => {
     //    errors.passengers = 'Required';
     //}
     //
-    //if (data.passengers) {
-    //    errors.passengers = [];
-    //    data.passengers.forEach((pas, ix)=>{
-    //        errors.passengers[ix] = {};
-    //        if (!pas.name) {
-    //            errors.passengers[ix].name = 'Required';
-    //        }
-    //
-    //        if (!pas.lastName) {
-    //            errors.passengers[ix].lastName = 'Required';
-    //        }
-    //
-    //    })
-    //}
+    if (data.passengers) {
+        errors.passengers = [];
+        data.passengers.forEach((pas, ix)=>{
+            errors.passengers[ix] = {};
+            if (!pas.name) {
+                errors.passengers[ix].name = 'Введите имя';
+            }
+
+            if (!pas.lastName) {
+                errors.passengers[ix].lastName = 'Введите фамилию';
+            }
+
+        })
+    }
 
     //errors.shipping = validateAddress(data.shipping);
     //errors.billing = validateAddress(data.billing);

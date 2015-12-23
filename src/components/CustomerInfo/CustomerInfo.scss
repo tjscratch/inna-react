@@ -26,6 +26,16 @@
     padding: 4px 8px;
 }
 
+.b-customer-info-field_error {
+    border: 2px solid #f44336;
+}
+
+.b-customer-info-err-label {
+    font-size: .9em;
+    color: #f44336;//red
+    white-space: nowrap;
+}
+
 .b-customer-info-body__email {
     display: inline-block;
     width: 340px;
@@ -121,6 +131,17 @@
         &:focus {
             margin-bottom: 0;
             border-bottom: 2px solid #89c13a;
+        }
+    }
+
+    .b-customer-info-field_error {
+        border: none;
+        border-bottom: 1px solid #f44336;
+
+        &:focus {
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #f44336;
         }
     }
 
