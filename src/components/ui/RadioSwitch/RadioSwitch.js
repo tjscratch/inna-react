@@ -8,19 +8,19 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     render() {
-        var { lbl1, lbl2 } = this.props;
+        var { lbl1, lbl2, val1, val2, formField } = this.props;
 
         return (
             <ul className="b-radio-switch">
                 <li>
                     <label>
-                        <input type="radio" name="male3"/>
+                        <input type="radio" {...formField} value={val1} checked={formField.value === val1}/>
                         <ins className="radio">{lbl1}</ins>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="radio" name="male3"/>
+                        <input type="radio" {...formField} value={val2} checked={formField.value === val2}/>
                         <ins className="radio">{lbl2}</ins>
                     </label>
                 </li>

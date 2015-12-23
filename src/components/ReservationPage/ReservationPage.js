@@ -102,8 +102,8 @@ import validate from './validateForm';
         console.log('onRequestSendClick');
     }
 
-    buyClick() {
-        console.log('buyClick');
+    onBuyFormSubmit(data) {
+        console.log('onBuyFormSubmit', data);
     }
 
     renderOverlay() {
@@ -245,11 +245,11 @@ import validate from './validateForm';
                                 <Price data={price}/>
                             </div>
                             <div className="b-reservation-page-buy-block__button">
-                                <BuyBtn text="Перейти к оплате" onBuy={this.buyClick.bind(this)}/>
+                                <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit)}/>
                             </div>
                         </div>
                         <div className="b-reservation-page__buy-block-mobile">
-                            <PriceCard data={priceData} onBuy={this.buyClick.bind(this)}/>
+                            <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit)}/>
                         </div>
                     </form>
                 </section>
@@ -283,7 +283,7 @@ function mapStateToProps(state) {
         data: state.reservation,
         initialValues: {
             //генерим пассажиров по кол-ву билетов
-            passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : []
+            passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : [{}]
         }
     }
 }

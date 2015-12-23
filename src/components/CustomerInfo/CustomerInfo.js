@@ -29,10 +29,10 @@ import Checkbox from '../ui/Checkbox';
                             <input className="b-customer-info-field b-customer-info-field_email"
                                    type="email" {...email}
                                    placeholder="ivan.ivanov@gmail.com"/>
+                            {email.touched && email.error && <div>{email.error}</div>}
                         </div>
                         <div className="b-customer-info-body__phone">
                             <label className="b-customer-info-label">Мобильный телефон</label>
-
                             <div className="b-customer-info-phone">
                                 <div className="b-customer-info-phone__code">
                                     <input className="b-customer-info-field b-customer-info-field_code"
@@ -49,6 +49,7 @@ import Checkbox from '../ui/Checkbox';
                                            placeholder="(999) 999-99-99"/>
                                 </div>
                             </div>
+                            {phone_number.touched && phone_number.error && <div>{phone_number.error}</div>}
                         </div>
                         <div className="b-customer-info-body__phone-mobile">
                             <label className="b-customer-info-label">Мобильный телефон</label>

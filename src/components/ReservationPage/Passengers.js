@@ -5,13 +5,28 @@ import withViewport from '../../decorators/withViewport';
 
 import RadioSwitch from '../ui/RadioSwitch';
 import Checkbox from '../ui/Checkbox';
+import MaskedInput from 'react-maskedinput';
 
 import { numOrder } from '../../helpers/CountHelper.js';
+import { transliterateAndToUpper } from '../../helpers/inputHelper';
+
+import { processField } from '../../actions/action_form';
+
+import UpperInput from './upperInput';
 
 @withViewport
 @withStyles(styles) class Passengers extends Component {
     constructor(props) {
         super(props);
+    }
+
+    handleChangeToUpper(e, fieldName) {
+        var { dispatch } = this.props;
+        if (e.target.value) {
+            //e.target.value = transliterateAndToUpper(e.target.value);
+            //var val = transliterateAndToUpper(e.target.value);
+            //dispatch(processField(fieldName, val));
+        }
     }
 
     renderItem(passenger, ix) {
@@ -27,27 +42,27 @@ import { numOrder } from '../../helpers/CountHelper.js';
                     {
                         viewport.isMobile ?
                             <input className="b-passenger-field b-passenger-field_gender"
-                                   type="text"
+                                   type="text" {...passenger.gender}
                                    placeholder="Мужской"/>
                             :
-                            <RadioSwitch lbl1="М" lbl2="Ж"/>
+                            <RadioSwitch lbl1="М" lbl2="Ж" val1="male" val2="female" formField={passenger.gender} />
                     }
                 </div>
                 <div className="b-passenger-item b-passenger-item_second-name">
                     <label className="b-passenger-label">Фамилия</label>
-                    <input className="b-passenger-field b-passenger-field_second-name"
-                           type="text" {...passenger.name}
+                    <UpperInput className="b-passenger-field b-passenger-field_second-name"
+                           type="text" field={passenger.lastName}
                            placeholder="IVANOV"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_name">
                     <label className="b-passenger-label">Имя</label>
                     <input className="b-passenger-field b-passenger-field_name"
-                           type="text" {...passenger.lastName}
+                           type="text" {...passenger.name}
                            placeholder="IVAN"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_birth">
                     <label className="b-passenger-label">Дата рождения</label>
-                    <input className="b-passenger-field b-passenger-field_birth"
+                    <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_birth"
                            type="text" {...passenger.birth}
                            placeholder="дд.мм.гггг"/>
                 </div>
@@ -71,7 +86,7 @@ import { numOrder } from '../../helpers/CountHelper.js';
                 </div>
                 <div className="b-passenger-item b-passenger-item_valid-to">
                     <label className="b-passenger-label">Действителен до</label>
-                    <input className="b-passenger-field b-passenger-field_valid-to"
+                    <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_valid-to"
                            type="text" {...passenger.docExpires}
                            placeholder="дд.мм.гггг"/>
                 </div>

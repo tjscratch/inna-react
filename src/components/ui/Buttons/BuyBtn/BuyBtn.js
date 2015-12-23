@@ -1,21 +1,28 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import styles from './BuyBtn.scss';
 import withStyles from '../../../../decorators/withStyles';
 import withViewport from '../../../../decorators/withViewport';
 
 import Price from '../../../Price';
 
-@withStyles(styles) class BuyBtn extends React.Component {
+@withStyles(styles) class BuyBtn extends Component {
     constructor(props) {
         super(props);
     }
 
     buyClick(e) {
         e.preventDefault();
-        e.stopPropagation();
+        //e.stopPropagation();
+
+        var { onBuy, onSubmit } = this.props;
+
         //если передан колбек выбора
-        if (this.props.onBuy) {
-            this.props.onBuy();
+        if (onBuy) {
+            onBuy(e);
+        }
+
+        if (onSubmit) {
+            onSubmit();
         }
     }
 
@@ -27,7 +34,7 @@ import Price from '../../../Price';
         }
 
         return (
-            <a className="b-buy-btn" onClick={this.buyClick.bind(this)}>
+            <a className="b-buy-btn" onClick={(e)=>this.buyClick(e)}>
                 <div className="b-buy-btn__caption">{text}</div>
             </a>
         );
