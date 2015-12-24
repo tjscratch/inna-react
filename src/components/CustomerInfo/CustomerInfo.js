@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import styles from './CustomerInfo.scss';
 import withStyles from '../../decorators/withStyles';
 
+import MaskedInput from 'react-maskedinput';
 import Checkbox from '../ui/Checkbox';
 
 @withStyles(styles) class CustomerInfo extends Component {
@@ -44,12 +45,12 @@ import Checkbox from '../ui/Checkbox';
                                     </ul>
                                 </div>
                                 <div className="b-customer-info-phone__number">
-                                    <input className="b-customer-info-field b-customer-info-field_number"
+                                    <input className={`b-customer-info-field b-customer-info-field_number ${phone_number.touched && phone_number.error ? 'b-customer-info-field_error' : ''}`}
                                            type="tel" {...phone_number}
                                            placeholder="(999) 999-99-99"/>
+                                    {phone_number.touched && phone_number.error && <div className="b-customer-info-err-label">{phone_number.error}</div>}
                                 </div>
                             </div>
-                            {phone_number.touched && phone_number.error && <div>{phone_number.error}</div>}
                         </div>
                         <div className="b-customer-info-body__phone-mobile">
                             <label className="b-customer-info-label">Мобильный телефон</label>

@@ -22,6 +22,10 @@ const validateForm = data => {
         errors.phone = 'Нужно ввести телефон';
     }
 
+    if (!data.phone_number) {
+        errors.phone_number = 'Нужно ввести телефон';
+    }
+
     //if (!data.name) {
     //    errors.name = 'Required';
     //}

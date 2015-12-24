@@ -1,0 +1,27 @@
+.b-drop-down {
+    position: relative;
+}
+
+.b-drop-down-select {
+    position: absolute;
+    width: 100%;
+    top:0;
+    padding: 8px 0;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.239216) 0px 1px 4px;
+    background: #fff;
+    z-index: 100;
+}
+
+.b-drop-down-select-item {
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.0313726);
+    }
+}
+
+.b-drop-down-select-item_active {
+    background-color: rgba(0, 0, 0, 0.0313726);
+}
