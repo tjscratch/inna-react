@@ -10,6 +10,7 @@ import TabsNav from '../TabsNav';
 import Suggest from '../ui/Suggest';
 import DatepickerRange from '../ui/DatepickerRange';
 import PeopleSelector from '../ui/PeopleSelector';
+import SearchFormValidation from './SearchFormValidation';
 
 
 @withStyles(styles)
@@ -60,7 +61,9 @@ class SearchForm extends React.Component {
             this.state.adultCount,
             this.state.childAges
         ].join('-');
-        Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
+        //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
+        let valid = new SearchFormValidation(this.state);
+        console.log(valid.validation());
     }
 
 

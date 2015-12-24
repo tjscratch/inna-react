@@ -19,9 +19,6 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
             return (
                 <div>
                     <Provider store={getStore()}>{component}</Provider>
-                    <DebugPanel top right bottom>
-                        <DevTools store={getStore()} monitor={LogMonitor} />
-                    </DebugPanel>
                 </div>
             )
         }
