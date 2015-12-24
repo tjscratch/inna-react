@@ -44,7 +44,7 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 <div className="b-passenger-item b-passenger-item_gender">
                     <label className="b-passenger-label">Пол</label>
                     {
-                        true || viewport.isMobile ?
+                        viewport.isMobile ?
                             <DropDown className="b-passenger-field b-passenger-field_gender"
                                       type="text" values={genderValues} {...gender}
                                       placeholder="Мужской"/>
