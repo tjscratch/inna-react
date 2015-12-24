@@ -6,12 +6,14 @@ import searchHotels from './reducer_search_hotels';
 import searchRecommended from './reducer_search_recommended';
 import hotelDetails from './reducer_hotel_details';
 import reservation from './reducer_reservation';
+import countries from './reducer_countries';
 
 import form from './reducer_form';
 
 const rootReducer = combineReducers({
     main,
     directory,
+    countries,
     searchTickets,
     searchHotels,
     searchRecommended,

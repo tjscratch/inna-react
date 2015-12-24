@@ -13,6 +13,7 @@ import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
 import { getHotelDetails } from '../../actions/action_reservation';
+import { getAllCountries } from '../../actions/action_directory'
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
@@ -66,11 +67,35 @@ import validate from './validateForm';
     }
 
     getData() {
-        return new Promise((resolve) => {
-            //инфа по отелю
-            this.getHotelData().then(()=> {
-                resolve();
-            });
+        //return new Promise((resolve) => {
+        //    //инфа по отелю
+        //    this.getHotelData().then(()=> {
+        //        resolve();
+        //    });
+        //});
+
+        return Promise.all([
+            this.getHotelData(),
+            this.getCitizenshipData()
+        ])
+    }
+
+    getCitizenshipData() {
+        return new Promise((resolve, reject)=> {
+            var { dispatch } = this.props;
+            dispatch(getAllCountries())
+                .then((action)=> {
+                    var { data, err } = action;
+                    if (data) {
+                        resolve();
+                    }
+                    else {
+                        console.error('getCitizenshipData err', err);
+                        this.setState({
+                            error: true
+                        });
+                    }
+                });
         });
     }
 
@@ -278,9 +303,23 @@ function generatePassengers(count) {
     return res;
 }
 
+function getCitizenshipList(countries) {
+    if (countries) {
+        return countries.map((item)=> {
+            return {
+                name: item.Name,
+                value: item.Id
+            }
+        })
+    }
+
+    return null;
+}
+
 function mapStateToProps(state) {
     return {
         data: state.reservation,
+        citizenshipList: getCitizenshipList(state.countries),
         initialValues: {
             //генерим пассажиров по кол-ву билетов
             passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : [{}]

@@ -49,6 +49,9 @@ const validateForm = data => {
                 errors.passengers[ix].lastName = 'Введите фамилию';
             }
 
+            if (!pas.birth) {
+                errors.passengers[ix].birth = 'Введите дату рождения';
+            }
         })
     }
 

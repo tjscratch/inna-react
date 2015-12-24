@@ -33,7 +33,7 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
     }
 
     renderItem(passenger, ix) {
-        var { viewport } = this.props;
+        var { viewport, citizenshipList } = this.props;
         var { gender, lastName, name, birth, citizenship, docType, docNumber, docExpires } = passenger;
 
         return (
@@ -46,8 +46,8 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                     {
                         viewport.isMobile ?
                             <DropDown className="b-passenger-field b-passenger-field_gender"
-                                      type="text" values={genderValues} {...gender}
-                                      placeholder="Мужской"/>
+                                      type="text" placeholder="Мужской"
+                                      values={genderValues} {...gender}/>
                             :
                             <RadioSwitch lbl1="М" lbl2="Ж" val1="male" val2="female" formField={gender}/>
                     }
@@ -71,15 +71,17 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 </div>
                 <div className="b-passenger-item b-passenger-item_birth">
                     <label className="b-passenger-label">Дата рождения</label>
-                    <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_birth"
+                    <MaskedInput mask="11.11.1111"
+                                 className={`b-passenger-field b-passenger-field_birth ${birth.touched && birth.error ? 'b-passenger-field_error' : ''}`}
                                  type="text" {...birth}
                                  placeholder="дд.мм.гггг"/>
+                    {birth.touched && birth.error && <div className="b-passenger-err-label">{birth.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_citizenship">
                     <label className="b-passenger-label">Гражданство</label>
-                    <input className="b-passenger-field b-passenger-field_citizenship"
-                           type="text" {...citizenship}
-                           placeholder="Россия"/>
+                    <DropDown className="b-passenger-field b-passenger-field_citizenship"
+                           type="text" {...citizenship} placeholder="Россия"
+                           values={citizenshipList} {...citizenship}/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_document">
                     <label className="b-passenger-label">Документ</label>
