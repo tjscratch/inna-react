@@ -13,6 +13,9 @@ import { transliterateAndToUpper } from '../../helpers/inputHelper';
 import { processField } from '../../actions/action_form';
 
 import UpperInput from './upperInput';
+import DropDown from '../ui/DropDown';
+
+var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
 
 @withViewport
 @withStyles(styles) class Passengers extends Component {
@@ -36,38 +39,41 @@ import UpperInput from './upperInput';
         return (
             <div key={ix} className="b-passenger">
                 <div className="b-passenger-num">
-                    {`${numOrder(ix+1)} турист`}
+                    {`${numOrder(ix + 1)} турист`}
                 </div>
                 <div className="b-passenger-item b-passenger-item_gender">
                     <label className="b-passenger-label">Пол</label>
                     {
                         viewport.isMobile ?
-                            <input className="b-passenger-field b-passenger-field_gender"
-                                   type="text" {...gender}
-                                   placeholder="Мужской"/>
+                            <DropDown className="b-passenger-field b-passenger-field_gender"
+                                      type="text" values={genderValues} {...gender}
+                                      placeholder="Мужской"/>
                             :
-                            <RadioSwitch lbl1="М" lbl2="Ж" val1="male" val2="female" formField={gender} />
+                            <RadioSwitch lbl1="М" lbl2="Ж" val1="male" val2="female" formField={gender}/>
                     }
                 </div>
                 <div className="b-passenger-item b-passenger-item_second-name">
                     <label className="b-passenger-label">Фамилия</label>
-                    <UpperInput className={`b-passenger-field b-passenger-field_second-name ${lastName.touched && lastName.error ? 'b-passenger-field_error' : ''}`}
-                           type="text" field={lastName}
-                           placeholder="IVANOV"/>
-                    {lastName.touched && lastName.error && <div className="b-passenger-err-label">{lastName.error}</div>}
+                    <UpperInput
+                        className={`b-passenger-field b-passenger-field_second-name ${lastName.touched && lastName.error ? 'b-passenger-field_error' : ''}`}
+                        type="text" field={lastName}
+                        placeholder="IVANOV"/>
+                    {lastName.touched && lastName.error &&
+                    <div className="b-passenger-err-label">{lastName.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_name">
                     <label className="b-passenger-label">Имя</label>
-                    <UpperInput className={`b-passenger-field b-passenger-field_name ${name.touched && name.error ? 'b-passenger-field_error' : ''}`}
-                           type="text" {...name}
-                           placeholder="IVAN"/>
+                    <UpperInput
+                        className={`b-passenger-field b-passenger-field_name ${name.touched && name.error ? 'b-passenger-field_error' : ''}`}
+                        type="text" {...name}
+                        placeholder="IVAN"/>
                     {name.touched && name.error && <div className="b-passenger-err-label">{name.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_birth">
                     <label className="b-passenger-label">Дата рождения</label>
                     <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_birth"
-                           type="text" {...birth}
-                           placeholder="дд.мм.гггг"/>
+                                 type="text" {...birth}
+                                 placeholder="дд.мм.гггг"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_citizenship">
                     <label className="b-passenger-label">Гражданство</label>
@@ -90,8 +96,8 @@ import UpperInput from './upperInput';
                 <div className="b-passenger-item b-passenger-item_valid-to">
                     <label className="b-passenger-label">Действителен до</label>
                     <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_valid-to"
-                           type="text" {...docExpires}
-                           placeholder="дд.мм.гггг"/>
+                                 type="text" {...docExpires}
+                                 placeholder="дд.мм.гггг"/>
                 </div>
                 <div className="b-passenger-item b-passenger-item_bonus-card">
                     <Checkbox text="Есть бонусная карта"/>

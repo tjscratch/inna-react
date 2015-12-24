@@ -31,6 +31,8 @@
 }
 
 .b-customer-info-err-label {
+    display: inline-block;
+    position: absolute;
     font-size: .9em;
     color: #f44336;//red
     white-space: nowrap;
@@ -63,6 +65,7 @@
 
 .b-customer-info-phone__number {
     display: inline-block;
+    position: relative;
 }
 
 .b-customer-info-field_number {
@@ -117,6 +120,10 @@
     .b-customer-info-label {
         color: #4a4a4a;
         font-size: .8em;
+    }
+
+    .b-customer-info-err-label {
+        position: static;
     }
 
     .b-customer-info-field {
