@@ -7,6 +7,11 @@ class SearchFormValidation {
             valid: true,
             error: null
         };
+        this.fromDate = {
+            value: props.fromDate,
+            valid: true,
+            error: null
+        };
     }
 
     validation() {
@@ -14,6 +19,7 @@ class SearchFormValidation {
             .then((data)=> {
                 console.log('then');
                 console.log(data);
+                return required(this.fromDate, "fromDate")
             })
             .catch((data)=> {
                 console.log('reject')
