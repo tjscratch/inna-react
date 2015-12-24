@@ -15,7 +15,7 @@ import { processField } from '../../actions/action_form';
 import UpperInput from './upperInput';
 import DropDown from '../ui/DropDown';
 
-var genderValues = [{name: 'Мужской', value: 'Мужской'}, {name: 'Женский', value: 'Женский'}];
+var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
 
 @withViewport
 @withStyles(styles) class Passengers extends Component {
@@ -44,7 +44,7 @@ var genderValues = [{name: 'Мужской', value: 'Мужской'}, {name: '�
                 <div className="b-passenger-item b-passenger-item_gender">
                     <label className="b-passenger-label">Пол</label>
                     {
-                        viewport.isMobile ?
+                        true || viewport.isMobile ?
                             <DropDown className="b-passenger-field b-passenger-field_gender"
                                       type="text" values={genderValues} {...gender}
                                       placeholder="Мужской"/>

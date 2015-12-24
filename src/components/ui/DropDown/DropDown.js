@@ -116,7 +116,7 @@ import withStyles from '../../../decorators/withStyles';
         var { values } = this.props;
         var { isOpened, selectedIndex } = this.state;
         var selValue = values ? values[selectedIndex] : null;
-        var value = selValue ? selValue.value : '';
+        var value = selValue ? selValue.name : '';
 
         return (
             <div className="b-drop-down">
