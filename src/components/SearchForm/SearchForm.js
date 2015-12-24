@@ -16,39 +16,7 @@ import PeopleSelector from '../ui/PeopleSelector';
 class SearchForm extends React.Component {
     constructor(props) {
         super(props);
-
-        //console.log('SearchForm props', props);
-
-        //начальные данные для рендера на сервере
         var { directory, routeParams } = props;
-
-        //формат данных:
-        /*
-         fromId
-         toId
-         fromDate - 09.11.2015
-         toDate
-         flightClass
-         adultCount
-         childAges - опционально
-         from - объект directory - опционально
-         to - объект directory - опционально
-         */
-
-        //объект directory:
-        /*
-         Airport: Array[3]
-         Basic: 1
-         CodeIata: "MOW"
-         CodeIcao: ""
-         CodeSirena: "МОВ"
-         CountryId: 189
-         CountryName: "Россия"
-         Id: 6733
-         Name: "Москва"
-         NameEn: "Moscow"
-         VisaGroup: 0
-         */
 
         if (routeParams) {
             this.state = {
@@ -81,7 +49,6 @@ class SearchForm extends React.Component {
             toId: data.Id
         });
     }
-
 
     handleStartSearch() {
         let searchParams = [
