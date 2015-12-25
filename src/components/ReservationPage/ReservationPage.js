@@ -13,6 +13,7 @@ import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
 import { getHotelDetails } from '../../actions/action_reservation';
+import { getAllCountries } from '../../actions/action_directory'
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
@@ -56,22 +57,92 @@ import validate from './validateForm';
         super(props);
 
         this.state = {
-            error: null
+            error: null,
+            citizenshipList: null
         }
     }
 
     componentDidMount() {
         this.getData().then(()=> {
+            var { data } = this.props;
+            var { citizenshipList } = this.state;
+
+            var citizenshipList = this.filterCitizenshipData(citizenshipList, data);
+            this.setState({
+                citizenshipList: citizenshipList
+            });
         });
     }
 
     getData() {
-        return new Promise((resolve) => {
-            //инфа по отелю
-            this.getHotelData().then(()=> {
-                resolve();
-            });
+        //return new Promise((resolve) => {
+        //    //инфа по отелю
+        //    this.getHotelData().then(()=> {
+        //        resolve();
+        //    });
+        //});
+
+        return Promise.all([
+            this.getHotelData(),
+            this.getCitizenshipData()
+        ])
+    }
+
+    getCitizenshipData() {
+        return new Promise((resolve, reject)=> {
+            var { dispatch } = this.props;
+            dispatch(getAllCountries())
+                .then((action)=> {
+                    var { data, err } = action;
+                    if (data) {
+                        //приводим данные к нормальному виду
+                        data = data.map((item)=> {
+                            return {
+                                name: item.Name,
+                                value: item.Id
+                            }
+                        });
+
+                        this.setState({
+                            citizenshipList: data
+                        });
+
+                        resolve();
+                    }
+                    else {
+                        console.error('getCitizenshipData err', err);
+                        this.setState({
+                            error: true
+                        });
+                    }
+                });
         });
+    }
+
+    filterCitizenshipData(countries, data) {
+        //фильтруем
+        //удаляем из списка гражданств страну назначения
+        if (countries && data && data.AviaInfo) {
+            console.log('filtering citizenshipList');
+            var aviaInfo = data.AviaInfo;
+            if (aviaInfo.EtapsTo && aviaInfo.EtapsTo.length > 0) {
+                //берем последний
+                var lastEtap = aviaInfo.EtapsTo[aviaInfo.EtapsTo.length - 1];
+                var countryId = lastEtap.InCountryId;
+
+                if (countryId) {
+                    //фильтруем
+                    countries = countries.filter((c)=> {
+                        if (c.value == countryId) {
+                            console.log('removed Id: ' + c.value + ' name: ' + c.name);
+                        }
+                        return c.value != countryId;
+                    });
+                }
+            }
+        }
+
+        return countries;
     }
 
     getHotelData() {
@@ -145,6 +216,8 @@ import validate from './validateForm';
 
         //console.log('render data:', data);
 
+        var { citizenshipList } = this.state;
+
         const {
             fields: {passengers},
             handleSubmit,
@@ -187,7 +260,7 @@ import validate from './validateForm';
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
-                            <Passengers {...this.props}/>
+                            <Passengers {...this.props} citizenshipList={citizenshipList}/>
                         </div>
                         <div className="b-reservation-page__comments">
                             <div className="b-reservation-page-comments__head">

@@ -6,4 +6,5 @@ export default {
     DictionaryHotel: '/Dictionary/Hotel',
     GetCurrentLocation: '/Dictionary/GetCurrentLocation',
     HotelDetails: '/Packages/HotelDetails',
+    DictionaryAllCountries: '/Dictionary/Country',
 }

@@ -29,35 +29,36 @@
     vertical-align: top;
 }
 
-.b-passengers-list-item_gender {
-    margin-right: 5px;
+.b-passenger-item_gender {
 }
 
-.b-passengers-list-item_second-name {
+.b-passenger-err-label_gender {
+    bottom: -5px;
+}
+
+.b-passenger-item_second-name {
 }
 
 .b-passenger-field_second-name {
     width: 140px;
 }
 
-.b-passengers-list-item_name {
-    margin-right: 5px;
+.b-passenger-item_name {
 }
 
 .b-passenger-field_name {
     width: 110px;
 }
 
-.b-passengers-list-item_birth {
-    margin-right: 5px;
+.b-passenger-item_birth {
 }
 
 .b-passenger-field_birth {
     width: 100px;
 }
 
-.b-passengers-list-item_citizenship {
-    margin-right: 5px;
+.b-passenger-item_citizenship {
+    //margin-right: 5px;
 }
 
 .b-passenger-field_citizenship {
@@ -68,8 +69,7 @@
     width: 135px;
 }
 
-.b-passengers-list-item_series-number {
-    margin-right: 5px;
+.b-passenger-item_series-number {
 }
 
 .b-passenger-field_series-number {

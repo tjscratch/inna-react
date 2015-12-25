@@ -9,7 +9,7 @@ import withStyles from '../../../decorators/withStyles';
         this.state = {
             isOpened: false,
             selectedIndex: 0
-        }
+        };
     }
 
     componentDidMount() {
@@ -46,9 +46,19 @@ import withStyles from '../../../decorators/withStyles';
     triggerChange(selectedIndex) {
         var { onChange, values } = this.props;
         if (onChange) {
-            var value = values[selectedIndex].value;
-            onChange(value);
+            var value = values ? values[selectedIndex].value : null;
+            if (value) {
+                onChange(value);
+            }
         }
+    }
+
+    onFocus() {
+        this.toggleOpen(true);
+    }
+
+    onClick() {
+        this.toggleOpen(true);
     }
 
     onBlur() {
@@ -122,7 +132,9 @@ import withStyles from '../../../decorators/withStyles';
             <div className="b-drop-down">
                 <input readOnly={true} className={className} type={type} placeholder={placeholder}
                        value={value} defaultValue=""
-                       onFocus={()=>this.toggleOpen(true)} onBlur={()=>this.onBlur()}
+                       onFocus={()=>{this.onFocus()}}
+                       onBlur={()=>this.onBlur()}
+                       onClick={()=>{this.onClick()}}
                        onKeyDown={(e)=>this.onKey(e)}/>
                 {
                     isOpened && values && values.length > 0 ?
