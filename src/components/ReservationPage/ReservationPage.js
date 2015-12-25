@@ -57,12 +57,20 @@ import validate from './validateForm';
         super(props);
 
         this.state = {
-            error: null
+            error: null,
+            citizenshipList: null
         }
     }
 
     componentDidMount() {
         this.getData().then(()=> {
+            var { data } = this.props;
+            var { citizenshipList } = this.state;
+
+            var citizenshipList = this.filterCitizenshipData(citizenshipList, data);
+            this.setState({
+                citizenshipList: citizenshipList
+            });
         });
     }
 
@@ -87,6 +95,18 @@ import validate from './validateForm';
                 .then((action)=> {
                     var { data, err } = action;
                     if (data) {
+                        //приводим данные к нормальному виду
+                        data = data.map((item)=> {
+                            return {
+                                name: item.Name,
+                                value: item.Id
+                            }
+                        });
+
+                        this.setState({
+                            citizenshipList: data
+                        });
+
                         resolve();
                     }
                     else {
@@ -97,6 +117,32 @@ import validate from './validateForm';
                     }
                 });
         });
+    }
+
+    filterCitizenshipData(countries, data) {
+        //фильтруем
+        //удаляем из списка гражданств страну назначения
+        if (countries && data && data.AviaInfo) {
+            console.log('filtering citizenshipList');
+            var aviaInfo = data.AviaInfo;
+            if (aviaInfo.EtapsTo && aviaInfo.EtapsTo.length > 0) {
+                //берем последний
+                var lastEtap = aviaInfo.EtapsTo[aviaInfo.EtapsTo.length - 1];
+                var countryId = lastEtap.InCountryId;
+
+                if (countryId) {
+                    //фильтруем
+                    countries = countries.filter((c)=> {
+                        if (c.value == countryId) {
+                            console.log('removed Id: ' + c.value + ' name: ' + c.name);
+                        }
+                        return c.value != countryId;
+                    });
+                }
+            }
+        }
+
+        return countries;
     }
 
     getHotelData() {
@@ -170,6 +216,8 @@ import validate from './validateForm';
 
         //console.log('render data:', data);
 
+        var { citizenshipList } = this.state;
+
         const {
             fields: {passengers},
             handleSubmit,
@@ -212,7 +260,7 @@ import validate from './validateForm';
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
-                            <Passengers {...this.props}/>
+                            <Passengers {...this.props} citizenshipList={citizenshipList}/>
                         </div>
                         <div className="b-reservation-page__comments">
                             <div className="b-reservation-page-comments__head">
@@ -303,23 +351,9 @@ function generatePassengers(count) {
     return res;
 }
 
-function getCitizenshipList(countries) {
-    if (countries) {
-        return countries.map((item)=> {
-            return {
-                name: item.Name,
-                value: item.Id
-            }
-        })
-    }
-
-    return null;
-}
-
 function mapStateToProps(state) {
     return {
         data: state.reservation,
-        citizenshipList: getCitizenshipList(state.countries),
         initialValues: {
             //генерим пассажиров по кол-ву билетов
             passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : [{}]

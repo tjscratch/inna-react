@@ -41,16 +41,26 @@ const validateForm = data => {
         errors.passengers = [];
         data.passengers.forEach((pas, ix)=>{
             errors.passengers[ix] = {};
+            if (!pas.gender) {
+                errors.passengers[ix].gender = 'Пол';
+            }
             if (!pas.name) {
                 errors.passengers[ix].name = 'Введите имя';
             }
-
             if (!pas.lastName) {
                 errors.passengers[ix].lastName = 'Введите фамилию';
             }
-
             if (!pas.birth) {
                 errors.passengers[ix].birth = 'Введите дату рождения';
+            }
+            if (!pas.citizenship) {
+                errors.passengers[ix].citizenship = 'Введите гражданство';
+            }
+            if (!pas.docType) {
+                errors.passengers[ix].docType = 'Введите тип докумнта';
+            }
+            if (!pas.docNumber) {
+                errors.passengers[ix].docNumber = 'Введите номер докумнта';
             }
         })
     }

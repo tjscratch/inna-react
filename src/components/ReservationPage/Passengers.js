@@ -51,6 +51,7 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                             :
                             <RadioSwitch lbl1="М" lbl2="Ж" val1="male" val2="female" formField={gender}/>
                     }
+                    {gender.touched && gender.error && <div className="b-passenger-err-label b-passenger-err-label_gender">{gender.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_second-name">
                     <label className="b-passenger-label">Фамилия</label>
@@ -79,15 +80,17 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 </div>
                 <div className="b-passenger-item b-passenger-item_citizenship">
                     <label className="b-passenger-label">Гражданство</label>
-                    <DropDown className="b-passenger-field b-passenger-field_citizenship"
-                           type="text" {...citizenship} placeholder="Россия"
-                           values={citizenshipList} {...citizenship}/>
+                    <DropDown className={`b-passenger-field b-passenger-field_citizenship ${citizenship.touched && citizenship.error ? 'b-passenger-field_error' : ''}`}
+                              type="text" {...citizenship} placeholder="Россия"
+                              values={citizenshipList} {...citizenship}/>
+                    {citizenship.touched && citizenship.error && <div className="b-passenger-err-label">{citizenship.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_document">
                     <label className="b-passenger-label">Документ</label>
-                    <input className="b-passenger-field b-passenger-field_document"
+                    <input className={`b-passenger-field b-passenger-field_document ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
                            type="text" {...docType}
                            placeholder="Загранпаспорт"/>
+                    {docType.touched && docType.error && <div className="b-passenger-err-label">{docType.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_series-number">
                     <label className="b-passenger-label">Серия и номер</label>
