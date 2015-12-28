@@ -19,6 +19,7 @@
 }
 .b-search-form-action__error{
     position: absolute;
+    z-index: 5;
     width: calc(100% - 5px);
     padding: 5px;
     font-size: 12px;

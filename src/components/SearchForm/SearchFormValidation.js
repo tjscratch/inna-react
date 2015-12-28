@@ -2,6 +2,12 @@ class SearchFormValidation {
 
     constructor(props) {
         super.constructor(props);
+        this.fromId = {
+            key: 'fromId',
+            value: props.fromId,
+            valid: true,
+            error: null
+        };
         this.toId = {
             key: 'toId',
             value: props.toId,
@@ -23,12 +29,15 @@ class SearchFormValidation {
     }
 
     validation() {
-        return required(this.toId, "Выберите город или страну, куда планируете поехать")
+        return required(this.fromId, "Введите город отправления")
             .then((data)=> {
-                return required(this.fromDate, "fromDate");
+                return required(this.toId, "Выберите город или страну, куда планируете поехать");
             })
             .then((data)=> {
-                return required(this.toDate, "toDate");
+                return required(this.fromDate, "Выберите дату отправления туда");
+            })
+            .then((data)=> {
+                return required(this.toDate, "Выберите дату отправления обратно");
             })
             .catch((data)=> {
                 return data;
@@ -52,6 +61,28 @@ function required(obj, textError) {
         }
     });
 };
+
+/**
+ * Сравнение равенства v1 и v2
+ * @param v1
+ * @param v2
+ * @param error
+ * @param errorText
+ */
+function noEqual(obj1, obj2, objName, errorText) {
+    var deferred = $q.defer();
+    var returnObj = {};
+    if (obj1 != obj2) {
+        returnObj['success'] = true;
+        deferred.resolve(returnObj);
+    } else {
+        returnObj['success'] = false;
+        returnObj['name'] = objName;
+        returnObj['error'] = errorText;
+        deferred.reject(returnObj);
+    }
+    return deferred.promise;
+}
 
 
 module.exports = SearchFormValidation;

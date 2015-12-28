@@ -43,14 +43,23 @@ class SearchForm extends React.Component {
 
     locationFrom(data) {
         this.setState({
-            fromId: data.Id
+            fromId: data.Id,
+            valid: {},
         });
     }
 
     locationTo(data) {
-        this.setState({
-            toId: data.Id
-        });
+        if(data){
+            this.setState({
+                toId: data.Id,
+                valid: {},
+            });
+        }else{
+            this.setState({
+                toId: null,
+                valid: {},
+            });
+        }
     }
 
     handleStartSearch() {
@@ -73,7 +82,7 @@ class SearchForm extends React.Component {
                     this.setState({
                         valid: data
                     });
-                    console.log(this.state.valid);
+                    //console.log(this.state.valid);
                 }
             });
     }
@@ -81,13 +90,15 @@ class SearchForm extends React.Component {
 
     setFromDate(date) {
         this.setState({
-            fromDate: date
+            fromDate: date,
+            valid: {},
         });
     }
 
     setToDate(date) {
         this.setState({
-            toDate: date
+            toDate: date,
+            valid: {},
         })
     }
 
@@ -122,6 +133,7 @@ class SearchForm extends React.Component {
                         <div className="b-search-form-action__location-from">
                             <Suggest setResult={this.locationFrom.bind(this)}
                                      data={{placeholder: 'Откуда', location: this.state.from, setCurrentLocation: this.state.fromId ? false : true}}/>
+                            {this.state.valid.key == 'fromId' ? <div className="b-search-form-action__error">{this.state.valid.error}</div> : null}
                         </div>
                         <div className="b-search-form-action__location-to">
                             <Suggest setResult={this.locationTo.bind(this)}

@@ -79,12 +79,13 @@ import SuggestModel from './SuggestModel';
 
     handleChange(event) {
         let user_input = event.target.value;
-
         this.setState({
             value: user_input
         });
         if (user_input) {
             this.setOptions(user_input);
+        }else{
+            this.props.setResult(null);
         }
     }
 
