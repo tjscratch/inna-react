@@ -23,7 +23,8 @@ class SearchForm extends React.Component {
             this.state = {
                 ...routeParams,
                 from: directory[routeParams.fromId],
-                to: directory[routeParams.toId]
+                to: directory[routeParams.toId],
+                valid: {},
             };
         }
         else {
@@ -34,7 +35,8 @@ class SearchForm extends React.Component {
                 toDate: null,
                 flightClass: 1,
                 adultCount: 2,
-                childAges: null
+                childAges: null,
+                valid: {},
             };
         }
     }
@@ -62,8 +64,18 @@ class SearchForm extends React.Component {
             this.state.childAges
         ].join('-');
         //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
-        let valid = new SearchFormValidation(this.state);
-        console.log(valid.validation());
+        let validation = new SearchFormValidation(this.state);
+        validation.validation()
+            .then((data)=> {
+                if (data.valid) {
+
+                } else {
+                    this.setState({
+                        valid: data
+                    });
+                    console.log(this.state.valid);
+                }
+            });
     }
 
 
@@ -91,7 +103,7 @@ class SearchForm extends React.Component {
         })
     }
 
-    setFlightClass(data){
+    setFlightClass(data) {
         this.setState({
             flightClass: data
         })
@@ -114,6 +126,7 @@ class SearchForm extends React.Component {
                         <div className="b-search-form-action__location-to">
                             <Suggest setResult={this.locationTo.bind(this)}
                                      data={{placeholder: 'Куда', location: this.state.to}}/>
+                            {this.state.valid.key == 'toId' ? <div className="b-search-form-action__error">{this.state.valid.error}</div>:null}
                         </div>
                         <div className="b-search-form-action__date">
                             <DatepickerRange
@@ -122,6 +135,8 @@ class SearchForm extends React.Component {
                                 setStartDate={this.setFromDate.bind(this)}
                                 setEndDate={this.setToDate.bind(this)}
                             />
+                            {this.state.valid.key == 'fromDate' ? <div className="b-search-form-action__error b-search-form-action__error-from-date">{this.state.valid.error}</div> : null}
+                            {this.state.valid.key == 'toDate' ? <div className="b-search-form-action__error b-search-form-action__error-to-date">{this.state.valid.error}</div> : null}
                         </div>
                         <div className="b-search-form-action__people">
                             <PeopleSelector

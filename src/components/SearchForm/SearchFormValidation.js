@@ -3,29 +3,36 @@ class SearchFormValidation {
     constructor(props) {
         super.constructor(props);
         this.toId = {
+            key: 'toId',
             value: props.toId,
             valid: true,
             error: null
         };
         this.fromDate = {
+            key: 'fromDate',
             value: props.fromDate,
+            valid: true,
+            error: null
+        };
+        this.toDate = {
+            key: 'toDate',
+            value: props.toDate,
             valid: true,
             error: null
         };
     }
 
     validation() {
-        required(this.toId, "Выберите город или страну, куда планируете поехать")
+        return required(this.toId, "Выберите город или страну, куда планируете поехать")
             .then((data)=> {
-                console.log('then');
-                console.log(data);
-                return required(this.fromDate, "fromDate")
+                return required(this.fromDate, "fromDate");
+            })
+            .then((data)=> {
+                return required(this.toDate, "toDate");
             })
             .catch((data)=> {
-                console.log('reject')
-                console.log(data)
+                return data;
             })
-        return 3
     }
 
 }
@@ -37,6 +44,7 @@ function required(obj, textError) {
             resolve(obj);
         } else {
             reject({
+                key: obj.key,
                 value: obj.value,
                 valid: false,
                 error: textError

@@ -17,6 +17,18 @@
     border-bottom-right-radius: $b-search-form-border-radius;
     border-bottom-left-radius: $b-search-form-border-radius;
 }
+.b-search-form-action__error{
+    position: absolute;
+    width: calc(100% - 5px);
+    padding: 5px;
+    font-size: 12px;
+    line-height: 130%;
+    text-align: center;
+    background: red;
+    color: #fff;
+    border-bottom-right-radius: $b-search-form-border-radius;
+    border-bottom-left-radius: $b-search-form-border-radius;
+}
 @mixin form-item($width, $padding-right, $padding-bottom) {
     display: inline-block;
     width: $width;
@@ -25,10 +37,21 @@
 }
 .b-search-form-action__location-from,
 .b-search-form-action__location-to {
+    position: relative;
     @include form-item(22%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
 .b-search-form-action__date{
+    position: relative;
     @include form-item(28%, 0, 0);
+
+    .b-search-form-action__error-from-date{
+        width: calc(50% - 5px);
+    }
+    .b-search-form-action__error-to-date{
+        left: auto;
+        right: 5px;
+        width: calc(50% - 5px);
+    }
 }
 .b-datepicker-range__item-start,
 .b-datepicker-range__item-end{
