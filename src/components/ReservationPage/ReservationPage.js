@@ -106,15 +106,15 @@ import validate from './validateForm';
                         this.setState({
                             citizenshipList: data
                         });
-
-                        resolve();
                     }
                     else {
                         console.error('getCitizenshipData err', err);
                         this.setState({
                             error: true
                         });
+
                     }
+                    resolve();
                 });
         });
     }
@@ -156,15 +156,14 @@ import validate from './validateForm';
                 .then((action)=> {
                     var { data, err } = action;
                     if (data) {
-                        resolve();
                     }
                     else {
                         console.error('HotelDetails err', err);
                         this.setState({
                             error: true
                         });
-                        //reject();
                     }
+                    resolve();
                 });
         });
     }
