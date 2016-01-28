@@ -49,12 +49,12 @@ class SearchForm extends React.Component {
     }
 
     locationTo(data) {
-        if(data){
+        if (data) {
             this.setState({
                 toId: data.Id,
                 valid: {},
             });
-        }else{
+        } else {
             this.setState({
                 toId: null,
                 valid: {},
@@ -77,7 +77,7 @@ class SearchForm extends React.Component {
         validation.validation()
             .then((data)=> {
                 if (data.valid) {
-
+                    Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
                 } else {
                     this.setState({
                         valid: data
@@ -138,7 +138,7 @@ class SearchForm extends React.Component {
                         <div className="b-search-form-action__location-to">
                             <Suggest setResult={this.locationTo.bind(this)}
                                      data={{placeholder: 'Куда', location: this.state.to}}/>
-                            {this.state.valid.key == 'toId' ? <div className="b-search-form-action__error">{this.state.valid.error}</div>:null}
+                            {this.state.valid.key == 'toId' ? <div className="b-search-form-action__error">{this.state.valid.error}</div> : null}
                         </div>
                         <div className="b-search-form-action__date">
                             <DatepickerRange
