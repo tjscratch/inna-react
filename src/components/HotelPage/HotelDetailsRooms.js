@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './HotelDetailsRooms.scss';
 import withStyles from '../../decorators/withStyles';
+import withViewport from '../../decorators/withViewport';
 
 //helpers
 import { stripTags } from '../../helpers/HtmlHelper.js';
@@ -9,6 +10,7 @@ import { stripTags } from '../../helpers/HtmlHelper.js';
 import BuyBtn from '../ui/Buttons/BuyBtn';
 import Price from '../Price';
 
+@withViewport
 @withStyles(styles) class HotelDetailsRooms extends React.Component {
     constructor(props) {
         super(props);
@@ -41,6 +43,19 @@ import Price from '../Price';
         //console.log('room buyClick', room);
         var { onRoomBuyClick } = this.props;
         if (onRoomBuyClick) {
+            onRoomBuyClick(room);
+        }
+    }
+
+    mobileBuyClick(e, room) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        //console.log('room mobileBuyClick', room);
+        var { viewport, onRoomBuyClick } = this.props;
+        var { isMobile } = viewport;
+
+        if (isMobile && onRoomBuyClick) {
             onRoomBuyClick(room);
         }
     }
@@ -214,7 +229,7 @@ import Price from '../Price';
                                 </div> : null
                         }
                     </div>
-                    <div className="b-rooms-list-item__price">
+                    <div className="b-rooms-list-item__price" onClick={(e)=>this.mobileBuyClick(e, room)}>
                         <div className="b-rooms-list-item-price">
                             <div className="b-rooms-list-item-price__include">
                                 {
