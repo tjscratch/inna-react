@@ -1,12 +1,12 @@
-const requireFields = (...names) => data =>
-    names.reduce((errors, name) => {
-        if (!data[name]) {
-            errors[name] = 'Required';
-        }
-        return errors;
-    }, {});
-const validateAddress = requireFields('street', 'city');
-const validateChild = requireFields('name', 'age');
+//const requireFields = (...names) => data =>
+//    names.reduce((errors, name) => {
+//        if (!data[name]) {
+//            errors[name] = 'Required';
+//        }
+//        return errors;
+//    }, {});
+//const validateAddress = requireFields('street', 'city');
+//const validateChild = requireFields('name', 'age');
 
 const validateForm = data => {
     //console.log('validateForm', data);
@@ -18,25 +18,19 @@ const validateForm = data => {
         errors.email = 'Неправильный email';
     }
 
-    if (!data.phone) {
-        errors.phone = 'Нужно ввести телефон';
+    //в мобильной версии проверяем поле с телефоном
+    if (data.isMobile) {
+        if (!data.phone) {
+            errors.phone = 'Нужно ввести телефон';
+        }
+    }
+    else {
+        //в десктопной - поле с номером
+        if (!data.phone_number) {
+            errors.phone_number = 'Нужно ввести телефон';
+        }
     }
 
-    if (!data.phone_number) {
-        errors.phone_number = 'Нужно ввести телефон';
-    }
-
-    //if (!data.name) {
-    //    errors.name = 'Required';
-    //}
-    //if (!data.lastName) {
-    //    errors.lastName = 'Required';
-    //}
-
-    //if (!data.passengers || data.passengers.length == 0) {
-    //    errors.passengers = 'Required';
-    //}
-    //
     if (data.passengers) {
         errors.passengers = [];
         data.passengers.forEach((pas, ix)=>{
@@ -62,12 +56,14 @@ const validateForm = data => {
             if (!pas.docNumber) {
                 errors.passengers[ix].docNumber = 'Введите номер докумнта';
             }
+            //console.log('errors.passengers[ix]', errors.passengers[ix]);
         })
     }
 
     //errors.shipping = validateAddress(data.shipping);
     //errors.billing = validateAddress(data.billing);
     //errors.children = data.children.map(validateChild);
+
     return errors;
 };
 

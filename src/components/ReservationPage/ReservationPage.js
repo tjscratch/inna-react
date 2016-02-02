@@ -13,7 +13,8 @@ import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
 import { getHotelDetails } from '../../actions/action_reservation';
-import { getAllCountries } from '../../actions/action_directory'
+import { getAllCountries } from '../../actions/action_directory';
+import { processField } from '../../actions/action_form';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
@@ -32,6 +33,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
 
 import {reduxForm} from 'redux-form';
 export const fields = [
+    'isMobile',
     'email',
     'phone_suffix',
     'phone_number',
@@ -63,6 +65,14 @@ import validate from './validateForm';
     }
 
     componentDidMount() {
+        //set isMobile to form
+        const {
+            viewport,
+            fields: {isMobile},
+            } = this.props;
+
+        isMobile.onChange(viewport.isMobile);
+
         this.getData().then(()=> {
             var { data } = this.props;
             var { citizenshipList } = this.state;
@@ -346,6 +356,7 @@ function generatePassengers(count) {
     var res = [];
     for (var i = 0; i < count; i++) {
         res.push({});
+        //res.push({ name: `pas ${i+1}`});
     }
     return res;
 }
@@ -355,7 +366,7 @@ function mapStateToProps(state) {
         data: state.reservation,
         initialValues: {
             //генерим пассажиров по кол-ву билетов
-            passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : [{}]
+            passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : []
         }
     }
 }
