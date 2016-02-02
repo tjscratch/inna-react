@@ -8,9 +8,13 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     checkboxChange(event){
-        var { checkboxChange } = this.props;
+        var { checkboxChange, onChange, field } = this.props;
         if (checkboxChange) {
             checkboxChange(event.target.checked)
+        }
+
+        if (onChange) {
+            onChange(event.target.checked)
         }
     }
 
@@ -24,7 +28,7 @@ import withStyles from '../../../decorators/withStyles';
 
         return (
             <label className={classValue}>
-                <input className="ui-checkbox__input" name="roaming" type="checkbox" 
+                <input className="ui-checkbox__input" name="roaming" type="checkbox"
                        onChange={this.checkboxChange.bind(this)}
                        checked={this.props.checked}
                 />

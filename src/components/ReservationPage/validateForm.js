@@ -31,6 +31,11 @@ const validateForm = data => {
         }
     }
 
+    //agree
+    if (!data.agree) {
+        errors.agree = 'Нужно согласиться с условиями';
+    }
+
     if (data.passengers) {
         errors.passengers = [];
         data.passengers.forEach((pas, ix)=>{
@@ -51,10 +56,13 @@ const validateForm = data => {
                 errors.passengers[ix].citizenship = 'Введите гражданство';
             }
             if (!pas.docType) {
-                errors.passengers[ix].docType = 'Введите тип докумнта';
+                errors.passengers[ix].docType = 'Введите тип док.';
             }
             if (!pas.docNumber) {
-                errors.passengers[ix].docNumber = 'Введите номер докумнта';
+                errors.passengers[ix].docNumber = 'Введите номер док.';
+            }
+            if (!pas.docExpires) {
+                errors.passengers[ix].docExpires = 'Введите дату';
             }
             //console.log('errors.passengers[ix]', errors.passengers[ix]);
         })

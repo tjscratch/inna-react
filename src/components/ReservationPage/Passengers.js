@@ -94,19 +94,25 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 </div>
                 <div className="b-passenger-item b-passenger-item_series-number">
                     <label className="b-passenger-label">Серия и номер</label>
-                    <input className="b-passenger-field b-passenger-field_series-number"
+                    <input className={`b-passenger-field b-passenger-field_series-number ${docNumber.touched && docNumber.error ? 'b-passenger-field_error' : ''}`}
                            type="text" {...docNumber}
                            placeholder="123456789"/>
+                    {docNumber.touched && docNumber.error && <div className="b-passenger-err-label">{docNumber.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_valid-to">
                     <label className="b-passenger-label">Действителен до</label>
-                    <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_valid-to"
+                    <MaskedInput mask="11.11.1111"
+                                 className={`b-passenger-field b-passenger-field_valid-to ${docExpires.touched && docExpires.error ? 'b-passenger-field_error' : ''}`}
                                  type="text" {...docExpires}
                                  placeholder="дд.мм.гггг"/>
+                    {docExpires.touched && docExpires.error && <div className="b-passenger-err-label">{docExpires.error}</div>}
                 </div>
-                <div className="b-passenger-item b-passenger-item_bonus-card">
-                    <Checkbox text="Есть бонусная карта"/>
-                </div>
+                {
+                    /*<div className="b-passenger-item b-passenger-item_bonus-card">
+                        <Checkbox text="Есть бонусная карта"/>
+                    </div>*/
+                }
+
             </div>
         )
     }

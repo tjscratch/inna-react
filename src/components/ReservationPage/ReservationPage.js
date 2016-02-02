@@ -33,6 +33,7 @@ import { MobileSelectedFilter } from '../MobileFilters';
 
 import {reduxForm} from 'redux-form';
 export const fields = [
+    'agree',
     'isMobile',
     'email',
     'phone_suffix',
@@ -228,7 +229,7 @@ import validate from './validateForm';
         var { citizenshipList } = this.state;
 
         const {
-            fields: {passengers},
+            fields: {passengers, agree},
             handleSubmit,
             resetForm,
             submitting
@@ -309,7 +310,7 @@ import validate from './validateForm';
                             </div>
                         </div>
                         <div className="b-reservation-page__agreement">
-                            <Checkbox align="top">
+                            <Checkbox align="top" {...agree}>
                                 <div className="b-reservation-page-agreement">
                                     Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>,
                                     <a
@@ -318,6 +319,7 @@ import validate from './validateForm';
                                     данных и передачи их третьим лицам (авиаперевозчику и пр.).
                                 </div>
                             </Checkbox>
+                            {agree.touched && agree.error && <div className="b-passenger-err-label">{agree.error}</div>}
                         </div>
                         <div className="b-reservation-page__buy-block">
                             <div className="b-reservation-page-buy-block__lbl">
