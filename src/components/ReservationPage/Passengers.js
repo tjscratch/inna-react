@@ -33,8 +33,10 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
     }
 
     renderItem(passenger, ix) {
-        var { viewport, citizenshipList } = this.props;
+        var { viewport, citizenshipList, filterDocsList } = this.props;
         var { gender, lastName, name, birth, citizenship, docType, docNumber, docExpires } = passenger;
+
+        var documentsList = filterDocsList(citizenship.value);
 
         return (
             <div key={ix} className="b-passenger">
@@ -87,9 +89,14 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 </div>
                 <div className="b-passenger-item b-passenger-item_document">
                     <label className="b-passenger-label">Документ</label>
-                    <input className={`b-passenger-field b-passenger-field_document ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
-                           type="text" {...docType}
-                           placeholder="Загранпаспорт"/>
+                    {
+                        /*<input className={`b-passenger-field b-passenger-field_document ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
+                               type="text" {...docType}
+                               placeholder="Загранпаспорт"/>*/
+                    }
+                    <DropDown className={`b-passenger-field b-passenger-field_citizenship ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
+                              type="text" {...docType} placeholder="Загранпаспорт"
+                              values={documentsList} {...docType}/>
                     {docType.touched && docType.error && <div className="b-passenger-err-label">{docType.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_series-number">

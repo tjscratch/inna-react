@@ -1,3 +1,5 @@
+import { getStore } from '../../store/storeHolder';
+
 //const requireFields = (...names) => data =>
 //    names.reduce((errors, name) => {
 //        if (!data[name]) {
@@ -11,6 +13,12 @@
 const validateForm = data => {
     //console.log('validateForm', data);
     const errors = {};
+
+    var aviaInfo = null;
+    var state = getStore().getState();
+    if (state.reservation && state.reservation.AviaInfo) {
+        aviaInfo = state.reservation.AviaInfo;
+    }
 
     var isMobile, expireDateTo;
     var { validation } = data;
@@ -74,6 +82,7 @@ const validateForm = data => {
                 errors.passengers[ix].docNumber = 'Введите номер док.';
             }
 
+            //doc expire
             if (!pas.docExpires) {
                 errors.passengers[ix].docExpires = 'Введите дату';
             }

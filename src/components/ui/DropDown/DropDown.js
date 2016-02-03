@@ -16,6 +16,24 @@ import withStyles from '../../../decorators/withStyles';
         this.triggerChange(0);
     }
 
+    componentWillReceiveProps(nextProps) {
+        var { values } = this.props;
+        var newValues = nextProps.values;
+
+        if (values && newValues) {
+            //если изменилось кол-во - обновляем выделенный
+            if (values.length != newValues.length) {
+                //выбираем нулевой
+                this.setState({
+                    selectedIndex: 0
+                });
+                //генерим change
+                this.triggerChange(0);
+            }
+        }
+    }
+
+
     toggleOpen(forceOpen) {
         var { isOpened } = this.state;
 
@@ -137,7 +155,7 @@ import withStyles from '../../../decorators/withStyles';
                        onClick={()=>{this.onClick()}}
                        onKeyDown={(e)=>this.onKey(e)}/>
                 {
-                    isOpened && values && values.length > 0 ?
+                    isOpened && values && values.length > 1 ? //выводим если больше 1 пункта
                         <div className="b-drop-down-select">
                             {values.map(this.renderItems, this)}
                         </div> : null

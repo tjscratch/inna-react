@@ -32,6 +32,9 @@ import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
 
+//import documentsList from '../../constants/documentsList';
+import { isInsideRf } from '../../helpers/tripHelper';
+
 import {reduxForm} from 'redux-form';
 export const fields = [
     'validation',
@@ -144,14 +147,15 @@ import validate from './validateForm';
         //фильтруем
         //удаляем из списка гражданств страну назначения
         if (countries && data && data.AviaInfo) {
-            console.log('filtering citizenshipList');
             var aviaInfo = data.AviaInfo;
-            if (aviaInfo.EtapsTo && aviaInfo.EtapsTo.length > 0) {
+            var itTariff = data.AviaInfo.ItTariff;
+            if (itTariff && aviaInfo.EtapsTo && aviaInfo.EtapsTo.length > 0) {
                 //берем последний
                 var lastEtap = aviaInfo.EtapsTo[aviaInfo.EtapsTo.length - 1];
                 var countryId = lastEtap.InCountryId;
 
                 if (countryId) {
+                    //console.log('filtering citizenshipList');
                     //фильтруем
                     countries = countries.filter((c)=> {
                         if (c.value == countryId) {
@@ -187,6 +191,39 @@ import validate from './validateForm';
                     resolve();
                 });
         });
+    }
+
+    filterDocsList(citizenship) {
+        var { data } = this.props;
+        //console.log('filterDocsList', data, citizenship);
+
+        //Россия
+        if (citizenship == 189) {
+            if (data) {
+                var item = data.AviaInfo;
+                //если поездка по России
+                if (isInsideRf(item)) {
+                    return [
+                        {value: 1, name: 'Паспорт РФ'},
+                        {value: 2, name: 'Загранпаспорт'},
+                        {value: 3, name: 'Св-во о рождении'}
+                    ];
+                }
+                else {
+                    return [
+                        {value: 2, name: 'Загранпаспорт'}
+                    ];
+                }
+            }
+        }
+        else {
+            //гражданство не Россия
+            return [
+                {value: 4, name: 'Иностранный документ'}
+            ];
+        }
+
+        return [];
     }
 
     onRequestSendClick() {
@@ -280,7 +317,7 @@ import validate from './validateForm';
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
-                            <Passengers {...this.props} citizenshipList={citizenshipList}/>
+                            <Passengers {...this.props} filterDocsList={this.filterDocsList.bind(this)} citizenshipList={citizenshipList}/>
                         </div>
                         <div className="b-reservation-page__comments">
                             <div className="b-reservation-page-comments__head">
