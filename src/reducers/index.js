@@ -9,6 +9,7 @@ import reservation from './reducer_reservation';
 import countries from './reducer_countries';
 
 import form from './reducer_form';
+import filters from './reducer_filters';
 
 const rootReducer = combineReducers({
     main,
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     searchRecommended,
     hotelDetails,
     reservation,
-    form
+    form,
+    filters
 });
 
 export default rootReducer;

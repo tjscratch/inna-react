@@ -40,7 +40,8 @@ import ListType from './ListType.js';
 import DisplayEnum from './DisplayEnum.js';
 
 @withViewport
-@withStyles(styles) class PackagesSearchResultsPage extends React.Component {
+@withStyles(styles)
+class PackagesSearchResultsPage extends React.Component {
     static contextTypes = {
         onSetTitle: PropTypes.func.isRequired
     };
@@ -97,9 +98,12 @@ import DisplayEnum from './DisplayEnum.js';
         var { routeQuery } = this.props;
         if (routeQuery) {
             switch (routeQuery.display) {
-                case DisplayEnum.Hotels: return DisplayEnum.Hotels;
-                case DisplayEnum.Tickets: return DisplayEnum.Tickets;
-                default: return DisplayEnum.Recommended;
+                case DisplayEnum.Hotels:
+                    return DisplayEnum.Hotels;
+                case DisplayEnum.Tickets:
+                    return DisplayEnum.Tickets;
+                default:
+                    return DisplayEnum.Recommended;
             }
         }
 
@@ -161,7 +165,7 @@ import DisplayEnum from './DisplayEnum.js';
             }
 
             dispatch(searchHotels(params))
-                .then((action)=>{
+                .then((action)=> {
                     var { data } = action;
                     if (data) {
                         resolve();
@@ -204,7 +208,7 @@ import DisplayEnum from './DisplayEnum.js';
             }
 
             dispatch(searchTickets(params))
-                .then((action)=>{
+                .then((action)=> {
                     var { data } = action;
                     if (data) {
                         resolve();
@@ -298,7 +302,7 @@ import DisplayEnum from './DisplayEnum.js';
                                 console.log('popup cancel');
                                 Location.pushState(null, '/');
                             }}
-                    />
+                />
             );
         }
         else if (this.props.recommendedData == null) {
@@ -313,7 +317,7 @@ import DisplayEnum from './DisplayEnum.js';
                         console.log('popup cancel');
                         Location.pushState(null, '/');
                     }}
-                    />
+                />
             );
         }
 
@@ -349,7 +353,7 @@ import DisplayEnum from './DisplayEnum.js';
                         showChangeHotels={showChangeHotels}
                         data={recommendedData}
                         defaultRecommendedPair={defaultRecommendedPair}
-                        />
+                    />
                 </div>
             );
         }
@@ -403,8 +407,10 @@ import DisplayEnum from './DisplayEnum.js';
             bundleBuyClick: this.bundleBuyClick.bind(this)
         };
 
-        let { directory, routeParams, routeQuery } = this.props;
 
+        let { directory, routeParams, routeQuery, hotelsFilters } = this.props;
+        
+        
         if (directory) {
             //данные для формы
             var formData = {
@@ -437,7 +443,7 @@ import DisplayEnum from './DisplayEnum.js';
                     </div>
                     {this.renderRecommended(events)}
                     <div className="b-packages-results-page__filter">
-                        {listType == ListType.Hotels ? <PackagesFilters /> : <AviaFilters />}
+                        {listType == ListType.Hotels ? <PackagesFilters filters={hotelsFilters}/> : <AviaFilters />}
                     </div>
                     {this.renderResults(events)}
                 </section>
@@ -455,6 +461,7 @@ function mapStateToProps(state) {
         directory: state.directory,
         ticketsData: state.searchTickets ? state.searchTickets.AviaInfos : null,
         hotelsData: state.searchHotels ? state.searchHotels.Hotels : null,
+        hotelsFilters: state.searchHotels ? state.searchHotels.Filters.Hotels : null,
         recommendedData: state.searchRecommended ? state.searchRecommended.recommendedData : null,
         defaultRecommendedPair: state.searchRecommended ? state.searchRecommended.defaultRecommendedPair : null,
         //data: state.searchResults
