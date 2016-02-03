@@ -18,6 +18,7 @@ import { processField } from '../../actions/action_form';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
 import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
+import { routeDateToJsDate } from '../../helpers/DateHelper';
 
 import VisaAlert from '../VisaAlert';
 import TarifsDescription from '../TarifsDescription';
@@ -33,8 +34,8 @@ import { MobileSelectedFilter } from '../MobileFilters';
 
 import {reduxForm} from 'redux-form';
 export const fields = [
+    'validation',
     'agree',
-    'isMobile',
     'email',
     'phone_suffix',
     'phone_number',
@@ -68,11 +69,20 @@ import validate from './validateForm';
     componentDidMount() {
         //set isMobile to form
         const {
+            routeParams,
             viewport,
-            fields: {isMobile},
+            fields: { validation },
             } = this.props;
 
-        isMobile.onChange(viewport.isMobile);
+        var { fromDate, toDate } = routeParams;
+
+        //нужно для валидации
+        //передаем признак мобильной версии
+        //и дату вылета для валидации даты документа
+        validation.onChange({
+            isMobile: viewport.isMobile,
+            expireDateTo: toDate ? routeDateToJsDate(toDate) : routeDateToJsDate(fromDate)
+        });
 
         this.getData().then(()=> {
             var { data } = this.props;
