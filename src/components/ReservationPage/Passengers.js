@@ -36,8 +36,15 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
         var { viewport, citizenshipList, filterDocsList } = this.props;
         var { gender, lastName, name, birth, citizenship, docType, docNumber, docExpires } = passenger;
 
+        //список документов
         var documentsList = filterDocsList(citizenship.value);
         //console.log('documentsList filterDocsList', citizenship.value, JSON.stringify(documentsList));
+
+        var docNumPlaceholder = '1234 567890';
+        switch (docType.value) {
+            case 2: docNumPlaceholder = '123456789'; break;
+            case 3: docNumPlaceholder = 'I-МЮ №123456'; break;
+        }
 
         return (
             <div key={ix} className="b-passenger">
@@ -104,7 +111,7 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                     <label className="b-passenger-label">Серия и номер</label>
                     <input className={`b-passenger-field b-passenger-field_series-number ${docNumber.touched && docNumber.error ? 'b-passenger-field_error' : ''}`}
                            type="text" {...docNumber}
-                           placeholder="123456789"/>
+                           placeholder={docNumPlaceholder}/>
                     {docNumber.touched && docNumber.error && <div className="b-passenger-err-label">{docNumber.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_valid-to">
