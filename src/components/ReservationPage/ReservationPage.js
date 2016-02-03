@@ -197,33 +197,35 @@ import validate from './validateForm';
         var { data } = this.props;
         //console.log('filterDocsList', data, citizenship);
 
-        //Россия
-        if (citizenship == 189) {
-            if (data) {
-                var item = data.AviaInfo;
-                //если поездка по России
-                if (isInsideRf(item)) {
-                    return [
-                        {value: 1, name: 'Паспорт РФ'},
-                        {value: 2, name: 'Загранпаспорт'},
-                        {value: 3, name: 'Св-во о рождении'}
-                    ];
-                }
-                else {
-                    return [
-                        {value: 2, name: 'Загранпаспорт'}
-                    ];
+        if (citizenship) {
+            //Россия
+            if (citizenship == 189) {
+                if (data) {
+                    var item = data.AviaInfo;
+                    //если поездка по России
+                    if (isInsideRf(item)) {
+                        return [
+                            {value: 1, name: 'Паспорт РФ'},
+                            {value: 2, name: 'Загранпаспорт'},
+                            {value: 3, name: 'Св-во о рождении'}
+                        ];
+                    }
+                    else {
+                        return [
+                            {value: 2, name: 'Загранпаспорт'}
+                        ];
+                    }
                 }
             }
-        }
-        else {
-            //гражданство не Россия
-            return [
-                {value: 4, name: 'Иностранный документ'}
-            ];
+            else {
+                //гражданство не Россия
+                return [
+                    {value: 4, name: 'Иностранный документ'}
+                ];
+            }
         }
 
-        return [];
+        return null;
     }
 
     onRequestSendClick() {

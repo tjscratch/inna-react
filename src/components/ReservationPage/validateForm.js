@@ -78,8 +78,41 @@ const validateForm = data => {
             if (!pas.docType) {
                 errors.passengers[ix].docType = 'Введите тип док.';
             }
+
+            //номер документа
             if (!pas.docNumber) {
                 errors.passengers[ix].docNumber = 'Введите номер док.';
+            }
+            else {
+                //console.log('pas.docType', pas.docType, pas.citizenship);
+                //зависит от типа документа
+                switch (pas.docType) {
+                    case 1:
+                        //10 цифр - российский паспорт
+                        if (!/^(\d{10})+$/.test(pas.docNumber)) {
+                            errors.passengers[ix].docNumber = 'Неправильный номер';
+                        }
+                        break;
+                    case 2:
+                        //9 цифр - загранпаспорт
+                        if (!/^(\d{9})+$/.test(pas.docNumber)) {
+                            errors.passengers[ix].docNumber = 'Неправильный номер';
+                        }
+                        break;
+                    case 3:
+                        //строка символов(латинских)-строка символов(русских)+6цифр
+                        //Проверять что первая строка латинские символы, вторая строка русские символы
+                        //например, I-МЮ №134567 или XIV-РН №345678
+                        if (!/^.*([a-zA-Z]).*([а-яА-ЯёЁ])(\D)*(\d{6})+$/.test(pas.docNumber)) {
+                            errors.passengers[ix].docNumber = 'Неправильный номер';
+                        }
+                        break;
+                    case 4:
+                        if (!pas.docNumber) {
+                            errors.passengers[ix].docNumber = 'Неправильный номер';
+                        }
+                        break;
+                }
             }
 
             //doc expire

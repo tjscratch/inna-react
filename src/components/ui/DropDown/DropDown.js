@@ -13,22 +13,27 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     componentDidMount() {
+        this.setState({
+            selectedIndex: 0
+        });
         this.triggerChange(0);
     }
 
     componentWillReceiveProps(nextProps) {
-        var { values } = this.props;
+        var { values, onChange } = this.props;
         var newValues = nextProps.values;
+        var valLength = values ? values.length : -1;
 
-        if (values && newValues) {
-            //если изменилось кол-во - обновляем выделенный
-            if (values.length != newValues.length) {
-                //выбираем нулевой
-                this.setState({
-                    selectedIndex: 0
-                });
-                //генерим change
-                this.triggerChange(0);
+        //if (JSON.stringify(values) != JSON.stringify(newValues)) {
+        if (newValues && valLength != newValues.length) {
+            //выбираем нулевой
+            this.setState({
+                selectedIndex: 0
+            });
+            //генерим change
+            if (onChange) {
+                var value = newValues ? newValues[0].value : null;
+                onChange(value);
             }
         }
     }
@@ -65,9 +70,11 @@ import withStyles from '../../../decorators/withStyles';
         var { onChange, values } = this.props;
         if (onChange) {
             var value = values ? values[selectedIndex].value : null;
-            if (value) {
-                onChange(value);
-            }
+            //if (value) {
+            //    onChange(value);
+            //}
+            //console.log('triggerChange', 'values', values, 'value', value);
+            onChange(value);
         }
     }
 

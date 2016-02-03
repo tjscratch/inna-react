@@ -37,6 +37,7 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
         var { gender, lastName, name, birth, citizenship, docType, docNumber, docExpires } = passenger;
 
         var documentsList = filterDocsList(citizenship.value);
+        //console.log('documentsList filterDocsList', citizenship.value, JSON.stringify(documentsList));
 
         return (
             <div key={ix} className="b-passenger">
