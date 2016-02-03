@@ -1,4 +1,5 @@
 import { getStore } from '../../store/storeHolder';
+import { isInsideRf } from '../../helpers/tripHelper';
 
 //const requireFields = (...names) => data =>
 //    names.reduce((errors, name) => {
@@ -55,6 +56,7 @@ const validateForm = data => {
         errors.passengers = [];
         data.passengers.forEach((pas, ix)=> {
             errors.passengers[ix] = {};
+
             if (!pas.gender) {
                 errors.passengers[ix].gender = 'Пол';
             }
@@ -116,17 +118,32 @@ const validateForm = data => {
             }
 
             //doc expire
-            if (!pas.docExpires) {
-                errors.passengers[ix].docExpires = 'Введите дату';
-            }
-            else {
-                var valExp = validateExpire(pas.docExpires, expireDateTo);
-                var { expireResult, expireFlag } = valExp;
-                if (!expireResult) {
-                    errors.passengers[ix].docExpires = 'Некорректная дата';
+            var dontValidateDocExpire = false;
+            if ((pas.docType == 1 || pas.docType == 3) && pas.citizenship) {
+                //Россия
+                if (pas.citizenship == 189) {
+                    if (aviaInfo) {
+                        //если поездка по России
+                        if (isInsideRf(aviaInfo)) {
+                            dontValidateDocExpire = true;
+                        }
+                    }
                 }
-                else if (expireFlag) {
-                    errors.passengers[ix].docExpires = 'Срок действия истек';
+            }
+
+            if (!dontValidateDocExpire) {
+                if (!pas.docExpires) {
+                    errors.passengers[ix].docExpires = 'Введите дату';
+                }
+                else {
+                    var valExp = validateExpire(pas.docExpires, expireDateTo);
+                    var { expireResult, expireFlag } = valExp;
+                    if (!expireResult) {
+                        errors.passengers[ix].docExpires = 'Некорректная дата';
+                    }
+                    else if (expireFlag) {
+                        errors.passengers[ix].docExpires = 'Срок действия истек';
+                    }
                 }
             }
             //console.log('errors.passengers[ix]', errors.passengers[ix]);

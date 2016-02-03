@@ -203,7 +203,7 @@ import validate from './validateForm';
                 if (data) {
                     var item = data.AviaInfo;
                     //если поездка по России
-                    if (isInsideRf(item)) {
+                    if (item && isInsideRf(item)) {
                         return [
                             {value: 1, name: 'Паспорт РФ'},
                             {value: 2, name: 'Загранпаспорт'},
@@ -226,6 +226,24 @@ import validate from './validateForm';
         }
 
         return null;
+    }
+
+    isRuCitizenshipAndInsiderRf(citizenship) {
+        var { data } = this.props;
+        if (citizenship) {
+            //Россия
+            if (citizenship == 189) {
+                if (data) {
+                    var item = data.AviaInfo;
+                    //если поездка по России
+                    if (item && isInsideRf(item)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     onRequestSendClick() {
@@ -319,7 +337,10 @@ import validate from './validateForm';
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
-                            <Passengers {...this.props} filterDocsList={this.filterDocsList.bind(this)} citizenshipList={citizenshipList}/>
+                            <Passengers {...this.props}
+                                filterDocsList={this.filterDocsList.bind(this)}
+                                isRuCitizenshipAndInsiderRf={this.isRuCitizenshipAndInsiderRf.bind(this)}
+                                citizenshipList={citizenshipList}/>
                         </div>
                         <div className="b-reservation-page__comments">
                             <div className="b-reservation-page-comments__head">
