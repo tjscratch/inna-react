@@ -197,8 +197,8 @@ class PeopleSelector extends React.Component {
                     {this.renderChildsBtns()}
                     <div className="b-people-selector-dropdown__avia-class">
                         <Checkbox text="Бизнес-класс" 
-                                  checked={this.props.flightClass} 
-                                  checkboxChange={this.changeFlightClass.bind(this)}/>
+                                  checked={this.props.flightClass}
+                                  onChange={this.changeFlightClass.bind(this)}/>
                     </div>
                 </div>
             </div>
