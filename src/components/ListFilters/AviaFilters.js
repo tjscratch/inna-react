@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
-import styles from './AviaFilters.scss';
-import withStyles from '../../decorators/withStyles';
-
 import ListFilters from './ListFilters.js';
 
-@withStyles(styles) class AviaFilters extends React.Component {
+class AviaFilters extends React.Component {
     constructor(props) {
         super(props);
     }

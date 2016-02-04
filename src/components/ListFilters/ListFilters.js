@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-import styles from './ListFilters.scss';
-import withStyles from '../../decorators/withStyles';
 
-@withStyles(styles) class ListFilters extends React.Component {
+class ListFilters extends React.Component {
     constructor(props) {
         super(props);
     }

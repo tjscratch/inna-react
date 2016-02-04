@@ -1,11 +1,16 @@
 @import '../variables.scss';
 @import '../mixins.scss';
-
-.b-list-filters {
+.b-list-filters{
     width: 100%;
-}
+    margin: 0 0 20px;
 
-.b-list-filters-item {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+//b-filter
+.b-filter{
+    position: relative;
+}
+.b-filter__label{
     position: relative;
     display: inline-block;
     margin-right: 2px;
@@ -15,12 +20,12 @@
     cursor: pointer;
     transition: background-color $animation-speed;
 
-    &:hover {
+    &:hover{
         background-color: #e6e7e9;
         color: #1a1a1a;
     }
 
-    &:after {
+    &:after{
         content: '';
         position: absolute;
         top: 45%;
@@ -29,8 +34,54 @@
         @include arrowDown(4px, #666);
     }
 }
+.b-filter__body{
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 100%;
+    //width: 200px;
+    padding: 5px 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+.b-filter__body-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.b-filter__body-title{
+    font-size: .9em;
+    font-weight: bold;
+}
+.b-filter__body-reset{
+    line-height: 1.2em;
+    font-size: .8em;
+    color: #666;
+    border-bottom: 1px dotted #666;
+    cursor: pointer;
 
-.b-list-filters__sort {
-    float: right;
-    margin-right: 0;
+    &:hover{
+        border-bottom-color: transparent;
+    }
+}
+.b-filter__body-item{
+    margin: 8px 0;
+
+    .ui-checkbox__label{
+        width: 180px;
+
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.b-price-ctrl{
+    &.b-filter__body-price{
+        font-size: .9em;
+        font-weight: normal;
+        color: #666;
+
+        .b-price-rub{
+            font-size: .9em;
+        }
+    }
 }
