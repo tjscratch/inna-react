@@ -15,7 +15,7 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     render() {
-        var { text, children, align } = this.props;
+        var { text, children, align, readOnly } = this.props;
 
         var classValue = 'ui-checkbox';
         if (align == 'top') {
@@ -24,7 +24,7 @@ import withStyles from '../../../decorators/withStyles';
 
         return (
             <label className={classValue}>
-                <input className="ui-checkbox__input" name="roaming" type="checkbox"
+                <input readOnly={readOnly} className="ui-checkbox__input" name="roaming" type="checkbox"
                        onChange={this.checkboxChange.bind(this)}
                        checked={this.props.checked}
                     />

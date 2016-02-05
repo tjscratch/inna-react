@@ -1,0 +1,6 @@
+{
+  "name": "BuyPage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BuyPage.js"
+}

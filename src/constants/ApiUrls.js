@@ -9,4 +9,6 @@ export default {
     IsPackageAvailable: '/Packages/IsPackageAvailable',
     MakeReservation: '/PackagesOrder/Reservation',
     DictionaryAllCountries: '/Dictionary/Country',
+    BuyPage: '/Payment/Index',
+    PaymentRepricing: '/Payment/Repricing'
 }

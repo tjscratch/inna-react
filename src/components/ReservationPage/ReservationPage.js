@@ -22,10 +22,10 @@ import { routeDateToJsDate } from '../../helpers/DateHelper';
 
 import VisaAlert from '../VisaAlert';
 import TarifsDescription from '../TarifsDescription';
-import CustomerInfo from '../CustomerInfo';
+import { CustomerInfoForm } from '../CustomerInfo';
 import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
 import BuyRequest from './BuyRequest';
-import Passengers from './Passengers';
+import { PassengersForm } from '../Passengers';
 import Checkbox from '../ui/Checkbox';
 import Price from '../Price';
 import PriceCard from '../PriceCard';
@@ -93,8 +93,8 @@ import validate from './validateForm';
         });
 
         this.getData().then(()=> {
-            var { data } = this.props;
-            var { citizenshipList } = this.state;
+            var { data, citizenshipList } = this.props;
+            //var { citizenshipList } = this.state;
 
             var citizenshipList = this.filterCitizenshipData(citizenshipList, data);
             this.setState({
@@ -118,16 +118,16 @@ import validate from './validateForm';
                     var { data, err } = action;
                     if (data) {
                         //приводим данные к нормальному виду
-                        data = data.map((item)=> {
-                            return {
-                                name: item.Name,
-                                value: item.Id
-                            }
-                        });
-
-                        this.setState({
-                            citizenshipList: data
-                        });
+                        //data = data.map((item)=> {
+                        //    return {
+                        //        name: item.Name,
+                        //        value: item.Id
+                        //    }
+                        //});
+                        //
+                        //this.setState({
+                        //    citizenshipList: data
+                        //});
                     }
                     else {
                         console.error('getCitizenshipData err', err);
@@ -408,13 +408,13 @@ import validate from './validateForm';
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="b-reservation-page__customer">
-                            <CustomerInfo {...this.props}/>
+                            <CustomerInfoForm {...this.props}/>
                         </div>
                         <div className="b-reservation-page__buy-request">
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
-                            <Passengers {...this.props}
+                            <PassengersForm {...this.props}
                                 filterDocsList={this.filterDocsList.bind(this)}
                                 isRuCitizenshipAndInsiderRf={this.isRuCitizenshipAndInsiderRf.bind(this)}
                                 citizenshipList={citizenshipList}/>
@@ -512,6 +512,7 @@ function generatePassengers(count) {
 
 function mapStateToProps(state) {
     return {
+        citizenshipList: state.countries,
         data: state.reservation,
         availableData: state.reservation_is_available,
         initialValues: {

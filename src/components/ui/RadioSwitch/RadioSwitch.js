@@ -8,19 +8,24 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     render() {
-        var { lbl1, lbl2, val1, val2, formField } = this.props;
+        var { lbl1, lbl2, val1, val2, selected, formField } = this.props;
+
+        var inp1Checked = formField ? formField.value === val1 : selected == val1;
+        var inp2Checked = formField ? formField.value === val2 : selected == val2;
+
+        //console.log('inp1Checked', inp1Checked, 'inp2Checked', inp2Checked);
 
         return (
             <ul className="b-radio-switch">
                 <li>
                     <label>
-                        <input type="radio" {...formField} value={val1} checked={formField.value === val1}/>
+                        <input type="radio" {...formField} value={val1} checked={inp1Checked}/>
                         <ins className="radio">{lbl1}</ins>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <input type="radio" {...formField} value={val2} checked={formField.value === val2}/>
+                        <input type="radio" {...formField} value={val2} checked={inp2Checked}/>
                         <ins className="radio">{lbl2}</ins>
                     </label>
                 </li>

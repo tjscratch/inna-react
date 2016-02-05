@@ -12,10 +12,11 @@ import { transliterateAndToUpper } from '../../helpers/inputHelper';
 
 import { processField } from '../../actions/action_form';
 
-import UpperInput from './upperInput';
+import UpperInput from '../ui/UpperInput';
 import DropDown from '../ui/DropDown';
 
-var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
+//var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
+var genderValues = [{name: 'Мужской', value: '1'}, {name: 'Женский', value: '2'}];
 
 @withViewport
 @withStyles(styles) class Passengers extends Component {

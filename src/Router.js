@@ -15,6 +15,7 @@ import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 import HotelPage from './components/HotelPage';
 import ReservationPage from './components/ReservationPage';
+import BuyPage from './components/BuyPage';
 
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
@@ -99,6 +100,12 @@ const router = new Router(on => {
 
     on(`${siteUrls.PackageReservation}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
         return <ReservationPage
+            routeQuery={state.query ? state.query : {}}
+            routeParams={state.params}/>
+    });
+
+    on(`${siteUrls.Buy}:orderNum`, async (state) => {
+        return <BuyPage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params}/>
     });
