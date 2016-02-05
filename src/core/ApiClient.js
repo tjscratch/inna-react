@@ -4,14 +4,25 @@ import request from 'superagent';
 import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
-const apiPath = 'https://api.inna.ru/api/v1';
-//const apiPath = 'http://api.test.inna.ru/api/v1';
+//const apiPath = 'https://api.inna.ru/api/v1';
+const apiPath = 'http://api.test.inna.ru/api/v1';
+const apiLocalPath = 'http://localhost:3000/api/v1';
+
 const getUrl = (path) => {
     if (path.startsWith('http') || path.startsWith('https')) {
         return path;
     }
     else {
         return `${apiPath}${path}`;
+    }
+};
+
+const getUrlLocal = (path) => {
+    if (path.startsWith('http') || path.startsWith('https')) {
+        return path;
+    }
+    else {
+        return `${apiLocalPath}${path}`;
     }
 };
 
@@ -35,6 +46,46 @@ const ApiClient = {
                 }
             });
     }),
+
+    post: (path, params) => new Promise((resolve, reject) => {
+        request
+            .post(getUrlLocal(path))
+            .set('Content-Type', 'application/json')
+            .send(params)
+            .accept('application/json')
+            .end((err, res) => {
+                if (err) {
+                    if (err.status === 404) {
+                        resolve(null);
+                    } else {
+                        //reject(err);
+                        handleError(err, reject);
+                    }
+                } else {
+                    resolve(res.body);
+                }
+            });
+    }),
+
+    //postForm: (path, params) => new Promise((resolve, reject) => {
+    //    request
+    //        .post(getUrlLocal(path))
+    //        .set('Content-Type', 'application/x-www-form-urlencoded')
+    //        .send(params)
+    //        .accept('application/json')
+    //        .end((err, res) => {
+    //            if (err) {
+    //                if (err.status === 404) {
+    //                    resolve(null);
+    //                } else {
+    //                    //reject(err);
+    //                    handleError(err, reject);
+    //                }
+    //            } else {
+    //                resolve(res.body);
+    //            }
+    //        });
+    //}),
 
     cachedGet: (path, params) => new Promise((resolve, reject) => {
         var key = getKey(path, params);

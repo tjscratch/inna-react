@@ -109,11 +109,11 @@ const router = new Router(on => {
 
     on('/register', async () => <RegisterPage />);
 
-    on('*', async (state) => {
-        //console.log('route next *, state.path', state.path);
-        const content = await http.get(`/api/content?path=${state.path}`);
-        return content && <ContentPage {...content} />;
-    });
+    //on('*', async (state) => {
+    //    //console.log('route next *, state.path', state.path);
+    //    const content = await http.get(`/api/content?path=${state.path}`);
+    //    return content && <ContentPage {...content} />;
+    //});
 
     on('error', (state, error) => state.statusCode === 404 ?
             //<App context={state.context} error={error}><NotFoundPage /></App> :

@@ -38,7 +38,7 @@ import Checkbox from '../ui/Checkbox';
                                 <div className="b-customer-info-phone__code">
                                     <input className="b-customer-info-field b-customer-info-field_code"
                                            type="text" {...phone_suffix}
-                                           defaultValue="+7"/>
+                                           placeholder="+7"/>
                                     <ul className="b-customer-info-phone-code-suggest">
                                         <li>Россия +7</li>
                                         <li>США +1</li>

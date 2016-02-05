@@ -12,12 +12,12 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
-import { getHotelDetails } from '../../actions/action_reservation';
+import { getHotelDetails, checkAvailability, makeReservation } from '../../actions/action_reservation';
 import { getAllCountries } from '../../actions/action_directory';
 import { processField } from '../../actions/action_form';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
-import { getParamsForHotelDetails } from '../../helpers/apiParamsHelper';
+import { getParamsForHotelDetails, getParamsForCheckAvailability, getParamsForMakeReservation } from '../../helpers/apiParamsHelper';
 import { routeDateToJsDate } from '../../helpers/DateHelper';
 
 import VisaAlert from '../VisaAlert';
@@ -43,6 +43,10 @@ export const fields = [
     'phone_suffix',
     'phone_number',
     'phone',
+    'isNeededVisa',
+    'isNeededTransfer',
+    'isNeededMedicalInsurance',
+    'customerWishlist',
     'passengers[].gender',
     'passengers[].name',
     'passengers[].lastName',
@@ -65,6 +69,7 @@ import validate from './validateForm';
 
         this.state = {
             error: null,
+            checkAvailabilityError: null,
             citizenshipList: null
         }
     }
@@ -99,13 +104,6 @@ import validate from './validateForm';
     }
 
     getData() {
-        //return new Promise((resolve) => {
-        //    //инфа по отелю
-        //    this.getHotelData().then(()=> {
-        //        resolve();
-        //    });
-        //});
-
         return Promise.all([
             this.getHotelData(),
             this.getCitizenshipData()
@@ -188,6 +186,32 @@ import validate from './validateForm';
                             error: true
                         });
                     }
+                    //resolve();
+                    this.checkAvailability().then(()=>{
+                        resolve();
+                    })
+                });
+        });
+    }
+
+    checkAvailability() {
+        return new Promise((resolve, reject)=> {
+            var { routeParams, routeQuery, dispatch } = this.props;
+            var { room } = routeQuery;
+
+            var params = getParamsForCheckAvailability(routeParams, room);//roomId
+
+            dispatch(checkAvailability(params))
+                .then((action)=> {
+                    var { data, err } = action;
+                    if (data) {
+                    }
+                    else {
+                        console.error('checkAvailability err', err);
+                        this.setState({
+                            checkAvailabilityError: true
+                        });
+                    }
                     resolve();
                 });
         });
@@ -250,13 +274,51 @@ import validate from './validateForm';
         console.log('onRequestSendClick');
     }
 
-    onBuyFormSubmit(data) {
-        console.log('onBuyFormSubmit', data);
+    onBuyFormSubmit(formData) {
+        console.log('onBuyFormSubmit', formData);
+        var that = this;
+
+        //console.log('this.props', this.props);
+
+        var { routeParams, routeQuery, dispatch } = this.props;
+        var { room } = routeQuery;
+
+        var params = getParamsForMakeReservation(routeParams, room, formData);
+        //console.log('params', JSON.stringify(params));
+
+        dispatch(makeReservation(params))
+            .then((action)=> {
+                var { data, err } = action;
+                if (data) {
+                    console.log('action data', data);
+
+                    //отель забронирован
+                    if (data.Status == 1) {
+                        that.gotoBuyPage(data.OrderNum);
+                    }
+                    else {
+                        that.setState({
+                            error: 'make reservation error'
+                        })
+                    }
+                    /*
+                     {Status: 1, OrderNum: "SU6YOO", HotelBooked: true}
+                     */
+                }
+                else {
+                    console.error('makeReservation err', err);
+                }
+            });
+    }
+
+    gotoBuyPage(orderNum) {
+        var url = `${siteUrls.Buy}${orderNum}`;
+        Location.pushState(null, url);
     }
 
     renderOverlay() {
-        var { data } = this.props;
-        var { error } = this.state;
+        var { data, availableData } = this.props;
+        var { error, checkAvailabilityError } = this.state;
 
         if (error) {
             return (
@@ -273,7 +335,22 @@ import validate from './validateForm';
                     />
             );
         }
-        else if (data == null) {
+        if (checkAvailabilityError) {
+            return (
+                <WaitMsg
+                    data={{title:'К сожалению, билеты на выбранный вариант уже недоступны', text:'Пожалуйста, выберите новый вариант перелета'}}
+                    close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                    cancel={()=>{
+                                console.log('popup cancel');
+                                Location.pushState(null, '/');
+                            }}
+                    />
+            );
+        }
+        else if (data == null || availableData == null) {
             return (
                 <WaitMsg
                     data={{title:'Собираем данные', text:'Это может занять какое-то время'}}
@@ -399,11 +476,11 @@ import validate from './validateForm';
                                 <Price data={price}/>
                             </div>
                             <div className="b-reservation-page-buy-block__button">
-                                <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit)}/>
+                                <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                             </div>
                         </div>
                         <div className="b-reservation-page__buy-block-mobile">
-                            <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit)}/>
+                            <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                         </div>
                     </form>
                 </section>
@@ -436,7 +513,9 @@ function generatePassengers(count) {
 function mapStateToProps(state) {
     return {
         data: state.reservation,
+        availableData: state.reservation_is_available,
         initialValues: {
+            phone_suffix: '+7',
             //генерим пассажиров по кол-ву билетов
             passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : []
         }
