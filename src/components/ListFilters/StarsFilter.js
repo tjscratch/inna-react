@@ -4,9 +4,12 @@ import Price from '../Price';
 import Checkbox from '../ui/Checkbox';
 
 class StarsFilter extends React.Component {
+
   constructor (props) {
     super(props);
   }
+
+
 
   render () {
     var data = this.props.data;
