@@ -1,13 +1,8 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.scss';
 .header{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 2;
     color: #fff;
-    background: rgba(0, 0, 0, .3);
+    background: #232323;
 }
 .header-viewport{
     position: absolute;
@@ -17,30 +12,23 @@
     text-align: center;
 }
 .b-header{
-    height: 46px;
     max-width: $layout-max-width;
     padding: 5px 15px;
     margin: 0 auto;
     text-align: left;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 .b-header__brand{
-    display: block;
+    display: inline-block;
     width: 270px;
-    
-    
 }
 .b-brand__text{
     display: inline-block;
     margin-left: 15px;
-    color: #fff;
-    font-size: 25px;
 }
 .b-header__nav{
-    display: block;
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
 }
 .b-brand__img-mobile{
     display: none;

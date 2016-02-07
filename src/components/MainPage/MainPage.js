@@ -184,8 +184,8 @@ import SearchForm from '../SearchForm';
             <section className="b-main-page">
                 <div className="b-main-page__slider">
                     <OffersSlider />
-                    <SearchForm onItemsLoad={this.onItemsLoad.bind(this)} />
                 </div>
+                <SearchForm onItemsLoad={this.onItemsLoad.bind(this)}/>
                 <div className="b-main-page__offers-list">
                     <OffersList data={this.state.offersData} />
                 </div>

@@ -7,6 +7,12 @@
     background-position: center top;
     background-size: cover;
 }
+.b-offers-slider{
+    height: 470px
+}
+.slick-track{
+    height: 470px
+}
 .b-offers-slider__content{
     max-width: $layout-max-width;
     padding: 40px 0 40px;
@@ -122,17 +128,17 @@
 .Slider-caption{
     position: relative;
     z-index: 100;
-    margin-top: 100px;
     padding: 20px 30px;
     background-color: rgba(0, 0, 0, .3);
     color: #fff;
     text-align: center;
 }
 .Slider-caption__title{
-    font-size: 3.5rem;
-    
+    font-size: 3rem;
+
     a{
         color: $white;
+        text-decoration: none;
 
         &:hover{
             color: lighten($red, 20%);
@@ -150,7 +156,7 @@
             color: lighten($red, 20%);
         }
     }
-    
+
     .btn{
         margin-left: 12px;
         font-size: 1.2rem;

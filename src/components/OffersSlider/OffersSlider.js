@@ -30,9 +30,10 @@ import { urlToInnaSearch } from '../../helpers/innaUrl.Helper';
     }
 
     render() {
-        let { width, height } = this.props.viewport;
-        this.renderCss(`.b-offers-slider {height:${height}px;}.slick-track {height:${height}px;}`);
-        
+        //let { width, height } = this.props.viewport;
+        //this.renderCss(`.b-offers-slider {height:${height}px;}.slick-track {height:${height}px;}`);
+        this.renderCss(`.b-offers-slider {height:470px;}.slick-track {height:470px;}`);
+
         var settings = {
             dots: false,
             arrows: false,

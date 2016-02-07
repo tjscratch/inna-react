@@ -1,15 +1,10 @@
 @import '../variables.scss';
 .b-search-form{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 46px;
-    margin: 0;
-    background-color: rgba(0, 0, 0, .3);
+    margin: 40px 0;
 }
 .b-search-form__form{
     max-width: 600px;
-    padding: 20px $b-search-form-horizontal-padding;
+    padding: 0 $b-search-form-horizontal-padding;
     margin: 0 auto;
 
     display: flex;
@@ -160,6 +155,7 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+    border: 1px solid rgba(0, 0, 0, .15);
 }
 .Select-control:hover{
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -271,7 +267,7 @@
     animation: Select-animation-fadeIn 200ms;
     color: #999;
     cursor: pointer;
-    display: table-cell;
+    display: none;
     position: relative;
     text-align: center;
     vertical-align: middle;
