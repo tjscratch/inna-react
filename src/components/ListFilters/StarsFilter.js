@@ -3,6 +3,10 @@ import HotelStars  from '../HotelStars/HotelStars';
 import Price from '../Price';
 import Checkbox from '../ui/Checkbox';
 
+import { connect } from 'react-redux';
+import { getStore } from '../../store/storeHolder';
+import { getFilters } from '../../actions/action_filters';
+
 class StarsFilter extends React.Component {
 
   constructor (props) {
@@ -10,11 +14,14 @@ class StarsFilter extends React.Component {
   }
 
 
+  setFilter(index){
+    var { store, dispatch } = this.props;
+    dispatch(getFilters(index));
+  }
+
 
   render () {
     var data = this.props.data;
-
-    console.log(data)
     if (data) {
       return (
         <div className='b-filter'>
@@ -26,7 +33,7 @@ class StarsFilter extends React.Component {
             </div>
             {data.List.map((item, ix)=> {
               return (
-                <div key={ix} className='b-filter__body-item'>
+                <div key={ix} className='b-filter__body-item' onClick={this.setFilter.bind(this, item.Value)}>
                   <Checkbox>
                     <HotelStars data={item.Value}/>
                     <Price data={item.Price} customClass='b-filter__body-price'/>
@@ -42,4 +49,13 @@ class StarsFilter extends React.Component {
 
 }
 
-export default StarsFilter;
+//export default StarsFilter;
+
+
+function mapStateToProps (state) {
+  return {
+    getFilters: state.getFilters
+  }
+}
+
+export default connect(mapStateToProps)(StarsFilter)

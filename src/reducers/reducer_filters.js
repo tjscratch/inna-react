@@ -1,10 +1,14 @@
-import { LOAD_HOTEL_FILTERS } from '../constants/ActionTypes';
+import ActionTypes from '../constants/ActionTypes';
+import { FILTER_HOTELS } from '../actions/action_search_hotels';
 
-export default function reducerFilters(state = null, action = null) {
-    switch (action.type) {
-        case LOAD_HOTEL_FILTERS:
-            return state;
-        default:
-            return state;
-    }
+export default function reducerFilters (state = null, action = null, data = null) {
+  switch (action.type) {
+    case ActionTypes.LOAD_HOTEL_FILTERS:
+      return Object.assign({}, state, {
+        DP: action,
+        st: action.newState
+      });
+    default:
+      return state;
+  }
 }
