@@ -56,6 +56,8 @@ import validate from './validateForm';
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
+
         const {
             routeParams,
             viewport,
@@ -162,6 +164,22 @@ import validate from './validateForm';
 
     renderOverlay() {
         var { data, routeParams, viewport } = this.props;
+
+        if (data && (data.err || (data.repricing && data.repricing.err))) {
+            return (
+                <WaitMsg
+                    data={{title:'Произошла ошибка', text:'Пожалуйста позвоните нам'}}
+                    close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                    cancel={()=>{
+                                console.log('popup cancel');
+                                Location.pushState(null, '/');
+                            }}
+                    />
+            )
+        }
 
         //ToDo: попапы по репрайсингу
         if (data && data.repricing) {
