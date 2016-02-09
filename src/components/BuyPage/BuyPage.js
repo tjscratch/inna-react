@@ -10,7 +10,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
-import { getBuyPageData } from '../../actions/action_buy';
+import { setBuyPageIsLoading, getBuyPageData, getPaymentRepricing } from '../../actions/action_buy';
 import { getAllCountries } from '../../actions/action_directory';
 //import { processField } from '../../actions/action_form';
 
@@ -71,10 +71,17 @@ import validate from './validateForm';
         //Payment/Index?orderNum=XWMM8X
         //Avia/GetRule?varianBack=801130935&variantTo=801130827
 
+        var { dispatch } = this.props;
+        //загружаем данные
+        dispatch(setBuyPageIsLoading(true));
+
         return Promise.all([
-            this.getBuyPageData(),
+            this.getBuyPageData(),//getBuyPageData => getPaymentRepricing
             this.getCitizenshipData()
-        ])
+        ]).then(()=>{
+            //все данные загрузились
+            dispatch(setBuyPageIsLoading(false));
+        })
     }
 
     getCitizenshipData() {
@@ -97,25 +104,53 @@ import validate from './validateForm';
         });
     }
 
+    getPaymentRepricing() {
+        return new Promise((resolve, reject)=> {
+            var { routeParams, dispatch } = this.props;
+            var { orderNum } = routeParams;
+
+            dispatch(getPaymentRepricing(orderNum))
+                .then((action)=> {
+                    var { data, err } = action;
+                    if (data) {
+                    }
+                    else {
+                        console.error('getPaymentRepricing err', err);
+                        this.setState({
+                            error: true
+                        });
+
+                    }
+                    resolve();
+                });
+        });
+    }
+
+    //getBuyPageData => getPaymentRepricing
     getBuyPageData() {
         return new Promise((resolve, reject)=> {
             var { routeParams, routeQuery, dispatch } = this.props;
             var { room } = routeQuery;
 
-            var params = { orderNum: routeParams.orderNum };
+            var params = {orderNum: routeParams.orderNum};
 
             dispatch(getBuyPageData(params))
                 .then((action)=> {
                     var { data, err } = action;
                     if (data) {
+                        //вызываем репрайсинг
+                        this.getPaymentRepricing().then(()=>{
+                            resolve();
+                        });
                     }
                     else {
                         console.error('getBuyPageData err', err);
                         this.setState({
                             error: true
                         });
+                        resolve();
                     }
-                    resolve();
+                    //resolve();
                 });
         });
     }
@@ -126,7 +161,73 @@ import validate from './validateForm';
     }
 
     renderOverlay() {
-        return null
+        var { data, routeParams, viewport } = this.props;
+
+        //ToDo: попапы по репрайсингу
+        if (data && data.repricing) {
+            switch (data.repricing.Type) {
+                case 1:
+                    break;
+                case 2:
+                    //Изменилась цена
+                    return (
+                        <WaitMsg
+                            data={{title:'Изменилась цена', text:''}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup cancel');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+                case 3:
+                    //Перелет недоступен
+                    return (
+                        <ErrorMsg
+                            data={{title:'Перелет недоступен', text:'К сожалению, вариант перелета больше недоступен'}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup cancel');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+                case 4:
+                    //Отель недоступен
+                    return (
+                        <ErrorMsg
+                            data={{title:'Отель недоступен', text:'К сожалению, вариант проживания больше недоступен'}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup cancel');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+            }
+        }
+
+        //OrderStatus == 0 - все норм
+        //OrderStatus == 2 - перелет не доступен
+
+        if (!data || data.isLoading) {
+            return (
+                <WaitMsg
+                    data={{title:'Собираем данные', text:'Это может занять какое-то время'}}
+                    />
+            );
+        }
+
+        return null;
     }
 
     render() {
@@ -205,8 +306,6 @@ import validate from './validateForm';
                         //<div className="b-buy-page__buy-request">
                         //    <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         //</div>
-
-
                     }
                     <div className="b-buy-page__passengers">
                         <Passengers passengers={passengers} citizenshipList={citizenshipList}/>
@@ -219,7 +318,8 @@ import validate from './validateForm';
                             <div className="b-buy-page-comments-text">
                                 {
                                     viewport.isMobile ?
-                                        <textarea readOnly={true} rows="1" placeholder="Please write your requests in english">
+                                        <textarea readOnly={true} rows="1"
+                                                  placeholder="Please write your requests in english">
                                         </textarea>
                                         :
                                         <textarea readOnly={true} rows="4">
@@ -295,7 +395,7 @@ import validate from './validateForm';
 function mapStateToProps(state) {
     return {
         citizenshipList: state.countries,
-        data: state.buyPage,
+        data: state.buyPage
     }
 }
 
