@@ -30,6 +30,8 @@ import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
 
+import CardForm from '../CardForm';
+
 import {reduxForm} from 'redux-form';
 export const fields = [
     'cardNum',
@@ -56,16 +58,16 @@ import validate from './validateForm';
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0);
-
-        const {
-            routeParams,
-            viewport,
-            fields: { validation },
-            } = this.props;
-
-        this.getData().then(()=> {
-        });
+        //window.scrollTo(0, 0);
+        //
+        //const {
+        //    routeParams,
+        //    viewport,
+        //    fields: { validation },
+        //    } = this.props;
+        //
+        //this.getData().then(()=> {
+        //});
     }
 
     getData() {
@@ -80,7 +82,7 @@ import validate from './validateForm';
         return Promise.all([
             this.getBuyPageData(),//getBuyPageData => getPaymentRepricing
             this.getCitizenshipData()
-        ]).then(()=>{
+        ]).then(()=> {
             //все данные загрузились
             dispatch(setBuyPageIsLoading(false));
         })
@@ -141,7 +143,7 @@ import validate from './validateForm';
                     var { data, err } = action;
                     if (data) {
                         //вызываем репрайсинг
-                        this.getPaymentRepricing().then(()=>{
+                        this.getPaymentRepricing().then(()=> {
                             resolve();
                         });
                     }
@@ -293,7 +295,9 @@ import validate from './validateForm';
         if (true || data) {
             return (
                 <section className="b-buy-page">
-                    {this.renderOverlay()}
+                    {
+                        //this.renderOverlay()
+                    }
                     <div className="b-buy-page__mobile-filter">
                         <MobileSelectedFilter disableFilterBtn={false}>
                             <div className="b-buy-page__head-filter__caption">
@@ -350,23 +354,24 @@ import validate from './validateForm';
                             </div>
                         </div>
                     </div>
-                    <div className="b-buy-page__additional-services">
-                        <div className="b-buy-page-additional-services__head">
-                            Дополнительные услуги
-                        </div>
-                        <div className="b-buy-page-additional-services__lbl">
-                            Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется
-                            c
-                            Вами и предложит разные варианты.
-                        </div>
-                        <div className="b-buy-page-additional-services__body">
-                            <div className="b-buy-page-additional-services-item"><Checkbox text="Виза"/>
-                            </div>
-                            <div className="b-buy-page-additional-services-item"><Checkbox text="Трансфер"/>
-                            </div>
-                        </div>
-                    </div>
                     {
+                        //<div className="b-buy-page__additional-services">
+                        //    <div className="b-buy-page-additional-services__head">
+                        //        Дополнительные услуги
+                        //    </div>
+                        //    <div className="b-buy-page-additional-services__lbl">
+                        //        Данные услуги не включены в стоимость заказа, после оплаты заказа наш менеджер свяжется
+                        //        c
+                        //        Вами и предложит разные варианты.
+                        //    </div>
+                        //    <div className="b-buy-page-additional-services__body">
+                        //        <div className="b-buy-page-additional-services-item"><Checkbox text="Виза"/>
+                        //        </div>
+                        //        <div className="b-buy-page-additional-services-item"><Checkbox text="Трансфер"/>
+                        //        </div>
+                        //    </div>
+                        //</div>
+
                         //<div className="b-buy-page__agreement">
                         //    <Checkbox align="top" {...agree}>
                         //        <div className="b-buy-page-agreement">
@@ -380,6 +385,37 @@ import validate from './validateForm';
                         //    {agree.touched && agree.error && <div className="b-passenger-err-label">{agree.error}</div>}
                         //</div>
                     }
+
+                    <div className="b-buy-page__pay-block-line">
+                    </div>
+
+                    <div className="b-buy-page__pay-block">
+                        <div className="b-pay-block__tickets-reserved icon-emb-ok">
+                            Билеты забронированы, отель будет забронирован после оплаты
+                        </div>
+                        <div className="b-pay-block__pay-list">
+                        </div>
+                        <div className="b-pay-block__pay-expires">
+                            Срок оплаты: <b>09 фев 2016, 17:57 (MSK)</b>
+                        </div>
+                        <div className="b-pay-block__pay-timer">
+                            Осталось: <b>1 час: 9 мин: 51 сек</b>
+                        </div>
+                    </div>
+
+                    <div className="b-buy-page__pay-block-card">
+                        <CardForm />
+
+                        <div className="b-pay-card-request">
+                            Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,&nbsp;
+                            <a href="void(0);">просто отправьте нам сообщение.</a>&nbsp;
+                            Менеджер свяжется с Вами и поможет оформить путешествие.
+                        </div>
+                    </div>
+
+                    <div className="b-buy-page__pay-block-svyaznoy">
+                    </div>
+
                     <div className="b-buy-page__buy-block">
                         <div className="b-buy-page-buy-block__lbl">
                             Сумма к оплате:
