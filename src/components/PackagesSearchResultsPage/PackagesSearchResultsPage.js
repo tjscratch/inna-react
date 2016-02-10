@@ -361,6 +361,7 @@ class PackagesSearchResultsPage extends React.Component {
     }
 
     renderResults(events) {
+        //console.log(this.props)
         var { viewport, ticketsData, hotelsData } = this.props;
         var listType = this.getListType();
         var display = this.getDisplayType();
@@ -409,8 +410,8 @@ class PackagesSearchResultsPage extends React.Component {
 
 
         let { directory, routeParams, routeQuery, hotelsFilters } = this.props;
-        
-        
+
+
         if (directory) {
             //данные для формы
             var formData = {
