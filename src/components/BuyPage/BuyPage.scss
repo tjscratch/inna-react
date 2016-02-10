@@ -145,65 +145,28 @@
     border-top: 4px solid #82b739;
 }
 
-.b-pay-card {
-    margin-bottom: 30px;
+.b-pay-block__pay-list {
+    margin-bottom: 20px;
 }
 
-.b-pay-block__tickets-reserved {
-    position: relative;
-    margin-left: 25px;
+.b-pay-list-item {
+    font-size: .95em;
 
-    &:before {
-        position: absolute;
-        left: -30px;
-        top: 3px;
-        color: #89c13a;
-    }
-}
-
-.b-pay-block__pay-expires,
-.b-pay-block__pay-timer {
-    display: inline-block;
-    width: 50%;
-}
-
-.b-pay-card-request {
-    padding: 15px 30px;
-    background: #fdf1c9;
-    font-size: .9em;
-}
-
-.b-pay-secure__text {
-    position: relative;
-    margin: 0 0 20px 45px;
-    font-size: .9em;
-
-    &:before {
-        content: '';
-        display: block;
-        width: 42px;
-        height: 48px;
-        position: absolute;
-        left: -50px;
-        top: -3px;
-        background: url("./security.png") no-repeat;
-    }
-}
-
-.b-pay-secure-logo {
-    display: inline-block;
-}
-
-.b-pay-secure-logo_uniteller {
-
-    img {
-        height: 41px;
-        opacity: 0.4;
+    label {
+        margin-left: 10px;
     }
 }
 
 @media (max-width: $mobile-max-width) {
-    .b-buy-page__buy-block {
+    .b-buy-page__buy-block,
+    .b-buy-page__variant,
+    .b-buy-page__visa-alert,
+    .b-buy-page__tarifs-desc,
+    .b-buy-page__customer,
+    .b-buy-page__passengers,
+    .b-buy-page__comments,
+    .b-buy-page__pay-block-line,
+    .b-pay-card-request {
         display: none;
     }
 
@@ -216,6 +179,11 @@
 
     .b-buy-page__mobile-filter {
         display: block;
+    }
+
+    .b-pay-block__tickets-reserved {
+        margin-bottom: 15px;
+        font-size: 1em;
     }
 
     .b-buy-page__visa-alert {
@@ -299,4 +267,6 @@
         font-size: .8em;
         color: #4a4a4a;
     }
+
+
 }

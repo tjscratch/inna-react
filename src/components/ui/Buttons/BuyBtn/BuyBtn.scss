@@ -19,5 +19,10 @@
 @media (max-width: $mobile-max-width) {
     .b-buy-btn {
         display: block;
+        padding: 8px 40px;
+    }
+
+    .b-buy-btn__caption {
+        font-size: 1.2em;
     }
 }

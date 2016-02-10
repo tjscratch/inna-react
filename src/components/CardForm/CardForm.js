@@ -13,6 +13,8 @@ import withViewport from '../../decorators/withViewport';
         return (
             <div className="b-pay-card">
                 <div className="b-pay-card__image">
+                    <img className="b-pay-card-image b-pay-card-image_card" src={require('./cc.png')}/>
+                    <img className="b-pay-card-image b-pay-card-image_uniteller" src={require('./cc-uniteller.png')}/>
                 </div>
                 <div className="b-pay-card__form">
                     <form>
@@ -21,16 +23,16 @@ import withViewport from '../../decorators/withViewport';
                                 Номер карты (16 цифр)
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" placeholder="0000"/>
+                                <input type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" placeholder="0000"/>
+                                <input type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" placeholder="0000"/>
+                                <input type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" placeholder="0000"/>
+                                <input type="text" maxLength="4" placeholder="0000"/>
                             </div>
                         </div>
 
@@ -40,11 +42,11 @@ import withViewport from '../../decorators/withViewport';
                             </div>
                             <div className="b-pay-form__num">
                                 <label className="b-pay-form-num-label">Месяц</label>
-                                <input type="text" placeholder="01"/>
+                                <input type="text" placeholder="00"/>
                             </div>
                             <div className="b-pay-form__num">
                                 <label className="b-pay-form-num-label">Год</label>
-                                <input type="text" placeholder="18"/>
+                                <input type="text" placeholder="00"/>
                             </div>
                         </div>
 

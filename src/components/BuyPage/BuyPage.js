@@ -58,16 +58,16 @@ import validate from './validateForm';
     }
 
     componentDidMount() {
-        //window.scrollTo(0, 0);
-        //
-        //const {
-        //    routeParams,
-        //    viewport,
-        //    fields: { validation },
-        //    } = this.props;
-        //
-        //this.getData().then(()=> {
-        //});
+        window.scrollTo(0, 0);
+
+        const {
+            routeParams,
+            viewport,
+            fields: { validation },
+            } = this.props;
+
+        this.getData().then(()=> {
+        });
     }
 
     getData() {
@@ -394,6 +394,18 @@ import validate from './validateForm';
                             Билеты забронированы, отель будет забронирован после оплаты
                         </div>
                         <div className="b-pay-block__pay-list">
+                            <div className="b-pay-list-item">
+                                <input id="pay_type_card" type="radio" name="card-pay"/>
+                                <label htmlFor="pay_type_card">банковской картой</label>
+                            </div>
+                            <div className="b-pay-list-item">
+                                <input id="pay_type_cache" type="radio" name="card-pay"/>
+                                <label htmlFor="pay_type_cache">наличными в Связном или Евросети</label>
+                            </div>
+                            <div className="b-pay-list-item">
+                                <input id="pay_type_qiwi" type="radio" name="card-pay"/>
+                                <label htmlFor="pay_type_qiwi">через QIWI Visa Wallet</label>
+                            </div>
                         </div>
                         <div className="b-pay-block__pay-expires">
                             Срок оплаты: <b>09 фев 2016, 17:57 (MSK)</b>
@@ -424,11 +436,11 @@ import validate from './validateForm';
                             <Price data={price}/>
                         </div>
                         <div className="b-buy-page-buy-block__button">
-                            <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
+                            <BuyBtn text="Оплатить" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                         </div>
                     </div>
                     <div className="b-buy-page__buy-block-mobile">
-                        <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
+                        <BuyBtn text="Оплатить" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                     </div>
                 </section>
             );
