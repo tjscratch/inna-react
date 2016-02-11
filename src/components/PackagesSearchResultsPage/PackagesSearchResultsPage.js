@@ -444,7 +444,7 @@ class PackagesSearchResultsPage extends React.Component {
                     </div>
                     {this.renderRecommended(events)}
                     <div className="b-packages-results-page__filter">
-                        {listType == ListType.Hotels ? <PackagesFilters filters={hotelsFilters}/> : <AviaFilters />}
+                        {listType == ListType.Hotels ? <PackagesFilters hotelsFilters={hotelsFilters}/> : <AviaFilters />}
                     </div>
                     {this.renderResults(events)}
                 </section>

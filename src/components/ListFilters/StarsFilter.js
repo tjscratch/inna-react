@@ -5,7 +5,7 @@ import Checkbox from '../ui/Checkbox';
 
 import { connect } from 'react-redux';
 import { getStore } from '../../store/storeHolder';
-import { getFilters } from '../../actions/action_filters';
+import { setStarFilterHotels } from '../../actions/action_filters';
 
 class StarsFilter extends React.Component {
 
@@ -16,7 +16,7 @@ class StarsFilter extends React.Component {
 
   setFilter(index){
     var { store, dispatch } = this.props;
-    dispatch(getFilters(index));
+    dispatch(setStarFilterHotels(index));
   }
 
 
@@ -54,7 +54,7 @@ class StarsFilter extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    getFilters: state.getFilters
+    setHotelsFilter: state.setHotelsFilter
   }
 }
 
