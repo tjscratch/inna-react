@@ -157,6 +157,18 @@
     }
 }
 
+.buy-frame {
+    width: 100%;
+    height: 90%;
+    border: 0;
+}
+
+.b-popup-message.b-pay-popup {
+    height: 100%;
+    padding: 0;
+    margin-top: 0;
+}
+
 @media (max-width: $mobile-max-width) {
     .b-buy-page__buy-block,
     .b-buy-page__variant,

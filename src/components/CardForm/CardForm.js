@@ -10,6 +10,10 @@ import withViewport from '../../decorators/withViewport';
     }
 
     render() {
+        const {
+            fields: { cardNum1, cardNum2, cardNum3, cardNum4, cardMonth, cardYear, cardHolder, cardCvv },
+            } = this.props;
+
         return (
             <div className="b-pay-card">
                 <div className="b-pay-card__image">
@@ -23,16 +27,16 @@ import withViewport from '../../decorators/withViewport';
                                 Номер карты (16 цифр)
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" maxLength="4" placeholder="0000"/>
+                                <input {...cardNum1} type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" maxLength="4" placeholder="0000"/>
+                                <input {...cardNum2} type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" maxLength="4" placeholder="0000"/>
+                                <input {...cardNum3} type="text" maxLength="4" placeholder="0000"/>
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="text" maxLength="4" placeholder="0000"/>
+                                <input {...cardNum4} type="text" maxLength="4" placeholder="0000"/>
                             </div>
                         </div>
 
@@ -42,11 +46,11 @@ import withViewport from '../../decorators/withViewport';
                             </div>
                             <div className="b-pay-form__num">
                                 <label className="b-pay-form-num-label">Месяц</label>
-                                <input type="text" placeholder="00"/>
+                                <input {...cardMonth} type="text" placeholder="00"/>
                             </div>
                             <div className="b-pay-form__num">
                                 <label className="b-pay-form-num-label">Год</label>
-                                <input type="text" placeholder="00"/>
+                                <input {...cardYear} type="text" placeholder="00"/>
                             </div>
                         </div>
 
@@ -55,7 +59,7 @@ import withViewport from '../../decorators/withViewport';
                                 Держатель карты
                             </div>
                             <div className="b-pay-form__num b-pay-form__num_name">
-                                <input type="text" placeholder="IVAN IVANOV"/>
+                                <input {...cardHolder} type="text" placeholder="IVAN IVANOV"/>
                             </div>
                         </div>
 
@@ -64,7 +68,7 @@ import withViewport from '../../decorators/withViewport';
                                 CVV / CVC
                             </div>
                             <div className="b-pay-form__num">
-                                <input type="password"/>
+                                <input {...cardCvv} type="password"/>
                             </div>
                         </div>
                     </form>

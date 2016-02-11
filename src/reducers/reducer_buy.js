@@ -1,4 +1,4 @@
-import { SET_BUY_PAGE_IS_LOADING, GET_BUY_PAGE_DATA, GET_PAYMENT_REPRICING } from '../actions/action_buy';
+import { SET_BUY_SUCCESS_DATA, BUY_PAGE_SET_FRAME_DATA, BUY_PAGE_PAY, SET_BUY_PAGE_IS_LOADING, GET_BUY_PAGE_DATA, GET_PAYMENT_REPRICING } from '../actions/action_buy';
 import { processWithIsServer, multiProcessWithIsServer } from './helper';
 
 export default function reducerBuy(state = null, action = null) {
@@ -34,6 +34,39 @@ export default function reducerBuy(state = null, action = null) {
                     ...data,
                     err: err
                 }
+            });
+        case BUY_PAGE_PAY:
+            var { data, err } = action;
+            return Object.assign({}, {
+                ...state,
+                pay: {
+                    ...data,
+                    err: err
+                }
+            });
+        case BUY_PAGE_SET_FRAME_DATA:
+            var { data, err } = action;
+
+            var pay = state ? state.pay : {};
+            pay.frameData = {
+                ...data
+            };
+
+            return Object.assign({}, {
+                ...state,
+                pay: pay
+            });
+        case SET_BUY_SUCCESS_DATA:
+            var { data, err } = action;
+
+            var buySuccess = state ? state.buySuccess : {};
+            buySuccess = {
+                resultType: data
+            };
+
+            return Object.assign({}, {
+                ...state,
+                buySuccess: buySuccess
             });
         default:
             return state;

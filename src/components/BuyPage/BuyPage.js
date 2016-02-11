@@ -10,7 +10,7 @@ import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
 import { connect } from 'react-redux';
-import { setBuyPageIsLoading, getBuyPageData, getPaymentRepricing } from '../../actions/action_buy';
+import { setBuySuccessData, setFrameData, setBuyPageIsLoading, getBuyPageData, getPaymentRepricing, initiatePayment } from '../../actions/action_buy';
 import { getAllCountries } from '../../actions/action_directory';
 //import { processField } from '../../actions/action_form';
 
@@ -21,7 +21,7 @@ import { routeDateToJsDate } from '../../helpers/DateHelper';
 import VisaAlert from '../VisaAlert';
 import TarifsDescription from '../TarifsDescription';
 import { CustomerInfo } from '../CustomerInfo';
-import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+import { WaitMsg, BuySuccessMsg, ErrorMsg } from '../ui/PopupMessages';
 //import BuyRequest from './BuyRequest';
 import { Passengers } from '../Passengers';
 import Checkbox from '../ui/Checkbox';
@@ -29,6 +29,8 @@ import Price from '../Price';
 import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import { MobileSelectedFilter } from '../MobileFilters';
+
+import PopupMessage from '../ui/PopupMessages/PopupMessage';
 
 import CardForm from '../CardForm';
 
@@ -160,8 +162,230 @@ import validate from './validateForm';
     }
 
     onBuyFormSubmit(formData) {
-        console.log('onBuyFormSubmit', formData);
+        //console.log('onBuyFormSubmit', formData);
         var that = this;
+
+        var { routeParams, dispatch } = this.props;
+        var { orderNum } = routeParams;
+
+        var cardNum = formData.cardNum;
+        if (!cardNum) {
+            cardNum = formData.cardNum1 + formData.cardNum2 + formData.cardNum3 + formData.cardNum4;
+        }
+
+        var payData = {
+            OrderNum: orderNum,
+            CardNumber: cardNum,
+            Cvc2: formData.cardCvv,
+            CardHolder: formData.cardHolder,
+            CardMonth: formData.cardMonth,
+            CardYear: formData.cardYear
+        };
+
+        console.log('onBuyFormSubmit payData', payData);
+        //return;
+
+        /*
+         Без 3DS
+         5543 8633 0638 0225
+         09/17
+         svetlana nevskaya
+         450
+
+         C 3DS
+         5124 4400 6759 0560
+         08/17
+         svetlana nevskaya
+         205
+         */
+
+        dispatch(initiatePayment(payData)).then((action)=> {
+            var { data, err } = action;
+            if (data && data.Status == 1) {
+                //ToDo: для теста
+                if (location.href.indexOf("debug_status=1") > -1) {
+                    data.PreauthStatus = 1;
+                }
+                else if (location.href.indexOf("debug_status=2") > -1) {
+                    data.PreauthStatus = 2;
+                }
+
+                //успешно
+                if (data.PreauthStatus == 1) {
+                    //3dSecure
+                    this.processPay3d(data.Data, data.InnaTermUrl);
+                }
+                else if (data.PreauthStatus == 2) {
+                    //без 3dSecure
+                    dispatch(setBuySuccessData(data.Type));
+                }
+                else {
+                    //ошибка
+                    console.log('initiatePayment error, data.PreauthStatus: ' + data.PreauthStatus);
+                    this.setState({
+                        error: true
+                    });
+                }
+            }
+            else {
+                console.error('initiatePayment err', err);
+                this.setState({
+                    error: true
+                });
+
+            }
+        });
+    }
+
+    processPay3d(data, innaTermUrl) {
+        console.log('processPay3d', data, innaTermUrl);
+        var { dispatch } = this.props;
+
+        var params = '';
+        var jData = JSON.parse(data);
+        if (jData) {
+            //console.log('jData: ' + angular.toJson(jData));
+            //jData.TermUrl = app_main.apiHost + '/api/v1/Psb/PaymentRederect';
+
+            if (innaTermUrl) {
+                jData.TermUrl = location.protocol + '//' + location.hostname + innaTermUrl;
+            }
+            else {
+                jData.TermUrl = location.protocol + '//' + location.hostname + '/api/v1/Psb/PaymentRederect';
+            }
+
+            //console.log('jData: ' + angular.toJson(jData));
+
+            var keys = _.keys(jData);
+            _.each(keys, function (key) {
+                if (keys.indexOf(key) > 0) {
+                    params += '&';
+                }
+                params += key + '=' + encodeURIComponent(jData[key]);
+            });
+
+            this.listenCloseEvent();
+            dispatch(setFrameData({isOpen: true, frameUrl: '/buy/pay_form.html?' + params}));
+            window.scrollTo(0, 0);
+        }
+    }
+
+    listenCloseEvent() {
+        var { dispatch } = this.props;
+        var that = this;
+        $('#buy-listener').on('inna.buy.close', function (event, data) {
+            //console.log('triggered inna.buy.close, isOrderPaid:', $scope.isOrderPaid, data);
+            console.log('handle inna.buy.close', data);
+
+            if (data && data.result == 0) {//все ок
+                dispatch(setBuySuccessData(data.type));
+            }
+            else {
+                //ошибка оплаты
+
+                that.setState({
+                    error: true
+                });
+            }
+
+            //закрываем попап оплаты
+            dispatch(setFrameData({isOpen: false}));
+        });
+    }
+
+    renderIframe() {
+        var { data } = this.props;
+
+        if (data && data.pay && data.pay.frameData && data.pay.frameData.frameUrl && data.pay.frameData.isOpen) {
+
+            var frameUrl = data.pay.frameData.frameUrl;
+            return (
+                <PopupMessage {...this.props} className="b-pay-popup">
+                    <iframe id="buy_frame_main" className="buy-frame" src={frameUrl}>
+                    </iframe>
+                </PopupMessage>
+            )
+        }
+
+        return null;
+    }
+
+    renderSuccessBuyResultOverlay() {
+        var { data } = this.props;
+
+        if (data && data.buySuccess && data.buySuccess.resultType !== undefined) {
+            var { resultType } = data.buySuccess;
+            var email = data.Email;
+
+            switch (resultType) {
+                case 0://b2c
+                {
+                    return (
+                        <BuySuccessMsg
+                            data={{title:'Спасибо за покупку!', text:`В ближайшие 10 минут ожидайте на <b>${email}</b> письмо с подтверждением выполнения заказа и документами (билеты/ваучеры)`}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup ok');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+                }
+                case 1://b2b
+                {
+                    //var tmId;
+                    //function redirectToCabinet() {
+                    //    if (tmId) {
+                    //        cancelTimeout(tmId);
+                    //    }
+                    //
+                    //    var b2bOrder = $scope.B2B_HOST_Order + $scope.orderId;
+                    //    console.log('redirecting to: ' + b2bOrder);
+                    //    window.location = b2bOrder;
+                    //}
+                    //
+                    //tmId = setTimeout(()=> {
+                    //    $scope.baloon.hide();
+                    //    redirectToCabinet();
+                    //}, 5000);
+
+                    return (
+                        <BuySuccessMsg
+                            data={{title:'Спасибо за покупку!', text:'В ближайшие 10 минут ожидайте в личном кабинете изменение статуса заказа на Выполнен и </br>появления документов (билетов/ваучеров)'}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup ok');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+                }
+                case 2://сервисный сбор
+                {
+                    return (
+                        <BuySuccessMsg
+                            data={{title:'Спасибо за покупку!', text:'Оплата счета успешна'}}
+                            close={()=>{
+                                console.log('popup close');
+                                Location.pushState(null, '/');
+                            }}
+                            cancel={()=>{
+                                console.log('popup ok');
+                                Location.pushState(null, '/');
+                            }}
+                            />
+                    );
+                }
+            }
+        }
+
+        return null;
     }
 
     renderOverlay() {
@@ -258,14 +482,14 @@ import validate from './validateForm';
         var priceData = data ? {price: data.Price} : null;
 
         const {
-            //fields: {passengers, agree},
+            fields,
             handleSubmit,
             resetForm,
             submitting,
             citizenshipList
             } = this.props;
 
-        var fields = {};
+        //var fields = {};
         var passengers = null;
 
         if (data) {
@@ -294,9 +518,15 @@ import validate from './validateForm';
 
         if (true || data) {
             return (
-                <section className="b-buy-page">
+                <section id="buy-listener" className="b-buy-page">
                     {
-                        //this.renderOverlay()
+                        this.renderOverlay()
+                    }
+                    {
+                        this.renderSuccessBuyResultOverlay()
+                    }
+                    {
+                        this.renderIframe()
                     }
                     <div className="b-buy-page__mobile-filter">
                         <MobileSelectedFilter disableFilterBtn={false}>
@@ -395,7 +625,7 @@ import validate from './validateForm';
                         </div>
                         <div className="b-pay-block__pay-list">
                             <div className="b-pay-list-item">
-                                <input id="pay_type_card" type="radio" name="card-pay"/>
+                                <input checked="checked" id="pay_type_card" type="radio" name="card-pay"/>
                                 <label htmlFor="pay_type_card">банковской картой</label>
                             </div>
                             <div className="b-pay-list-item">
@@ -416,7 +646,7 @@ import validate from './validateForm';
                     </div>
 
                     <div className="b-buy-page__pay-block-card">
-                        <CardForm />
+                        <CardForm {...this.props} />
 
                         <div className="b-pay-card-request">
                             Если Вы не успеваете оплатить до тайм-лимита или Вы хотите оплатить другим способом,&nbsp;

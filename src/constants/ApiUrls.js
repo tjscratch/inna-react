@@ -10,5 +10,6 @@ export default {
     MakeReservation: '/PackagesOrder/Reservation',
     DictionaryAllCountries: '/Dictionary/Country',
     BuyPage: '/Payment/Index',
-    PaymentRepricing: '/Payment/Repricing'
+    PaymentRepricing: '/Payment/Repricing',
+    Pay: '/Psb/Pay'
 }

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import styles from './ErrorMsg.scss';
+import styles from './BuySuccessMsg.scss';
 import withStyles from '../../../../decorators/withStyles';
 import Spinner from '../../Spinner';
 
 import PopupMessage from '../PopupMessage.js';
 
-@withStyles(styles) class ErrorMsg extends React.Component {
+@withStyles(styles) class BuySuccessMsg extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -23,14 +23,12 @@ import PopupMessage from '../PopupMessage.js';
                 <div className="b-wait-msg">
                     {
                         //<Spinner />
-                        <br/>
                     }
 
                     <div className="b-wait-msg__title">
                         {data ? data.title : ''}
                     </div>
-                    <div className="b-wait-msg__text">
-                        {data ? data.text : ''}
+                    <div className="b-wait-msg__text" dangerouslySetInnerHTML={{__html:data ? data.text : ''}}>
                     </div>
                     {
                         this.props.cancel ?
@@ -44,4 +42,4 @@ import PopupMessage from '../PopupMessage.js';
     }
 }
 
-export default ErrorMsg;
+export default BuySuccessMsg;
