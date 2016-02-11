@@ -14,14 +14,28 @@ class StarsFilter extends React.Component {
   }
 
 
-  setFilter(index){
+  setFilter (index) {
     var { store, dispatch } = this.props;
     dispatch(setStarFilterHotels(index));
   }
 
+  renderItem (data) {
+    let items = [];
+    for (var key in data) {
+      var item =
+            <div key={key} className='b-filter__body-item' onClick={this.setFilter.bind(this, data[key].Value)}>
+              <Checkbox>
+                <HotelStars data={data[key].Value}/>
+                <Price data={data[key].Price} customClass='b-filter__body-price'/>
+              </Checkbox>
+            </div>
+      items.push(item)
+    }
+    return items
+  }
 
   render () {
-    var data = this.props.data;
+    let data = this.props.data;
     if (data) {
       return (
         <div className='b-filter'>
@@ -31,16 +45,7 @@ class StarsFilter extends React.Component {
               <div className='b-filter__body-title'>{this.props.label}</div>
               <div className='b-filter__body-reset'>сбросить</div>
             </div>
-            {data.List.map((item, ix)=> {
-              return (
-                <div key={ix} className='b-filter__body-item' onClick={this.setFilter.bind(this, item.Value)}>
-                  <Checkbox>
-                    <HotelStars data={item.Value}/>
-                    <Price data={item.Price} customClass='b-filter__body-price'/>
-                  </Checkbox>
-                </div>
-              )
-            }, this)}
+            {this.renderItem(data)}
           </div>
         </div>
       );
@@ -48,6 +53,17 @@ class StarsFilter extends React.Component {
   }
 
 }
+
+//{data.map( item => {
+//  return (
+//    <div key={ix} className='b-filter__body-item' onClick={this.setFilter.bind(this, item.Value)}>
+//      <Checkbox>
+//        <HotelStars data={item.Value}/>
+//        <Price data={item.Price} customClass='b-filter__body-price'/>
+//      </Checkbox>
+//    </div>
+//  )
+//}, this)}
 
 //export default StarsFilter;
 

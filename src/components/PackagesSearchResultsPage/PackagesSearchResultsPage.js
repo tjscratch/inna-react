@@ -462,7 +462,7 @@ function mapStateToProps(state) {
         directory: state.directory,
         ticketsData: state.searchTickets ? state.searchTickets.AviaInfos : null,
         hotelsData: state.searchHotels ? state.searchHotels.Hotels : null,
-        hotelsFilters: state.searchHotels ? state.searchHotels.Filters.Hotels : null,
+        hotelsFilters: state.searchHotels ? state.searchHotels.hotelsFilters : null,
         recommendedData: state.searchRecommended ? state.searchRecommended.recommendedData : null,
         defaultRecommendedPair: state.searchRecommended ? state.searchRecommended.defaultRecommendedPair : null,
         //data: state.searchResults
