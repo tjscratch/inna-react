@@ -1,19 +1,21 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import request from 'superagent';
-import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
+//import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
+const apiPath = 'https://m.inna.ru/api/v1';
 //const apiPath = 'https://api.inna.ru/api/v1';
-const apiPath = 'http://api.test.inna.ru/api/v1';
-const apiLocalPath = 'http://localhost:3000/api/v1';
+const apiPathServer = 'https://api.inna.ru/api/v1';
+//const apiLocalPath = 'http://localhost:3000/api/v1';
 
 const getUrl = (path) => {
     if (path.startsWith('http') || path.startsWith('https')) {
         return path;
     }
-    else {
-        return `${apiPath}${path}`;
+    else {//на сервере - делаем запросы напрямую в api.inna.ru, на клиенте - через m.inna.ru
+        return canUseDOM ? `${apiPath}${path}` : `${apiPathServer}${path}`;
     }
 };
 
@@ -22,7 +24,9 @@ const getUrlLocal = (path) => {
         return path;
     }
     else {
-        return `${apiLocalPath}${path}`;
+        //return `${apiLocalPath}${path}`;
+        //return `${apiPath}${path}`;
+        return canUseDOM ? `${apiPath}${path}` : `${apiPathServer}${path}`;
     }
 };
 
