@@ -1,5 +1,4 @@
 export function generateFilters (filters) {
-  console.log('start generateFilters');
   let stars = filters.Stars.List;
   let generateFiltersObj = {
     Stars: {}
