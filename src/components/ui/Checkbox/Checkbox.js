@@ -8,9 +8,9 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     checkboxChange(event){
-        var { checkboxChange } = this.props;
-        if (checkboxChange) {
-            checkboxChange(event.target.checked)
+        var { onChange } = this.props;
+        if (onChange) {
+            onChange(event.target.checked)
         }
     }
 
