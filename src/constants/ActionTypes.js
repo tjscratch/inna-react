@@ -3,7 +3,6 @@
 import keyMirror from 'fbjs/lib/keyMirror';
 
 export default keyMirror({
-    FILTRATE_HOTELS: null,
     SET_FILTER_HOTELS: null,
     FILTRATE_HOTELS: null
 });

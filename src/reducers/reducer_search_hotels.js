@@ -15,19 +15,25 @@ export default function reducerSearchHotels (state = null, action = null) {
         isFromServer: action.isFromServer
       });
 
+    case ActionTypes.SET_FILTER_HOTELS:
+      let searchHotels = {};
+      Object.assign(searchHotels, state);
+
+      //console.log(action)
+
+      searchHotels.hotelsFilters[action.key][action.value]['Selected'] = true;
+        //searchHotels.hotelsFilters[action.key][action.value]['Selected'] ? false : true;
+
+      return searchHotels;
+
+
     case ActionTypes.FILTRATE_HOTELS:
-      let filters = {
-        Stars: {
-          5: true,
-          4: false,
-          3: true
-        }
-      }
       var Hotels = {};
       Object.assign(Hotels, state);
       //Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, {Stars: action.filters});
       Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, function (item){
-        return filters.Stars[item.Stars]
+        let filter = Hotels.hotelsFilters.Stars[item.Stars];
+        return filter ? filter.Selected : false;
       });
       return Hotels;
 

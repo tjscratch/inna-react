@@ -1,23 +1,23 @@
 import ActionTypes from '../constants/ActionTypes';
 
-export function setStarFilterHotels (params) {
+export function setStarFilterHotels (key, params) {
   return (dispatch, getState) => {
-    dispatch(setFiltersHotel(params));
-    let {hotelsFilters} = getState();
-    dispatch(filtrateHotels(hotelsFilters));
+    let {searchHotels} = getState();
+    dispatch(setFiltersHotel(key, params));
+    dispatch(filtrateHotels());
   }
 }
 
-function setFiltersHotel (filter) {
+function setFiltersHotel (key, value) {
   return {
-    type: ActionTypes.SET_FILTERS_HOTELS,
-    star: filter
+    type: ActionTypes.SET_FILTER_HOTELS,
+    key,
+    value
   }
 }
 
-function filtrateHotels (filters) {
-  return{
-    type: ActionTypes.FILTRATE_HOTELS,
-    filters
+function filtrateHotels () {
+  return {
+    type: ActionTypes.FILTRATE_HOTELS
   }
 }

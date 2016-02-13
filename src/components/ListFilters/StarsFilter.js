@@ -18,7 +18,7 @@ class StarsFilter extends React.Component {
 
   setFilter (index) {
     var { store, dispatch } = this.props;
-    dispatch(setStarFilterHotels(index));
+    dispatch(setStarFilterHotels('Stars', index));
   }
 
   renderItem (data) {
