@@ -30,6 +30,7 @@ import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
 import SearchForm from '../SearchForm';
 import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
+import SelectedFilters from '../ListFilters/SelectedFilters'
 import { MobileSelectedFilter } from '../MobileFilters';
 import HotelsResultsList from '../HotelsResultsList';
 import TicketsResultsList from '../TicketsResultsList';
@@ -385,6 +386,7 @@ class PackagesSearchResultsPage extends React.Component {
                         {
                             (!viewport.isMobile && listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
+                                    <SelectedFilters data={this.props.hotelsFilters}/>
                                     <PackagesListInfoBlock data={hotelsData}/>
                                 </div> :
                                 null
