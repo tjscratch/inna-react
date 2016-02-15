@@ -14,17 +14,9 @@ class StarsFilter extends React.Component {
     super(props);
   }
 
-  setFilter (index) {
-    //getStore().dispatch(setStarFilterHotels('Stars', index, selected));
-  }
-
-
   change (itemIndex, selected) {
-    console.log(selected)
-    console.log(itemIndex)
     getStore().dispatch(setStarFilterHotels('Stars', itemIndex, selected));
   }
-
 
   render () {
     let data = this.props.data;
