@@ -18,23 +18,24 @@ export default function reducerSearchHotels (state = null, action = null) {
     case ActionTypes.SET_FILTER_HOTELS:
       let searchHotels = {};
       Object.assign(searchHotels, state);
-
-      console.log(action)
-
       searchHotels.hotelsFilters[action.key][action.item]['Selected'] = action.value;
-        //searchHotels.hotelsFilters[action.key][action.value]['Selected'] ? false : true;
-
       return searchHotels;
-
 
     case ActionTypes.FILTRATE_HOTELS:
       var Hotels = {};
       Object.assign(Hotels, state);
-      //Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, {Stars: action.filters});
-      Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, function (item){
-        let filter = Hotels.hotelsFilters.Stars[item.Stars];
-        return filter ? filter.Selected : false;
-      });
+
+      // находим активные фильтры по звездам
+      let starFilters = _.find(Hotels.hotelsFilters.Stars, {'Selected': true});
+      if(starFilters){
+        Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, function (item) {
+          let filter = Hotels.hotelsFilters.Stars[item.Stars];
+          return filter ? filter.Selected : false;
+        });
+      }else{
+        Hotels.Hotels = Hotels.hotelsNoFiltered;
+      }
+
       return Hotels;
 
     case FLUSH_HOTELS:
