@@ -1,25 +1,26 @@
 import React, { PropTypes } from 'react';
-import HotelStars  from '../HotelStars/HotelStars';
-import Price from '../Price';
-import Checkbox from '../ui/Checkbox';
+import HotelStars  from '../../HotelStars/HotelStars';
+import Price from '../../Price';
+import Checkbox from '../../ui/Checkbox';
 
 import { connect } from 'react-redux';
-import { getStore } from '../../store/storeHolder';
-import { setStarFilterHotels } from '../../actions/action_filters';
+import { getStore } from '../../../store/storeHolder';
+import { setStarFilterHotels } from '../../../actions/action_filters';
 
 
-class StarsFilter extends React.Component {
+class EnumFilter extends React.Component {
 
   constructor (props) {
     super(props);
   }
 
-  change (itemIndex, selected) {
-    getStore().dispatch(setStarFilterHotels('Stars', itemIndex, selected));
+  change (itemIndex, type, selected) {
+    getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
   }
 
   render () {
     let data = this.props.data;
+    let type = this.props.type;
     let items = [];
     for (var key in data) {
       items.push(data[key]);
@@ -40,8 +41,11 @@ class StarsFilter extends React.Component {
                 <div key={ix} className='b-filter__body-item'>
                   <Checkbox
                     checked={item.Selected}
-                    onChange={this.change.bind(this, item.Value)}>
-                    <HotelStars data={item.Value}/>
+                    onChange={this.change.bind(this, item.Value, type)}>
+
+                    {type == 'Stars' ? <HotelStars data={item.Value}/> : null}
+                    {type == 'HotelType' ? item.Value : null}
+
                     <Price data={item.Price} customClass='b-filter__body-price'/>
                   </Checkbox>
                 </div>
@@ -55,4 +59,4 @@ class StarsFilter extends React.Component {
 
 }
 
-export default StarsFilter;
+export default EnumFilter;

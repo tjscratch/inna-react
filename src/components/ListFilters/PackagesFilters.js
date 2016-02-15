@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './ListFilters.scss';
 import withStyles from '../../decorators/withStyles';
-import StarsFilter from './StarsFilter';
+import EnumFilter from './filters/EnumFilter';
 
 @withStyles(styles)
 class PackagesFilters extends React.Component {
@@ -13,7 +13,8 @@ class PackagesFilters extends React.Component {
     var filters = this.props.hotelsFilters;
     return (
       <div className="b-list-filters">
-        {filters ? <StarsFilter label='Звезды' data={filters.Stars}/> : undefined}
+        {filters ? <EnumFilter label='Звезды' type="Stars" data={filters.Stars}/> : undefined}
+        {filters ? <EnumFilter label='Тип' type="HotelType" data={filters.HotelType}/> : undefined}
       </div>
     )
   }

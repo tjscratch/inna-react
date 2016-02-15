@@ -36,6 +36,15 @@ export default function reducerSearchHotels (state = null, action = null) {
         Hotels.Hotels = Hotels.hotelsNoFiltered;
       }
 
+      // находим активные фильтры по звездам
+      let typeFilters = _.find(Hotels.hotelsFilters.HotelType, {'Selected': true});
+      if(typeFilters){
+        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
+          let filter = Hotels.hotelsFilters.HotelType[item.HotelType];
+          return filter ? filter.Selected : false;
+        });
+      }
+
       return Hotels;
 
     case FLUSH_HOTELS:

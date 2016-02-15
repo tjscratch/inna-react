@@ -1,10 +1,13 @@
 export function generateFilters (filters) {
   let stars = filters.Stars.List;
+  let types = filters.HotelType.List;
+
   let generateFiltersObj = {
-    Stars: {}
+    Stars: {},
+    HotelType: {}
   };
 
-  function generateStars (element, index, array) {
+  function generateStars (element) {
     generateFiltersObj.Stars[element.Value] = {
       Value: element.Value,
       Price: element.Price,
@@ -13,6 +16,16 @@ export function generateFilters (filters) {
   }
 
   stars.forEach(generateStars);
+
+  function generateHotelType (element) {
+    generateFiltersObj.HotelType[element.Value] = {
+      Value: element.Value,
+      Price: element.Price,
+      Selected: false
+    }
+  }
+
+  types.forEach(generateHotelType);
 
   return generateFiltersObj;
 }
