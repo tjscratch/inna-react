@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { getStore } from '../../store/storeHolder';
 import { setStarFilterHotels } from '../../actions/action_filters';
 
-import lodash from 'lodash'
 
 class StarsFilter extends React.Component {
 
@@ -15,30 +14,17 @@ class StarsFilter extends React.Component {
     super(props);
   }
 
-
   setFilter (index) {
-    var { store, dispatch } = this.props;
-    dispatch(setStarFilterHotels('Stars', index));
+    //getStore().dispatch(setStarFilterHotels('Stars', index, selected));
   }
 
-  renderItem (data) {
-    let items = [];
-    for (var key in data) {
-      //var item =
-      //      <div key={key} className='b-filter__body-item' onClick={this.setFilter.bind(this, data[key].Value)}>
-      //        <Checkbox>
-      //          <HotelStars data={data[key].Value}/>
-      //          <Price data={data[key].Price} customClass='b-filter__body-price'/>
-      //        </Checkbox>
-      //      </div>
-      //items.push(item)
-      items.push(data[key])
-    }
-    console.log(items)
-    lodash.reverse(items)
-    console.log(items)
-    return items;
+
+  change (itemIndex, selected) {
+    console.log(selected)
+    console.log(itemIndex)
+    getStore().dispatch(setStarFilterHotels('Stars', itemIndex, selected));
   }
+
 
   render () {
     let data = this.props.data;
@@ -46,7 +32,8 @@ class StarsFilter extends React.Component {
     for (var key in data) {
       items.push(data[key]);
     }
-    items.reverse()
+    items.reverse();
+
     if (data) {
       return (
         <div className='b-filter'>
@@ -58,8 +45,10 @@ class StarsFilter extends React.Component {
             </div>
             {items.map((item, ix) => {
               return (
-                <div key={ix} className='b-filter__body-item' onClick={this.setFilter.bind(this, item.Value)}>
-                  <Checkbox>
+                <div key={ix} className='b-filter__body-item'>
+                  <Checkbox
+                    checked={item.Selected}
+                    onChange={this.change.bind(this, item.Value)}>
                     <HotelStars data={item.Value}/>
                     <Price data={item.Price} customClass='b-filter__body-price'/>
                   </Checkbox>
@@ -74,10 +63,4 @@ class StarsFilter extends React.Component {
 
 }
 
-function mapStateToProps (state) {
-  return {
-    setHotelsFilter: state.setHotelsFilter
-  }
-}
-
-export default connect(mapStateToProps)(StarsFilter)
+export default StarsFilter;

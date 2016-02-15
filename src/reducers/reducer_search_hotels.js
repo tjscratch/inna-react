@@ -19,9 +19,9 @@ export default function reducerSearchHotels (state = null, action = null) {
       let searchHotels = {};
       Object.assign(searchHotels, state);
 
-      //console.log(action)
+      console.log(action)
 
-      searchHotels.hotelsFilters[action.key][action.value]['Selected'] = true;
+      searchHotels.hotelsFilters[action.key][action.item]['Selected'] = action.value;
         //searchHotels.hotelsFilters[action.key][action.value]['Selected'] ? false : true;
 
       return searchHotels;
