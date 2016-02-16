@@ -21,6 +21,7 @@
     color: #666;
     cursor: pointer;
     transition: background-color $animation-speed;
+    user-select: none;
 
     &:hover{
         background-color: #e6e7e9;
@@ -45,6 +46,14 @@
     padding: 5px 10px;
     background-color: #fff;
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+
+    &.close{
+        display: none;
+    }
+
+    &.open{
+        display: block;
+    }
 }
 .b-filter__body-head{
     display: flex;

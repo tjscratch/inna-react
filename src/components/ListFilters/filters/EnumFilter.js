@@ -12,11 +12,44 @@ class EnumFilter extends React.Component {
 
   constructor (props) {
     super(props);
+
+    this.state = {
+      open: false
+    };
+
+    this.clickFn = this.bodyClick.bind(this);
+  }
+
+  onToggle (event) {
+    event.preventDefault();
+    this.setState({
+      open: !this.state.open
+    })
   }
 
   change (itemIndex, type, selected) {
     getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
   }
+
+  componentDidMount () {
+    document.addEventListener('click', this.clickFn, false);
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('click', this.clickFn, false);
+  }
+
+  bodyClick (event) {
+    this.setState({
+      open: false
+    })
+  }
+
+  stopPropagation (event) {
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();
+  }
+
 
   render () {
     let data = this.props.data;
@@ -29,9 +62,12 @@ class EnumFilter extends React.Component {
 
     if (data) {
       return (
-        <div className='b-filter'>
-          <div className='b-filter__label'>{this.props.label}</div>
-          <div className='b-filter__body'>
+        <div className={`b-filter`} onClick={this.stopPropagation.bind(this)}>
+          <div className='b-filter__label'
+               onClick={this.onToggle.bind(this)}>
+            {this.props.label}
+          </div>
+          <div className={`b-filter__body ${this.state.open ? 'open' : 'close'}`}>
             <div className='b-filter__body-head'>
               <div className='b-filter__body-title'>{this.props.label}</div>
               <div className='b-filter__body-reset'>сбросить</div>
