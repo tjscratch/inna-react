@@ -36,7 +36,7 @@ export default function reducerSearchHotels (state = null, action = null) {
         Hotels.Hotels = Hotels.hotelsNoFiltered;
       }
 
-      // находим активные фильтры по звездам
+      // находим активные фильтры по типу
       let typeFilters = _.find(Hotels.hotelsFilters.HotelType, {'Selected': true});
       if(typeFilters){
         Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
@@ -44,6 +44,16 @@ export default function reducerSearchHotels (state = null, action = null) {
           return filter ? filter.Selected : false;
         });
       }
+
+      // находим активные фильтры по рейтингу трипадвисора
+      let TaFactorFilters = _.find(Hotels.hotelsFilters.TaFactor, {'Selected': true});
+      if(TaFactorFilters){
+        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
+          let filter = Hotels.hotelsFilters.TaFactor[Math.ceil(item.TaFactor)];
+          return filter ? filter.Selected : false;
+        });
+      }
+
 
       return Hotels;
 

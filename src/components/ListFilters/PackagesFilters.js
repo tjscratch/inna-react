@@ -15,6 +15,7 @@ class PackagesFilters extends React.Component {
       <div className="b-list-filters">
         {filters ? <EnumFilter label='Звезды' type="Stars" data={filters.Stars}/> : undefined}
         {filters ? <EnumFilter label='Тип' type="HotelType" data={filters.HotelType}/> : undefined}
+        {filters ? <EnumFilter label='Рейтинг' type="TaFactor" data={filters.TaFactor}/> : undefined}
       </div>
     )
   }

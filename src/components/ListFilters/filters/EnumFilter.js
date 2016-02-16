@@ -6,6 +6,7 @@ import Checkbox from '../../ui/Checkbox';
 import { connect } from 'react-redux';
 import { getStore } from '../../../store/storeHolder';
 import { setStarFilterHotels } from '../../../actions/action_filters';
+import TripadvisorIcons from '../../Tripadvisor/TripadvisorIcons';
 
 
 class EnumFilter extends React.Component {
@@ -80,7 +81,10 @@ class EnumFilter extends React.Component {
                     onChange={this.change.bind(this, item.Value, type)}>
 
                     {type == 'Stars' ? <HotelStars data={item.Value}/> : null}
+
                     {type == 'HotelType' ? item.Value : null}
+
+                    {type == 'TaFactor' ? <TripadvisorIcons data={item.Value}/> : null}
 
                     <Price data={item.Price} customClass='b-filter__body-price'/>
                   </Checkbox>
