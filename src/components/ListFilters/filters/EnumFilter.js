@@ -86,6 +86,8 @@ class EnumFilter extends React.Component {
 
                     {type == 'TaFactor' ? <TripadvisorIcons data={item.Value}/> : null}
 
+                    {type == 'Extra' ? item.Value : null}
+
                     <Price data={item.Price} customClass='b-filter__body-price'/>
                   </Checkbox>
                 </div>

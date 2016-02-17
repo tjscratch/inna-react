@@ -54,6 +54,15 @@ export default function reducerSearchHotels (state = null, action = null) {
         });
       }
 
+      // находим активные фильтры по дополнительным сервисам
+      let ExtraFilters = _.find(Hotels.hotelsFilters.Extra, {'Selected': true});
+      if(ExtraFilters){
+        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
+          let filter = Hotels.hotelsFilters.Extra[item.Extra];
+          return filter ? filter.Selected : false;
+        });
+      }
+
 
       return Hotels;
 

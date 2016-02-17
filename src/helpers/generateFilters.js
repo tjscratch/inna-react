@@ -2,11 +2,13 @@ export function generateFilters (filters) {
   let stars = filters.Stars.List;
   let types = filters.HotelType.List;
   let taFactor = filters.TaFactor.List;
+  let extras = filters.Extra.List;
 
   let generateFiltersObj = {
     Stars: {},
     HotelType: {},
-    TaFactor: {}
+    TaFactor: {},
+    Extra: {}
   };
 
   function generateStars (element) {
@@ -16,7 +18,6 @@ export function generateFilters (filters) {
       Selected: false
     }
   }
-
   stars.forEach(generateStars);
 
   function generateHotelType (element) {
@@ -26,7 +27,6 @@ export function generateFilters (filters) {
       Selected: false
     }
   }
-
   types.forEach(generateHotelType);
 
   function generateTaFactor (element) {
@@ -36,8 +36,16 @@ export function generateFilters (filters) {
       Selected: false
     }
   }
-
   taFactor.forEach(generateTaFactor);
+
+  function generateExtra (element) {
+    generateFiltersObj.Extra[element.Value] = {
+      Value: element.Value,
+      Price: element.Price,
+      Selected: false
+    }
+  }
+  extras.forEach(generateExtra);
 
   return generateFiltersObj;
 }
