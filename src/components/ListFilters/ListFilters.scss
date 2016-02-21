@@ -79,15 +79,21 @@
     margin: 8px 0;
 
     .ui-checkbox__label{
-        width: 180px;
+        //display: block;
+        width: 200px;
+        white-space: nowrap;
 
         display: flex;
         justify-content: space-between;
+
+        font-size: .9em;
     }
 }
 .b-price-ctrl{
+    margin-left: 15px;
+
     &.b-filter__body-price{
-        font-size: .9em;
+        font-size: .95em;
         font-weight: normal;
         color: #666;
 

@@ -11,93 +11,99 @@ import TripadvisorIcons from '../../Tripadvisor/TripadvisorIcons';
 
 class EnumFilter extends React.Component {
 
-  constructor (props) {
-    super(props);
+    constructor (props) {
+        super(props);
 
-    this.state = {
-      open: false
-    };
+        this.state = {
+            open: false
+        };
 
-    this.clickFn = this.bodyClick.bind(this);
-  }
-
-  onToggle (event) {
-    event.preventDefault();
-    this.setState({
-      open: !this.state.open
-    })
-  }
-
-  change (itemIndex, type, selected) {
-    getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
-  }
-
-  componentDidMount () {
-    document.addEventListener('click', this.clickFn, false);
-  }
-
-  componentWillUnmount () {
-    document.removeEventListener('click', this.clickFn, false);
-  }
-
-  bodyClick (event) {
-    this.setState({
-      open: false
-    })
-  }
-
-  stopPropagation (event) {
-    event.stopPropagation();
-    event.nativeEvent.stopImmediatePropagation();
-  }
-
-
-  render () {
-    let data = this.props.data;
-    let type = this.props.type;
-    let items = [];
-    for (var key in data) {
-      items.push(data[key]);
+        this.clickFn = this.bodyClick.bind(this);
     }
-    items.reverse();
 
-    if (data) {
-      return (
-        <div className={`b-filter`} onClick={this.stopPropagation.bind(this)}>
-          <div className='b-filter__label'
-               onClick={this.onToggle.bind(this)}>
-            {this.props.label}
-          </div>
-          <div className={`b-filter__body ${this.state.open ? 'open' : 'close'}`}>
-            <div className='b-filter__body-head'>
-              <div className='b-filter__body-title'>{this.props.label}</div>
-              <div className='b-filter__body-reset'>сбросить</div>
-            </div>
-            {items.map((item, ix) => {
-              return (
-                <div key={ix} className='b-filter__body-item'>
-                  <Checkbox
-                    checked={item.Selected}
-                    onChange={this.change.bind(this, item.Value, type)}>
+    onToggle (event) {
+        event.preventDefault();
+        this.setState({
+            open: !this.state.open
+        })
+    }
 
-                    {type == 'Stars' ? <HotelStars data={item.Value}/> : null}
+    change (itemIndex, type, selected) {
+        getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
+    }
 
-                    {type == 'HotelType' ? item.Value : null}
+    componentDidMount () {
+        document.addEventListener('click', this.clickFn, false);
+    }
 
-                    {type == 'TaFactor' ? <TripadvisorIcons data={item.Value}/> : null}
+    componentWillUnmount () {
+        document.removeEventListener('click', this.clickFn, false);
+    }
 
-                    {type == 'Extra' ? item.Value : null}
+    bodyClick (event) {
+        this.setState({
+            open: false
+        })
+    }
 
-                    <Price data={item.Price} customClass='b-filter__body-price'/>
-                  </Checkbox>
+    stopPropagation (event) {
+        event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation();
+    }
+
+
+    render () {
+        let data = this.props.data;
+        let type = this.props.type;
+        let items = [];
+        for (var key in data) {
+            items.push(data[key]);
+        }
+        items.reverse();
+
+        if (data) {
+            return (
+                <div className={`b-filter`} onClick={this.stopPropagation.bind(this)}>
+                    <div className='b-filter__label'
+                         onClick={this.onToggle.bind(this)}>
+                        {this.props.label}
+                    </div>
+                    <div className={`b-filter__body ${this.state.open ? 'open' : 'close'}`}>
+                        <div className='b-filter__body-head'>
+                            <div className='b-filter__body-title'>{this.props.label}</div>
+                            <div className='b-filter__body-reset'>сбросить</div>
+                        </div>
+                        {items.map((item, ix) => {
+                            return (
+                                <div
+                                    key={ix}
+                                    className='b-filter__body-item'
+                                >
+                                    <Checkbox
+                                        checked={item.Selected}
+                                        onChange={this.change.bind(this, item.Value, type)}
+                                    >
+
+                                        {type == 'Stars' ? <HotelStars data={item.Value}/> : null}
+
+                                        {type == 'HotelType' ? item.Value : null}
+
+                                        {type == 'TaFactor' ? <TripadvisorIcons data={item.Value}/> : null}
+
+                                        {type == 'Meal' ? item.Name : null}
+
+                                        {type == 'Extra' ? item.Name : null}
+
+                                        <Price data={item.Price} customClass='b-filter__body-price'/>
+                                    </Checkbox>
+                                </div>
+                            )
+                        }, this)}
+                    </div>
                 </div>
-              )
-            }, this)}
-          </div>
-        </div>
-      );
+            );
+        }
     }
-  }
 
 }
 

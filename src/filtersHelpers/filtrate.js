@@ -52,6 +52,7 @@ class Filtrate {
         this.dataEnum = this.filtersEnum('Stars', this.dataEnum)
         this.dataEnum = this.filtersEnum('HotelType', this.dataEnum);
         this.dataEnum = this.filtersEnum('TaFactor', this.dataEnum);
+        this.dataEnum = this.filtersEnum('Meal', this.dataEnum);
         return this.dataEnum;
     }
 }

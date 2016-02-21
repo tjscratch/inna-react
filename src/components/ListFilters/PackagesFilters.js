@@ -16,6 +16,7 @@ class PackagesFilters extends React.Component {
         {filters ? <EnumFilter label='Звезды' type="Stars" data={filters.Stars}/> : undefined}
         {filters ? <EnumFilter label='Тип' type="HotelType" data={filters.HotelType}/> : undefined}
         {filters ? <EnumFilter label='Рейтинг' type="TaFactor" data={filters.TaFactor}/> : undefined}
+        {filters ? <EnumFilter label='Питание' type="Meal" data={filters.Meal}/> : undefined}
         {filters ? <EnumFilter label='Сервисы' type="Extra" data={filters.Extra}/> : undefined}
       </div>
     )
