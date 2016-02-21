@@ -1,76 +1,41 @@
 import { SEARCH_HOTELS, FLUSH_HOTELS } from '../actions/action_search_hotels';
 import ActionTypes from '../constants/ActionTypes';
-import { generateFilters } from '../helpers/generateFilters';
+import { generateFilters } from '../filtersHelpers/generateFilters';
+import Filtrate from '../filtersHelpers/filtrate';
 import _ from 'lodash';
 
 export default function reducerSearchHotels (state = null, action = null) {
-  switch (action.type) {
+    switch (action.type) {
 
-    case SEARCH_HOTELS:
-      var data = action.data;
-      return Object.assign({}, state, {
-        ...data,
-        hotelsFilters: generateFilters(data.Filters.Hotels),
-        hotelsNoFiltered: data.Hotels,
-        isFromServer: action.isFromServer
-      });
+        case SEARCH_HOTELS:
+            var data = action.data;
+            return Object.assign({}, state, {
+                ...data,
+                hotelsFilters: generateFilters(data.Filters.Hotels),
+                hotelsNoFiltered: data.Hotels,
+                isFromServer: action.isFromServer
+            });
 
-    case ActionTypes.SET_FILTER_HOTELS:
-      let searchHotels = {};
-      Object.assign(searchHotels, state);
-      searchHotels.hotelsFilters[action.key][action.item]['Selected'] = action.value;
-      return searchHotels;
+        case ActionTypes.SET_FILTER_HOTELS:
+            let searchHotels = {};
+            Object.assign(searchHotels, state);
+            searchHotels.hotelsFilters[action.key][action.item]['Selected'] = action.value;
+            return searchHotels;
 
-    case ActionTypes.FILTRATE_HOTELS:
-      var Hotels = {};
-      Object.assign(Hotels, state);
+        case ActionTypes.FILTRATE_HOTELS:
+            var Hotels = {};
+            Object.assign(Hotels, state);
 
-      // находим активные фильтры по звездам
-      let starFilters = _.find(Hotels.hotelsFilters.Stars, {'Selected': true});
-      if(starFilters){
-        Hotels.Hotels = _.filter(Hotels.hotelsNoFiltered, function (item) {
-          let filter = Hotels.hotelsFilters.Stars[item.Stars];
-          return filter ? filter.Selected : false;
-        });
-      }else{
-        Hotels.Hotels = Hotels.hotelsNoFiltered;
-      }
+            let filtrate = new Filtrate(Hotels.hotelsNoFiltered, Hotels.hotelsFilters);
+            Hotels.Hotels = filtrate.result();
 
-      // находим активные фильтры по типу
-      let typeFilters = _.find(Hotels.hotelsFilters.HotelType, {'Selected': true});
-      if(typeFilters){
-        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
-          let filter = Hotels.hotelsFilters.HotelType[item.HotelType];
-          return filter ? filter.Selected : false;
-        });
-      }
+            return Hotels;
 
-      // находим активные фильтры по рейтингу трипадвисора
-      let TaFactorFilters = _.find(Hotels.hotelsFilters.TaFactor, {'Selected': true});
-      if(TaFactorFilters){
-        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
-          let filter = Hotels.hotelsFilters.TaFactor[Math.ceil(item.TaFactor)];
-          return filter ? filter.Selected : false;
-        });
-      }
+        case FLUSH_HOTELS:
+            return null;
 
-      // находим активные фильтры по дополнительным сервисам
-      let ExtraFilters = _.find(Hotels.hotelsFilters.Extra, {'Selected': true});
-      if(ExtraFilters){
-        Hotels.Hotels = _.filter(Hotels.Hotels, function (item) {
-          let filter = Hotels.hotelsFilters.Extra[item.Extra];
-          return filter ? filter.Selected : false;
-        });
-      }
+        default:
+            return state;
 
-
-      return Hotels;
-
-    case FLUSH_HOTELS:
-      return null;
-
-    default:
-      return state;
-
-  }
+    }
 }
