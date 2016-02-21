@@ -10,6 +10,14 @@ class Filtrate {
         this.filters = filters;
     }
 
+
+    /**
+     * Фильтрация по простым полям, когда в фильтруемом элементе
+     * может находиться только одно значение фильтра
+     * @param nameFilter
+     * @param dataEnum
+     * @returns {*|Array.<T>|{PSEUDO, CHILD, ID, TAG, CLASS, ATTR, POS}}
+     */
     filtersEnum (nameFilter, dataEnum) {
         var currentFilter = this.filters[nameFilter];
 
