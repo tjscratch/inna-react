@@ -18,9 +18,8 @@ class Filtrate {
      * @param dataEnum
      * @returns {*|Array.<T>|{PSEUDO, CHILD, ID, TAG, CLASS, ATTR, POS}}
      */
-    filtersEnum (nameFilter, dataEnum) {
+    filtersOne (nameFilter, dataEnum) {
         var currentFilter = this.filters[nameFilter];
-
         /**
          * нахидим все варианты текущего фильтра nameFilter
          * у кторых свойство Selected==true
@@ -45,14 +44,44 @@ class Filtrate {
         } else {
             result = dataEnum;
         }
-        return result
+        return result;
+    }
+
+    filtersEnum (nameFilter, dataEnum) {
+        var currentFilter = this.filters[nameFilter];
+        /**
+         * нахидим все варианты текущего фильтра nameFilter
+         * у кторых свойство Selected==true
+         */
+        let filters = _.filter(currentFilter, { 'Selected': true });
+
+        if (filters.length) {
+            var result = [];
+            for (var i = 0; i < dataEnum.length; i++) {
+                let item = dataEnum[i];
+                var selectedFilters = [];
+                for (var obj in item[nameFilter]) {
+                    let filter = currentFilter[obj]['Selected'];
+                    if(filter){
+                        selectedFilters.push(true);
+                    }
+                }
+                selectedFilters.length ? result.push(item) : null;
+            }
+            return result;
+        } else {
+            var result = dataEnum;
+        }
+
+        return result;
     }
 
     result () {
-        this.dataEnum = this.filtersEnum('Stars', this.dataEnum)
-        this.dataEnum = this.filtersEnum('HotelType', this.dataEnum);
-        this.dataEnum = this.filtersEnum('TaFactor', this.dataEnum);
-        this.dataEnum = this.filtersEnum('Meal', this.dataEnum);
+        this.dataEnum = this.filtersOne('Stars', this.dataEnum)
+        this.dataEnum = this.filtersOne('HotelType', this.dataEnum);
+        this.dataEnum = this.filtersOne('TaFactor', this.dataEnum);
+        this.dataEnum = this.filtersOne('Meal', this.dataEnum);
+        this.dataEnum = this.filtersEnum('Extra', this.dataEnum);
         return this.dataEnum;
     }
 }

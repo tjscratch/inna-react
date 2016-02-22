@@ -87,6 +87,9 @@
         justify-content: space-between;
 
         font-size: .9em;
+        user-select: none;
+    }
+    .ui-checkbox__label-text{
     }
 }
 .b-price-ctrl{

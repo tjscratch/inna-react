@@ -86,13 +86,13 @@ class EnumFilter extends React.Component {
 
                                         {type == 'Stars' ? <HotelStars data={item.Value}/> : null}
 
-                                        {type == 'HotelType' ? item.Value : null}
+                                        {type == 'HotelType' ? <span className="ui-checkbox__label-text">{item.Value}</span> : null}
 
                                         {type == 'TaFactor' ? <TripadvisorIcons data={item.Value}/> : null}
 
-                                        {type == 'Meal' ? item.Name : null}
+                                        {type == 'Meal' ? <span className="ui-checkbox__label-text">{item.Name}</span> : null}
 
-                                        {type == 'Extra' ? item.Name : null}
+                                        {type == 'Extra' ? <span className="ui-checkbox__label-text">{item.Name}</span> : null}
 
                                         <Price data={item.Price} customClass='b-filter__body-price'/>
                                     </Checkbox>
