@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import styles from './ListFilters.scss';
 import withStyles from '../../decorators/withStyles';
+import FilterLayout from './filters/filterLayout';
 import EnumFilter from './filters/EnumFilter';
+import PriceFilter from './filters/PriceFilter';
 
 @withStyles(styles)
 class PackagesFilters extends React.Component {
@@ -18,6 +20,7 @@ class PackagesFilters extends React.Component {
         {filters ? <EnumFilter label='Рейтинг' type="TaFactor" data={filters.TaFactor}/> : undefined}
         {filters ? <EnumFilter label='Питание' type="Meal" data={filters.Meal}/> : undefined}
         {filters ? <EnumFilter label='Сервисы' type="Extra" data={filters.Extra}/> : undefined}
+        {filters ? <FilterLayout label='Цена'><PriceFilter label='Цена' type="Price" data={filters.Price}/></FilterLayout> : undefined}
       </div>
     )
   }

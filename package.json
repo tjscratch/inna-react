@@ -26,6 +26,7 @@
     "moment": "^2.10.6",
     "node-sass": "^3.4.2",
     "normalize.css": "3.0.3",
+    "rc-slider": "^3.3.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-list": "^0.7.8",

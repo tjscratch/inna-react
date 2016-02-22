@@ -1,4 +1,5 @@
 export function generateFilters (filters) {
+    let price = filters.Price;
     let stars = filters.Stars.List;
     let types = filters.HotelType.List;
     let taFactor = filters.TaFactor.List;
@@ -6,6 +7,7 @@ export function generateFilters (filters) {
     let extras = filters.Extra.List;
 
     let generateFiltersObj = {
+        Price: price,
         Stars: {},
         HotelType: {},
         TaFactor: {},
