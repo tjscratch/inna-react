@@ -6,7 +6,7 @@ class FilterLayout extends React.Component {
         super(props);
 
         this.state = {
-            open: true
+            open: false
         };
 
         this.clickFn = this.bodyClick.bind(this);
