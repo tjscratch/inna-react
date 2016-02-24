@@ -1,58 +1,60 @@
 @import "../variables.scss";
+.b-packages-list{
 
-.b-packages-list {
-    //background-color: #eee;
 }
-
-.b-packages-list-item {
-    display: table;
+.b-packages-list-item__index{
+    position: absolute;
+    z-index: 2000;
+    padding: 2px 5px;
+    top: 0;
+    left: 0;
+    color: #fff;
+    background: rgba(0, 0, 0, .6);
+    font-size: .8em;
+    line-height: 1;
+}
+.b-packages-list-item{
     position: relative;
     width: 100%;
     height: 185px;
-    max-width: 650px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #eee;
+    margin: 10px 0;
+    background-color: $result-list-item-bg;
+    border: 1px solid $result-list-item-border;
 
-    &:last-child {
-        margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &:hover{
+        box-shadow: $result-list-item-shadow;
     }
 }
-
-.b-packages-list-item__hotel {
-    display: table-cell;
+.b-packages-list-item__hotel{
     position: relative;
-    width: 70%;
-}
+    width: 75%;
 
-.b-packages-list-item__price {
-    display: table-cell;
+    flex-grow: 3;
+}
+.b-packages-list-item__price{
     position: relative;
-    width: 29%;
-    vertical-align: middle;
-    border-left: 1px solid #eee;
-}
+    width: 25%;
+    border-left: 1px solid $result-list-item-border;
 
+    flex-grow: 1;
+}
 @media(max-width: $recommended-bundle-max-mobile-width) {
-    .b-packages-list-item {
+    .b-packages-list-item{
         display: block;
     }
 
     .b-packages-list-item__hotel,
-    .b-packages-list-item__price {
+    .b-packages-list-item__price{
         display: block;
         width: 100%;
     }
-
-    .b-packages-list-item__index {
-        position: absolute;
-        top: 0;
-        left: 0
-    }
 }
-
 @media (max-width: $mobile-max-width) {
-    .b-packages-list-item {
+    .b-packages-list-item{
         display: block;
         height: 184px;
     }

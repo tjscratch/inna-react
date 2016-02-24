@@ -33,7 +33,7 @@ import PriceCard from '../PriceCard'
                     <div className="b-packages-list-item__price">
                         <PriceCard
                             onChoose={() => this.chooseHotel(hotel)}
-                            data={{price: hotel.PackagePrice}} chooseMode={true} />
+                            data={{PackagePrice: hotel.PackagePrice, CostPerPerson: hotel.CostPerPerson}} chooseMode={true} />
                     </div>
                 </div>
             )

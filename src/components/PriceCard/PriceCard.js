@@ -64,6 +64,7 @@ import Price from '../Price';
     render() {
         var { data, chooseMode, onSubmit } = this.props;
         var { shareOpen } = this.state;
+        console.log(data);
         if (data) {
             return (
                 <div className="b-price-card">
@@ -75,15 +76,19 @@ import Price from '../Price';
                     </div>
                     <div className="b-price-card__price">
                         <div className="b-price">
-                            <div className="b-price__text">
-                                Стоимость пакета
-                            </div>
                             <div className="b-price__price">
-                                <Price data={data.price}/>
+                                <Price data={data.CostPerPerson}/>
+                            </div>
+                            <div className="b-price__text">
+                                цена за человека
                             </div>
                         </div>
                     </div>
                     <div className="b-price-card__buy">
+                        <div className="b-price-card__full-price">
+                            К оплате:
+                            <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
+                        </div>
                         {
                             chooseMode ?
                                 <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
