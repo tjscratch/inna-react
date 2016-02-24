@@ -5,7 +5,7 @@ import Checkbox from '../../ui/Checkbox';
 
 import { connect } from 'react-redux';
 import { getStore } from '../../../store/storeHolder';
-import { setStarFilterHotels } from '../../../actions/action_filters';
+import { setEnumFilterHotels } from '../../../actions/action_filters';
 import TripadvisorIcons from '../../Tripadvisor/TripadvisorIcons';
 
 
@@ -29,7 +29,7 @@ class EnumFilter extends React.Component {
     }
 
     change (itemIndex, type, selected) {
-        getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
+        getStore().dispatch(setEnumFilterHotels(type, itemIndex, selected));
     }
 
     componentDidMount () {

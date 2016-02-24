@@ -7,7 +7,11 @@ export function generateFilters (filters) {
     let extras = filters.Extra.List;
 
     let generateFiltersObj = {
-        Price: price,
+        Price: {
+            ...price,
+            SelectedMin: price.Min,
+            SelectedMax: price.Max
+        },
         Stars: {},
         HotelType: {},
         TaFactor: {},

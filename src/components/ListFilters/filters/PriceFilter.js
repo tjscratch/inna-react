@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Price from '../../Price';
+import _ from 'lodash';
 
 import Slider from 'rc-slider';
 import styles from './PriceFilters.scss';
@@ -7,7 +8,7 @@ import withStyles from '../../../decorators/withStyles';
 
 import { connect } from 'react-redux';
 import { getStore } from '../../../store/storeHolder';
-import { setStarFilterHotels } from '../../../actions/action_filters';
+import { setRangeFilterHotels } from '../../../actions/action_filters';
 
 
 @withStyles(styles)
@@ -17,20 +18,32 @@ class EnumFilter extends React.Component {
         super(props);
 
         this.state = {
-            min: this.props.data.Min,
-            max: this.props.data.Max
+            Min: this.props.data.Min,
+            Max: this.props.data.Max
         }
+
+        this.setFilters = _.debounce(
+            this.setFilters, 500,
+            {
+                'leading': false,
+                'trailing': true
+            });
     }
 
     change (itemIndex, type, selected) {
-        getStore().dispatch(setStarFilterHotels(type, itemIndex, selected));
+        getStore().dispatch(setEnumFilterHotels(type, itemIndex, selected));
     }
 
     onSliderChange (value) {
         this.setState({
-            min: value[0],
-            max: value[1]
+            Min: value[0],
+            Max: value[1]
         });
+        this.setFilters();
+    }
+
+    setFilters () {
+        getStore().dispatch(setRangeFilterHotels('Price', this.state))
     }
 
     render () {
@@ -51,13 +64,13 @@ class EnumFilter extends React.Component {
                             <div className='b-filter-price__input-label'>
                                 от
                             </div>
-                            <input type="text" className='b-filter-price__input' value={this.state.min}/>
+                            <input type="text" className='b-filter-price__input' value={this.state.Min}/>
                         </div>
                         <div className='b-filter-price__input-container'>
                             <div className='b-filter-price__input-label'>
                                 до
                             </div>
-                            <input type="text" className='b-filter-price__input' value={this.state.max}/>
+                            <input type="text" className='b-filter-price__input' value={this.state.Max}/>
                         </div>
                     </div>
 
@@ -66,8 +79,8 @@ class EnumFilter extends React.Component {
                     </div>
 
                     <div className='b-filter-price__row'>
-                        <Price data={this.state.min} customClass='b-filter-price__price'/>
-                        <Price data={this.state.max} customClass='b-filter-price__price'/>
+                        <Price data={this.state.Min} customClass='b-filter-price__price'/>
+                        <Price data={this.state.Max} customClass='b-filter-price__price'/>
                     </div>
 
                 </div>

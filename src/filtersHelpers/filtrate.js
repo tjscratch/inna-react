@@ -62,7 +62,7 @@ class Filtrate {
                 var selectedFilters = [];
                 for (var obj in item[nameFilter]) {
                     let filter = currentFilter[obj]['Selected'];
-                    if(filter){
+                    if (filter) {
                         selectedFilters.push(true);
                     }
                 }
@@ -76,8 +76,22 @@ class Filtrate {
         return result;
     }
 
+    filtersRange (nameFilter, dataEnum) {
+        var currentFilter = this.filters[nameFilter];
+        var result = [];
+        for (var i = 0; i < dataEnum.length; i++) {
+            let item = dataEnum[i];
+            let price = item.CostPerPerson;
+            if (price >= currentFilter.SelectedMin && price <= currentFilter.SelectedMax) {
+                result.push(item);
+            }
+        }
+        return result;
+    }
+
     result () {
-        this.dataEnum = this.filtersOne('Stars', this.dataEnum)
+        this.dataEnum = this.filtersRange('Price', this.dataEnum);
+        this.dataEnum = this.filtersOne('Stars', this.dataEnum);
         this.dataEnum = this.filtersOne('HotelType', this.dataEnum);
         this.dataEnum = this.filtersOne('TaFactor', this.dataEnum);
         this.dataEnum = this.filtersOne('Meal', this.dataEnum);
