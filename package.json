@@ -13,6 +13,7 @@
     "compression": "^1.5.2",
     "eventemitter3": "1.1.1",
     "express": "4.13.3",
+    "express-http-proxy": "^0.6.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "fastclick": "1.0.6",
     "fbjs": "0.1.0-alpha.10",

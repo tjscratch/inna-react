@@ -2,6 +2,10 @@ import {reducer as formReducer} from 'redux-form';
 
 import { PROCESS_FIELD } from '../actions/action_form';
 
+export default formReducer;
+
+
+
 //var form = formReducer.normalize({
 //    customer: {                                    // <--- name of the form
 //        //passengers: (pas) => {
@@ -47,5 +51,3 @@ import { PROCESS_FIELD } from '../actions/action_form';
 //});
 //
 //export default form;
-
-export default formReducer;

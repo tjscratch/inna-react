@@ -12,10 +12,11 @@ import { transliterateAndToUpper } from '../../helpers/inputHelper';
 
 import { processField } from '../../actions/action_form';
 
-import UpperInput from './upperInput';
+import UpperInput from '../ui/UpperInput';
 import DropDown from '../ui/DropDown';
 
-var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
+//var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женский', value: 'female'}];
+var genderValues = [{name: 'Мужской', value: '1'}, {name: 'Женский', value: '2'}];
 
 @withViewport
 @withStyles(styles) class Passengers extends Component {
@@ -33,8 +34,28 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
     }
 
     renderItem(passenger, ix) {
-        var { viewport, citizenshipList } = this.props;
+        var { viewport, citizenshipList, filterDocsList, isRuCitizenshipAndInsiderRf } = this.props;
         var { gender, lastName, name, birth, citizenship, docType, docNumber, docExpires } = passenger;
+
+        //список документов
+        var documentsList = filterDocsList(citizenship.value);
+        //console.log('documentsList filterDocsList', citizenship.value, JSON.stringify(documentsList));
+
+        var docNumPlaceholder = '1234 567890';
+        switch (docType.value) {
+            case 2: docNumPlaceholder = '123456789'; break;
+            case 3: docNumPlaceholder = 'I-МЮ №123456'; break;
+        }
+
+        //для поездок по РФ и для пасрорта РФ или св-ва о рождении - не показываем дату документа
+        var isDocExpireVisible = true;
+
+        if (docType.value == 1 || docType.value == 3) {
+            //прячем
+            if (isRuCitizenshipAndInsiderRf(citizenship.value)) {
+                isDocExpireVisible = false;
+            }
+        }
 
         return (
             <div key={ix} className="b-passenger">
@@ -87,26 +108,32 @@ var genderValues = [{name: 'Мужской', value: 'male'}, {name: 'Женск�
                 </div>
                 <div className="b-passenger-item b-passenger-item_document">
                     <label className="b-passenger-label">Документ</label>
-                    <input className={`b-passenger-field b-passenger-field_document ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
-                           type="text" {...docType}
-                           placeholder="Загранпаспорт"/>
+                    <DropDown className={`b-passenger-field b-passenger-field_citizenship ${docType.touched && docType.error ? 'b-passenger-field_error' : ''}`}
+                              type="text" {...docType} placeholder="Загранпаспорт"
+                              values={documentsList} {...docType}/>
                     {docType.touched && docType.error && <div className="b-passenger-err-label">{docType.error}</div>}
                 </div>
                 <div className="b-passenger-item b-passenger-item_series-number">
                     <label className="b-passenger-label">Серия и номер</label>
-                    <input className="b-passenger-field b-passenger-field_series-number"
+                    <input className={`b-passenger-field b-passenger-field_series-number ${docNumber.touched && docNumber.error ? 'b-passenger-field_error' : ''}`}
                            type="text" {...docNumber}
-                           placeholder="123456789"/>
+                           placeholder={docNumPlaceholder}/>
+                    {docNumber.touched && docNumber.error && <div className="b-passenger-err-label">{docNumber.error}</div>}
                 </div>
-                <div className="b-passenger-item b-passenger-item_valid-to">
+                <div style={!isDocExpireVisible?{display:'none'}:{}} className="b-passenger-item b-passenger-item_valid-to">
                     <label className="b-passenger-label">Действителен до</label>
-                    <MaskedInput mask="11.11.1111" className="b-passenger-field b-passenger-field_valid-to"
+                    <MaskedInput mask="11.11.1111"
+                                 className={`b-passenger-field b-passenger-field_valid-to ${docExpires.touched && docExpires.error ? 'b-passenger-field_error' : ''}`}
                                  type="text" {...docExpires}
                                  placeholder="дд.мм.гггг"/>
+                    {docExpires.touched && docExpires.error && <div className="b-passenger-err-label">{docExpires.error}</div>}
                 </div>
-                <div className="b-passenger-item b-passenger-item_bonus-card">
-                    <Checkbox text="Есть бонусная карта"/>
-                </div>
+                {
+                    /*<div className="b-passenger-item b-passenger-item_bonus-card">
+                        <Checkbox text="Есть бонусная карта"/>
+                    </div>*/
+                }
+
             </div>
         )
     }

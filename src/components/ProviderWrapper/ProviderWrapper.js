@@ -15,12 +15,13 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
         var { viewport, component } = this.props;
 
         //не показываем панель в продакте и в моб. версии
-        if (canUseDOM && __DEV__ && !viewport.isMobile) {
+        //if (canUseDOM && __DEV__ && !viewport.isMobile) {
+        if (false && canUseDOM && __DEV__ && !viewport.isMobile) {
             return (
                 <div>
                     <Provider store={getStore()}>{component}</Provider>
                     <DebugPanel top right bottom>
-                        <DevTools store={getStore()} monitor={LogMonitor}/>
+                        <DevTools store={getStore()} monitor={LogMonitor} />
                     </DebugPanel>
                 </div>
             )

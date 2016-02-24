@@ -12,11 +12,10 @@ import Checkbox from '../ui/Checkbox';
 
     render() {
         const {
-            fields: {email, phone, phone_suffix, phone_number},
-            handleSubmit,
-            resetForm,
-            submitting
+            fields: {email, phone},
             } = this.props;
+
+        //console.log('fields', this.props.fields);
 
         return (
             <div className="b-customer-info">
@@ -27,40 +26,18 @@ import Checkbox from '../ui/Checkbox';
                     <div className="b-customer-info-body">
                         <div className="b-customer-info-body__email">
                             <label className="b-customer-info-label">Электронная почта</label>
-                            <input className={`b-customer-info-field b-customer-info-field_email ${email.touched && email.error ? 'b-customer-info-field_error' : ''}`}
-                                   type="email" {...email}
+                            <input readOnly={true} className="b-customer-info-field b-customer-info-field_email"
+                                   type="email" value={email}
                                    placeholder="ivan.ivanov@gmail.com"/>
-                            {email.touched && email.error && <div className="b-customer-info-err-label">{email.error}</div>}
                         </div>
                         <div className="b-customer-info-body__phone">
                             <label className="b-customer-info-label">Мобильный телефон</label>
-                            <div className="b-customer-info-phone">
-                                <div className="b-customer-info-phone__code">
-                                    <input className="b-customer-info-field b-customer-info-field_code"
-                                           type="text" {...phone_suffix}
-                                           defaultValue="+7"/>
-                                    <ul className="b-customer-info-phone-code-suggest">
-                                        <li>Россия +7</li>
-                                        <li>США +1</li>
-                                    </ul>
-                                </div>
-                                <div className="b-customer-info-phone__number">
-                                    <input className={`b-customer-info-field b-customer-info-field_number ${phone_number.touched && phone_number.error ? 'b-customer-info-field_error' : ''}`}
-                                           type="tel" {...phone_number}
-                                           placeholder="(999) 999-99-99"/>
-                                    {phone_number.touched && phone_number.error && <div className="b-customer-info-err-label">{phone_number.error}</div>}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="b-customer-info-body__phone-mobile">
-                            <label className="b-customer-info-label">Мобильный телефон</label>
-                            <input className={`b-customer-info-field ${phone.touched && phone.error ? 'b-customer-info-field_error' : ''}`}
-                                   type="text" {...phone}
+                            <input readOnly={true} className="b-customer-info-field"
+                                   type="text" value={phone}
                                    placeholder="+7 (999) 999-99-99"/>
-                            {phone.touched && phone.error && <div className="b-customer-info-err-label">{phone.error}</div>}
                         </div>
                         <div className="b-customer-info-body__agreement">
-                            <Checkbox text="Хочу получать спецпредложения"/>
+                            <Checkbox readOnly={true} text="Хочу получать спецпредложения"/>
                         </div>
                     </div>
                 </div>

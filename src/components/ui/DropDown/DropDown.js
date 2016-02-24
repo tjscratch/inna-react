@@ -13,8 +13,31 @@ import withStyles from '../../../decorators/withStyles';
     }
 
     componentDidMount() {
+        this.setState({
+            selectedIndex: 0
+        });
         this.triggerChange(0);
     }
+
+    componentWillReceiveProps(nextProps) {
+        var { values, onChange } = this.props;
+        var newValues = nextProps.values;
+        var valLength = values ? values.length : -1;
+
+        //if (JSON.stringify(values) != JSON.stringify(newValues)) {
+        if (newValues && valLength != newValues.length) {
+            //выбираем нулевой
+            this.setState({
+                selectedIndex: 0
+            });
+            //генерим change
+            if (onChange) {
+                var value = newValues ? newValues[0].value : null;
+                onChange(value);
+            }
+        }
+    }
+
 
     toggleOpen(forceOpen) {
         var { isOpened } = this.state;
@@ -47,9 +70,11 @@ import withStyles from '../../../decorators/withStyles';
         var { onChange, values } = this.props;
         if (onChange) {
             var value = values ? values[selectedIndex].value : null;
-            if (value) {
-                onChange(value);
-            }
+            //if (value) {
+            //    onChange(value);
+            //}
+            //console.log('triggerChange', 'values', values, 'value', value);
+            onChange(value);
         }
     }
 
@@ -137,7 +162,7 @@ import withStyles from '../../../decorators/withStyles';
                        onClick={()=>{this.onClick()}}
                        onKeyDown={(e)=>this.onKey(e)}/>
                 {
-                    isOpened && values && values.length > 0 ?
+                    isOpened && values && values.length > 1 ? //выводим если больше 1 пункта
                         <div className="b-drop-down-select">
                             {values.map(this.renderItems, this)}
                         </div> : null

@@ -9,6 +9,8 @@ import compression from 'compression';
 import ReactDOM from 'react-dom/server';
 import Router from './Router';
 
+import { inspect } from 'util';
+
 import { createStore, getStore } from './store/storeHolder';
 
 const server = global.server = express();
@@ -26,7 +28,24 @@ server.use(express.static(path.join(__dirname, 'public')));
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
-server.use('/api/content', require('./api/content'));
+//server.use('/api/content', require('./api/content'));
+
+var proxy = require('express-http-proxy');
+
+server.use('/api/v1/*', proxy('api.test.inna.ru', {
+    forwardPath: function(req, res) {
+        //var url = require('url').parse(req.originalUrl);
+        //console.log('url', url);
+        //return require('url').parse(req.originalUrl).path;
+
+        return require('url').parse(req.baseUrl).path;
+    },
+    filter: function(req, res) {
+        return req.method == 'POST';
+    }
+}));
+
+//server.use('/api/v1/*', proxy('api.test.inna.ru'));
 
 //
 // Register server-side rendering middleware

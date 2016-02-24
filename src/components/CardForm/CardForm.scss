@@ -1,0 +1,196 @@
+@import "../variables.scss";
+
+.b-pay-form-block {
+    margin: 0 0 20px 0;
+}
+
+.b-pay-card {
+    margin-bottom: 30px;
+}
+
+.b-pay-card__form {
+}
+
+.b-pay-card__image {
+    margin-bottom: 15px;
+}
+
+.b-pay-card-image {
+    display: inline-block;
+}
+
+.b-pay-card-image_uniteller {
+    height: 37px;
+    margin-left: 20px;
+}
+
+.b-pay-form__lbl {
+    display: inline-block;
+    width: 70px;
+    margin: 0 10px 2px 0;
+    color: #878787;
+    text-align: right;
+    font-size: .7em;
+
+    &.b-pay-form__lbl_valid {
+        width: 100px;
+    }
+}
+
+.b-pay-form__num {
+    display: inline-block;
+    margin: 0 10px 0 0;
+
+    input {
+        display: block;
+        width: 70px;
+        text-align: center;
+    }
+
+    &.b-pay-form__num_name {
+        input {
+            width: 300px;
+            text-align: left;
+        }
+    }
+}
+
+.b-pay-form-num-label {
+
+}
+
+.b-pay-block__tickets-reserved {
+    position: relative;
+    margin-left: 25px;
+
+    &:before {
+        position: absolute;
+        left: -30px;
+        top: 3px;
+        color: #89c13a;
+    }
+}
+
+.b-pay-block__pay-expires,
+.b-pay-block__pay-timer {
+    display: inline-block;
+    width: 50%;
+}
+
+.b-pay-card-request {
+    padding: 15px 30px;
+    background: #fdf1c9;
+    font-size: .9em;
+}
+
+.b-pay-secure__text {
+    position: relative;
+    margin: 0 0 20px 45px;
+    font-size: .9em;
+
+    &:before {
+        content: '';
+        display: block;
+        width: 42px;
+        height: 48px;
+        position: absolute;
+        left: -50px;
+        top: -3px;
+        background: url("./security.png") no-repeat;
+    }
+}
+
+.b-pay-secure-logo {
+    display: inline-block;
+}
+
+.b-pay-secure-logo_uniteller {
+
+    img {
+        height: 41px;
+        opacity: 0.4;
+    }
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-pay-block__pay-expires,
+    .b-pay-block__pay-timer {
+        display: block;
+        position: relative;
+        width: 100%;
+        font-size: .9em;
+
+        span {
+        }
+
+        b {
+            position: absolute;
+            right: 0;
+            font-weight: normal;
+            color: #7D7D7D;
+        }
+    }
+
+    .b-pay-block__tickets-reserved {
+        font-weight: normal;
+        color: rgba(0,0,0,0.54);
+    }
+
+    .b-pay-card__image {
+        margin: 40px -15px 30px;
+        padding: 30px 15px 0;
+        border-top: 1px solid #E0E0E0;
+    }
+
+    .b-pay-form__num {
+
+        input {
+            width: 60px;
+        }
+
+        &.b-pay-form__num_name {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+
+    .b-pay-form__lbl {
+        display: block;
+        width: 100%;
+        text-align: left;
+        font-size: .8em;
+        color: #000000;
+
+        &.b-pay-form__lbl_valid {
+            width: 100%;
+        }
+    }
+
+    .b-pay-form-num-label {
+        font-size: .8em;
+    }
+
+    .b-pay-secure-logo_uniteller {
+        width: 33%;
+
+        img {
+            width: 100%;
+            height: 35px;
+        }
+    }
+
+    .b-pay-secure-logo_others {
+        width: 66%;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .b-pay-secure__text {
+        font-size: .8em;
+    }
+}

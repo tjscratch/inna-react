@@ -17,7 +17,7 @@
 }
 
 .b-rooms-list-item__info {
-    flex: 4 1 auto;
+    flex: 4 1 60%;
     margin-bottom: 10px;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .b-rooms-list-item__refund {
-    flex: 1 1 auto;
+    flex: 1 1 20%;
 }
 
 .b-rooms-list-item-refund {
@@ -91,11 +91,12 @@
 }
 
 .b-rooms-list-item__price {
-    flex: 1 1 auto;
+    flex: 1 1 20%;
 }
 
 .b-rooms-list-item-price {
     text-align: right;
+    padding-right: 15px;
 }
 
 .b-rooms-list-item-price__include {
@@ -135,7 +136,7 @@
     }
 
     .b-rooms-list-item__info {
-        flex: 1 1 auto;
+        flex: 1 1 80%;
     }
 
     .b-rooms-list-item__price {
@@ -146,13 +147,15 @@
     }
 
     .b-rooms-list-item-price {
+        padding: 0;
     }
 
     .b-rooms-list-item-price__include,
     .b-rooms-list-item-price__price {
+        width: 80px;
     }
 
-    .b-rooms-list-item-price__include {
-        white-space: nowrap;
-    }
+    //.b-rooms-list-item-price__include {
+    //    white-space: nowrap;
+    //}
 }

@@ -15,6 +15,7 @@ import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 import HotelPage from './components/HotelPage';
 import ReservationPage from './components/ReservationPage';
+import BuyPage from './components/BuyPage';
 
 import Storage from './storage.js';
 import apiUrls from './constants/ApiUrls.js';
@@ -103,17 +104,23 @@ const router = new Router(on => {
             routeParams={state.params}/>
     });
 
+    on(`${siteUrls.Buy}:orderNum`, async (state) => {
+        return <BuyPage
+            routeQuery={state.query ? state.query : {}}
+            routeParams={state.params}/>
+    });
+
     on('/contact', async () => <ContactPage />);
 
     on('/login', async () => <LoginPage />);
 
     on('/register', async () => <RegisterPage />);
 
-    on('*', async (state) => {
-        //console.log('route next *, state.path', state.path);
-        const content = await http.get(`/api/content?path=${state.path}`);
-        return content && <ContentPage {...content} />;
-    });
+    //on('*', async (state) => {
+    //    //console.log('route next *, state.path', state.path);
+    //    const content = await http.get(`/api/content?path=${state.path}`);
+    //    return content && <ContentPage {...content} />;
+    //});
 
     on('error', (state, error) => state.statusCode === 404 ?
             //<App context={state.context} error={error}><NotFoundPage /></App> :

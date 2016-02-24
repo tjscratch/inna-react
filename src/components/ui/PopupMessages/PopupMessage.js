@@ -21,9 +21,15 @@ import Overlay from '../Overlay';
     }
 
     render() {
+        var { className } = this.props;
+        var customClassName = "b-popup-message";
+        if (className) {
+            customClassName += " " + className;
+        }
+
         return (
             <Overlay>
-                <div className="b-popup-message">
+                <div className={customClassName}>
                     {
                         this.props.close ?
                         <div className="b-close-btn" onClick={this.closeClick.bind(this)}>

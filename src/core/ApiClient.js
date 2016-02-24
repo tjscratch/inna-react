@@ -1,17 +1,32 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import request from 'superagent';
-import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
+//import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
-const apiPath = 'https://api.inna.ru/api/v1';
-//const apiPath = 'http://api.test.inna.ru/api/v1';
+const apiPath = 'https://m.inna.ru/api/v1';
+//const apiPath = 'https://api.inna.ru/api/v1';
+const apiPathServer = 'https://api.inna.ru/api/v1';
+//const apiLocalPath = 'http://localhost:3000/api/v1';
+
 const getUrl = (path) => {
     if (path.startsWith('http') || path.startsWith('https')) {
         return path;
     }
+    else {//на сервере - делаем запросы напрямую в api.inna.ru, на клиенте - через m.inna.ru
+        return canUseDOM ? `${apiPath}${path}` : `${apiPathServer}${path}`;
+    }
+};
+
+const getUrlLocal = (path) => {
+    if (path.startsWith('http') || path.startsWith('https')) {
+        return path;
+    }
     else {
-        return `${apiPath}${path}`;
+        //return `${apiLocalPath}${path}`;
+        //return `${apiPath}${path}`;
+        return canUseDOM ? `${apiPath}${path}` : `${apiPathServer}${path}`;
     }
 };
 
@@ -35,6 +50,46 @@ const ApiClient = {
                 }
             });
     }),
+
+    post: (path, params) => new Promise((resolve, reject) => {
+        request
+            .post(getUrlLocal(path))
+            .set('Content-Type', 'application/json')
+            .send(params)
+            .accept('application/json')
+            .end((err, res) => {
+                if (err) {
+                    if (err.status === 404) {
+                        resolve(null);
+                    } else {
+                        //reject(err);
+                        handleError(err, reject);
+                    }
+                } else {
+                    resolve(res.body);
+                }
+            });
+    }),
+
+    //postForm: (path, params) => new Promise((resolve, reject) => {
+    //    request
+    //        .post(getUrlLocal(path))
+    //        .set('Content-Type', 'application/x-www-form-urlencoded')
+    //        .send(params)
+    //        .accept('application/json')
+    //        .end((err, res) => {
+    //            if (err) {
+    //                if (err.status === 404) {
+    //                    resolve(null);
+    //                } else {
+    //                    //reject(err);
+    //                    handleError(err, reject);
+    //                }
+    //            } else {
+    //                resolve(res.body);
+    //            }
+    //        });
+    //}),
 
     cachedGet: (path, params) => new Promise((resolve, reject) => {
         var key = getKey(path, params);

@@ -1,0 +1,284 @@
+@import "../variables.scss";
+
+.b-buy-page {
+    //min-height: 500px;
+}
+
+.b-buy-page__header,
+.b-buy-page__header-desc,
+.b-buy-page__variant,
+.b-buy-page__visa-alert,
+.b-buy-page__tarifs-desc,
+.b-buy-page__customer,
+.b-buy-page__buy-request,
+.b-buy-page__passengers,
+.b-buy-page__comments,
+.b-buy-page__additional-services,
+.b-buy-page__agreement,
+.b-buy-page__buy-block,
+.b-buy-page__pay-block,
+.b-buy-page__pay-block-card,
+.b-pay-card-request {
+    max-width: $layout-max-width;
+    padding: 0 $layout-horizontal-padding;
+    margin: 20px auto;
+}
+
+.b-buy-page__mobile-filter {
+    background: #ececec;
+    display: none;
+}
+
+.b-buy-page__head-filter__caption {
+    font-size: 1.4em;
+    color: rgba(0, 0, 0, 0.87);
+    padding-top: 7px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #979797;
+}
+
+.b-buy-page__variant {
+    margin-bottom: 0;
+}
+
+.b-buy-page__visa-alert {
+    margin-top: 0;
+}
+
+.b-buy-page-comments__head,
+.b-pay-block__tickets-reserved {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.b-buy-page-comments__body {
+    position: relative;
+}
+
+.b-buy-page-comments-text {
+    margin-right: 250px;
+
+    textarea {
+        width: 100%;
+        border: 1px solid #c0c0c2;
+        border-radius: 3px;
+        background-color: #f5f5f5;
+        resize: vertical;
+    }
+}
+
+.b-buy-page-comments-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 240px;
+    padding: 5px 0 0;
+    color: #878787;
+    font-size: .7em;
+}
+
+.b-buy-page-additional-services__head {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.b-buy-page-additional-services__body {
+    font-size: .85em;
+}
+
+.b-buy-page-additional-services-item {
+    margin: 5px 0;
+}
+
+.b-buy-page-additional-services__lbl {
+    margin-bottom: 15px;
+    font-size: .7em;
+    color: #878787;
+}
+
+.b-buy-page-agreement {
+    font-size: .85em;
+
+    a {
+        text-decoration: none;
+        color: #1e88c1;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.b-buy-page__buy-block {
+    margin: 40px auto 30px;
+    text-align: center;
+}
+
+.b-buy-page-buy-block__lbl,
+.b-buy-page-buy-block__price,
+.b-buy-page-buy-block__button {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.b-buy-page-buy-block__lbl {
+    margin-right: 10px;
+    color: #878787;
+}
+
+.b-buy-page-buy-block__price {
+    margin-right: 10px;
+    font-size: 1.6em;
+    line-height: 0;
+}
+
+.b-buy-page-buy-block__button {
+    font-size: 1.2em;
+}
+
+.b-buy-page__buy-block-mobile {
+    display: none;
+}
+
+.b-buy-page__pay-block-line {
+    border-top: 4px solid #82b739;
+}
+
+.b-pay-block__pay-list {
+    margin-bottom: 20px;
+}
+
+.b-pay-list-item {
+    font-size: .95em;
+
+    label {
+        margin-left: 10px;
+    }
+}
+
+.buy-frame {
+    width: 100%;
+    height: 90%;
+    border: 0;
+}
+
+.b-popup-message.b-pay-popup {
+    height: 100%;
+    padding: 0;
+    margin-top: 0;
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-buy-page__buy-block,
+    .b-buy-page__variant,
+    .b-buy-page__visa-alert,
+    .b-buy-page__tarifs-desc,
+    .b-buy-page__customer,
+    .b-buy-page__passengers,
+    .b-buy-page__comments,
+    .b-buy-page__pay-block-line,
+    .b-pay-card-request {
+        display: none;
+    }
+
+    .b-buy-page__header,
+    .b-buy-page__header-desc,
+    .b-buy-page__variant {
+        margin: 0;
+        padding: 0;
+    }
+
+    .b-buy-page__mobile-filter {
+        display: block;
+    }
+
+    .b-pay-block__tickets-reserved {
+        margin-bottom: 15px;
+        font-size: 1em;
+    }
+
+    .b-buy-page__visa-alert {
+        margin: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        background: #fdf1c9;
+        color: #4a4a4a;
+    }
+
+    .b-buy-page__tarifs-desc {
+        margin: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        background: #fdf1c9;
+        color: #4a4a4a;
+    }
+
+    .b-buy-page__buy-request {
+        background: #fdf1c9;
+    }
+
+    .b-buy-page__passengers {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .b-buy-page-comments__head {
+        font-size: .8em;
+        font-weight: normal;
+    }
+
+    .b-buy-page-comments-text {
+        margin: 0;
+
+        textarea {
+            border: none;
+            border-bottom: 1px solid #89c13a;
+            border-radius: 0;
+            background: none;
+            resize: none;
+        }
+    }
+
+    .b-buy-page-comments-label {
+        position: static;
+        width: auto;
+        color: #4a4a4a;
+        font-size: .8em;
+    }
+
+    .b-buy-page-comments-label_one {
+        display: none;
+    }
+
+    .b-buy-page-additional-services__head {
+        font-size: 1em;
+        font-weight: normal;
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .b-buy-page-additional-services__lbl {
+        margin-top: 10px;
+        font-size: .8em;
+        color: #4a4a4a;
+    }
+
+    .b-buy-page-additional-services-item {
+        display: inline-block;
+        width: 50%;
+    }
+
+    .b-buy-page__buy-block-mobile {
+        display: block;
+        margin-top: 25px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .b-buy-page-agreement {
+        margin: 6px 0 0 0;
+        padding: 0 0 0 2px;
+        font-size: .8em;
+        color: #4a4a4a;
+    }
+
+
+}

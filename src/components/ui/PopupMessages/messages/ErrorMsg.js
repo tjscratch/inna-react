@@ -21,7 +21,10 @@ import PopupMessage from '../PopupMessage.js';
         return (
             <PopupMessage {...this.props}>
                 <div className="b-wait-msg">
-                    <Spinner />
+                    {
+                        //<Spinner />
+                        <br/>
+                    }
 
                     <div className="b-wait-msg__title">
                         {data ? data.title : ''}

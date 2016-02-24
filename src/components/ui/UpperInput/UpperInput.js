@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import { transliterateAndToUpper } from '../../helpers/inputHelper';
+import { transliterateAndToUpper } from '../../../helpers/inputHelper';
 
 class upperInput extends Component {
     constructor(props) {
