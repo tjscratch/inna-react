@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 $slider-active: $green;
-$slider-disable: $gray-light;
+$slider-disable: $gray-2;
 
 // b-filter-price__values
 .b-filter-price__row{
@@ -8,6 +8,9 @@ $slider-disable: $gray-light;
 
     display: flex;
     justify-content: space-between;
+}
+.b-filter-price__row-inputs{
+    margin: 20px 0 30px;
 }
 .b-filter-price__price{
     margin: 0 !important;
@@ -18,12 +21,32 @@ $slider-disable: $gray-light;
 .b-filter-price__slider{
     padding: 0 5px;
 }
+
+// b-filter-price__input-container
+.b-filter-price__input-container{
+    width: 105px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.b-filter-price__input-label{
+    font-size: .9em;
+}
+.b-filter-price__input{
+    padding: 4px 7px;
+    width: 80px;
+    border: 1px solid $slider-disable;
+    border-radius: 2px;
+
+    font-size: .9em;
+}
 // slider
 .rc-slider{
     position: relative;
     height: 2px;
     width: 300px;
-    margin: 20px 0;
+    margin: 15px 0;
     border-radius: 6px;
     background-color: $slider-disable;
     box-sizing: border-box;

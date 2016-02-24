@@ -25,12 +25,14 @@ $small-border-radius: 1px;
 /* BEGIN COLORS */
 $black: #212121;
 $gray: rgba(0, 0, 0, .4);
+$gray-2: rgba(0, 0, 0, .25);
 $gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
 $base-text-color-mobile: rgba(0,0,0,0.87);
 $white: #fff;
 $green: #89c13a;
 $red: #e30514;
+$link-color: #1e88c1;
 /* END COLORS */
 
 /* BEGIN b-search-form */
@@ -129,3 +131,6 @@ $b-people-selector-dropdown__btns-btn_selected-color: $white;
 $b-people-selector-dropdown__btns-btn-font-size: 16px;
 /* END PeopleSelector */
 
+/* BEGIN FILTERS */
+$filter-reset-color: $link-color;
+/* END FILTERS */

@@ -67,8 +67,8 @@
 .b-filter__body-reset{
     line-height: 1.2em;
     font-size: .8em;
-    color: #666;
-    border-bottom: 1px dotted #666;
+    color: $filter-reset-color;
+    border-bottom: 1px dotted $filter-reset-color;
     cursor: pointer;
 
     &:hover{

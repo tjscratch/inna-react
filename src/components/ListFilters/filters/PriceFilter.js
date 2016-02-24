@@ -46,7 +46,7 @@ class EnumFilter extends React.Component {
                         <div className='b-filter__body-reset'>сбросить</div>
                     </div>
 
-                    <div className='b-filter-price__row'>
+                    <div className='b-filter-price__row b-filter-price__row-inputs'>
                         <div className='b-filter-price__input-container'>
                             <div className='b-filter-price__input-label'>
                                 от
@@ -57,11 +57,12 @@ class EnumFilter extends React.Component {
                             <div className='b-filter-price__input-label'>
                                 до
                             </div>
+                            <input type="text" className='b-filter-price__input' value={this.state.max}/>
                         </div>
                     </div>
 
                     <div className='b-filter-price__slider'>
-                        <Slider range={true} defaultValue={sliderData} min={this.state.min} max={data.Max} onChange={this.onSliderChange.bind(this)}/>
+                        <Slider range={true} defaultValue={sliderData} min={data.Min} max={data.Max} onChange={this.onSliderChange.bind(this)}/>
                     </div>
 
                     <div className='b-filter-price__row'>

@@ -16,6 +16,15 @@ html {
     box-sizing: border-box;
 }
 
+a{
+    color: $link-color;
+    text-decoration: underline;
+
+    &:hover{
+        text-decoration: none;
+    }
+}
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
