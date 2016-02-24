@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
+import Price from '../../Price';
 
 import Slider from 'rc-slider';
-import styles from './Slider.scss';
+import styles from './PriceFilters.scss';
 import withStyles from '../../../decorators/withStyles';
 
 import { connect } from 'react-redux';
@@ -44,12 +45,30 @@ class EnumFilter extends React.Component {
                         <div className='b-filter__body-title'>{this.props.label}</div>
                         <div className='b-filter__body-reset'>сбросить</div>
                     </div>
-                    <div>
-                        {this.state.min}
-                        <hr/>
-                        {this.state.max}
+
+                    <div className='b-filter-price__row'>
+                        <div className='b-filter-price__input-container'>
+                            <div className='b-filter-price__input-label'>
+                                от
+                            </div>
+                            <input type="text" className='b-filter-price__input' value={this.state.min}/>
+                        </div>
+                        <div className='b-filter-price__input-container'>
+                            <div className='b-filter-price__input-label'>
+                                до
+                            </div>
+                        </div>
                     </div>
-                    <Slider range={true} defaultValue={sliderData} min={data.Min} max={data.Max} onChange={this.onSliderChange.bind(this)}/>
+
+                    <div className='b-filter-price__slider'>
+                        <Slider range={true} defaultValue={sliderData} min={this.state.min} max={data.Max} onChange={this.onSliderChange.bind(this)}/>
+                    </div>
+
+                    <div className='b-filter-price__row'>
+                        <Price data={this.state.min} customClass='b-filter-price__price'/>
+                        <Price data={this.state.max} customClass='b-filter-price__price'/>
+                    </div>
+
                 </div>
             );
         }

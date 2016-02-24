@@ -1,10 +1,31 @@
+@import '../../variables.scss';
+$slider-active: $green;
+$slider-disable: $gray-light;
+
+// b-filter-price__values
+.b-filter-price__row{
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+}
+.b-filter-price__price{
+    margin: 0 !important;
+    font-size: 1em;
+    font-weight: 500;
+    color: #666;
+}
+.b-filter-price__slider{
+    padding: 0 5px;
+}
+// slider
 .rc-slider{
     position: relative;
-    height: 4px;
+    height: 2px;
     width: 300px;
     margin: 20px 0;
     border-radius: 6px;
-    background-color: #e9e9e9;
+    background-color: $slider-disable;
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -15,30 +36,30 @@
 .rc-slider-track{
     position: absolute;
     left: 0;
-    height: 4px;
-    border-radius: 6px;
-    background-color: #abe2fb;
+    height: 2px;
+    border-radius: 2px;
+    background-color: $slider-active;
     z-index: 1;
 }
 .rc-slider-handle{
     position: absolute;
-    margin-left: -7px;
-    margin-top: -5px;
-    width: 14px;
-    height: 14px;
+    margin-left: -10px;
+    margin-top: -9px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     border-radius: 50%;
-    border: solid 2px #96dbfa;
-    background-color: #fff;
+    background-color: $slider-active;
     z-index: 2;
+    box-shadow: inset 0 0 5px darken($slider-active, 10%);
 }
 .rc-slider-handle:hover{
-    border-color: #57c5f7;
+    box-shadow: inset 0 0 7px darken($slider-active, 15%);
 }
 .rc-slider-handle-active:active{
-    border-color: #57c5f7;
-    box-shadow: 0 0 5px #57c5f7;
+    box-shadow: inset 0 0 7px darken($slider-active, 15%);
 }
+
 .rc-slider-mark{
     position: absolute;
     top: 10px;
@@ -90,7 +111,7 @@
     background-color: #e9e9e9;
 }
 .rc-slider-disabled .rc-slider-track{
-    background-color: #ccc;
+    background-color: $slider-disable;
 }
 .rc-slider-disabled .rc-slider-handle,
 .rc-slider-disabled .rc-slider-dot{
