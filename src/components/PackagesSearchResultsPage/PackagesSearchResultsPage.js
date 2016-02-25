@@ -32,8 +32,7 @@ import RecommendedBundle from '../RecommendedBundle';
 import { PackagesFilters, AviaFilters } from '../ListFilters';
 import SelectedFilters from '../ListFilters/SelectedFilters'
 import { MobileSelectedFilter } from '../MobileFilters';
-import HotelsResultsList from '../HotelsResultsList';
-import TicketsResultsList from '../TicketsResultsList';
+import ResultsList from '../ResultsList';
 import PackagesListInfoBlock from '../PackagesListInfoBlock';
 
 //enums
@@ -375,10 +374,12 @@ class PackagesSearchResultsPage extends React.Component {
                         <div className="b-packages-results__content">
                             {
                                 listType == ListType.Hotels ?
-                                    <HotelsResultsList
+                                    <ResultsList
+                                        typeList='hotel'
                                         events={events}
                                         data={hotelsData}/> :
-                                    <TicketsResultsList
+                                    <ResultsList
+                                        typeList='ticket'
                                         events={events}
                                         data={ticketsData}/>
                             }
