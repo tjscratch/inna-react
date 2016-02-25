@@ -45,22 +45,6 @@ import PriceCard from '../PriceCard'
     render() {
         var data = this.props.data;
         if (data) {
-            //console.log('HotelsResultsList data[0]', data[0]);
-
-            //return (
-            //    <div className="b-packages-list">
-            //        <div className="b-packages-list__items">
-            //            <ReactList
-            //                itemRenderer={this.renderItem.bind(this)}
-            //                length={data.length}
-            //                type='variable'
-            //                useTranslate3d={false}
-            //                itemSizeGetter={()=> this.props.viewport.isMobile ? 184+5 : 185+5}
-            //                />
-            //        </div>
-            //    </div>
-            //)
-
             return (
                 <div className="b-packages-list">
                     <div className="b-packages-list__items">
@@ -71,11 +55,9 @@ import PriceCard from '../PriceCard'
                     </div>
                 </div>
             )
+        }else{
+            return null;
         }
-
-        return (
-            <div>loading...</div>
-        );
     }
 
 }

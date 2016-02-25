@@ -64,7 +64,6 @@ import Price from '../Price';
     render() {
         var { data, chooseMode, onSubmit } = this.props;
         var { shareOpen } = this.state;
-        console.log(data);
         if (data) {
             return (
                 <div className="b-price-card">
