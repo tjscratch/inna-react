@@ -24,12 +24,15 @@ class PackagesFilters extends React.Component {
 
     onToggle (key) {
         for (let i = 0; i < this.state.filters.length; i++) {
-            this.state.filters[i]['open'] = false;
+            if (key == i && key != 'allClose') {
+                this.state.filters[key]['open'] = !this.state.filters[key]['open'];
+            }else{
+                this.state.filters[i]['open'] = false;
+            }
         }
-        this.state.filters[key]['open'] = !this.state.filters[key]['open']
         this.setState({
             filters: this.state.filters
-        })
+        });
     }
 
     render () {

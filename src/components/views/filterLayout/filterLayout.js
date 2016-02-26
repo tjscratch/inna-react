@@ -4,19 +4,11 @@ class FilterLayout extends React.Component {
 
     constructor (props) {
         super(props);
-
-        this.state = {
-            open: false
-        };
-
         this.clickFn = this.bodyClick.bind(this);
     }
 
     onToggle (event) {
         event.preventDefault();
-        this.setState({
-            open: !this.state.open
-        })
         this.props.toggle(this.props.index)
     }
 
@@ -29,9 +21,7 @@ class FilterLayout extends React.Component {
     }
 
     bodyClick (event) {
-        this.setState({
-            open: false
-        })
+        this.props.toggle('allClose')
     }
 
     stopPropagation (event) {

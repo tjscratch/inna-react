@@ -10,7 +10,9 @@ export function generateFilters (filters) {
         Price: {
             ...price,
             SelectedMin: price.Min,
-            SelectedMax: price.Max
+            SelectedMax: price.Max,
+            label: 'Цена',
+            systemName: 'Price'
         },
         Stars: {},
         HotelType: {},
@@ -23,7 +25,9 @@ export function generateFilters (filters) {
         generateFiltersObj.Stars[element.Value] = {
             Value: element.Value,
             Price: element.Price,
-            Selected: false
+            Selected: false,
+            label: 'Звезды',
+            systemName: 'Stars'
         }
     }
 
@@ -33,7 +37,9 @@ export function generateFilters (filters) {
         generateFiltersObj.HotelType[element.Value] = {
             Value: element.Value,
             Price: element.Price,
-            Selected: false
+            Selected: false,
+            label: 'Тип',
+            systemName: 'HotelType'
         }
     }
 
@@ -43,7 +49,9 @@ export function generateFilters (filters) {
         generateFiltersObj.TaFactor[element.Value] = {
             Value: element.Value,
             Price: element.Price,
-            Selected: false
+            Selected: false,
+            label: 'Рейтинг',
+            systemName: 'TaFactor'
         }
     }
 
@@ -54,7 +62,9 @@ export function generateFilters (filters) {
             Name: element.Name,
             Value: element.Order,
             Price: element.Price,
-            Selected: false
+            Selected: false,
+            label: 'Питание',
+            systemName: 'Meal'
         }
     }
 
@@ -65,7 +75,9 @@ export function generateFilters (filters) {
             Name: element.Name,
             Value: element.Value,
             Price: element.Price,
-            Selected: false
+            Selected: false,
+            label: 'Сервисы',
+            systemName: 'Extra'
         }
     }
 
