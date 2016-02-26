@@ -17,6 +17,7 @@ class FilterLayout extends React.Component {
         this.setState({
             open: !this.state.open
         })
+        this.props.toggle(this.props.index)
     }
 
     componentDidMount () {
@@ -46,7 +47,7 @@ class FilterLayout extends React.Component {
                      onClick={this.onToggle.bind(this)}>
                     {this.props.label}
                 </div>
-                <div className={`b-filter__body ${this.state.open ? 'open' : 'close'}`}>
+                <div className={`b-filter__body ${this.props.open ? 'open' : 'close'}`}>
                     {this.props.children}
                 </div>
             </div>

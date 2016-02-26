@@ -30,10 +30,6 @@ class EnumFilter extends React.Component {
             });
     }
 
-    change (itemIndex, type, selected) {
-        getStore().dispatch(setEnumFilterHotels(type, itemIndex, selected));
-    }
-
     onSliderChange (value) {
         this.setState({
             Min: value[0],

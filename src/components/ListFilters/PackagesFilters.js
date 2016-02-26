@@ -1,29 +1,61 @@
 import React, { Component } from 'react'
 import styles from './ListFilters.scss';
 import withStyles from '../../decorators/withStyles';
-import FilterLayout from './filters/filterLayout';
+import FilterLayout from './../views/filterLayout/filterLayout';
 import EnumFilter from './filters/EnumFilter';
 import PriceFilter from './filters/PriceFilter';
 
 @withStyles(styles)
 class PackagesFilters extends React.Component {
-  constructor (props) {
-    super(props);
-  }
 
-  render () {
-    var filters = this.props.hotelsFilters;
-    return (
-      <div className="b-list-filters">
-        {filters ? <EnumFilter label='Звезды' type="Stars" data={filters.Stars}/> : undefined}
-        {filters ? <EnumFilter label='Тип' type="HotelType" data={filters.HotelType}/> : undefined}
-        {filters ? <EnumFilter label='Рейтинг' type="TaFactor" data={filters.TaFactor}/> : undefined}
-        {filters ? <EnumFilter label='Питание' type="Meal" data={filters.Meal}/> : undefined}
-        {filters ? <EnumFilter label='Сервисы' type="Extra" data={filters.Extra}/> : undefined}
-        {filters ? <FilterLayout label='Цена'><PriceFilter label='Цена' type="Price" data={filters.Price}/></FilterLayout> : undefined}
-      </div>
-    )
-  }
+    constructor (props) {
+        super(props);
+        this.state = {
+            filters: [
+                { label: 'Звезды', type: 'Stars', open: false },
+                { label: 'Цена', type: 'Price', open: false },
+                { label: 'Тип', type: 'HotelType', open: false },
+                { label: 'Рейтинг', type: 'TaFactor', open: false },
+                { label: 'Питание', type: 'Meal', open: false },
+                { label: 'Сервисы', type: 'Extra', open: false }
+            ]
+        }
+    }
+
+    onToggle (key) {
+        for (let i = 0; i < this.state.filters.length; i++) {
+            this.state.filters[i]['open'] = false;
+        }
+        this.state.filters[key]['open'] = !this.state.filters[key]['open']
+        this.setState({
+            filters: this.state.filters
+        })
+    }
+
+    render () {
+        let filters = this.props.hotelsFilters;
+        let listFilters = this.state.filters;
+
+        return (
+            <div className="b-list-filters">
+                {listFilters.map((item, ix)=> {
+                    if (filters && filters[item.type] && item.type == 'Price') {
+                        return (
+                            <FilterLayout key={ix} index={ix} open={item.open} toggle={this.onToggle.bind(this)} label={item.label}>
+                                <PriceFilter label={item.label} type={item.type} data={filters[item.type]}/>
+                            </FilterLayout>
+                        )
+                    } else if (filters && filters[item.type]) {
+                        return (
+                            <FilterLayout key={ix} index={ix} open={item.open} toggle={this.onToggle.bind(this)} label={item.label}>
+                                <EnumFilter label={item.label} type={item.type} data={filters[item.type]}/>
+                            </FilterLayout>
+                        )
+                    }
+                })}
+            </div>
+        )
+    }
 
 }
 
