@@ -1,11 +1,16 @@
 @import '../../variables.scss';
 .b-datepicker{
     position: absolute;
-    z-index: 2;
+    z-index: 20;
     //width: 220px;
     background-color: $b-datepicker-bg-color;
     font-size: $b-datepicker-font-size;
     line-height: 1.6;
+}
+.b-datepicker-range__item-end{
+    .b-datepicker{
+        right: 5px;
+    }
 }
 .b-datepicker__body{
     padding: 0 $b-datepicker-offset $b-datepicker-offset;
@@ -129,7 +134,7 @@
 }
 .b-datepicker-week__day-active{
     cursor: pointer;
-    
+
     &:hover{
         background-color: $b-datepicker-week__day-bg-hover;
     }
@@ -186,3 +191,11 @@
     color: $b-datepicker-week__selected-color !important;
 }
 // end b-datepicker-week
+
+@media (max-width: $tablet-max-width) {
+    .b-datepicker-range__item-end{
+        .b-datepicker{
+            right: 0;
+        }
+    }
+}

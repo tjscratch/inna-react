@@ -8,8 +8,9 @@ import { formatPrice } from '../../helpers/StringHelper.js';
 import Price from '../Price';
 
 @withViewport
-@withStyles(styles) class PriceCard extends Component {
-    constructor(props) {
+@withStyles(styles)
+class PriceCard extends Component {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -17,14 +18,14 @@ import Price from '../Price';
         };
     }
 
-    shareClick(e) {
+    shareClick (e) {
         var isOpen = this.state.shareOpen;
         this.setState({
             shareOpen: !isOpen
         })
     }
 
-    buyClick(e) {
+    buyClick (e) {
         e.preventDefault();
 
         var { onBuy, onSubmit } = this.props;
@@ -38,7 +39,7 @@ import Price from '../Price';
         }
     }
 
-    chooseClick(e) {
+    chooseClick (e) {
         e.preventDefault();
 
         var { onChoose } = this.props;
@@ -48,12 +49,12 @@ import Price from '../Price';
         }
     }
 
-    renderPrice(data) {
+    renderPrice (data) {
         var { viewport } = this.props;
         if (viewport.isMobile) {
             return (
                 <div className="b-price__price">
-                    <Price data={data.price} customClass="b-price-ctrl_normal"/>
+                    <Price data={data.PackagePrice} customClass="b-price-ctrl_normal"/>
                 </div>
             );
         }
@@ -61,7 +62,8 @@ import Price from '../Price';
         return null;
     }
 
-    render() {
+    render () {
+        var { viewport } = this.props;
         var { data, chooseMode, onSubmit } = this.props;
         var { shareOpen } = this.state;
         if (data) {
@@ -84,10 +86,14 @@ import Price from '../Price';
                         </div>
                     </div>
                     <div className="b-price-card__buy">
-                        <div className="b-price-card__full-price">
-                            К оплате:
-                            <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
-                        </div>
+                        {!viewport.isMobile ?
+                            <div className="b-price-card__full-price">
+                                К оплате:
+                                <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
+                            </div>
+                            :
+                            null
+                        }
                         {
                             chooseMode ?
                                 <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>

@@ -126,7 +126,7 @@
         @include form-item(25%, 0, 0);
     }
 }
-@media(max-width: 640px) {
+@media(max-width: $tablet-max-width) {
     .b-search-form-action__location-from,
     .b-search-form-action__location-to{
         @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);

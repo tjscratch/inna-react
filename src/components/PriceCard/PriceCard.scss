@@ -1,7 +1,6 @@
 @import "../variables.scss";
 @import '../Icons/css/icons.css';
-
-.b-price-card {
+.b-price-card{
     height: 100%;
     padding: 0 10px 10px;
 
@@ -10,13 +9,11 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
-.b-price-card__link {
+.b-price-card__link{
     text-align: right;
     vertical-align: top;
 }
-
-.b-share-link {
+.b-share-link{
     position: relative;
     display: inline-block;
     width: 30px;
@@ -24,16 +21,15 @@
     cursor: pointer;
     vertical-align: top;
 
-    &:hover {
+    &:hover{
         background-color: #e6e7e9;
     }
 
-    &.b-share-link_active {
+    &.b-share-link_active{
         background-color: #89c13a;
     }
 }
-
-.b-share-img {
+.b-share-img{
     display: inline-block;
     width: 17px;
     height: 17px;
@@ -45,22 +41,18 @@
 
     background: url('chain-black.png') no-repeat 0 0;
 }
-
-.b-price-card__price {
+.b-price-card__price{
     text-align: center;
 }
-
-.b-price {
+.b-price{
     display: inline-block;
     text-align: left;
 }
-
-.b-price__text {
+.b-price__text{
     font-size: 0.8em;
     text-align: center;
 }
-
-.b-price__price {
+.b-price__price{
     line-height: 1;
     font-size: 1.3em;
 }
@@ -72,12 +64,11 @@
     margin-left: 4px;
     font-size: 1.05em;
 }
-.b-price-card__buy {
+.b-price-card__buy{
     width: 100%;
     text-align: center;
 }
-
-.b-price-card-buy {
+.b-price-card-buy{
     display: inline-block;
     width: 100%;
     padding: 5px 16px;
@@ -88,23 +79,24 @@
     background-color: #89c13a;
     text-decoration: none;
 
-    &:hover {
+    &:hover{
         background-color: #95cd47;
     }
 }
-
 @media (max-width: $mobile-max-width) {
-    .b-price-card {
+    .b-price-card{
+        padding: 0;
+
         display: flex;
         flex: 1 1 auto;
     }
 
     .b-price-card__link,
-    .b-price-card__price {
+    .b-price-card__price{
         display: none;
     }
 
-    .b-price-card__buy {
+    .b-price-card__buy{
         position: static;
         display: flex;
         width: auto;
@@ -117,7 +109,7 @@
         color: #fff;
     }
 
-    .b-price-card-buy {
+    .b-price-card-buy{
         display: inline-block;
         flex: 1 1 auto;
         width: auto;
@@ -128,23 +120,23 @@
         text-align: center;
         background: none;
 
-        &:hover {
+        &:hover{
             background: none;
         }
     }
 
-    .b-price__caption {
+    .b-price__caption{
         display: inline-block;
         font-size: 1.1em;
     }
 
-    .b-price__price {
+    .b-price__price{
         display: inline-block;
         margin-left: 10px;
         font-size: 1.1em;
     }
 
-    .b-price-ctrl_normal {
+    .b-price-ctrl_normal{
         font-size: 1em;
         font-weight: normal;
     }
