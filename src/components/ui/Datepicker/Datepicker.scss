@@ -9,7 +9,7 @@
 }
 .b-datepicker-range__item-end{
     .b-datepicker{
-        right: 5px;
+        right: $b-search-form__form-offset-ceil-horizontal;
     }
 }
 .b-datepicker__body{

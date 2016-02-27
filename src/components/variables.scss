@@ -1,4 +1,4 @@
-$font-family-base: ProximaNova, RobotoRegular, Arial, sans-serif;
+$font-family-base: 'RobotoRegular', Arial, sans-serif;
 
 /* BEGIN Layout */
 // 960 + 15*2
@@ -42,8 +42,8 @@ $b-search-form-horizontal-padding: $layout-horizontal-padding;
 $b-search-form-bg: rgba(0, 0, 0, 0.50);
 $b-search-form-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.24);
 $b-search-form-border-radius: $base-border-radius + 1;
-$b-search-form__form-padding-vertical: 6px;
-$b-search-form__form-padding-horizontal: 6px;
+$b-search-form__form-padding-vertical: 8px;
+$b-search-form__form-padding-horizontal: 8px;
 $b-search-form__form-offset-ceil-horizontal: 8px;
 $b-search-form__form-offset-ceil-vertical: 8px;
 /* END b-search-form */
@@ -58,6 +58,7 @@ $b-tabs-nav__item-margin-right: 2px;
 $b-tabs-nav__item-padding-vertical: $padding-base-vertical;
 $b-tabs-nav__item-padding-horizontal: 20px;
 $b-tabs-nav__item-font-size: 20px;
+$b-tabs-nav__item-font-family: "RobotoMedium";
 /* END b-tabs-nav */
 
 /* BEGIN b-suggest */

@@ -10,12 +10,7 @@
 import path from 'path';
 import webpack, { DefinePlugin, BannerPlugin } from 'webpack';
 import merge from 'lodash/object/merge';
-
 //import ExtractTextPlugin from 'extract-text-webpack-plugin';
-
-console.log('');
-console.log('process.argv', process.argv);
-console.log('');
 
 const DEBUG = !process.argv.includes('release');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
@@ -67,9 +62,7 @@ const config = {
 
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
-        //new ExtractTextPlugin("css/bootstrap.css", {
-        //    allChunks: true
-        //})
+        //new ExtractTextPlugin('styles.css')
     ],
 
     resolve: {
@@ -101,18 +94,6 @@ const config = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
                 loader: 'file-loader'
-                //}, {
-                //    test   : /\.(eot|svg)(\?[a-z0-9]+)?$/,
-                //    loader : 'file-loader'
-                //}, {
-                //    test   : /\.(ttf|woff(2)?)(\?[a-z0-9]+)?$/,
-                //    loader: 'url-loader?limit=30000&name=[name].[ext]'
-                //}, {
-                //    test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-                //    loader: 'url-loader?limit=30000&name=[name].[ext]'
-                //}, {
-                //    test   : /\.(eot|woff|ttf|svg)$/,
-                //    loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
             },
             {
                 test: /\.jsx?$/,
@@ -137,7 +118,6 @@ const config = {
 
 const appConfig = merge({}, config, {
     entry: [...(WATCH ? ['webpack-hot-middleware/client'] : []), './src/app.js'],
-        //'bootstrap-webpack!./tools/bootstrap.config.js'],
     output: {
         path: path.join(__dirname, '../build/public'),
         filename: 'app.js'
@@ -154,7 +134,7 @@ const appConfig = merge({}, config, {
         ...(WATCH ? [
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin()
-        ] : [])
+        ] : []),
     ],
     module: {
         loaders: [...config.module.loaders,
