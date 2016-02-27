@@ -1,14 +1,14 @@
 @import '../variables.scss';
-.b-search-form {
+.b-search-form{
     margin: 20px 0 0;
 }
 .b-search-form__form,
-.b-search-form__tabs {
+.b-search-form__tabs{
     max-width: $b-search-form-max-width;
     padding: 0 $b-search-form-horizontal-padding;
     margin: 0 auto;
 }
-.b-search-form__actions {
+.b-search-form__actions{
     padding: $b-search-form__form-padding-vertical $b-search-form__form-padding-horizontal;
     font-size: 0;
     line-height: 0;
@@ -18,8 +18,6 @@
     border-bottom-right-radius: $b-search-form-border-radius;
     border-bottom-left-radius: $b-search-form-border-radius;
 }
-
-
 .b-search-form-action__error{
     position: absolute;
     z-index: 5;
@@ -40,7 +38,7 @@
     vertical-align: top;
 }
 .b-search-form-action__location-from,
-.b-search-form-action__location-to {
+.b-search-form-action__location-to{
     position: relative;
     @include form-item(22%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
@@ -60,23 +58,21 @@
 .b-datepicker-range__item-start,
 .b-datepicker-range__item-end{
     @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, 0);
-}
-.b-datepicker-range__item-start{
+
     .b-datepicker-range__icon{
         right: 9px + $b-search-form__form-offset-ceil-horizontal;
     }
 }
-.b-search-form-action__people {
+.b-search-form-action__people{
     @include form-item(19%, $b-search-form__form-offset-ceil-horizontal, 0);
 }
-.b-search-form-action__btn {
+.b-search-form-action__btn{
     @include form-item(9%, 0, 0);
 
-    .btn {
+    .btn{
         width: 100%;
     }
 }
-
 @mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
     padding: $padding-vertical $padding-horizontal;
     font-size: $font-size;
@@ -87,14 +83,14 @@
     color: $color;
     background-color: $bg-color;
 
-    &:hover {
+    &:hover{
         background-color: lighten($bg-color, 5%);
     }
-    &:active {
+    &:active{
         background-color: darken($bg-color, 5%);
     }
 }
-.btn {
+.btn{
     display: inline-block;
     margin-bottom: 0;
     font-weight: normal;
@@ -110,13 +106,9 @@
 
     @include button-size($btn-padding-vertical, $btn-padding-horizontal, $btn-font-size, $btn-line-height, $btn-border-radius);
 }
-.btn-green {
+.btn-green{
     @include btn-bg-color($btn-green-bg, $btn-green-color);
 }
-
-
-
-
 @media(max-width: 900px) {
     .b-search-form-action__location-from{
         @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
@@ -140,7 +132,8 @@
     .b-search-form__tabs{
         padding: 0;
     }
-    .b-tabs-nav{}
+    .b-tabs-nav{
+    }
     .b-tabs-nav__item_active{
         border-top-left-radius: 0;
     }
@@ -159,6 +152,10 @@
     }
     .b-datepicker-range__item-end{
         padding-right: 0;
+
+        .b-datepicker-range__icon{
+            right: 9px;
+        }
     }
     .b-search-form-action__people{
         @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
