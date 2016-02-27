@@ -15,9 +15,7 @@ class AviaFilters extends React.Component {
             {name:'Аэропорты', class:'b-dp-filters__airports'},
             {name:'Сортировать по цене пакета', class:'b-list-filters__sort'},
         ];
-        return (
-            <ListFilters data={data} />
-        );
+        return null
     }
 
 }

@@ -33,7 +33,7 @@ class SearchForm extends React.Component {
                 toId: null,
                 fromDate: null,
                 toDate: null,
-                flightClass: 1,
+                flightClass: 0,
                 adultCount: 2,
                 childAges: null,
                 valid: {},
