@@ -13,10 +13,13 @@
     font-size: 0;
     line-height: 0;
     background: $b-search-form-bg;
+    box-shadow: $b-search-form-box-shadow;
     border-top-right-radius: $b-search-form-border-radius;
     border-bottom-right-radius: $b-search-form-border-radius;
     border-bottom-left-radius: $b-search-form-border-radius;
 }
+
+
 .b-search-form-action__error{
     position: absolute;
     z-index: 5;
@@ -46,17 +49,22 @@
     @include form-item(28%, 0, 0);
 
     .b-search-form-action__error-from-date{
-        width: calc(50% - 5px);
+        width: calc(50% - 8px);
     }
     .b-search-form-action__error-to-date{
         left: auto;
         right: 5px;
-        width: calc(50% - 5px);
+        width: calc(50% - 8px);
     }
 }
 .b-datepicker-range__item-start,
 .b-datepicker-range__item-end{
     @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, 0);
+}
+.b-datepicker-range__item-start{
+    .b-datepicker-range__icon{
+        right: 9px + $b-search-form__form-offset-ceil-horizontal;
+    }
 }
 .b-search-form-action__people {
     @include form-item(19%, $b-search-form__form-offset-ceil-horizontal, 0);
@@ -127,21 +135,35 @@
     }
 }
 @media(max-width: $tablet-max-width) {
+
+    .b-search-form__form,
+    .b-search-form__tabs{
+        padding: 0;
+    }
+    .b-tabs-nav{}
+    .b-tabs-nav__item_active{
+        border-top-left-radius: 0;
+    }
+    .b-search-form__actions{
+        padding: 10px 12px;
+        border-radius: 0;
+    }
+
     .b-search-form-action__location-from,
     .b-search-form-action__location-to{
         @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
     }
     .b-search-form-action__date{
-        @include form-item(100%, 0, 0);
-        padding-bottom: 5px;
+        @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
+        //padding-bottom: 5px;
     }
     .b-datepicker-range__item-end{
         padding-right: 0;
     }
     .b-search-form-action__people{
-        @include form-item(50%, $b-search-form__form-offset-ceil-horizontal, $b-search-form__form-offset-ceil-vertical);
+        @include form-item(100%, 0, $b-search-form__form-offset-ceil-vertical);
     }
     .b-search-form-action__btn{
-        @include form-item(50%, 0, $b-search-form__form-offset-ceil-vertical);
+        @include form-item(100%, 0, 0);
     }
 }

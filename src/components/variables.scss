@@ -5,9 +5,9 @@ $font-family-base: ProximaNova, RobotoRegular, Arial, sans-serif;
 $layout-max-width: 990px;
 $layout-horizontal-padding: 15px;
 $layout-mobile-horizontal-padding: 5px;
-$padding-base-vertical: 8px;
+$padding-base-vertical: 11px;
 $padding-base-horizontal: 15px;
-$font-size-base: 14px;
+$font-size-base: 15px;
 $line-height-base: 1.428571429;
 $line-height-computed: $font-size-base * $line-height-base;
 $mobile-max-width: 480px;
@@ -25,7 +25,7 @@ $small-border-radius: 1px;
 
 /* BEGIN COLORS */
 $black: #212121;
-$gray: rgba(0, 0, 0, .4);
+$gray: #7D7D7D;
 $gray-2: rgba(0, 0, 0, .25);
 $gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
@@ -39,24 +39,25 @@ $link-color: #1e88c1;
 /* BEGIN b-search-form */
 $b-search-form-max-width: $layout-max-width;
 $b-search-form-horizontal-padding: $layout-horizontal-padding;
-$b-search-form-bg: $black;
+$b-search-form-bg: rgba(0, 0, 0, 0.50);
+$b-search-form-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.24);
 $b-search-form-border-radius: $base-border-radius + 1;
 $b-search-form__form-padding-vertical: 6px;
 $b-search-form__form-padding-horizontal: 6px;
-$b-search-form__form-offset-ceil-horizontal: 5px;
-$b-search-form__form-offset-ceil-vertical: 5px;
+$b-search-form__form-offset-ceil-horizontal: 8px;
+$b-search-form__form-offset-ceil-vertical: 8px;
 /* END b-search-form */
 
 /* BEGIN b-tabs-nav */
 $b-tabs-nav__item-color: $white;
 $b-tabs-nav__item-bg: rgba(33, 33, 33, .6);
 $b-tabs-nav__item-hover-bg: rgba(33, 33, 33, .75);
-$b-tabs-nav__item-active-bg: $black;
+$b-tabs-nav__item-active-bg: $b-search-form-bg;
 $b-tabs-nav__item-border-radius: $base-border-radius;
 $b-tabs-nav__item-margin-right: 2px;
-$b-tabs-nav__item-padding-vertical: 9px;
+$b-tabs-nav__item-padding-vertical: $padding-base-vertical;
 $b-tabs-nav__item-padding-horizontal: 20px;
-$b-tabs-nav__item-font-size: 16px;
+$b-tabs-nav__item-font-size: 20px;
 /* END b-tabs-nav */
 
 /* BEGIN b-suggest */
@@ -72,7 +73,7 @@ $b-suggest-overlay__close-color_active: $red;
 /* BEGIN btn */
 $btn-border-radius: $base-border-radius;
 $btn-line-height: $line-height-computed;
-$btn-font-size: 15px;
+$btn-font-size: 20px;
 $btn-padding-horizontal: $padding-base-horizontal;
 $btn-padding-vertical: $padding-base-vertical;
 $btn-green-color: $white;

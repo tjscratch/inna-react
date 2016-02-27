@@ -64,7 +64,7 @@ class PeopleSelector extends React.Component {
                 childCount = agesArray.length;
             }
         }
-        
+
         var peopleCount = adultCount + childCount;
         if(peopleCount == 1 || peopleCount == 5 || peopleCount == 6 || peopleCount == 7){
             peopleCount = `${peopleCount} человек`
@@ -72,12 +72,12 @@ class PeopleSelector extends React.Component {
         if(peopleCount == 2 || peopleCount == 3 || peopleCount == 4){
             peopleCount = `${peopleCount} человека`
         }
-        
+
         return (
             <div className="b-people-selector__value">
                 <div className="b-people-selector__value-peoples">
                     {peopleCount}
-                </div>,
+                </div>
                 <div className="b-people-selector__value-class">
                     {this.state.flightClass}
                 </div>
@@ -111,7 +111,7 @@ class PeopleSelector extends React.Component {
         childCountArr[index] = event.target.value;
         this.props.setChildAges(childCountArr.join('_'));
     }
-    
+
     renderChildsBtns() {
 
         var childCount = 0;
@@ -131,7 +131,7 @@ class PeopleSelector extends React.Component {
                 </div>
             )
         }
-        
+
         var options = [];
         for (var i = 0; i < 18; i++) {
             options.push(<option>{i}</option>)
@@ -187,16 +187,20 @@ class PeopleSelector extends React.Component {
                 <div className="b-people-selector-dropdown__toggle" onClick={this.handleOpen.bind(this)}>
                     <input className="b-people-selector__input" onFocus={this.handleOpen.bind(this)}/>
                     {this.getPeopleCount()}
-                    <div className="b-people-selector__icon-action">
-                        {this.state.isOpen ? <i className="icon-emb-angle-up"></i> : <i className="icon-emb-angle-down"></i>}
-                    </div>
+                    {false ?
+                        <div className="b-people-selector__icon-action">
+                            {this.state.isOpen ? <i className="icon-emb-angle-up"></i> : <i className="icon-emb-angle-down"></i>}
+                        </div>
+                        :
+                        null
+                    }
                 </div>
 
                 <div className="b-people-selector-dropdown">
                     {this.renderPeoplesBtns()}
                     {this.renderChildsBtns()}
                     <div className="b-people-selector-dropdown__avia-class">
-                        <Checkbox text="Бизнес-класс" 
+                        <Checkbox text="Бизнес-класс"
                                   checked={this.props.flightClass}
                                   onChange={this.changeFlightClass.bind(this)}/>
                     </div>

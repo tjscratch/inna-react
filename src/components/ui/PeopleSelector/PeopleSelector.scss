@@ -37,15 +37,16 @@
     position: relative;
     z-index: 2;
     white-space: nowrap;
+
+    display: flex;
+    justify-content: space-between;
 }
 .b-people-selector__value-peoples{
-    display: inline-block;
+    display: block;
 }
 .b-people-selector__value-class{
-    display: inline-block;
-    margin-left: 3px;
+    display: block;
     color: $gray;
-    font-size: 12px;
 }
 .b-people-selector-dropdown{
     display: none;
@@ -103,7 +104,7 @@
 }
 .b-people-selector-dropdown__selects-select{
     flex: 1 1 50%;
-    
+
     margin: 0 2px;
     padding: $b-people-selector-dropdown__btns-padding;
     border: 1px solid $b-people-selector-dropdown__btns-border-color;
