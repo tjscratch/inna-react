@@ -1,13 +1,10 @@
 @import "../variables.scss";
 
 .b-hotel-card {
-    padding: 10px 0 40px 10px;
 }
-
-.b-hotel-card__icon {
-    position: absolute;
-    top: 5px;
-    right: 10px;
+.HotelInfo{
+    min-height: 155px;
+    padding: 10px;
 }
 
 .b-hotel-card__photo {
@@ -67,29 +64,21 @@
     color: #575757;
 }
 
-.b-hotel-card__actions {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    padding-right: 10px;
-}
+.b-hotel-card__actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-.b-hotel-card-actions {
-    max-height: 30px;
-    padding: 5px 16px;
-    overflow: hidden;
-    font-size: .9em;
-    font-weight: bold;
-    text-align: center;
-    line-height: 24px;
-    cursor: pointer;
-    background-color: #f9c623;
-    border-radius: 3px;
-
-    &:hover {
-        background-color: #f8bf07;
+    .ButtonSecondary{
+        width: 50%;
     }
 }
+.b-hotel-card__actions-more{
+    .ButtonSecondary{
+        width: 100%;
+    }
+}
+
 
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-hotel-card__photo {
@@ -114,9 +103,6 @@
 }
 
 @media (max-width: $mobile-max-width) {
-    .b-hotel-card__icon {
-        display: none;
-    }
 
     .b-hotel-card-info__stars {
         font-size: .9em;

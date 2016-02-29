@@ -12,10 +12,13 @@
     }
 }
 .b-avia-card__actions-more{
-    justify-content: flex-end;
+    .ButtonSecondary{
+        width: 100%;
+    }
 }
 // BEGIN FlightInfo
 .FlightInfo{
+    min-height: 155px;
     margin: 0;
     padding: 10px 10px 5px;
 }
@@ -118,25 +121,7 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
-        //align-items: stretch;
-        //align-content: stretch;
-        //justify-content: space-around;
-        padding: 5px 10px;
-        //background-color: aqua;
     }
-
-    .b-avia-card__actions{
-        flex: 1 1 auto;
-        align-self: flex-end;
-        position: static;
-        //background-color: yellow;
-    }
-
-    .b-avia-card-actions{
-        width: 210px;
-        overflow: hidden;
-    }
-
 }
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
 

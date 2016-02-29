@@ -10,14 +10,16 @@ import { pluralize } from '../../helpers/CountHelper.js';
 
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 import HotelStars from '../HotelStars';
+import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
 
 @withViewport
-@withStyles(styles) class HotelCard extends React.Component {
-    constructor(props) {
+@withStyles(styles)
+class HotelCard extends React.Component {
+    constructor (props) {
         super(props);
     }
 
-    getMealNameByCode(code) {
+    getMealNameByCode (code) {
         switch (code) {
             case 'RO':
                 return 'Без питания';
@@ -32,14 +34,14 @@ import HotelStars from '../HotelStars';
         }
     }
 
-    actionClick() {
+    actionClick () {
         var { events } = this.props;
         if (events && events.changeListType) {
             events.changeListType(ListType.Hotels);
         }
     }
 
-    renderActions() {
+    renderActions () {
         var { data, showChangeHotels, viewport } = this.props;
         if (data) {
             //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
@@ -47,20 +49,28 @@ import HotelStars from '../HotelStars';
             if (showChangeHotels) {
                 return (
                     <div className="b-hotel-card__actions">
-                        <div className="b-hotel-card-actions" onClick={this.actionClick.bind(this)}>
-                            {
-                                data.HotelsCount ?
-                                <div>Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['вариант', 'варианта', 'вариантов'])} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}</div> :
-                                <div>Еще варианты отелей</div>
-                            }
-                        </div>
+                        {
+                            data.HotelsCount ?
+                                <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                                    Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}
+                                </ButtonSecondary>
+                                :
+                                <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                                    Заменить отель
+                                </ButtonSecondary>
+                        }
+                        <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
+                            Подробнее
+                        </ButtonSecondary>
                     </div>
                 );
             }
             else {
                 return (
-                    <div className="b-hotel-card__actions">
-                        <a href="">Подробнее</a>
+                    <div className="b-hotel-card__actions b-hotel-card__actions-more">
+                        <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
+                            Подробнее
+                        </ButtonSecondary>
                     </div>
                 );
             }
@@ -69,7 +79,7 @@ import HotelStars from '../HotelStars';
         return null;
     }
 
-    render() {
+    render () {
         //console.log('HotelCard data', this.props.data);
         var { data, allowActions } = this.props;
 
@@ -79,34 +89,33 @@ import HotelStars from '../HotelStars';
 
             return (
                 <div className="b-hotel-card">
-                    <div className="b-hotel-card__icon">
-                        <img alt="logo" className="" src={require('./hotel.png')}/>
-                    </div>
-                    <div className="b-hotel-card__photo">
-                        <img className="b-hotel-card-photo" src={data.HotelPhoto180}/>
-                    </div>
-                    <div className="b-hotel-card__info">
-                        <div className="b-hotel-card-info">
-                            <div className="b-hotel-card-info__stars">
-                                <HotelStars data={data.Stars}/>
-                            </div>
-                            <div className="b-hotel-card-info__title">
-                                <a href="">{data.HotelName}</a>
-                            </div>
-                            <div className="b-hotel-card-info__map">
-                                <a href="">(на карте)</a>
-                            </div>
-                            <div className="b-hotel-card-info__date">
-                                с {dateToDDMMM(checkIn)} по {dateToDDMMM(checkOut)},
-                                <br />{`${data.NightCount} ${pluralize(data.NightCount, ['ночь', 'ночи', 'ночей'])}`},&nbsp;
-                                {this.getMealNameByCode(data.MealCode)} ({data.MealCode})
-                            </div>
-                            <div className="b-hotel-card-info__room">
-                            </div>
-                            <div className="b-hotel-card-info__include">
-                            </div>
-                            <div className="b-hotel-card-info__votes">
-                                <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}}/>
+                    <div className='HotelInfo'>
+                        <div className="b-hotel-card__photo">
+                            <img className="b-hotel-card-photo" src={data.HotelPhoto180}/>
+                        </div>
+                        <div className="b-hotel-card__info">
+                            <div className="b-hotel-card-info">
+                                <div className="b-hotel-card-info__stars">
+                                    <HotelStars data={data.Stars}/>
+                                </div>
+                                <div className="b-hotel-card-info__title">
+                                    <a href="">{data.HotelName}</a>
+                                </div>
+                                <div className="b-hotel-card-info__map">
+                                    <a href="">(на карте)</a>
+                                </div>
+                                <div className="b-hotel-card-info__date">
+                                    с {dateToDDMMM(checkIn)} по {dateToDDMMM(checkOut)},
+                                    <br />{`${data.NightCount} ${pluralize(data.NightCount, ['ночь', 'ночи', 'ночей'])}`},&nbsp;
+                                    {this.getMealNameByCode(data.MealCode)} ({data.MealCode})
+                                </div>
+                                <div className="b-hotel-card-info__room">
+                                </div>
+                                <div className="b-hotel-card-info__include">
+                                </div>
+                                <div className="b-hotel-card-info__votes">
+                                    <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}}/>
+                                </div>
                             </div>
                         </div>
                     </div>
