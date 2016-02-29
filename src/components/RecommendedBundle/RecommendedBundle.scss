@@ -51,8 +51,8 @@ $mobile-padding: 1.5%;
     display: table-cell;
     width: 40%;
     vertical-align: top;
-    background-color: #fff;
     transition: opacity $animation-speed;
+    border-right: 1px solid $gray-light;
 }
 
 .b-bundle-content__dp {
@@ -60,7 +60,7 @@ $mobile-padding: 1.5%;
     display: table-cell;
     width: 40%;
     vertical-align: top;
-    background-color: #eee;
+    border-right: 1px solid $gray-light;
 }
 
 .b-bundle-content__price {
@@ -68,7 +68,6 @@ $mobile-padding: 1.5%;
     position: relative;
     width: 20%;
     vertical-align: middle;
-    background-color: #fcf8e3;
 }
 
 

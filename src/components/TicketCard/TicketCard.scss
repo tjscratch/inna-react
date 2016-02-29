@@ -1,181 +1,23 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
-
-.b-avia-card {
-    padding: 5px 10px 40px 10px;
+.b-avia-card{
 }
+.b-avia-card__actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 
-//карточка
-.b-avia-card__flight-info {
-    //margin: 5px 0;
-}
-
-//.b-flight-info_back {
-//    margin-top: 5px;
-//}
-
-.b-flight-info {
-
-    &:before {
-        content: '\e800';
-        position: absolute;
-        display: inline-block;
-        font-family: "icons";
-        transform: rotate(45deg);
+    .ButtonSecondary{
+        width: 50%;
     }
 }
-
-.b-flight-info__text {
-    display: inline-block;
-    width: 40%;
-    margin-left: 8%;
-    //background-color:  #b3d4fc;
-    vertical-align: top;
+.b-avia-card__actions-more{
+    justify-content: flex-end;
 }
-
-.b-flight-info__text.b-flight-info__text_to {
-    float: right;
-    margin-left: 5%;
-
-    &:before {
-        content: '\e802';
-        position: absolute;
-        display: inline-block;
-        margin-left: -10%;
-        font-family: "icons";
-        color: #878787;
-    }
-}
-
-.b-flight-info-text {
-    text-align: left;
-}
-
-.b-flight-info-trip {
-    position: relative;
-    margin: 0 8%;
-    font-size: .75em;
-    color: #4d4d4d;
-    text-align: center;
-    white-space: nowrap;
-
-    &:before {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        content: '';
-        background: #4d4d4d;
-    }
-
-    &:after {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        width: 0;
-        height: 0;
-        margin-top: -3px;
-        content: '';
-        border-color: transparent transparent transparent #4d4d4d;
-        border-style: solid;
-        border-width: 3px 0 4px 11px;
-    }
-}
-
-.b-flight-info-time {
-    display: inline-block;
-    margin-right: 5px;
-    font-size: .9em;
-    font-weight: bold;
-}
-
-.b-flight-info-date {
-    display: inline-block;
-    font-size: .8em;
-    color: #878787;
-}
-
-.b-flight-info-date-block {
-    margin-bottom: -5px;
-}
-
-.b-flight-info-airport-block {
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    padding-right: 30px;
-    white-space: nowrap;
-}
-
-.b-flight-info-date-airport {
-    display: inline-block;
-    width: 100%;
-    margin-right: 5px;
-    overflow: hidden;
-    font-size: .9em;
-    font-weight: bold;
-    text-overflow: ellipsis;
-    vertical-align: bottom;
-}
-
-.b-flight-info-date-airport-code {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 30px;
-    font-size: .8em;
-    color: #878787;
-    vertical-align: bottom;
-}
-
-.b-flight-info-transfer {
-    margin-left: 8%;
-    font-size: .8em;
-    color: #878787;
-}
-
-.b-avia-card__actions {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-    //padding-right: 10px;
-}
-
-.b-avia-card-actions {
-    max-height: 30px;
-    padding: 5px 16px;
-    overflow: hidden;
-    font-size: .9em;
-    font-weight: bold;
-    text-align: center;
-    line-height: 24px;
-    cursor: pointer;
-    background-color: #f9c623;
-    border-radius: 3px;
-
-    &:hover {
-        background-color: #f8bf07;
-    }
-}
-
-.b-avia-card-actions__about-link {
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
-    color: #0277bd;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
 // BEGIN FlightInfo
 .FlightInfo{
-    margin: 20px 0;
-    border-top: 1px solid $gray;
-    border-bottom: 1px solid $gray;
+    margin: 0;
+    padding: 10px 10px 5px;
 }
 .FlightInfo__row{
     display: flex;
@@ -184,8 +26,13 @@
 }
 .FlightInfo__icons{
     margin-right: 10px;
+    padding: 4px 0 0 0;
     width: 20px;
     flex-basis: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .FlightInfo-icon{
     display: inline-block;
@@ -194,14 +41,25 @@
     vertical-align: top;
 }
 .FlightInfo-delimiter{
+    width: 24px;
     margin: 0 10px;
 
-    flex-basis: 20px;
-    vertical-align: middle;
+    color: $gray;
+    font-size: 24px;
+
+    flex-basis: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .FlightInfo-text{
-    width: 40%;
-    flex-basis: 40%;
+    width: 45%;
+    flex-basis: 45%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .FlightInfo-data-block{
 
@@ -216,7 +74,7 @@
     display: inline-block;
     margin-left: 5px;
     font-size: 12px;
-    color: $gray;
+    color: $black;
     line-height: 15px;
 }
 .FlightInfo-airport{
@@ -226,8 +84,6 @@
     font-size: 12px;
     color: $gray;
     line-height: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .FlightInfo-airport-code{
     display: inline-block;
@@ -238,35 +94,27 @@
 }
 .FlightInfo-airport-name{
     display: inline-block;
-    margin-left: 5px;
+    max-width: 100%;
+    margin-left: 3px;
+
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.FlightInfo__transfer{
+    margin: 5px 0 8px;
+    font-size: 12px;
+    color: #000;
+    line-height: 15px;
+    text-align: center;
 }
 // END FlightInfo
 
 @media(max-width: $recommended-bundle-max-mobile-width) {
-    .b-flight-info__text {
-        width: 44%;
-        margin-left: 8%;
-    }
 
-    .b-flight-info__text.b-flight-info__text_to {
-        margin-left: 4%;
-    }
-
-    //.b-avia-card__actions {
-        //left: inherit;
-        //right: 0;
-        //bottom: 5px;
-    //}
-
-    //.b-avia-card-actions {
-    //    width: 230px;
-    //    overflow: auto;
-    //}
 }
-
-
 @media (max-width: $mobile-max-width) {
-    .b-avia-card {
+    .b-avia-card{
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
@@ -277,42 +125,19 @@
         //background-color: aqua;
     }
 
-    .b-avia-card__flight-info {
-        display: flex;
-        flex-direction: column;
-        flex: 10 1 auto;
-        //margin: 0;
-        //background-color: #f6f6f6;
-    }
-
-    .b-avia-card__actions {
+    .b-avia-card__actions{
         flex: 1 1 auto;
         align-self: flex-end;
         position: static;
         //background-color: yellow;
     }
 
-    .b-avia-card-actions {
+    .b-avia-card-actions{
         width: 210px;
         overflow: hidden;
     }
 
-    //карточка перелета
-    .b-flight-info {
-        flex: 2 1 auto;
-    }
-
-    .b-flight-info-transfer {
-        flex: 1 1 auto;
-    }
-
-    //.b-flight-info_back {
-    //    margin-top: 0;
-    //}
 }
-
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
-    .b-avia-card__flight-info {
-        line-height: 1.35;
-    }
+
 }

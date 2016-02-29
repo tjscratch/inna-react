@@ -1,0 +1,30 @@
+@import "../../../variables.scss";
+
+.ButtonSecondary{
+    display: inline-block;
+    padding: $ButtonSecondary-padding-vertical $ButtonSecondary-padding-horizontal;
+
+    border-radius: $ButtonSecondary-border-radius;
+    font-size: $ButtonSecondary-font-size;
+    line-height: $ButtonSecondary-line-height;
+
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+.ButtonSecondary__button{
+    background-color: $ButtonSecondary-bg;
+    color: $ButtonSecondary-color;
+
+    &:hover{
+        background-color: $ButtonSecondary-bg-hover;
+    }
+}
+.ButtonSecondary__link{
+    background-color: $ButtonSecondary-link-bg;
+    color: $ButtonSecondary-link-color;
+
+    &:hover{
+        background-color: $ButtonSecondary-link-bg-hover;
+    }
+}

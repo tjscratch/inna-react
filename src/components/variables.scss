@@ -25,7 +25,7 @@ $small-border-radius: 1px;
 
 /* BEGIN COLORS */
 $black: rgba(0, 0, 0, 0.87);
-$gray: #7D7D7D;
+$gray: rgba(0, 0, 0, 0.54);
 $gray-2: rgba(0, 0, 0, .25);
 $gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
@@ -33,7 +33,8 @@ $base-text-color-mobile: $black;
 $white: #fff;
 $green: #89c13a;
 $red: #e30514;
-$link-color: #1e88c1;
+$link-color: #1b74b3;
+$color-secondary: #f0bd4e;
 /* END COLORS */
 
 /* BEGIN b-search-form */
@@ -144,5 +145,20 @@ $result-list-item-border: rgba(0, 0, 0, .2);
 $result-list-item-bg: $white;
 $result-list-item-shadow: 0 0 13px rgba(0, 0, 0, .3);
 /* END RESULT PAGES */
+
+
+/* BEGIN ButtonSecondary */
+$ButtonSecondary-bg: $color-secondary;
+$ButtonSecondary-bg-hover: darken($ButtonSecondary-bg, 5%);
+$ButtonSecondary-color: $black;
+$ButtonSecondary-link-bg: #f8f8f8;
+$ButtonSecondary-link-bg-hover: darken($ButtonSecondary-link-bg, 5%);
+$ButtonSecondary-link-color: $link-color;
+$ButtonSecondary-border-radius: 0;
+$ButtonSecondary-font-size: .93rem;
+$ButtonSecondary-line-height: 1.33rem;
+$ButtonSecondary-padding-horizontal: 1rem;
+$ButtonSecondary-padding-vertical: .566rem;
+/* END ButtonSecondary */
 
 
