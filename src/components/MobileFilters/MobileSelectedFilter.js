@@ -1,22 +1,45 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './MobileSelectedFilter.scss';
 import withStyles from '../../decorators/withStyles';
+import Overlay from '../ui/Overlay';
 
-@withStyles(styles) class MobileSelectedFilter extends Component {
-    constructor(props) {
+@withStyles(styles)
+class MobileSelectedFilter extends Component {
+    constructor (props) {
         super(props);
+
+        this.state = {
+            openFilters: false
+        }
     }
 
-    goBack() {
+    goBack () {
         console.log('goBack');
         window.history.back();
     }
 
-    openFilter() {
-        alert('openFilter');
+    openFilter () {
+        //alert('openFilter');
+
+        this.setState({
+            openFilters: !this.state.openFilters
+        })
+        console.log(this.state.openFilters)
     }
 
-    render() {
+    renderFilters () {
+        if(this.state.openFilters){
+            return (
+                <Overlay>
+                    <div className="b-suggest-overlay">
+                        filters
+                    </div>
+                </Overlay>
+            )
+        }
+    }
+
+    render () {
         var isFilterBtnEnabled = true;
         var { disableFilterBtn } = this.props;
         if (disableFilterBtn) {
@@ -37,9 +60,12 @@ import withStyles from '../../decorators/withStyles';
                     {
                         isFilterBtnEnabled ?
                             <div className="b-mobile-selected-filter__filter icon-emb-filter"
-                                 onClick={this.openFilter}>
-                            </div> : null
+                                 onClick={this.openFilter.bind(this)}>
+                            </div>
+                            :
+                            null
                     }
+                    {this.renderFilters()}
                 </div>
             </div>
         );
