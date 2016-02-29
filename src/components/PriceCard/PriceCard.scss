@@ -3,9 +3,9 @@
 .b-price-card{
     height: 100%;
     padding: 0;
+    white-space: nowrap;
 
     display: flex;
-
     flex-direction: column;
     justify-content: space-between;
 }
@@ -13,36 +13,9 @@
     text-align: right;
     vertical-align: top;
 }
-.b-share-link{
-    position: relative;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    vertical-align: top;
 
-    &:hover{
-        background-color: #e6e7e9;
-    }
-
-    &.b-share-link_active{
-        background-color: #89c13a;
-    }
-}
-.b-share-img{
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -8px 0 0 -8px;
-
-    background: url('chain-black.png') no-repeat 0 0;
-}
 .b-price-card__price{
-    padding-top: 25px;
+    padding-top: 20%;
     text-align: center;
 }
 .b-price-card__price-text{
@@ -54,7 +27,7 @@
     font-size: 1.3em;
 }
 .b-price-card__full-price{
-    margin: 0 0 5px;
+    margin: 0 0 2px;
     font-size: .9em;
     font-weight: bold;
 }
@@ -84,53 +57,16 @@
         background-color: $Button-bg-hover;
     }
 }
+.b-price-card-buy__price{
+    font-family: "Roboto Medium";
+    font-size: 1.6rem;
+    color: #fff;
+}
+.b-price-card-buy__caption{
+    display: block;
+    font-size: .8rem;
+}
 @media (max-width: $mobile-max-width) {
-    .b-price-card{
-        padding: 0;
-
-        display: flex;
-        flex: 1 1 auto;
-    }
-
-    .b-price-card__link,
-    .b-price-card__price{
-        display: none;
-    }
-
-    .b-price-card__buy{
-        position: static;
-        display: flex;
-        width: auto;
-        bottom: auto;
-        flex: 1 1 auto;
-        align-items: center;
-        justify-content: center;
-        background-color: #89c13a;
-        cursor: pointer;
-        color: #fff;
-    }
-
-    .b-price-card-buy{
-        display: inline-block;
-        flex: 1 1 auto;
-        width: auto;
-        margin-top: 2px;
-        padding: 6px 0;
-        border-radius: 0;
-        font-size: 1.2em;
-        text-align: center;
-        background: none;
-
-        &:hover{
-            background: none;
-        }
-    }
-
-    .b-price__caption{
-        display: inline-block;
-        font-size: 1.1em;
-    }
-
     .b-price__price{
         display: inline-block;
         margin-left: 10px;

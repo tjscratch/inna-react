@@ -12,17 +12,6 @@ import Price from '../Price';
 class PriceCard extends Component {
     constructor (props) {
         super(props);
-
-        this.state = {
-            shareOpen: false
-        };
-    }
-
-    shareClick (e) {
-        var isOpen = this.state.shareOpen;
-        this.setState({
-            shareOpen: !isOpen
-        })
     }
 
     buyClick (e) {
@@ -49,6 +38,7 @@ class PriceCard extends Component {
         }
     }
 
+
     renderPrice (data) {
         var { viewport } = this.props;
         if (viewport.isMobile) {
@@ -57,27 +47,56 @@ class PriceCard extends Component {
                     <Price data={data.PackagePrice} customClass="b-price-ctrl_normal"/>
                 </div>
             );
+        } else {
+            return (
+                <div className="b-price-card__full-price">
+                    К оплате:
+                    <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
+                </div>
+            );
         }
 
         return null;
     }
 
-    render () {
-        var { viewport } = this.props;
-        var { data, chooseMode, onSubmit } = this.props;
-        var { shareOpen } = this.state;
+
+    renderMobile () {
+        var { data, chooseMode } = this.props;
         if (data) {
             return (
                 <div className="b-price-card">
-                    {false ?
-                        <div className="b-price-card__link">
-                            <div className={`b-share-link ${shareOpen ? 'b-share-link_active' : ''}`}
-                                 onClick={this.shareClick.bind(this)}>
-                                <i className="b-share-img"></i>
-                            </div>
-                        </div>
-                        : null
-                    }
+                    <div className="b-price-card__buy">
+                        {
+                            chooseMode ?
+                                <div className="b-price-card__full-price">
+                                    К оплате:
+                                    <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
+                                </div>
+                                :
+                                null
+                        }
+                        {
+                            chooseMode ?
+                                <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
+                                :
+                                <a className="b-price-card-buy" onClick={(e)=>this.buyClick(e)}>
+                                    <Price data={data.PackagePrice} customClass="b-price-card-buy__price"/>
+                                    <div className="b-price-card-buy__caption">за двоих человек</div>
+                                </a>
+                        }
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    }
+
+    renderNormal () {
+        var { data, chooseMode } = this.props;
+        if (data) {
+            return (
+                <div className="b-price-card">
+
                     <div className="b-price-card__price">
                         <div className="b-price-card__price-price">
                             <Price data={data.CostPerPerson}/>
@@ -86,29 +105,41 @@ class PriceCard extends Component {
                             цена за человека
                         </div>
                     </div>
+
                     <div className="b-price-card__buy">
-                        {!viewport.isMobile ?
-                            <div className="b-price-card__full-price">
-                                К оплате:
-                                <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
-                            </div>
-                            :
-                            null
+                        {
+                            chooseMode ?
+                                <div className="b-price-card__full-price">
+                                    К оплате:
+                                    <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
+                                </div>
+                                :
+                                null
                         }
                         {
                             chooseMode ?
                                 <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
                                 :
                                 <a className="b-price-card-buy" onClick={(e)=>this.buyClick(e)}>
-                                    <div className="b-price__caption">Купить</div>
-                                    {this.renderPrice(data)}
+                                    <Price data={data.PackagePrice} customClass="b-price-card-buy__price"/>
+                                    <div className="b-price-card-buy__caption">за двоих человек</div>
                                 </a>
                         }
                     </div>
                 </div>
             );
         }
+        return null;
+    }
 
+
+    render () {
+        var { viewport } = this.props;
+        if (viewport.isMobile) {
+            return this.renderMobile();
+        } else {
+            return this.renderNormal();
+        }
         return null;
     }
 }

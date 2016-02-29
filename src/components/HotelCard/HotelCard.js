@@ -44,38 +44,24 @@ class HotelCard extends React.Component {
     renderActions () {
         var { data, showChangeHotels, viewport } = this.props;
         if (data) {
-            //сейчас выбраны авиабилеты - показываем кнопку переключения на пакеты
-            //if (viewport.isMobile || showChangeHotels) {
-            if (showChangeHotels) {
-                return (
-                    <div className="b-hotel-card__actions">
-                        {
-                            data.HotelsCount ?
-                                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                                    Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}
-                                </ButtonSecondary>
-                                :
-                                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                                    Заменить отель
-                                </ButtonSecondary>
-                        }
-                        <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-                            Подробнее
-                        </ButtonSecondary>
-                    </div>
-                );
-            }
-            else {
-                return (
-                    <div className="b-hotel-card__actions b-hotel-card__actions-more">
-                        <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-                            Подробнее
-                        </ButtonSecondary>
-                    </div>
-                );
-            }
+            return (
+                <div className="b-hotel-card__actions">
+                    {
+                        data.HotelsCount ?
+                            <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                                Еще {data.HotelsCount} {pluralize(data.HotelsCount, ['отеля', 'отелей', 'отелей'])}
+                            </ButtonSecondary>
+                            :
+                            <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                                Заменить отель
+                            </ButtonSecondary>
+                    }
+                    <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
+                        Подробнее
+                    </ButtonSecondary>
+                </div>
+            );
         }
-
         return null;
     }
 
@@ -90,32 +76,27 @@ class HotelCard extends React.Component {
             return (
                 <div className="b-hotel-card">
                     <div className='HotelInfo'>
-                        <div className="b-hotel-card__photo">
-                            <img className="b-hotel-card-photo" src={data.HotelPhoto180}/>
+                        <div className='HotelInfo__photos'>
+                            <img className="HotelInfo__photos-photo" src={data.HotelPhoto180}/>
                         </div>
-                        <div className="b-hotel-card__info">
-                            <div className="b-hotel-card-info">
-                                <div className="b-hotel-card-info__stars">
-                                    <HotelStars data={data.Stars}/>
+                        <div className='HotelInfo__text'>
+                            <div className='HotelInfo__text-rating'>
+                                <HotelStars data={data.Stars}/>
+                            </div>
+                            <h2 className='HotelInfo__text-title'>
+                                <div className='HotelInfo__text-title-inset'>
+                                    {data.HotelName}
                                 </div>
-                                <div className="b-hotel-card-info__title">
-                                    <a href="">{data.HotelName}</a>
-                                </div>
-                                <div className="b-hotel-card-info__map">
-                                    <a href="">(на карте)</a>
-                                </div>
-                                <div className="b-hotel-card-info__date">
-                                    с {dateToDDMMM(checkIn)} по {dateToDDMMM(checkOut)},
-                                    <br />{`${data.NightCount} ${pluralize(data.NightCount, ['ночь', 'ночи', 'ночей'])}`},&nbsp;
-                                    {this.getMealNameByCode(data.MealCode)} ({data.MealCode})
-                                </div>
-                                <div className="b-hotel-card-info__room">
-                                </div>
-                                <div className="b-hotel-card-info__include">
-                                </div>
-                                <div className="b-hotel-card-info__votes">
-                                    <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}}/>
-                                </div>
+                            </h2>
+                            <div className='HotelInfo__text-date'>
+                                с {dateToDDMMM(checkIn)} по {dateToDDMMM(checkOut)},
+                                {`${data.NightCount} ${pluralize(data.NightCount, ['ночь', 'ночи', 'ночей'])}`}
+                            </div>
+                            <div className='HotelInfo__text-meal'>
+                                {this.getMealNameByCode(data.MealCode)} ({data.MealCode})
+                            </div>
+                            <div className='HotelInfo__text-rating-ta'>
+                                <Tripadvisor data={{TaCommentCount: data.TaCommentCount, TaFactor: data.TaFactor}}/>
                             </div>
                         </div>
                     </div>

@@ -18,9 +18,11 @@
 }
 // BEGIN FlightInfo
 .FlightInfo{
-    min-height: 155px;
+    min-height: 150px;
     margin: 0;
     padding: 10px 10px 5px;
+
+    line-height: 1.2;
 }
 .FlightInfo__row{
     display: flex;

@@ -1,69 +1,56 @@
 @import "../variables.scss";
-
-.b-hotel-card {
+.b-hotel-card{
 }
+// BEGIN HotelInfo
 .HotelInfo{
-    min-height: 155px;
-    padding: 10px;
+    height: $HotelInfo-photo-width;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
 }
+.HotelInfo__photos{
+    width: $HotelInfo-photo-width;
+    flex-basis: $HotelInfo-photo-width;
 
-.b-hotel-card__photo {
-    display: inline-block;
-    width: 36%;
-    padding-right: 15px;
+    background: red;
 }
-
-.b-hotel-card-photo {
-    width: 100%;
-    max-width: 125px;
+.HotelInfo__photos-photo{
+    display: block;
+    max-width: 100%;
 }
+.HotelInfo__text{
+    width: $HotelInfo__text-width;
 
-.b-hotel-card__info {
-    display: inline-block;
-    width: 64%;
-    vertical-align: top;
+    padding: 0 15px;
+    font-size: .9rem;
 }
-
-.b-hotel-card-info__title {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #1e88c1;
-
-    a {
-        display: inline-block;
-        width: 100%;
-        color: #1e88c1;
-        text-decoration: none;
-        word-break: keep-all;
-        word-wrap: normal;
-        white-space: nowrap;
-        overflow: hidden;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+.HotelInfo__text-rating{
+    font-size: .75rem;
 }
-
-.b-hotel-card-info__map {
-    font-size: 14px;
-    color: #1e88c1;
-
-    a {
-        color: #1e88c1;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+.HotelInfo__text-title{
+    margin: 0;
+    font-size: inherit;
+    color: $black;
+    white-space: nowrap;
+    font-size: 1rem;
 }
+.HotelInfo__text-title-inset{
+    max-width: 100%;
 
-.b-hotel-card-info__date {
-    font-size: .85em;
-    color: #575757;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+.HotelInfo__text-date{
+    color: $gray;
+}
+.HotelInfo__text-meal{
+    color: $gray;
+}
+.HotelInfo__text-rating-ta{
 
+}
+// END HotelInfo
 .b-hotel-card__actions{
     display: flex;
     flex-direction: row;
@@ -78,49 +65,12 @@
         width: 100%;
     }
 }
-
-
 @media(max-width: $recommended-bundle-max-mobile-width) {
-}
 
+}
 @media (max-width: $mobile-max-width) {
 
-    .b-hotel-card-info__stars {
-        font-size: .9em;
-    }
-
-    .b-hotel-card-info__map {
-        display: none;
-    }
-
-    .b-hotel-card-info__title {
-        margin-top: -5px;
-        font-size: .9em;
-        white-space: nowrap;
-        color: rgba(0,0,0,0.87);
-
-        a {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: rgba(0,0,0,0.87);
-        }
-    }
-
-    .b-hotel-card-info__date {
-        margin-top: -10px;
-    }
-
-    .b-hotel-card {
-        margin-bottom: 10px;
-    }
-
-    .b-hotel-card-info__votes {
-        display: block;
-    }
 }
-
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
-    //.b-hotel-card__info {
-    //    line-height: 1.3;
-    //}
+
 }

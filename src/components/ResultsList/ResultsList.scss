@@ -18,7 +18,7 @@
     position: relative;
     width: 100%;
     //height: 185px;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     background-color: $result-list-item-bg;
     border: 1px solid $result-list-item-border;
 
@@ -35,6 +35,10 @@
     width: 75%;
 
     flex-grow: 3;
+
+    .HotelInfo{
+        margin-bottom: 0;
+    }
 }
 .b-packages-list-item__price{
     position: relative;
@@ -52,11 +56,13 @@
     .b-packages-list-item__price{
         display: block;
         width: 100%;
+        border: none;
     }
 }
 @media (max-width: $mobile-max-width) {
     .b-packages-list-item{
         display: block;
-        //height: 184px;
+        border: none;
+        box-shadow: none;
     }
 }
