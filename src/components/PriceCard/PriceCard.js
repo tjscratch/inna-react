@@ -69,20 +69,21 @@ class PriceCard extends Component {
         if (data) {
             return (
                 <div className="b-price-card">
-                    <div className="b-price-card__link">
-                        <div className={`b-share-link ${shareOpen ? 'b-share-link_active' : ''}`}
-                             onClick={this.shareClick.bind(this)}>
-                            <i className="b-share-img"></i>
+                    {false ?
+                        <div className="b-price-card__link">
+                            <div className={`b-share-link ${shareOpen ? 'b-share-link_active' : ''}`}
+                                 onClick={this.shareClick.bind(this)}>
+                                <i className="b-share-img"></i>
+                            </div>
                         </div>
-                    </div>
+                        : null
+                    }
                     <div className="b-price-card__price">
-                        <div className="b-price">
-                            <div className="b-price__price">
-                                <Price data={data.CostPerPerson}/>
-                            </div>
-                            <div className="b-price__text">
-                                цена за человека
-                            </div>
+                        <div className="b-price-card__price-price">
+                            <Price data={data.CostPerPerson}/>
+                        </div>
+                        <div className="b-price-card__price-text">
+                            цена за человека
                         </div>
                     </div>
                     <div className="b-price-card__buy">

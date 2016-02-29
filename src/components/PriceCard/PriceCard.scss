@@ -2,7 +2,7 @@
 @import '../Icons/css/icons.css';
 .b-price-card{
     height: 100%;
-    padding: 0 10px 10px;
+    padding: 0;
 
     display: flex;
 
@@ -42,21 +42,19 @@
     background: url('chain-black.png') no-repeat 0 0;
 }
 .b-price-card__price{
+    padding-top: 25px;
     text-align: center;
 }
-.b-price{
-    display: inline-block;
-    text-align: left;
-}
-.b-price__text{
+.b-price-card__price-text{
     font-size: 0.8em;
     text-align: center;
 }
-.b-price__price{
+.b-price-card__price-price{
     line-height: 1;
     font-size: 1.3em;
 }
 .b-price-card__full-price{
+    margin: 0 0 5px;
     font-size: .9em;
     font-weight: bold;
 }
@@ -71,16 +69,19 @@
 .b-price-card-buy{
     display: inline-block;
     width: 100%;
-    padding: 5px 16px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #fff;
-    border-radius: 3px;
-    background-color: #89c13a;
+
+    padding: $Button-padding-vertical $Button-padding-horizontal;
+    line-height: $Button-line-height;
+    font-size: $Button-font-size;
+    color: $Button-color;
+    border-radius: $Button-border-radius;
+    background-color: $Button-bg;
+
     text-decoration: none;
+    cursor: pointer;
 
     &:hover{
-        background-color: #95cd47;
+        background-color: $Button-bg-hover;
     }
 }
 @media (max-width: $mobile-max-width) {

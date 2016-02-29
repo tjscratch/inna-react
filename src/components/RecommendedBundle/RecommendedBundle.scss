@@ -41,33 +41,38 @@ $mobile-padding: 1.5%;
 
 .b-bundle-content {
     background-color: #fff;
-    display: table;
     width: 100%;
-    min-height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .b-bundle-content__avia {
     position: relative;
-    display: table-cell;
-    width: 40%;
     vertical-align: top;
     transition: opacity $animation-speed;
     border-right: 1px solid $gray-light;
+
+    width: 40%;
+    flex-grow: 3;
 }
 
 .b-bundle-content__dp {
     position: relative;
-    display: table-cell;
-    width: 40%;
     vertical-align: top;
     border-right: 1px solid $gray-light;
+
+    width: 40%;
+    flex-grow: 3;
 }
 
 .b-bundle-content__price {
-    display: table-cell;
     position: relative;
-    width: 20%;
     vertical-align: middle;
+
+    width: 20%;
+    flex-grow: 1;
 }
 
 

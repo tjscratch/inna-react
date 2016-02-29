@@ -147,6 +147,19 @@ $result-list-item-shadow: 0 0 13px rgba(0, 0, 0, .3);
 /* END RESULT PAGES */
 
 
+
+/* BEGIN Button */
+$Button-bg: $green;
+$Button-bg-hover: darken($Button-bg, 5%);
+$Button-color: $white;
+$Button-border-radius: 0;
+$Button-font-size: 1.25rem;
+$Button-line-height: 1.33rem;
+$Button-padding-horizontal: 1rem;
+$Button-padding-vertical: .8rem;
+/* END Button */
+
+
 /* BEGIN ButtonSecondary */
 $ButtonSecondary-bg: $color-secondary;
 $ButtonSecondary-bg-hover: darken($ButtonSecondary-bg, 5%);
