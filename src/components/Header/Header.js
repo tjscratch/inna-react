@@ -17,7 +17,7 @@ import withViewport from '../../decorators/withViewport';
 
         return (
             <header className="header">
-                <span ref="viewport" className="header-viewport">Viewport:</span>
+                <span ref="viewport" className="header-viewport"></span>
                 <div className="b-header">
                     <NavMobile className="b-header__nav-mobile"/>
                     <div className="b-header__brand">

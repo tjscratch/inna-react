@@ -1,28 +1,6 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
 
-.b-aircompany__logo {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-}
-
-.b-aircompany__text {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-.b-aircompany__ico {
-    display: inline-block;
-    float: right;
-    width: 21px;
-    height: 18px;
-    margin: 3px 0 0 0;
-    background: url("airplane.png") no-repeat 0 0;
-}
-
 .b-avia-card {
     padding: 5px 10px 40px 10px;
 }
@@ -193,6 +171,77 @@
     }
 }
 
+// BEGIN FlightInfo
+.FlightInfo{
+    margin: 20px 0;
+    border-top: 1px solid $gray;
+    border-bottom: 1px solid $gray;
+}
+.FlightInfo__row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.FlightInfo__icons{
+    margin-right: 10px;
+    width: 20px;
+    flex-basis: 20px;
+}
+.FlightInfo-icon{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+}
+.FlightInfo-delimiter{
+    margin: 0 10px;
+
+    flex-basis: 20px;
+    vertical-align: middle;
+}
+.FlightInfo-text{
+    width: 40%;
+    flex-basis: 40%;
+}
+.FlightInfo-data-block{
+
+}
+.FlightInfo-time{
+    display: inline-block;
+    font-size: 14px;
+    color: $black;
+    line-height: 19px;
+}
+.FlightInfo-date{
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 12px;
+    color: $gray;
+    line-height: 15px;
+}
+.FlightInfo-airport{
+    white-space: nowrap;
+    width: 100%;
+
+    font-size: 12px;
+    color: $gray;
+    line-height: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.FlightInfo-airport-code{
+    display: inline-block;
+    font-size: 14px;
+    color: $black;
+    line-height: 19px;
+    vertical-align: middle;
+}
+.FlightInfo-airport-name{
+    display: inline-block;
+    margin-left: 5px;
+}
+// END FlightInfo
+
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-flight-info__text {
         width: 44%;
@@ -226,11 +275,6 @@
         //justify-content: space-around;
         padding: 5px 10px;
         //background-color: aqua;
-    }
-
-    .b-avia-card__aircompany {
-        flex: 1 1 auto;
-        //background-color: blue;
     }
 
     .b-avia-card__flight-info {

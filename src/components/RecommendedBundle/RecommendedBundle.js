@@ -13,14 +13,6 @@ import PriceCard from '../PriceCard';
         super(props);
     }
 
-    recommendedClick() {
-        alert('recommendedClick');
-    }
-
-    cheapestClick() {
-        alert('cheapestClick');
-    }
-
     buyClick() {
         var { events } = this.props;
         if (events && events.bundleBuyClick) {
@@ -38,30 +30,13 @@ import PriceCard from '../PriceCard';
         var priceData = data ? {PackagePrice: data.Price, CostPerPerson: data.PackagePrice} : null;
         var recBlockHeight = viewport.isMobile && viewport.height <= 500 ? {height:viewport.height} : null;
 
-        var recommendedCaption = true;
         if (aviaData && hotelData && defaultRecommendedPair &&
             (hotelData.HotelId != defaultRecommendedPair.HotelId ||
             aviaData.VariantId1 != defaultRecommendedPair.TicketId)) {
-            recommendedCaption = false;
         }
 
         return (
             <div className="b-recommended-bundle" style={recBlockHeight}>
-                <div className="b-recommended-bundle__mobile-recommend-block">
-                    <div className="b-mobile-recommended-btn-block">
-                        <div className="b-mobile-recommended-btn b-mobile-recommended-btn-active"
-                            onClick={this.recommendedClick}>
-                            Рекомендованный
-                        </div>
-                        <div className="b-mobile-recommended-btn"
-                            onClick={this.cheapestClick}>
-                            Самый дешевый
-                        </div>
-                    </div>
-                </div>
-                <div className="b-recommended-bundle__title">
-                    {recommendedCaption ? 'Рекомендуем' : 'Выбранный вариант'}
-                </div>
                 <div className="b-recommended-bundle__collapse">
                     Свернуть
                 </div>

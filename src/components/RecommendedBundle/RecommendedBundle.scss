@@ -14,13 +14,6 @@ $mobile-padding: 1.5%;
     margin: 0 auto;
 }
 
-.b-recommended-bundle__title {
-    display: inline-block;
-    padding: 5px 0;
-    font-size: 1.1em;
-    color: #fff;
-}
-
 .b-recommended-bundle__collapse {
     position: relative;
     display: inline-block;
@@ -78,36 +71,6 @@ $mobile-padding: 1.5%;
     background-color: #fcf8e3;
 }
 
-.b-recommended-bundle__mobile-recommend-block {
-    display: none;
-}
-
-//кнопки рекомендованный и самый дешевый
-.b-mobile-recommended-btn-block {
-    padding: 5px 0;
-}
-
-.b-mobile-recommended-btn {
-    display: inline-block;
-    width: 50% - $mobile-padding / 2;
-    margin-right: $mobile-padding / 2;
-    padding: 8px 10px;
-    background-color: #fff;
-    font-size: .9em;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-
-    &:last-child {
-        float: right;
-        margin-right: 0;
-        margin-left: $mobile-padding / 2;
-    }
-}
-
-.b-mobile-recommended-btn-active {
-    background-color: #f0fce9;
-}
 
 @media(max-width: $recommended-bundle-max-mobile-width) {
     .b-recommended-bundle {
@@ -120,10 +83,6 @@ $mobile-padding: 1.5%;
     }
 
     .b-bundle-content {
-        display: block;
-    }
-
-    .b-recommended-bundle__mobile-recommend-block {
         display: block;
     }
 
@@ -140,11 +99,6 @@ $mobile-padding: 1.5%;
         display: flex;
         flex-direction: column;
         //background-color: red;
-    }
-
-    .b-recommended-bundle__mobile-recommend-block {
-        flex: 0 1 auto;
-        align-self: stretch;
     }
 
     .b-recommended-bundle__content {

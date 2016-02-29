@@ -9,12 +9,13 @@ import { pluralize } from '../../helpers/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 @withViewport
-@withStyles(styles) class TicketCard extends React.Component {
-    constructor(props) {
+@withStyles(styles)
+class TicketCard extends React.Component {
+    constructor (props) {
         super(props);
     }
 
-    getTransporterLogo(etap) {
+    getTransporterLogo (etap) {
         if (etap && etap.TransporterLogo) {
             var logo = etap.TransporterLogo;
             return `https://s.inna.ru/Files/logo/${logo}.png`;
@@ -23,35 +24,13 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         return '';
     }
 
-    //<i className="icon-emb-flight"></i>
-    renderTransporterInfo() {
-        var { data } = this.props;
-        if (data) {
-            data = data.EtapsTo[0];
-            //console.log('TicketCard data', this.props.data);
-            return (
-                <div className="b-aircompany">
-                    <img alt="logo" className="b-aircompany__logo"
-                         src={this.getTransporterLogo(data)}/>
-
-                    <div className="b-aircompany__text">{data.TransporterName}</div>
-
-                    <div className="b-aircompany__ico">
-
-                    </div>
-                </div>
-            );
-        }
-
-        return null;
-    }
-
-    renderFlightInfo() {
+    renderFlightInfo () {
         var { data } = this.props;
         if (data) {
             //туда
             var DepartureDate = apiDateToJsDate(data.DepartureDate);
             var ArrivalDate = apiDateToJsDate(data.ArrivalDate);
+            let aircompanyTo = data.EtapsTo[0];
 
             //обратно
             var BackDepartureDate = apiDateToJsDate(data.BackDepartureDate);
@@ -59,6 +38,58 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
 
             return (
                 <div className="b-avia-card__flight-info">
+
+                    <div className='FlightInfo'>
+                        <div className='FlightInfo__row'>
+
+                            <div className='FlightInfo__icons'>
+                                <img className="FlightInfo-icon"
+                                     alt={aircompanyTo.TransporterName}
+                                     src={this.getTransporterLogo(aircompanyTo)}/>
+                            </div>
+
+                            <div className='FlightInfo-text'>
+                                <div className="FlightInfo-data-block">
+                                    <span className="FlightInfo-time">
+                                        {toHHMM(DepartureDate)}
+                                    </span>
+                                    <span className="FlightInfo-date">
+                                        {dateToDDMMMDay(DepartureDate)}
+                                    </span>
+                                </div>
+                                <div className="FlightInfo-airport">
+                                    <span className="FlightInfo-airport-code">
+                                        {data.OutCode}
+                                    </span>
+                                    <span className="FlightInfo-airport-name">
+                                        {data.AirportFrom}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className='FlightInfo-delimiter'>
+                                <i className='icon-emb-right-small'></i>
+                            </div>
+
+                            <div className='FlightInfo-text'>
+                                <div className="FlightInfo-data-block">
+                                    <span className="FlightInfo-time">
+                                        {toHHMM(ArrivalDate)}
+                                    </span>
+                                    <span className="FlightInfo-date">
+                                        {dateToDDMMMDay(ArrivalDate)}
+                                    </span>
+                                </div>
+                                <div className="FlightInfo-airport">
+                                    <span className="FlightInfo-airport-code">
+                                        {data.InCode}
+                                    </span>
+                                    {data.AirportTo}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div className="b-flight-info">
                         <div className="b-flight-info__text b-flight-info__text_from">
@@ -163,21 +194,21 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         return null;
     }
 
-    actionClick() {
+    actionClick () {
         var { events } = this.props;
         if (events && events.changeListType) {
             events.changeListType(ListType.Tickets);
         }
     }
 
-    changeTicket() {
+    changeTicket () {
         var { events } = this.props;
         if (events && events.changeTicket) {
             events.changeTicket();
         }
     }
 
-    ticketAbout(e) {
+    ticketAbout (e) {
         e.preventDefault();
 
         var { events } = this.props;
@@ -186,7 +217,7 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         }
     }
 
-    renderActions() {
+    renderActions () {
         var { data, showChangeTickets, events, viewport } = this.props;
         if (data) {
             //вид на странице отеля
@@ -234,12 +265,9 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
         return null;
     }
 
-    render() {
+    render () {
         return (
             <div className="b-avia-card">
-                <div className="b-avia-card__aircompany">
-                    {this.renderTransporterInfo()}
-                </div>
                 {this.renderFlightInfo()}
                 {this.props.allowActions ? this.renderActions() : null}
             </div>

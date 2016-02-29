@@ -24,12 +24,12 @@ $small-border-radius: 1px;
 /* END BORDER-RADIUS */
 
 /* BEGIN COLORS */
-$black: #212121;
+$black: rgba(0, 0, 0, 0.87);
 $gray: #7D7D7D;
 $gray-2: rgba(0, 0, 0, .25);
 $gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
-$base-text-color-mobile: rgba(0, 0, 0, 0.87);
+$base-text-color-mobile: $black;
 $white: #fff;
 $green: #89c13a;
 $red: #e30514;
