@@ -14,6 +14,10 @@ import Week from './Week.js';
 
         var month = moment().clone().utc().startOf("day");
 
+        if(this.props.startDate){
+            month = moment.utc(this.props.startDate, "DD.MM.YYYY").clone();
+        }
+
         this.state = {
             month: month,
             selected: null
