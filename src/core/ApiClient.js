@@ -5,10 +5,11 @@ import request from 'superagent';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
-const apiPath = 'https://m.inna.ru/api/v1';
-//const apiPath = 'https://api.inna.ru/api/v1';
-const apiPathServer = 'https://api.inna.ru/api/v1';
-//const apiLocalPath = 'http://localhost:3000/api/v1';
+//const apiPath = 'https://m.inna.ru/api/v1';
+//const apiPathServer = 'https://api.inna.ru/api/v1';
+
+const apiPath = 'http://api.test.inna.ru/api/v1';
+const apiPathServer = 'http://api.test.inna.ru/api/v1';
 
 const getUrl = (path) => {
     if (path.startsWith('http') || path.startsWith('https')) {
