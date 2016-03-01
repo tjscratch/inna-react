@@ -37,9 +37,6 @@ import PriceCard from '../PriceCard';
 
         return (
             <div className="b-recommended-bundle" style={recBlockHeight}>
-                <div className="b-recommended-bundle__collapse">
-                    Свернуть
-                </div>
                 <div className="b-recommended-bundle__content">
                     <div className="b-bundle-content">
                         <div className={`b-bundle-content__avia ${aviaData ? '' : 'g-invisible'}`}>

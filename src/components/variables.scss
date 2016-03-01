@@ -39,7 +39,6 @@ $color-secondary: #f0bd4e;
 
 /* BEGIN b-search-form */
 $b-search-form-max-width: $layout-max-width;
-$b-search-form-horizontal-padding: $layout-horizontal-padding;
 $b-search-form-bg: rgba(0, 0, 0, 0.50);
 $b-search-form-box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.12), 0px 2px 2px 0px rgba(0, 0, 0, 0.24);
 $b-search-form-border-radius: $base-border-radius + 1;
@@ -47,6 +46,8 @@ $b-search-form__form-padding-vertical: 8px;
 $b-search-form__form-padding-horizontal: 8px;
 $b-search-form__form-offset-ceil-horizontal: 8px;
 $b-search-form__form-offset-ceil-vertical: 8px;
+
+$b-search-form-horizontal-padding: $layout-horizontal-padding - $b-search-form__form-padding-horizontal;
 /* END b-search-form */
 
 /* BEGIN b-tabs-nav */
