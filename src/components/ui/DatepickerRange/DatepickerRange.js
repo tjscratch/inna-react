@@ -119,7 +119,7 @@ import Datepicker from '../../ui/Datepicker';
                     <input className="b-datepicker-range__input"
                            placeholder="Туда"
                            type="text"
-                           value={this.state.fromDate}
+                           value={this.props.startDate}
                            onFocus={this.openDatepicker.bind(this, 'start', true)}
                         />
                     <i className="b-datepicker-range__icon icon-emb-calendar"></i>
@@ -130,7 +130,7 @@ import Datepicker from '../../ui/Datepicker';
                            placeholder="Обратно"
                            type="text"
                            onFocus={this.openDatepicker.bind(this, 'end', true)}
-                           value={this.state.toDate}/>
+                           value={this.props.endDate}/>
                     <i className="b-datepicker-range__icon icon-emb-calendar"></i>
                     {this.renderDatepickerEnd()}
                 </div>

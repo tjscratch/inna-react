@@ -15,7 +15,7 @@ import SearchFormValidation from './SearchFormValidation';
 
 @withStyles(styles)
 class SearchForm extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         var { directory, routeParams } = props;
 
@@ -24,6 +24,8 @@ class SearchForm extends React.Component {
                 ...routeParams,
                 from: directory[routeParams.fromId],
                 to: directory[routeParams.toId],
+                fromDate: routeParams.fromDate,
+                toDate: routeParams.toDate,
                 valid: {},
             };
         }
@@ -31,8 +33,8 @@ class SearchForm extends React.Component {
             this.state = {
                 fromId: null,
                 toId: null,
-                fromDate: null,
-                toDate: null,
+                fromDate: routeParams ? routeParams.fromDate : null,
+                toDate: routeParams ? routeParams.toDate : null,
                 flightClass: 0,
                 adultCount: 2,
                 childAges: null,
@@ -41,14 +43,14 @@ class SearchForm extends React.Component {
         }
     }
 
-    locationFrom(data) {
+    locationFrom (data) {
         this.setState({
             fromId: data.Id,
             valid: {},
         });
     }
 
-    locationTo(data) {
+    locationTo (data) {
         if (data) {
             this.setState({
                 toId: data.Id,
@@ -62,7 +64,7 @@ class SearchForm extends React.Component {
         }
     }
 
-    handleStartSearch() {
+    handleStartSearch () {
         let searchParams = [
             this.state.fromId,
             this.state.toId,
@@ -88,39 +90,39 @@ class SearchForm extends React.Component {
     }
 
 
-    setFromDate(date) {
+    setFromDate (date) {
         this.setState({
             fromDate: date,
             valid: {},
         });
     }
 
-    setToDate(date) {
+    setToDate (date) {
         this.setState({
             toDate: date,
             valid: {},
         })
     }
 
-    setAdultCount(data) {
+    setAdultCount (data) {
         this.setState({
             adultCount: data
         })
     }
 
-    setChildAges(data) {
+    setChildAges (data) {
         this.setState({
             childAges: data
         })
     }
 
-    setFlightClass(data) {
+    setFlightClass (data) {
         this.setState({
             flightClass: data
         })
     }
 
-    render() {
+    render () {
         let { data } = this.props;
 
         return (
