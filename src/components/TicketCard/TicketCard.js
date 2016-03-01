@@ -33,7 +33,6 @@ class TicketCard extends React.Component {
             var DepartureDate = apiDateToJsDate(data.DepartureDate);
             var ArrivalDate = apiDateToJsDate(data.ArrivalDate);
             var aircompanyTo = data.EtapsTo[0];
-            console.log(aircompanyTo)
             //обратно
             var BackDepartureDate = apiDateToJsDate(data.BackDepartureDate);
             var BackArrivalDate = apiDateToJsDate(data.BackArrivalDate);
