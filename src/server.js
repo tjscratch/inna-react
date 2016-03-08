@@ -15,7 +15,7 @@ import { createStore, getStore } from './store/storeHolder';
 
 const server = global.server = express();
 
-server.set('port', (process.env.PORT || 5000));
+server.set('port', (process.env.PORT || 5001));
 
 server.use(compression({
     filter: function (req, res) {
