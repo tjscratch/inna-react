@@ -81,7 +81,7 @@ class PriceCard extends Component {
                                 :
                                 <a className="b-price-card-buy" onClick={(e)=>this.buyClick(e)}>
                                     <Price data={data.PackagePrice} customClass="b-price-card-buy__price"/>
-                                    <div className="b-price-card-buy__caption">за двоих человек</div>
+                                    <div className="b-price-card-buy__caption">к оплате</div>
                                 </a>
                         }
                     </div>
@@ -122,7 +122,7 @@ class PriceCard extends Component {
                                 :
                                 <a className="b-price-card-buy" onClick={(e)=>this.buyClick(e)}>
                                     <Price data={data.PackagePrice} customClass="b-price-card-buy__price"/>
-                                    <div className="b-price-card-buy__caption">за двоих человек</div>
+                                    <div className="b-price-card-buy__caption">к оплате</div>
                                 </a>
                         }
                     </div>

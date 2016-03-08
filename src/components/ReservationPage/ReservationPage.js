@@ -284,7 +284,7 @@ import validate from './validateForm';
         var { room } = routeQuery;
 
         var params = getParamsForMakeReservation(routeParams, room, formData);
-        //console.log('params', JSON.stringify(params));
+        console.log('params', JSON.stringify(params));
 
         dispatch(makeReservation(params))
             .then((action)=> {
