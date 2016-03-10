@@ -31,7 +31,7 @@
     "react-list": "^0.7.8",
     "react-maskedinput": "^3.0.0",
     "react-redux": "^4.0.0",
-    "react-routing": "0.0.5",
+    "react-routing": "0.0.7",
     "redux": "^3.0.4",
     "redux-form": "^4.0.5",
     "redux-thunk": "^1.0.0",

@@ -24,7 +24,7 @@ class MobileSelectedFilter extends Component {
         this.setState({
             openFilters: !this.state.openFilters
         })
-        console.log(this.state.openFilters)
+        //console.log(this.state.openFilters)
     }
 
     renderFilters () {

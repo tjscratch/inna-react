@@ -79,7 +79,8 @@ class SearchForm extends React.Component {
         validation.validation()
             .then((data)=> {
                 if (data.valid) {
-                    Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
+                    //Location.pushState(null, `${siteUrls.SearchPackages}${searchParams}`);
+                    window.location.replace(`${siteUrls.SearchPackages}${searchParams}`)
                 } else {
                     this.setState({
                         valid: data

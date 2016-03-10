@@ -232,7 +232,7 @@ class Suggest extends React.Component {
                        type="text"
                        placeholder={this.state.placeholder}
                        onFocus={this.handleFocus.bind(this)}
-                       onBlur={(this.props.viewport.width < this.state.isMobileMaxWidth) ? console.log(33333) : this.handleBlur.bind(this)}
+                       onBlur={(this.props.viewport.width < this.state.isMobileMaxWidth) ? null : this.handleBlur.bind(this)}
                        onChange={this.handleChange.bind(this)}
                        onKeyDown={this.onKeyDown.bind(this)}
                        value={this.state.value}
