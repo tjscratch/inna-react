@@ -150,6 +150,8 @@ $result-list-item-shadow: 0 0 13px rgba(0, 0, 0, .3);
 // BEGIN HotelInfo
 $HotelInfo-photo-width: 140px;
 $HotelInfo__text-width: calc(100% - #{$HotelInfo-photo-width});
+$HotelInfo-photo-width-mobile: 100px;
+$HotelInfo__text-width-mobile: calc(100% - #{$HotelInfo-photo-width-mobile});
 // END HotelInfo
 
 /* BEGIN Button */

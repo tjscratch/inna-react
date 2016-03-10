@@ -1,28 +1,23 @@
 @import "../variables.scss";
-
-.b-mobile-filters {
+.b-mobile-filters{
 
 }
-
-.b-mobile-selected-filter {
+.b-mobile-selected-filter{
     position: relative;
 }
-
 //кнопка назад
-.b-mobile-selected-filter__back {
+.b-mobile-selected-filter__back{
     position: absolute;
     left: 10px;
     top: 20%;
-    color: #888888;
+    color: #888;
     cursor: pointer;
 }
-
 //текст фильтра
-.b-mobile-selected-filter-text {
+.b-mobile-selected-filter-text{
     text-align: center;
     font-size: .8em;
 }
-
 //.b-mobile-selected-filter-text__caption {
 //    margin-bottom: -5px;
 //    font-size: 1.5em;
@@ -34,14 +29,57 @@
 //}
 
 //кнопка открыть фильтр
-.b-mobile-selected-filter__filter {
+.b-mobile-selected-filter__filter{
     position: absolute;
     right: 10px;
     top: 20%;
-    color: #888888;
+    color: #888;
     cursor: pointer;
 }
+.b-filters-overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+}
+.b-filters-overlay{
+    .b-list-filters{
+        margin: 0 0 20px;
+        box-shadow: none;
 
+        display: flex;
+        flex-direction: column;
+    }
+    .b-filter{
+        border-bottom: 1px solid $gray-light;
+    }
+    .b-filter__label{
+    }
+    .b-filter__body{
+        position: relative;
+        top: auto;
+        background-color: #fff;
+        box-shadow: none;
+    }
+    .b-filter__body-head{
+        display: none;
+    }
+}
+.b-filters-overlay-btn{
+    display: block;
+    padding: 8px 20px;
+    text-align: center;
+    background-color: $green;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.2rem;
+
+    &:hover{
+        background-color: $green;
+    }
+}
 @media (max-width: $mobile-max-width) {
 
 }

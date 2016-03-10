@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import styles from './MobileSelectedFilter.scss';
 import withStyles from '../../decorators/withStyles';
 import Overlay from '../ui/Overlay';
+import Location from '../../core/Location';
 
 @withStyles(styles)
 class MobileSelectedFilter extends Component {
@@ -14,25 +15,28 @@ class MobileSelectedFilter extends Component {
     }
 
     goBack () {
-        console.log('goBack');
-        window.history.back();
+        //window.history.back();
+        Location.pushState(null, "/");
     }
 
     openFilter () {
-        //alert('openFilter');
-
         this.setState({
             openFilters: !this.state.openFilters
         })
-        //console.log(this.state.openFilters)
     }
 
     renderFilters () {
+        let filters = this.props.filters;
         if(this.state.openFilters){
             return (
                 <Overlay>
-                    <div className="b-suggest-overlay">
-                        filters
+                    <div className="b-filters-overlay">
+                        {filters}
+                        <div className="b-filters-overlay-btn"
+                             onClick={this.openFilter.bind(this)}
+                            >
+                            Выбрать
+                        </div>
                     </div>
                 </Overlay>
             )

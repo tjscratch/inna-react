@@ -46,7 +46,7 @@ class PackagesSearchResultsPage extends React.Component {
         onSetTitle: PropTypes.func.isRequired
     };
 
-    constructor(props) {
+    constructor (props) {
         super(props);
 
         this.state = {
@@ -54,14 +54,14 @@ class PackagesSearchResultsPage extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount () {
         this.getData().then(()=> {
             //проставляем ссылки на рек вариант
             this.setQueryString();
         });
     }
 
-    bundleBuyClick() {
+    bundleBuyClick () {
         console.log('bundle buy click');
         //купить
 
@@ -85,7 +85,7 @@ class PackagesSearchResultsPage extends React.Component {
         Location.pushState(null, url);
     }
 
-    getListType() {
+    getListType () {
         var { routeQuery } = this.props;
         if (routeQuery && routeQuery.display == ListType.Tickets) {
             return ListType.Tickets;
@@ -94,7 +94,7 @@ class PackagesSearchResultsPage extends React.Component {
         return ListType.Hotels;
     }
 
-    getDisplayType() {
+    getDisplayType () {
         var { routeQuery } = this.props;
         if (routeQuery) {
             switch (routeQuery.display) {
@@ -110,7 +110,7 @@ class PackagesSearchResultsPage extends React.Component {
         return DisplayEnum.Recommended;
     }
 
-    getData() {
+    getData () {
         var display = this.getDisplayType();
         return new Promise((resolve) => {
             //сначала запрашиваем билеты
@@ -129,7 +129,7 @@ class PackagesSearchResultsPage extends React.Component {
         });
     }
 
-    getHotelData(selectedTicketId) {
+    getHotelData (selectedTicketId) {
         //console.log('getHotelData');
         //url без отеля и билета
         //https://inna.ru/api/v1/Packages/SearchHotels?AddFilter=true&Adult=1&ArrivalId=6623&DepartureId=6733&EndVoyageDate=2015-12-08&StartVoyageDate=2015-12-01&TicketClass=0
@@ -181,7 +181,7 @@ class PackagesSearchResultsPage extends React.Component {
         });
     }
 
-    getTicketData(selectedHotelId) {
+    getTicketData (selectedHotelId) {
         return new Promise((resolve, reject)=> {
             var { store, dispatch } = this.props;
 
@@ -224,7 +224,7 @@ class PackagesSearchResultsPage extends React.Component {
         });
     }
 
-    setQueryString() {
+    setQueryString () {
         //если первый запрос, и не сохранили реком. отель и билет
         var { routeQuery, recommendedData } = this.props;
         if (recommendedData && (!routeQuery.hotel || !routeQuery.ticket)) {
@@ -236,7 +236,7 @@ class PackagesSearchResultsPage extends React.Component {
         }
     }
 
-    changeListType(type) {
+    changeListType (type) {
         //переключаем список перелетов / пакетов
         //recommended - не проставляем в url
         var stateDisplay = type == ListType.Tickets ? DisplayEnum.Tickets : (type == ListType.Hotels ? ListType.Hotels : null);
@@ -245,7 +245,7 @@ class PackagesSearchResultsPage extends React.Component {
         ]);
     }
 
-    chooseHotel(hotel) {
+    chooseHotel (hotel) {
         var { viewport, dispatch } = this.props;
 
         //меняем отель в паре
@@ -267,7 +267,7 @@ class PackagesSearchResultsPage extends React.Component {
         this.getTicketData(hotel.HotelId);
     }
 
-    chooseTicket(ticket) {
+    chooseTicket (ticket) {
         var { viewport, dispatch } = this.props;
 
         //меняем билет в паре
@@ -289,7 +289,7 @@ class PackagesSearchResultsPage extends React.Component {
         this.getHotelData(ticket.VariantId1);
     }
 
-    renderOverlay() {
+    renderOverlay () {
         if (this.state.error) {
             return (
                 <ErrorMsg
@@ -324,7 +324,7 @@ class PackagesSearchResultsPage extends React.Component {
         return null;
     }
 
-    renderRecommended(events) {
+    renderRecommended (events) {
         var { viewport, recommendedData, defaultRecommendedPair } = this.props;
         var display = this.getDisplayType();
 
@@ -360,7 +360,7 @@ class PackagesSearchResultsPage extends React.Component {
         return null;
     }
 
-    renderResults(events) {
+    renderResults (events) {
         //console.log(this.props)
         var { viewport, ticketsData, hotelsData } = this.props;
         var listType = this.getListType();
@@ -400,7 +400,7 @@ class PackagesSearchResultsPage extends React.Component {
         return null;
     }
 
-    render() {
+    render () {
         var title = 'Инна-Тур - Динамические пакеты';
         this.context.onSetTitle(title);
 
@@ -436,14 +436,26 @@ class PackagesSearchResultsPage extends React.Component {
                         <SearchForm {...this.props}/>
                     </div>
                     <div className="b-packages-results-page__mobile-filter">
-                        <MobileSelectedFilter>
-                            <div
-                                className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
-                            <div className="b-packages-results-page__head-filter__description">
-                                {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
-                                &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
-                                &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
-                        </MobileSelectedFilter>
+                        {listType == ListType.Hotels ?
+                            <MobileSelectedFilter disableFilterBtn={false}
+                                                  filters={<PackagesFilters hotelsFilters={hotelsFilters}/>}>
+                                <div
+                                    className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
+                                <div className="b-packages-results-page__head-filter__description">
+                                    {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
+                                    &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
+                                    &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
+                            </MobileSelectedFilter>
+                            :
+                            <MobileSelectedFilter disableFilterBtn={true} listType={listType}>
+                                <div
+                                    className="b-packages-results-page__head-filter__caption">{formData.to ? formData.to.CountryName : ''}</div>
+                                <div className="b-packages-results-page__head-filter__description">
+                                    {nightsCount} {pluralize(nightsCount, ['ночь', 'ночи', 'ночей'])}
+                                    &nbsp;с {fromDate.getDate()} по {dateToDDMMM(toDate)}
+                                    &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
+                            </MobileSelectedFilter>
+                        }
                     </div>
                     {this.renderRecommended(events)}
                     <div className="b-packages-results-page__filter">
@@ -460,7 +472,7 @@ class PackagesSearchResultsPage extends React.Component {
 
 //export default PackagesSearchResultsPage;
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
     return {
         directory: state.directory,
         ticketsData: state.searchTickets ? state.searchTickets.AviaInfos : null,

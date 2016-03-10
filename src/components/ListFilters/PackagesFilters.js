@@ -26,7 +26,7 @@ class PackagesFilters extends React.Component {
         for (let i = 0; i < this.state.filters.length; i++) {
             if (key == i && key != 'allClose') {
                 this.state.filters[key]['open'] = !this.state.filters[key]['open'];
-            }else{
+            } else {
                 this.state.filters[i]['open'] = false;
             }
         }

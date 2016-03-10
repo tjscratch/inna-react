@@ -12,6 +12,7 @@
 .HotelInfo__photos{
     width: $HotelInfo-photo-width;
     flex-basis: $HotelInfo-photo-width;
+    overflow: hidden;
 }
 .HotelInfo__photos-photo{
     display: block;
@@ -67,7 +68,14 @@
 
 }
 @media (max-width: $mobile-max-width) {
-
+    .HotelInfo__photos{
+        width: $HotelInfo-photo-width-mobile;
+        flex-basis: $HotelInfo-photo-width-mobile;
+    }
+    .HotelInfo__text{
+        width: $HotelInfo__text-width-mobile;
+        padding: 0 10px;
+    }
 }
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
 
