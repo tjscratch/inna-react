@@ -431,10 +431,6 @@ class PackagesSearchResultsPage extends React.Component {
 
             let viewportType = this.getDisplayType();
 
-            console.log('listType');
-            console.log(listType);
-            console.log(this.getDisplayType());
-
             return (
                 <section className="b-packages-results-page">
                     {this.renderOverlay()}
