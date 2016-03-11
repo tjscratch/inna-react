@@ -15,8 +15,8 @@ class MobileSelectedFilter extends Component {
     }
 
     goBack () {
-        //window.history.back();
-        Location.pushState(null, "/");
+        window.history.back();
+        //Location.pushState(null, "/");
     }
 
     openFilter () {

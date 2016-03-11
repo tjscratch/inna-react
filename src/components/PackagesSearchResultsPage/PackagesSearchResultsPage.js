@@ -429,6 +429,12 @@ class PackagesSearchResultsPage extends React.Component {
 
             var listType = this.getListType();
 
+            let viewportType = this.getDisplayType();
+
+            console.log('listType');
+            console.log(listType);
+            console.log(this.getDisplayType());
+
             return (
                 <section className="b-packages-results-page">
                     {this.renderOverlay()}
@@ -436,7 +442,8 @@ class PackagesSearchResultsPage extends React.Component {
                         <SearchForm {...this.props}/>
                     </div>
                     <div className="b-packages-results-page__mobile-filter">
-                        {listType == ListType.Hotels ?
+
+                        {viewportType == 'Hotels' ?
                             <MobileSelectedFilter disableFilterBtn={false}
                                                   filters={<PackagesFilters hotelsFilters={hotelsFilters}/>}>
                                 <div
@@ -456,6 +463,7 @@ class PackagesSearchResultsPage extends React.Component {
                                     &nbsp;{formData.adultCount} {pluralize(formData.adultCount, ['взрослый', 'взрослых', 'взрослых'])}</div>
                             </MobileSelectedFilter>
                         }
+
                     </div>
                     {this.renderRecommended(events)}
                     <div className="b-packages-results-page__filter">
