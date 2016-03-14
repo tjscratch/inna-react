@@ -181,6 +181,7 @@ class TicketCard extends React.Component {
         e.preventDefault();
 
         var { events } = this.props;
+        console.log(this.props.data);
         if (events && events.ticketAbout) {
             events.ticketAbout();
         }
