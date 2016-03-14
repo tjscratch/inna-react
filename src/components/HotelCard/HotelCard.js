@@ -66,15 +66,18 @@ class HotelCard extends React.Component {
     }
 
     render () {
-        //console.log('HotelCard data', this.props.data);
-        var { data, allowActions } = this.props;
+        var { data, allowActions, viewport } = this.props;
+
+        let style = {
+            width: viewport.width
+        };
 
         if (data) {
             var checkIn = apiDateToJsDate(data.CheckIn);
             var checkOut = apiDateToJsDate(data.CheckOut);
 
             return (
-                <div className="b-hotel-card">
+                <div className="b-hotel-card" style={style}>
                     <div className='HotelInfo'>
                         <div className='HotelInfo__photos'>
                             <img className="HotelInfo__photos-photo" src={data.HotelPhoto180}/>
