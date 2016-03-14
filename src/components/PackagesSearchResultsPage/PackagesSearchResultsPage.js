@@ -61,11 +61,7 @@ class PackagesSearchResultsPage extends React.Component {
         });
     }
 
-    bundleBuyClick () {
-        console.log('bundle buy click');
-        //купить
-
-        //формируем урл на страницу отеля
+    getHotelDetailsUrl(){
         var params = [];
         var { routeParams, recommendedData } = this.props;
         for (var key in routeParams) {
@@ -75,12 +71,13 @@ class PackagesSearchResultsPage extends React.Component {
         params.push(recommendedData.AviaInfo.VariantId1);
         params.push(recommendedData.AviaInfo.VariantId2);
         params.push(recommendedData.Hotel.ProviderId);
-        var url = `${siteUrls.HotelDetails}${params.join('-')}`;
-        //console.log(url);
+        return `${siteUrls.HotelDetails}${params.join('-')}`;
+    }
 
-        //открываем в новом окне (нахуя? - не понятно...)
-        //window.open(url);
-
+    bundleBuyClick () {
+        console.log('bundle buy click');
+        //купить
+        let url = this.getHotelDetailsUrl();
         //открываем в этом
         Location.pushState(null, url);
     }
@@ -332,6 +329,11 @@ class PackagesSearchResultsPage extends React.Component {
         var listType = this.getListType();
         var showChangeTickets = false;
         var showChangeHotels = false;
+
+        if (recommendedData) {
+            var hotelUrl = this.getHotelDetailsUrl();
+        }
+
         switch (listType) {
             case ListType.Hotels:
                 showChangeTickets = true;
@@ -353,6 +355,7 @@ class PackagesSearchResultsPage extends React.Component {
                         showChangeHotels={showChangeHotels}
                         data={recommendedData}
                         defaultRecommendedPair={defaultRecommendedPair}
+                        hotelUrl={hotelUrl}
                     />
                 </div>
             );

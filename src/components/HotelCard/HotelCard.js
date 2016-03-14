@@ -12,6 +12,8 @@ import ListType from '../PackagesSearchResultsPage/ListType.js';
 import HotelStars from '../HotelStars';
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
 
+import Location from '../../core/Location';
+
 @withViewport
 @withStyles(styles)
 class HotelCard extends React.Component {
@@ -41,8 +43,16 @@ class HotelCard extends React.Component {
         }
     }
 
+    goHotelInfo () {
+        let url = this.props.hotelUrl;
+        console.log('go', url);
+        Location.pushState(null, url);
+    }
+
+
     renderActions () {
         var { data, showChangeHotels, viewport } = this.props;
+
         if (data) {
             return (
                 <div className="b-hotel-card__actions">
@@ -56,7 +66,7 @@ class HotelCard extends React.Component {
                                 Заменить отель
                             </ButtonSecondary>
                     }
-                    <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
+                    <ButtonSecondary ButtonType='Link' onClick={this.goHotelInfo.bind(this)}>
                         Подробнее
                     </ButtonSecondary>
                 </div>
@@ -68,7 +78,6 @@ class HotelCard extends React.Component {
     render () {
         var { data, allowActions, viewport } = this.props;
 
-        console.log()
         if(viewport.isMobile){
             var style = {
                 width: viewport.width

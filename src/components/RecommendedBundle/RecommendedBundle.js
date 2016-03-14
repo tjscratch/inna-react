@@ -35,6 +35,10 @@ import PriceCard from '../PriceCard';
             aviaData.VariantId1 != defaultRecommendedPair.TicketId)) {
         }
 
+        if (this.props.hotelUrl) {
+            var hotelUrl = this.props.hotelUrl;
+        }
+
         return (
             <div className="b-recommended-bundle" style={recBlockHeight}>
                 <div className="b-recommended-bundle__content">
@@ -43,7 +47,11 @@ import PriceCard from '../PriceCard';
                             <TicketCard events={events} showChangeTickets={showChangeTickets} data={aviaData} allowActions={true} />
                         </div>
                         <div className="b-bundle-content__dp">
-                            <HotelCard events={events} showChangeHotels={showChangeHotels} data={hotelData} allowActions={true} />
+                            <HotelCard events={events}
+                                       showChangeHotels={showChangeHotels}
+                                       data={hotelData}
+                                       allowActions={true}
+                                       hotelUrl={hotelUrl}/>
                         </div>
                         <div className="b-bundle-content__price">
                             <PriceCard data={priceData} onBuy={this.buyClick.bind(this)} />
