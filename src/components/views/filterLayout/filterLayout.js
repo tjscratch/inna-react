@@ -31,8 +31,9 @@ class FilterLayout extends React.Component {
 
 
     render () {
+        let selected = this.props.selected ? 'b-filter_selected' : null;
         return (
-            <div className={`b-filter`} onClick={this.stopPropagation.bind(this)}>
+            <div className={`b-filter ${selected}`} onClick={this.stopPropagation.bind(this)}>
                 <div className='b-filter__label'
                      onClick={this.onToggle.bind(this)}>
                     {this.props.label}

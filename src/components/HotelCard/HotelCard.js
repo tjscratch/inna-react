@@ -68,9 +68,14 @@ class HotelCard extends React.Component {
     render () {
         var { data, allowActions, viewport } = this.props;
 
-        let style = {
-            width: viewport.width
-        };
+        console.log()
+        if(viewport.isMobile){
+            var style = {
+                width: viewport.width
+            };
+        }else{
+            var style = null;
+        }
 
         if (data) {
             var checkIn = apiDateToJsDate(data.CheckIn);

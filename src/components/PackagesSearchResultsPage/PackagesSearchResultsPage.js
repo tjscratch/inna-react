@@ -385,7 +385,7 @@ class PackagesSearchResultsPage extends React.Component {
                             }
                         </div>
                         {
-                            (!viewport.isMobile && listType == ListType.Hotels) ?
+                            (false && !viewport.isMobile && listType == ListType.Hotels) ?
                                 <div className="b-packages-results__info-block">
                                     <SelectedFilters data={this.props.hotelsFilters}/>
                                     <PackagesListInfoBlock data={hotelsData}/>

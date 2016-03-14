@@ -12,6 +12,15 @@
 .b-filter{
     position: relative;
 }
+.b-filter_selected{
+    .b-filter__label{
+        color: $green;
+
+        &:after{
+            @include arrowDown(4px, $green);
+        }
+    }
+}
 .b-filter__label{
     position: relative;
     display: block;

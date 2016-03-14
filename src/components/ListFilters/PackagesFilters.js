@@ -4,6 +4,7 @@ import withStyles from '../../decorators/withStyles';
 import FilterLayout from './../views/filterLayout/filterLayout';
 import EnumFilter from './filters/EnumFilter';
 import PriceFilter from './filters/PriceFilter';
+import _ from 'lodash';
 
 @withStyles(styles)
 class PackagesFilters extends React.Component {
@@ -49,8 +50,13 @@ class PackagesFilters extends React.Component {
                             </FilterLayout>
                         )
                     } else if (filters && filters[item.type]) {
+                        let currentFilterSelected = _.filter(filters[item.type], { 'Selected': true }).length ? true : false;
                         return (
-                            <FilterLayout key={ix} index={ix} open={item.open} toggle={this.onToggle.bind(this)} label={item.label}>
+                            <FilterLayout key={ix} index={ix}
+                                          open={item.open}
+                                          selected={currentFilterSelected}
+                                          toggle={this.onToggle.bind(this)}
+                                          label={item.label}>
                                 <EnumFilter label={item.label} type={item.type} data={filters[item.type]}/>
                             </FilterLayout>
                         )
