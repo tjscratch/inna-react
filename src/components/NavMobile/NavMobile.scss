@@ -1,23 +1,37 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.scss';
-
-.b-nav-mobile {
+.b-nav-mobile{
     color: #fff;
 
-    a {
+    a{
         color: #fff;
         text-decoration: none;
     }
 }
-
-.b-nav-mobile-menu {
+.b-nav-mobile-menu{
     font-size: 1.5em;
 }
 .b-overlay{
-    &.NavMobile{
-        background-color: $white;
+    &.Sidebar__container{
+        display: flex;
+        background-color: transparent;
     }
 }
-
+.Sidebar__overlay{
+    position: relative;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .3);
+}
+.Sidebar{
+    width: 200px;
+    height: 100%;
+    padding: 10px;
+    background-color: $white;
+}
+.NavMobile{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 @media (max-width: $mobile-max-width) {
 }

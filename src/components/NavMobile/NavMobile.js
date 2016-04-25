@@ -31,11 +31,15 @@ class NavMobile extends React.Component {
     renderMenu () {
         if (this.state.open) {
             return (
-                <Overlay className="NavMobile">
-                    <ul>
-                        <li><a href="/">О компании</a></li>
-                        <li><a href="/">Главная</a></li>
-                    </ul>
+                <Overlay className="Sidebar__container">
+                    <div className="Sidebar__overlay">
+                        <div className="Sidebar">
+                            <ul className="NavMobile">
+                                <li><a href="/">О компании</a></li>
+                                <li><a href="/">Главная</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </Overlay>
             )
         } else {
