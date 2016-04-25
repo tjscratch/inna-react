@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import withViewport from '../../../decorators/withViewport';
-import api from '../../../core/ApiClient';
-import apiUrls from '../../../constants/ApiUrls.js';
 import styles from './Suggest.scss';
 import withStyles from '../../../decorators/withStyles';
 

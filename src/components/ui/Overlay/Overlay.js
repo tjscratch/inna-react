@@ -14,7 +14,8 @@ import styles from './Overlay.scss';
 
     static propTypes = {
         container: PropTypes.object,
-        elementType: PropTypes.string
+        elementType: PropTypes.string,
+        className: PropTypes.string
     };
 
     static defaultProps = {
@@ -46,7 +47,7 @@ import styles from './Overlay.scss';
     buildContainer(props) {
         var thisProps = props || this.props;
         this._overlayContainer = document.createElement(thisProps.elementType);
-        this._overlayContainer.className = 'b-overlay';
+        this._overlayContainer.className = `b-overlay ${thisProps.className}`;
         var container = thisProps.container;
         container.className += ' overlay-scroll-fix';
         container.appendChild(this._overlayContainer);

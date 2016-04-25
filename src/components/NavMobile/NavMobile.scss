@@ -13,6 +13,11 @@
 .b-nav-mobile-menu {
     font-size: 1.5em;
 }
+.b-overlay{
+    &.NavMobile{
+        background-color: $white;
+    }
+}
 
 @media (max-width: $mobile-max-width) {
 }
