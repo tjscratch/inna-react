@@ -1,6 +1,5 @@
 @import '../../variables.scss';
 @import '../../Icons/css/icons.css';
-
 .b-suggest{
     position: relative;
     display: block;
@@ -92,6 +91,10 @@
         }
     }
 }
+.b-suggest__input_overlay{
+    height: $b-suggest-overlay-input-height;
+    padding: $b-suggest-overlay-input-vertical-padding 10px;
+}
 .b-suggest-overlay__close{
     position: absolute;
     z-index: 21;
@@ -100,20 +103,18 @@
     width: 36px;
     height: 36px;
     background: $b-suggest-overlay__close-bg;
-    font-size: 1.5em;
+    font-size: 1.8em;
     color: $b-suggest-overlay__close-color;
     cursor: pointer;
     transition: all .2s;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:before{
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 24px;
-        height: 24px;
-        margin: auto;
+        display: block;
+        //margin: auto;
     }
 
     &:hover{
