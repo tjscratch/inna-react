@@ -34,10 +34,32 @@ class NavMobile extends React.Component {
                 <Overlay className="Sidebar__container">
                     <div className="Sidebar__overlay">
                         <div className="Sidebar">
-                            <ul className="NavMobile">
-                                <li><a href="/">О компании</a></li>
-                                <li><a href="/">Главная</a></li>
-                            </ul>
+                            <div className="NavMobile">
+                                <a href="/" className="NavMobile__item">
+                                        <span className="NavMobile__item-icon">
+                                            <i className="icon-emb-search"></i>
+                                        </span>
+                                        <span className="NavMobile__item-text">
+                                            Новый поиск
+                                        </span>
+                                </a>
+                                <a href="/" className="NavMobile__item">
+                                        <span className="NavMobile__item-icon">
+                                            <i className="icon-emb-suitcase"></i>
+                                        </span>
+                                        <span className="NavMobile__item-text">
+                                            О компании
+                                        </span>
+                                </a>
+                                <a href="/" className="NavMobile__item">
+                                        <span className="NavMobile__item-icon">
+                                            <i className="icon-emb-phone"></i>
+                                        </span>
+                                        <span className="NavMobile__item-text">
+                                            Контакты
+                                        </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </Overlay>

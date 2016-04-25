@@ -4,7 +4,7 @@
     color: #fff;
 
     a{
-        color: #fff;
+        color: $white;
         text-decoration: none;
     }
 }
@@ -25,13 +25,33 @@
 .Sidebar{
     width: 200px;
     height: 100%;
-    padding: 10px;
+    padding: 0;
     background-color: $white;
 }
 .NavMobile{
     margin: 0;
     padding: 0;
-    list-style: none;
+}
+.NavMobile__item{
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid $gray-2;
+    text-decoration: none;
+}
+.NavMobile__item-icon{
+    width: 54px;
+    text-align: center;
+    color: $gray-2;
+    font-size: 1.7rem;
+}
+.NavMobile__item-text{
+    color: $gray;
+    font-size: 1.15rem;
+
+    &:hover{
+        color: $black;
+    }
 }
 @media (max-width: $mobile-max-width) {
 }
