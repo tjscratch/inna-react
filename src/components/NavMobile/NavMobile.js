@@ -43,7 +43,7 @@ class NavMobile extends React.Component {
                                             Новый поиск
                                         </span>
                                 </a>
-                                <a href="/" className="NavMobile__item">
+                                <a href="/about" className="NavMobile__item">
                                         <span className="NavMobile__item-icon">
                                             <i className="icon-emb-suitcase"></i>
                                         </span>
@@ -51,7 +51,7 @@ class NavMobile extends React.Component {
                                             О компании
                                         </span>
                                 </a>
-                                <a href="/" className="NavMobile__item">
+                                <a href="/contacts" className="NavMobile__item">
                                         <span className="NavMobile__item-icon">
                                             <i className="icon-emb-phone"></i>
                                         </span>

@@ -2,9 +2,10 @@
 
 import React from 'react';
 import Router from 'react-routing/src/Router';
-import http from './core/HttpClient';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
+import AboutPage from './components/AboutPage';
+import ContactsPage from './components/ContactsPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
@@ -14,19 +15,13 @@ import HotelPage from './components/HotelPage';
 import ReservationPage from './components/ReservationPage';
 import BuyPage from './components/BuyPage';
 
-import Storage from './storage.js';
-import apiUrls from './constants/ApiUrls.js';
 import siteUrls from './constants/SiteUrls.js';
-import { routeDateToApiDate } from './helpers/DateHelper.js'
-import _ from 'lodash';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 //======================store=============================
-import { getTestData } from './actions/action_test';
 import { getMainPageData } from './actions/action_main';
 import { getDirectoryById } from './actions/action_directory';
 import { getStore } from './store/storeHolder';
-
 import ProviderWrapper from './components/ProviderWrapper';
 //======================store=============================
 
@@ -107,11 +102,14 @@ const router = new Router(on => {
             routeParams={state.params}/>
     });
 
-    //on('*', async (state) => {
+    on('/about', async () => <AboutPage />);
+    on('/contacts', async () => <ContactsPage />);
+
+    // on('*', async (state) => {
     //    //console.log('route next *, state.path', state.path);
     //    const content = await http.get(`/api/content?path=${state.path}`);
     //    return content && <ContentPage {...content} />;
-    //});
+    // });
 
     on('error', (state, error) => state.statusCode === 404 ?
             //<App context={state.context} error={error}><NotFoundPage /></App> :
