@@ -59,7 +59,7 @@ class ResultsList extends React.Component {
                     <div className="b-packages-list-item__price">
                         <PriceCard
                             onChoose={() => this.selected(item)}
-                            data={{PackagePrice: item.PackagePrice, CostPerPerson: item.CostPerPerson}} chooseMode={true}/>
+                            data={{PackagePrice: item.PackagePrice}} chooseMode={true}/>
                     </div>
                 </div>
             )

@@ -93,36 +93,34 @@ class PriceCard extends Component {
 
     renderNormal () {
         var { data, chooseMode } = this.props;
+        
         if (data) {
             return (
                 <div className="b-price-card">
 
                     <div className="b-price-card__price">
+                        {
+                            chooseMode ?
+                                <div className="b-price-card__price-text">
+                                    Стоимость:
+                                </div>
+                                :
+                                <div className="b-price-card__price-text">
+                                    К оплате:
+                                </div>
+                        }
                         <div className="b-price-card__price-price">
-                            <Price data={data.CostPerPerson}/>
-                        </div>
-                        <div className="b-price-card__price-text">
-                            цена за человека
+                            <Price data={data.PackagePrice}/>
                         </div>
                     </div>
 
                     <div className="b-price-card__buy">
                         {
                             chooseMode ?
-                                <div className="b-price-card__full-price">
-                                    К оплате:
-                                    <Price data={data.PackagePrice} customClass="b-price-card__full-price-ctrl"/>
-                                </div>
-                                :
-                                null
-                        }
-                        {
-                            chooseMode ?
                                 <a className="b-price-card-buy" onClick={this.chooseClick.bind(this)}>Выбрать</a>
                                 :
                                 <a className="b-price-card-buy" onClick={(e)=>this.buyClick(e)}>
-                                    <Price data={data.PackagePrice} customClass="b-price-card-buy__price"/>
-                                    <div className="b-price-card-buy__caption">к оплате</div>
+                                    Купить
                                 </a>
                         }
                     </div>

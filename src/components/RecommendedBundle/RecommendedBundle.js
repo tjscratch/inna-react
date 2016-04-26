@@ -27,7 +27,7 @@ import PriceCard from '../PriceCard';
 
         var aviaData = data ? data.AviaInfo : null;
         var hotelData = data ? data.Hotel : null;
-        var priceData = data ? {PackagePrice: data.Hotel.PackagePrice, CostPerPerson: data.Hotel.CostPerPerson} : null;
+        var priceData = data ? {PackagePrice: data.Price} : null;
         var recBlockHeight = viewport.isMobile && viewport.height <= 500 ? {height:viewport.height} : null;
 
         if (aviaData && hotelData && defaultRecommendedPair &&
