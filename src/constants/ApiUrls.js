@@ -11,5 +11,8 @@ export default {
     DictionaryAllCountries: '/Dictionary/Country',
     BuyPage: '/Payment/Index',
     PaymentRepricing: '/Payment/Repricing',
-    Pay: '/Psb/Pay'
+    Pay: '/Psb/Pay',
+
+    getSmsCode: '/Verification/SendCode',
+    checkSmsCode: '/Verification/CheckCode'
 }

@@ -30,6 +30,7 @@ import Checkbox from '../ui/Checkbox';
 import Price from '../Price';
 import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
+import NeedSmsValidation from '../../components/NeedSmsValidation';
 import { MobileSelectedFilter } from '../MobileFilters';
 
 //import documentsList from '../../constants/documentsList';
@@ -479,6 +480,7 @@ import validate from './validateForm';
                                 <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                             </div>
                         </div>
+                        <NeedSmsValidation/>
                         <div className="b-reservation-page__buy-block-mobile">
                             <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                         </div>
