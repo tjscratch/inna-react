@@ -5,8 +5,7 @@ import Router from 'react-routing/src/Router';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
 
-import AboutPage from './components/AboutPage';
-import ContactsPage from './components/ContactsPage';
+
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
@@ -18,17 +17,17 @@ import BuyPage from './components/BuyPage';
 
 import siteUrls from './constants/SiteUrls.js';
 import http from './core/HttpClient';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
+import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
 
 //======================store=============================
-import { getMainPageData } from './actions/action_main';
-import { getDirectoryById } from './actions/action_directory';
-import { getStore } from './store/storeHolder';
+import {getMainPageData} from './actions/action_main';
+import {getDirectoryById} from './actions/action_directory';
+import {getStore} from './store/storeHolder';
 import ProviderWrapper from './components/ProviderWrapper';
 //======================store=============================
 
 //оборачиваем в Redux провайдер, передаем store
-function wrapByProvider(component) {
+function wrapByProvider (component) {
     return (<ProviderWrapper component={component}/>)
 }
 
@@ -105,18 +104,17 @@ const router = new Router(on => {
     });
 
     // on('/about', async () => <AboutPage />);
-    // on('/contacts', async () => <ContactsPage />);
 
-    on('/about', async (state) => {
-       const content = await http.get(`/api/content?path=${state.path}`);
-       return content && <ContentPage {...content} />;
+    on('*', async (state) => {
+        const content = await http.get(`/api/content?path=${state.path}`);
+        return content && <ContentPage {...content} />;
     });
 
     on('error', (state, error) => state.statusCode === 404 ?
-            //<App context={state.context} error={error}><NotFoundPage /></App> :
-            //<App context={state.context} error={error}><ErrorPage /></App>
-            wrapByProvider(<App context={state.context} error={error}><NotFoundPage /></App>) :
-            wrapByProvider(<App context={state.context} error={error}><ErrorPage /></App>)
+        //<App context={state.context} error={error}><NotFoundPage /></App> :
+        //<App context={state.context} error={error}><ErrorPage /></App>
+        wrapByProvider(<App context={state.context} error={error}><NotFoundPage /></App>) :
+        wrapByProvider(<App context={state.context} error={error}><ErrorPage /></App>)
     );
 
 });
