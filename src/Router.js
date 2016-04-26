@@ -4,6 +4,7 @@ import React from 'react';
 import Router from 'react-routing/src/Router';
 import App from './components/App';
 import ContentPage from './components/ContentPage';
+
 import AboutPage from './components/AboutPage';
 import ContactsPage from './components/ContactsPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -16,6 +17,7 @@ import ReservationPage from './components/ReservationPage';
 import BuyPage from './components/BuyPage';
 
 import siteUrls from './constants/SiteUrls.js';
+import http from './core/HttpClient';
 import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 //======================store=============================
@@ -102,14 +104,13 @@ const router = new Router(on => {
             routeParams={state.params}/>
     });
 
-    on('/about', async () => <AboutPage />);
-    on('/contacts', async () => <ContactsPage />);
+    // on('/about', async () => <AboutPage />);
+    // on('/contacts', async () => <ContactsPage />);
 
-    // on('*', async (state) => {
-    //    //console.log('route next *, state.path', state.path);
-    //    const content = await http.get(`/api/content?path=${state.path}`);
-    //    return content && <ContentPage {...content} />;
-    // });
+    on('/about', async (state) => {
+       const content = await http.get(`/api/content?path=${state.path}`);
+       return content && <ContentPage {...content} />;
+    });
 
     on('error', (state, error) => state.statusCode === 404 ?
             //<App context={state.context} error={error}><NotFoundPage /></App> :
