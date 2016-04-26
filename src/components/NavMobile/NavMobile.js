@@ -2,6 +2,7 @@
 
 import React, {PropTypes} from 'react';
 import styles from './NavMobile.scss';
+import Link from '../Link';
 import Overlay from '../ui/Overlay';
 import withStyles from '../../decorators/withStyles';
 
@@ -25,7 +26,13 @@ class NavMobile extends React.Component {
         this.setState({
             open: !this.state.open
         });
-        this.renderMenu();
+    }
+
+    menuClose (event) {
+        this.setState({
+            open: !this.state.open
+        });
+        Link.handleClick(event)
     }
 
     renderMenu () {
@@ -35,7 +42,9 @@ class NavMobile extends React.Component {
                     <div className="Sidebar__overlay">
                         <div className="Sidebar">
                             <div className="NavMobile">
-                                <a href="/" className="NavMobile__item">
+                                <a className="NavMobile__item"
+                                   href="/"
+                                   onClick={this.menuClose.bind(this)}>
                                         <span className="NavMobile__item-icon">
                                             <i className="icon-emb-search"></i>
                                         </span>
@@ -43,7 +52,9 @@ class NavMobile extends React.Component {
                                             Новый поиск
                                         </span>
                                 </a>
-                                <a href="/about" className="NavMobile__item">
+                                <a className="NavMobile__item"
+                                   href="/about"
+                                   onClick={this.menuClose.bind(this)}>
                                         <span className="NavMobile__item-icon">
                                             <i className="icon-emb-suitcase"></i>
                                         </span>
@@ -51,7 +62,9 @@ class NavMobile extends React.Component {
                                             О компании
                                         </span>
                                 </a>
-                                <a href="/contacts" className="NavMobile__item">
+                                <a className="NavMobile__item"
+                                   href="/contacts"
+                                   onClick={this.menuClose.bind(this)}>
                                         <span className="NavMobile__item-icon">
                                             <i className="icon-emb-phone"></i>
                                         </span>
