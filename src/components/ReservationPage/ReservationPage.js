@@ -1,6 +1,6 @@
 //компонент - шаблон, для сождания новых компонентов
 
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import styles from './ReservationPage.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
@@ -11,30 +11,31 @@ import api from './../../core/ApiClient';
 import apiUrls from './../../constants/ApiUrls.js';
 import siteUrls from './../../constants/SiteUrls.js';
 
-import { connect } from 'react-redux';
-import { getHotelDetails, checkAvailability, makeReservation } from '../../actions/action_reservation';
-import { getAllCountries } from '../../actions/action_directory';
-import { processField } from '../../actions/action_form';
+import {connect} from 'react-redux';
+import {getHotelDetails, checkAvailability, makeReservation} from '../../actions/action_reservation';
+import {getAllCountries} from '../../actions/action_directory';
+import {getNeedSmsValidation} from '../../actions/action_sms';
+import {processField} from '../../actions/action_form';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
-import { getParamsForHotelDetails, getParamsForCheckAvailability, getParamsForMakeReservation } from '../../helpers/apiParamsHelper';
-import { routeDateToJsDate } from '../../helpers/DateHelper';
+import {getParamsForHotelDetails, getParamsForCheckAvailability, getParamsForMakeReservation} from '../../helpers/apiParamsHelper';
+import {routeDateToJsDate} from '../../helpers/DateHelper';
 
 import VisaAlert from '../VisaAlert';
 import TarifsDescription from '../TarifsDescription';
-import { CustomerInfoForm } from '../CustomerInfo';
-import { WaitMsg, ErrorMsg } from '../ui/PopupMessages';
+import {CustomerInfoForm} from '../CustomerInfo';
+import {WaitMsg, ErrorMsg} from '../ui/PopupMessages';
 import BuyRequest from './BuyRequest';
-import { PassengersForm } from '../Passengers';
+import {PassengersForm} from '../Passengers';
 import Checkbox from '../ui/Checkbox';
 import Price from '../Price';
 import PriceCard from '../PriceCard';
 import BuyBtn from '../../components/ui/Buttons/BuyBtn';
 import NeedSmsValidation from '../../components/NeedSmsValidation';
-import { MobileSelectedFilter } from '../MobileFilters';
+import {MobileSelectedFilter} from '../MobileFilters';
 
 //import documentsList from '../../constants/documentsList';
-import { isInsideRf } from '../../helpers/tripHelper';
+import {isInsideRf} from '../../helpers/tripHelper';
 
 import {reduxForm} from 'redux-form';
 export const fields = [
@@ -64,24 +65,26 @@ export const fields = [
 import validate from './validateForm';
 
 @withViewport
-@withStyles(styles) class ReservationPage extends Component {
-    constructor(props) {
+@withStyles(styles)
+class ReservationPage extends Component {
+    constructor (props) {
         super(props);
 
         this.state = {
             error: null,
             checkAvailabilityError: null,
-            citizenshipList: null
+            citizenshipList: null,
+            smsValidationShow: false
         }
     }
 
-    componentDidMount() {
+    componentDidMount () {
         //set isMobile to form
         const {
-            routeParams,
-            viewport,
-            fields: { validation },
-            } = this.props;
+                  routeParams,
+                  viewport,
+                  fields: { validation },
+              } = this.props;
 
         var { fromDate, toDate } = routeParams;
 
@@ -104,14 +107,14 @@ import validate from './validateForm';
         });
     }
 
-    getData() {
+    getData () {
         return Promise.all([
             this.getHotelData(),
             this.getCitizenshipData()
         ])
     }
 
-    getCitizenshipData() {
+    getCitizenshipData () {
         return new Promise((resolve, reject)=> {
             var { dispatch } = this.props;
             dispatch(getAllCountries())
@@ -142,7 +145,7 @@ import validate from './validateForm';
         });
     }
 
-    filterCitizenshipData(countries, data) {
+    filterCitizenshipData (countries, data) {
         //фильтруем
         //удаляем из списка гражданств страну назначения
         if (countries && data && data.AviaInfo) {
@@ -169,7 +172,7 @@ import validate from './validateForm';
         return countries;
     }
 
-    getHotelData() {
+    getHotelData () {
         return new Promise((resolve, reject)=> {
             var { routeParams, routeQuery, dispatch } = this.props;
             var { room } = routeQuery;
@@ -188,14 +191,14 @@ import validate from './validateForm';
                         });
                     }
                     //resolve();
-                    this.checkAvailability().then(()=>{
+                    this.checkAvailability().then(()=> {
                         resolve();
                     })
                 });
         });
     }
 
-    checkAvailability() {
+    checkAvailability () {
         return new Promise((resolve, reject)=> {
             var { routeParams, routeQuery, dispatch } = this.props;
             var { room } = routeQuery;
@@ -218,7 +221,7 @@ import validate from './validateForm';
         });
     }
 
-    filterDocsList(citizenship) {
+    filterDocsList (citizenship) {
         var { data } = this.props;
         //console.log('filterDocsList', data, citizenship);
 
@@ -230,14 +233,14 @@ import validate from './validateForm';
                     //если поездка по России
                     if (item && isInsideRf(item)) {
                         return [
-                            {value: 1, name: 'Паспорт РФ'},
-                            {value: 2, name: 'Загранпаспорт'},
-                            {value: 3, name: 'Св-во о рождении'}
+                            { value: 1, name: 'Паспорт РФ' },
+                            { value: 2, name: 'Загранпаспорт' },
+                            { value: 3, name: 'Св-во о рождении' }
                         ];
                     }
                     else {
                         return [
-                            {value: 2, name: 'Загранпаспорт'}
+                            { value: 2, name: 'Загранпаспорт' }
                         ];
                     }
                 }
@@ -245,7 +248,7 @@ import validate from './validateForm';
             else {
                 //гражданство не Россия
                 return [
-                    {value: 4, name: 'Иностранный документ'}
+                    { value: 4, name: 'Иностранный документ' }
                 ];
             }
         }
@@ -253,7 +256,7 @@ import validate from './validateForm';
         return null;
     }
 
-    isRuCitizenshipAndInsiderRf(citizenship) {
+    isRuCitizenshipAndInsiderRf (citizenship) {
         var { data } = this.props;
         if (citizenship) {
             //Россия
@@ -271,11 +274,11 @@ import validate from './validateForm';
         return false;
     }
 
-    onRequestSendClick() {
+    onRequestSendClick () {
         console.log('onRequestSendClick');
     }
 
-    onBuyFormSubmit(formData) {
+    onBuyFormSubmit (formData) {
         console.log('onBuyFormSubmit', formData);
         var that = this;
 
@@ -312,15 +315,36 @@ import validate from './validateForm';
             });
     }
 
-    gotoBuyPage(orderNum) {
+    gotoBuyPage (orderNum) {
         var url = `${siteUrls.Buy}${orderNum}`;
         Location.pushState(null, url);
     }
 
-    renderOverlay() {
-        var { data, availableData } = this.props;
-        var { error, checkAvailabilityError } = this.state;
 
+    getSms () {
+        this.setState({
+            smsValidationShow: true
+        })
+        // let { dispatch } = this.props;
+        console.log(this.props);
+        console.log(this.props.data.NeedSmsValidation);
+        // let phone = this.props.values.phone_suffix + this.props.values.phone_number;
+        // console.log(this.props.values.phone_suffix)
+        // console.log(this.props.values.phone_number)
+        // console.log(phone)
+        // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
+    }
+
+
+    renderOverlay () {
+        var { data, availableData } = this.props;
+        var { error, checkAvailabilityError, smsValidationShow } = this.state;
+
+        if (smsValidationShow) {
+            return (
+                <NeedSmsValidation/>
+            );
+        }
         if (error) {
             return (
                 <WaitMsg
@@ -333,7 +357,7 @@ import validate from './validateForm';
                                 console.log('popup cancel');
                                 Location.pushState(null, '/');
                             }}
-                    />
+                />
             );
         }
         if (checkAvailabilityError) {
@@ -348,37 +372,37 @@ import validate from './validateForm';
                                 console.log('popup cancel');
                                 Location.pushState(null, '/');
                             }}
-                    />
+                />
             );
         }
         else if (data == null || availableData == null) {
             return (
                 <WaitMsg
                     data={{title:'Собираем данные', text:'Это может занять какое-то время'}}
-                    />
+                />
             );
         }
 
         return null;
     }
 
-    render() {
+    render () {
         var { data, routeParams, viewport } = this.props;
         var events = null;
 
         var price = data ? data.Price : 0;
-        var priceData = data ? {price: data.Price} : null;
+        var priceData = data ? { price: data.Price } : null;
 
         //console.log('render data:', data);
 
         var { citizenshipList } = this.state;
 
         const {
-            fields: {passengers, agree},
-            handleSubmit,
-            resetForm,
-            submitting
-            } = this.props;
+                  fields: { passengers, agree },
+                  handleSubmit,
+                  resetForm,
+                  submitting
+              } = this.props;
 
         if (true || data) {
             return (
@@ -410,6 +434,7 @@ import validate from './validateForm';
                     <form onSubmit={handleSubmit}>
                         <div className="b-reservation-page__customer">
                             <CustomerInfoForm {...this.props}/>
+                            <BuyBtn text="getSms" onSubmit={this.getSms.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__buy-request">
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
@@ -480,7 +505,6 @@ import validate from './validateForm';
                                 <BuyBtn text="Перейти к оплате" onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                             </div>
                         </div>
-                        <NeedSmsValidation/>
                         <div className="b-reservation-page__buy-block-mobile">
                             <PriceCard data={priceData} onSubmit={handleSubmit(this.onBuyFormSubmit.bind(this))}/>
                         </div>
@@ -503,7 +527,7 @@ import validate from './validateForm';
 
 //export default ReservationPage;
 
-function generatePassengers(count) {
+function generatePassengers (count) {
     var res = [];
     for (var i = 0; i < count; i++) {
         res.push({});
@@ -512,7 +536,7 @@ function generatePassengers(count) {
     return res;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
     return {
         citizenshipList: state.countries,
         data: state.reservation,

@@ -6,7 +6,7 @@ import ActionTypes from '../constants/ActionTypes';
 export function getNeedSmsValidation (params) {
     return (dispatch) => {
         return new Promise((resolve, reject)=> {
-            apiClient.get(apiUrls.getSmsCode, params)
+            apiClient.post(apiUrls.getSmsCode, params)
                 .then((data) => {
                     return dispatch({
                         type: ActionTypes.GET_NEED_SMS_VALIDATION,

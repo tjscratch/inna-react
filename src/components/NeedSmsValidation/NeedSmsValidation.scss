@@ -1,1 +1,50 @@
 @import "../variables.scss";
+.b-overlay{
+    background: rgba(0, 0, 0, .7) !important;
+}
+.NeedSmsValidation{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    margin-top: 11%;
+    width: 400px;
+    height: 200px;
+    padding: 0 20px;
+    border-radius: 7px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+.checkSms{
+    padding: 0 30px;
+}
+.checkSms__icon{
+    margin: 15px 0;
+}
+.checkSms__title{
+    margin: 10px 0;
+    font-size: 22px;
+    font-weight: normal;
+}
+.checkSms__notice{
+    margin: 10px 0;
+    color: #878787;
+}
+.checkSms__input-container{
+    width: 150px;
+    margin: 13px auto;
+}
+.checkSms__timeout{
+    margin: 13px 0;
+}
+.checkSms__new{
+    color: #1e88c1;
+    cursor: pointer;
+}
+.checkSms__error{
+    margin: 13px 0;
+    color: $red;
+}

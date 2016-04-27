@@ -34,10 +34,11 @@ const getUrlLocal = (path) => {
 const ApiClient = {
 
     get: (path, params) => new Promise((resolve, reject) => {
+        console.log(getUrl(path))
         request
             .get(getUrl(path))
             .query(params)
-            .accept('application/json')
+            .set('Accept', 'application/json')
             .end((err, res) => {
                 if (err) {
                     if (err.status === 404) {
@@ -55,9 +56,9 @@ const ApiClient = {
     post: (path, params) => new Promise((resolve, reject) => {
         request
             .post(getUrlLocal(path))
-            .set('Content-Type', 'application/json')
+            .type('form')
             .send(params)
-            .accept('application/json')
+            .set('Accept', 'application/json')
             .end((err, res) => {
                 if (err) {
                     if (err.status === 404) {
