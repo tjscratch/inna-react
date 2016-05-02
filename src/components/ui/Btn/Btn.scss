@@ -1,0 +1,50 @@
+@import '../../variables.scss';
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+    padding: $padding-vertical $padding-horizontal;
+    font-size: $font-size;
+    line-height: $line-height;
+    border-radius: $border-radius;
+}
+@mixin btn-bg-color($bg-color, $color) {
+    color: $color;
+    background-color: $bg-color;
+
+    &:hover{
+        background-color: lighten($bg-color, 5%);
+    }
+    &:active{
+        background-color: darken($bg-color, 5%);
+    }
+}
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    transition: all $animation-speed;
+
+    @include button-size(
+                    $btn-padding-vertical,
+                    $btn-padding-horizontal,
+                    $btn-font-size,
+                    $btn-line-height,
+                    $btn-border-radius);
+}
+.btn-small{
+    @include button-size(
+                    $btn-small-padding-vertical,
+                    $btn-small-padding-horizontal,
+                    $btn-small-font-size,
+                    $btn-small-line-height,
+                    $btn-small-border-radius);
+}
+.btn-green{
+    @include btn-bg-color($btn-green-bg, $btn-green-color);
+}

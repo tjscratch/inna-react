@@ -7,6 +7,7 @@ import styles from './NeedSmsValidation.scss';
 import withStyles from '../../decorators/withStyles';
 import withViewport from '../../decorators/withViewport';
 import Overlay from '../ui/Overlay';
+import Btn from '../ui/Btn';
 import moment from 'moment';
 moment.locale('ru');
 
@@ -50,8 +51,10 @@ class NeedSmsValidation extends React.Component {
         }, 60000);
     }
 
-    checkNeedSmsValidation () {
+    checkNeedSmsValidation (event) {
         var { dispatch } = this.props;
+        console.log(333333)
+        console.log(event)
         // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
 
         // apiClient.post(apiUrls.getSmsCode, '{"Phone":"89099593106"}')
@@ -86,13 +89,12 @@ class NeedSmsValidation extends React.Component {
                             {this.state.timer}
                         </div>
                         <div className="checkSms__timeout">
-					<span className="checkSms__new" ng-click="submitSms()">
-						запросить заново
-					</span>
+					        <span className="checkSms__new" ng-click="submitSms()">
+						        запросить заново
+                            </span>
                         </div>
-                        <span className="button" ng-click="submitSmsCode($event, sms_code)">Отправить</span>
+                        <Btn small={true} onClick={this.checkNeedSmsValidation.bind(this)}>Отправить</Btn>
                     </div>
-                    <ButtonSecondary onClick={this.checkNeedSmsValidation.bind(this)}>Подтверждение по смс</ButtonSecondary>
                 </div>
             </Overlay>
         )
