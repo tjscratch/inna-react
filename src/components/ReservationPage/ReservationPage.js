@@ -419,9 +419,9 @@ class ReservationPage extends Component {
                             </div>
                         </MobileSelectedFilter>
                     </div>
-                    <div className="b-reservation-page__header">
+                    <div className="b-reservation-page__header" style={{'display': 'none'}}>
                     </div>
-                    <div className="b-reservation-page__header-desc">
+                    <div className="b-reservation-page__header-desc" style={{'display': 'none'}}>
                     </div>
                     <div className="b-reservation-page__variant">
                         <HotelDetailsPackage
@@ -429,17 +429,17 @@ class ReservationPage extends Component {
                             price={price}
                             events={events} data={data}/>
                     </div>
-                    <div className="b-reservation-page__visa-alert">
+                    <div className="b-reservation-page__visa-alert" style={{'display': 'none'}}>
                         <VisaAlert />
                     </div>
-                    <div className="b-reservation-page__tarifs-desc">
+                    <div className="b-reservation-page__tarifs-desc" style={{'display': 'none'}}>
                         <TarifsDescription />
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="b-reservation-page__customer">
                             <CustomerInfoForm {...this.props}/>
                         </div>
-                        <div className="b-reservation-page__buy-request">
+                        <div className="b-reservation-page__buy-request" style={{'display': 'none'}}>
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__passengers">
