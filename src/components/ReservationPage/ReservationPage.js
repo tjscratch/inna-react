@@ -14,7 +14,6 @@ import siteUrls from './../../constants/SiteUrls.js';
 import {connect} from 'react-redux';
 import {getHotelDetails, checkAvailability, makeReservation} from '../../actions/action_reservation';
 import {getAllCountries} from '../../actions/action_directory';
-import {getNeedSmsValidation} from '../../actions/action_sms';
 import {processField} from '../../actions/action_form';
 
 import HotelDetailsPackage from '../HotelPage/HotelDetailsPackage';
@@ -74,7 +73,8 @@ class ReservationPage extends Component {
             error: null,
             checkAvailabilityError: null,
             citizenshipList: null,
-            smsValidationShow: false
+            smsValidationShow: false,
+            reserveParams: null
         }
     }
 
@@ -280,9 +280,6 @@ class ReservationPage extends Component {
 
     onBuyFormSubmit (formData) {
         console.log('onBuyFormSubmit', formData);
-        var that = this;
-
-        //console.log('this.props', this.props);
 
         var { routeParams, routeQuery, dispatch } = this.props;
         var { room } = routeQuery;
@@ -290,6 +287,25 @@ class ReservationPage extends Component {
         var params = getParamsForMakeReservation(routeParams, room, formData);
         console.log('params', JSON.stringify(params));
 
+        this.setState({
+            reserveParams: params
+        })
+
+        if (this.props.data) {
+            if (this.props.data.NeedSmsValidation) {
+                if (this.props.values.phone_suffix && this.props.values.phone_number) {
+                    this.setState({
+                        smsValidationShow: true
+                    })
+                }
+            } else {
+                this.gotoBuyPage();
+            }
+        }
+    }
+
+    gotoBuyPage () {
+        var that = this;
         dispatch(makeReservation(params))
             .then((action)=> {
                 var { data, err } = action;
@@ -298,7 +314,8 @@ class ReservationPage extends Component {
 
                     //отель забронирован
                     if (data.Status == 1) {
-                        that.gotoBuyPage(data.OrderNum);
+                        var url = `${siteUrls.Buy}${data.OrderNum}`;
+                        Location.pushState(null, url);
                     }
                     else {
                         that.setState({
@@ -315,32 +332,18 @@ class ReservationPage extends Component {
             });
     }
 
-    gotoBuyPage (orderNum) {
-        var url = `${siteUrls.Buy}${orderNum}`;
-        Location.pushState(null, url);
-    }
-
-
-    getSms () {
-        if (this.props.values.phone_suffix && this.props.values.phone_number) {
-            this.setState({
-                smsValidationShow: true
-            })
-        }
-    }
-
     smsValid (data) {
-        console.log('valid sms')
         this.setState({
             smsValidationShow: false
         })
+        this.gotoBuyPage();
     }
 
     renderOverlay () {
         var { data, availableData } = this.props;
-        var { error, checkAvailabilityError, smsValidationShow } = this.state;
+        var { error, checkAvailabilityError } = this.state;
 
-        if (smsValidationShow) {
+        if (this.state.smsValidationShow) {
             let phone = this.props.values.phone_suffix + this.props.values.phone_number;
             return (
                 <NeedSmsValidation phone={phone} smsValid={this.smsValid.bind(this)}/>
@@ -430,7 +433,6 @@ class ReservationPage extends Component {
                         <VisaAlert />
                     </div>
                     <div className="b-reservation-page__tarifs-desc">
-                        <BuyBtn text="getSms" onSubmit={this.getSms.bind(this)}/>
                         <TarifsDescription />
                     </div>
                     <form onSubmit={handleSubmit}>
