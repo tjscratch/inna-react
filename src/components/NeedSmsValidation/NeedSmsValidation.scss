@@ -34,7 +34,18 @@
     width: 150px;
     margin: 13px auto;
 }
-.NeedSmsValidation__timeout{
+.NeedSmsValidation__input{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid $gray-light;
+    border-radius: 0;
+
+    &:focus{
+        box-shadow: 0 0 3px $green;
+    }
+}
+.NeedSmsValidation__text{
     margin: 13px 0;
 }
 .NeedSmsValidation__timeout-time{
@@ -47,4 +58,9 @@
 .NeedSmsValidation__error{
     margin: 13px 0;
     color: $red;
+}
+.NeedSmsValidation__input-container-error{
+    .NeedSmsValidation__input{
+        border-color: $red;
+    }
 }

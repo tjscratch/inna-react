@@ -84,7 +84,7 @@ class ReservationPage extends Component {
                   routeParams,
                   viewport,
                   fields: { validation },
-              } = this.props;
+                  } = this.props;
 
         var { fromDate, toDate } = routeParams;
 
@@ -322,27 +322,28 @@ class ReservationPage extends Component {
 
 
     getSms () {
-        this.setState({
-            smsValidationShow: true
-        })
-        // let { dispatch } = this.props;
-        console.log(this.props);
-        console.log(this.props.data.NeedSmsValidation);
-        // let phone = this.props.values.phone_suffix + this.props.values.phone_number;
-        // console.log(this.props.values.phone_suffix)
-        // console.log(this.props.values.phone_number)
-        // console.log(phone)
-        // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
+        if (this.props.values.phone_suffix && this.props.values.phone_number) {
+            this.setState({
+                smsValidationShow: true
+            })
+        }
     }
 
+    smsValid (data) {
+        console.log('valid sms')
+        this.setState({
+            smsValidationShow: false
+        })
+    }
 
     renderOverlay () {
         var { data, availableData } = this.props;
         var { error, checkAvailabilityError, smsValidationShow } = this.state;
 
         if (smsValidationShow) {
+            let phone = this.props.values.phone_suffix + this.props.values.phone_number;
             return (
-                <NeedSmsValidation/>
+                <NeedSmsValidation phone={phone} smsValid={this.smsValid.bind(this)}/>
             );
         }
         if (error) {
@@ -402,7 +403,7 @@ class ReservationPage extends Component {
                   handleSubmit,
                   resetForm,
                   submitting
-              } = this.props;
+                  } = this.props;
 
         if (true || data) {
             return (
@@ -429,12 +430,12 @@ class ReservationPage extends Component {
                         <VisaAlert />
                     </div>
                     <div className="b-reservation-page__tarifs-desc">
+                        <BuyBtn text="getSms" onSubmit={this.getSms.bind(this)}/>
                         <TarifsDescription />
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="b-reservation-page__customer">
                             <CustomerInfoForm {...this.props}/>
-                            <BuyBtn text="getSms" onSubmit={this.getSms.bind(this)}/>
                         </div>
                         <div className="b-reservation-page__buy-request">
                             <BuyRequest onSendClick={this.onRequestSendClick.bind(this)}/>

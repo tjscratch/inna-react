@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
 import {connect} from 'react-redux';
-import {getNeedSmsValidation} from '../../actions/action_sms';
+import {getNeedSmsValidation, checkNeedSmsValidation} from '../../actions/action_sms';
 
 import styles from './NeedSmsValidation.scss';
 import withStyles from '../../decorators/withStyles';
@@ -10,6 +10,9 @@ import Overlay from '../ui/Overlay';
 import Btn from '../ui/Btn';
 import moment from 'moment';
 moment.locale('ru');
+
+import apiClient from '../../core/ApiClient';
+import apiUrls from '../../constants/ApiUrls';
 
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
 
@@ -20,20 +23,24 @@ class NeedSmsValidation extends React.Component {
         super(props);
 
         this.state = {
-            timer: 60
+            timer: 60,
+            error: false,
+            code: null
         }
     }
 
     componentDidMount () {
         var { dispatch } = this.props;
-        var self = this;
-        // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
+        dispatch(getNeedSmsValidation({ Phone: this.props.phone }));
+        this.startTimer(60);
+    }
 
-        var timer = 60;
+    startTimer (timer) {
+        var self = this;
+        var timer = timer;
         var fight = setInterval(function () {
             if (timer > 0) {
                 timer = timer - 1;
-                //console.log(timer);
                 self.setState({
                     timer: moment(timer, "ss").format("s")
                 });
@@ -45,31 +52,76 @@ class NeedSmsValidation extends React.Component {
         var stopFight = function () {
             clearInterval(fight);
         };
-
         setTimeout(function () {
-            clearInterval(fight);
+            stopFight();
         }, 60000);
     }
 
-    checkNeedSmsValidation (event) {
-        var { dispatch } = this.props;
-        console.log(333333)
-        console.log(event)
-        // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
 
-        // apiClient.post(apiUrls.getSmsCode, '{"Phone":"89099593106"}')
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
-        // apiClient.post(apiUrls.checkSmsCode, { Phone: '+79099593106' })
-        //     .then((data) => {
-        //         console.log(data)
-        //     })
+    onNeedSmsValidation (event) {
+        var { dispatch } = this.props;
+        dispatch(checkNeedSmsValidation({ Phone: this.props.phone, Code: this.state.code }))
+            .then((action)=> {
+                console.log('onNeedSmsValidation')
+                console.log(action)
+                if (action.data.checkSms != 0) {
+                    this.props.smsValid();
+                    this.setState({
+                        error: false
+                    });
+                } else {
+                    this.setState({
+                        error: true
+                    });
+                }
+            })
+            .catch((err, data)=> {
+                this.setState({
+                    error: true
+                });
+            })
+    }
+
+    getNeedSmsValidation (event) {
+        var { dispatch } = this.props;
+        this.setState({
+            timer: 60
+        });
+        this.startTimer(60);
+        dispatch(getNeedSmsValidation({ Phone: this.props.phone }));
+    }
+
+    handleTextChange (e) {
+        this.setState({
+            code: e.target.value
+        });
+    }
+
+    renderCounter () {
+        let showGetNewCode = this.state.timer > 0 ? false : true;
+        if (showGetNewCode) {
+            return (
+                <div className="NeedSmsValidation__text">
+                    <div className="NeedSmsValidation__new"
+                         onClick={this.getNeedSmsValidation.bind(this)}>
+                        Запросить заново
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div className="NeedSmsValidation__text">
+                    Запросить код заново можно через
+                    &nbsp;
+                    {this.state.timer} сек.
+                </div>
+            )
+        }
     }
 
     render () {
-        let smsError = false;
-        let showGetNewCode = false;
+        var smsError = this.state.error ? true : false
+        var smsErrorClass = this.state.error ? 'NeedSmsValidation__input-container-error' : ''
         return (
             <Overlay className="NeedSmsValidation__overlay">
                 <div className="NeedSmsValidation">
@@ -79,39 +131,37 @@ class NeedSmsValidation extends React.Component {
                     <label for="sms_code" className="NeedSmsValidation__notice">
                         На ваш номер направлен СМС код, введите его в форму:
                     </label>
-                    <div className="NeedSmsValidation__input-container">
-                        <input id="sms_code" className="b-field-text" type="text" autocomplete="off"/>
+                    <div className={`NeedSmsValidation__input-container ${smsErrorClass}`}>
+                        <input id="sms_code"
+                               className="NeedSmsValidation__input"
+                               type="text"
+                               value={this.state.code}
+                               onChange={this.handleTextChange.bind(this)}
+                        />
                     </div>
                     {smsError ?
                         <div className="NeedSmsValidation__error">
-                            введен неправильный код
+                            Введен неправильный код
                         </div>
                         :
                         null
                     }
-                    <div className="NeedSmsValidation__timeout">
-                        запросить код заново можно через
-                        &nbsp;
-                        {this.state.timer} секунд.
-                    </div>
-                    {showGetNewCode ?
-                        <div className="NeedSmsValidation__new" ng-click="submitSms()">
-                            запросить заново
-                        </div>
-                        :
-                        null
-                    }
-                    <Btn small={true} onClick={this.checkNeedSmsValidation.bind(this)}>Отправить</Btn>
+                    {this.renderCounter()}
+                    <Btn small={true}
+                         onClick={this.onNeedSmsValidation.bind(this)}>
+                        Отправить
+                    </Btn>
                 </div>
             </Overlay>
         )
     }
 }
 
-// function mapStateToProps (state) {
-//     return {
-//         data: state.hotelDetails
-//     }
-// }
+function mapStateToProps (state) {
+    return {
+        getSms: state.needSms.getSms,
+        checkSms: state.needSms.checkSms
+    }
+}
 
-export default connect()(NeedSmsValidation)
+export default connect(mapStateToProps)(NeedSmsValidation)

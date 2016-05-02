@@ -10,11 +10,27 @@ export function getNeedSmsValidation (params) {
                 .then((data) => {
                     return dispatch({
                         type: ActionTypes.GET_NEED_SMS_VALIDATION,
-                        data: data
+                        data: { getSms: data }
                     });
                 })
         });
-        // return apiClient.get(apiUrls.getSmsCode, params)
+    }
+}
+export function checkNeedSmsValidation (params) {
+    return (dispatch) => {
 
+        return apiClient.post(apiUrls.checkSmsCode, params)
+            .then((data) => {
+                return dispatch({
+                    type: ActionTypes.CHECK_NEED_SMS_VALIDATION,
+                    data: { checkSms: data }
+                });
+            })
+            .catch((err, data) => {
+                return dispatch({
+                    type: ActionTypes.CHECK_NEED_SMS_VALIDATION_ERROR,
+                    data: { checkSms: 0 }
+                });
+            });
     }
 }

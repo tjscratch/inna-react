@@ -7,4 +7,5 @@ export default keyMirror({
     FILTRATE_HOTELS: null,
     GET_NEED_SMS_VALIDATION: null,
     CHECK_NEED_SMS_VALIDATION: null,
+    CHECK_NEED_SMS_VALIDATION_ERROR: null,
 });

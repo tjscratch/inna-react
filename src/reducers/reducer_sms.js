@@ -1,15 +1,27 @@
 import ActionTypes from '../constants/ActionTypes';
 
-export default function reducerNeedSmsValidation (state = null, action = null) {
+let initialState = {
+    getSms: null,
+    checkSms: null
+};
+
+export default function reducerNeedSmsValidation (state = initialState, action = null) {
     switch (action.type) {
         case ActionTypes.GET_NEED_SMS_VALIDATION:
-            let sms = {};
-            Object.assign(sms, state);
-            return sms;
+            var data = action.data;
+            return Object.assign({}, state, {
+                ...data
+            });
         case ActionTypes.CHECK_NEED_SMS_VALIDATION:
-            let smsCode = {};
-            Object.assign(smsCode, state);
-            return smsCode;
+            var data = action.data;
+            return Object.assign({}, state, {
+                ...data
+            });
+        case ActionTypes.CHECK_NEED_SMS_VALIDATION_ERROR:
+            var data = action.data;
+            return Object.assign({}, state, {
+                ...data
+            });
         default:
             return state;
     }
