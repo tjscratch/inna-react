@@ -20,7 +20,7 @@ class NeedSmsValidation extends React.Component {
         super(props);
 
         this.state = {
-            timer: null
+            timer: 60
         }
     }
 
@@ -29,13 +29,13 @@ class NeedSmsValidation extends React.Component {
         var self = this;
         // dispatch(getNeedSmsValidation({ Phone: '+79099593106' }))
 
-        var timer = 60000;
+        var timer = 60;
         var fight = setInterval(function () {
             if (timer > 0) {
-                timer = timer - 1000;
-                console.log(timer);
+                timer = timer - 1;
+                //console.log(timer);
                 self.setState({
-                    timer: moment(timer, "ss").format("ss")
+                    timer: moment(timer, "ss").format("s")
                 });
             } else {
                 stopFight();
@@ -68,33 +68,40 @@ class NeedSmsValidation extends React.Component {
     }
 
     render () {
+        let smsError = false;
+        let showGetNewCode = false;
         return (
-            <Overlay>
+            <Overlay className="NeedSmsValidation__overlay">
                 <div className="NeedSmsValidation">
-                    <div className="checkSms">
-                        <div className="checkSms__title">
-                            Подтверждение заказа
-                        </div>
-                        <label for="sms_code" className="checkSms__notice">
-                            На ваш номер направлен СМС код, введите его в форму:
-                        </label>
-                        <div className="checkSms__input-container">
-                            <input id="sms_code" className="b-field-text" type="number" autocomplete="off"/>
-                        </div>
-                        <div className="checkSms__error">
+                    <div className="NeedSmsValidation__title">
+                        Подтверждение заказа
+                    </div>
+                    <label for="sms_code" className="NeedSmsValidation__notice">
+                        На ваш номер направлен СМС код, введите его в форму:
+                    </label>
+                    <div className="NeedSmsValidation__input-container">
+                        <input id="sms_code" className="b-field-text" type="text" autocomplete="off"/>
+                    </div>
+                    {smsError ?
+                        <div className="NeedSmsValidation__error">
                             введен неправильный код
                         </div>
-                        <div className="checkSms__timeout">
-                            запросить код заново можно через
-                            {this.state.timer}
-                        </div>
-                        <div className="checkSms__timeout">
-					        <span className="checkSms__new" ng-click="submitSms()">
-						        запросить заново
-                            </span>
-                        </div>
-                        <Btn small={true} onClick={this.checkNeedSmsValidation.bind(this)}>Отправить</Btn>
+                        :
+                        null
+                    }
+                    <div className="NeedSmsValidation__timeout">
+                        запросить код заново можно через
+                        &nbsp;
+                        {this.state.timer} секунд.
                     </div>
+                    {showGetNewCode ?
+                        <div className="NeedSmsValidation__new" ng-click="submitSms()">
+                            запросить заново
+                        </div>
+                        :
+                        null
+                    }
+                    <Btn small={true} onClick={this.checkNeedSmsValidation.bind(this)}>Отправить</Btn>
                 </div>
             </Overlay>
         )

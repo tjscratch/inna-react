@@ -46,8 +46,9 @@ import styles from './Overlay.scss';
 
     buildContainer(props) {
         var thisProps = props || this.props;
+        var className = thisProps.className ? thisProps.className : '';
         this._overlayContainer = document.createElement(thisProps.elementType);
-        this._overlayContainer.className = `b-overlay ${thisProps.className}`;
+        this._overlayContainer.className = `b-overlay ${className}`;
         var container = thisProps.container;
         container.className += ' overlay-scroll-fix';
         container.appendChild(this._overlayContainer);

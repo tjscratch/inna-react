@@ -2,48 +2,49 @@
 .b-overlay{
     background: rgba(0, 0, 0, .7) !important;
 }
+.NeedSmsValidation__overlay{
+    display: flex;
+    //justify-content: center;
+    //align-items: center;
+}
 .NeedSmsValidation{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
     margin: auto;
-    margin-top: 11%;
     width: 400px;
-    padding: 0 20px;
+    padding: 20px;
     border-radius: 7px;
     text-align: center;
     background-color: #fff;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
 }
-.checkSms{
-    padding: 0 30px;
+.NeedSmsValidation{
 }
-.checkSms__icon{
+.NeedSmsValidation__icon{
     margin: 15px 0;
 }
-.checkSms__title{
+.NeedSmsValidation__title{
     margin: 10px 0;
     font-size: 22px;
     font-weight: normal;
 }
-.checkSms__notice{
+.NeedSmsValidation__notice{
     margin: 10px 0;
     color: #878787;
 }
-.checkSms__input-container{
+.NeedSmsValidation__input-container{
     width: 150px;
     margin: 13px auto;
 }
-.checkSms__timeout{
+.NeedSmsValidation__timeout{
     margin: 13px 0;
 }
-.checkSms__new{
+.NeedSmsValidation__timeout-time{
+    display: inline-block;
+}
+.NeedSmsValidation__new{
     color: #1e88c1;
     cursor: pointer;
 }
-.checkSms__error{
+.NeedSmsValidation__error{
     margin: 13px 0;
     color: $red;
 }
