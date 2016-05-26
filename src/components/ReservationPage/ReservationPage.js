@@ -295,7 +295,6 @@ class ReservationPage extends Component {
           })
         }
       } else {
-        console.log('this.gotoBuyPage();')
         this.gotoBuyPage();
       }
     }
@@ -305,7 +304,6 @@ class ReservationPage extends Component {
     var that = this;
     var {dispatch} = this.props;
     console.log('gotoBuyPage')
-    console.log(this.props);
     console.log(this.state.reserveParams);
     dispatch(makeReservation(this.state.reserveParams))
       .then((action)=> {

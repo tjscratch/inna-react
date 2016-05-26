@@ -6,11 +6,11 @@ import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
 if (__DEV__) {
-  var apiPath = 'https://m.inna.ru/api/v1';
-  var apiPathServer = 'https://api.inna.ru/api/v1';
+  var apiPath = 'http://lh.m.inna.ru/api/v1';
+  var apiPathServer = 'https://lh.m.inna.ru/api/v1';
 } else {
-  var apiPath = 'https://m.inna.ru/api/v1';
-  var apiPathServer = 'https://api.inna.ru/api/v1';
+  var apiPath = 'https://lh.m.inna.ru/api/v1';
+  var apiPathServer = 'https://lh.m.inna.ru/api/v1';
 }
 
 
@@ -61,9 +61,30 @@ const ApiClient = {
     console.log(params);
     request
       .post(getUrlLocal(path))
-      .type('form')
+      //.type('form')
+      .set('Content-Type', 'application/x-www-form-urlencoded')
       .send(params)
       .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          if (err.status === 404) {
+            resolve(null);
+          } else {
+            //reject(err);
+            handleError(err, reject);
+          }
+        } else {
+          resolve(res.body);
+        }
+      });
+  }),
+  
+  postForm: (path, params) => new Promise((resolve, reject) => {
+    request
+      .post(getUrlLocal(path))
+      .set('Content-Type', 'application/json')
+      .send(params)
+      .accept('application/json')
       .end((err, res) => {
         if (err) {
           if (err.status === 404) {

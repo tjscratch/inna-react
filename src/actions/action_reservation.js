@@ -57,13 +57,11 @@ export function checkAvailability (params) {
 }
 
 export function makeReservation (params) {
-  console.log('makeReservation');
-  console.log(params)
     return (dispatch, getState) => {
         var field = 'makeReservation';
         var ACTION_NAME = MAKE_RESERVATION;
 
-        return apiClient.post(apiUrls.MakeReservation, params)
+        return apiClient.postForm(apiUrls.MakeReservation, params)
             .then((data) => {
                 console.log(`action ${field} from api`);
 
