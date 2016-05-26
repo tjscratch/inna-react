@@ -3,14 +3,20 @@
 import React from 'react';
 import styles from './Header.scss';
 import withStyles from '../../decorators/withStyles';
+import withScroll from '../../decorators/withScroll';
 import Navigation from '../Navigation';
 import NavMobile from '../NavMobile';
 import Logo from '../ui/Logo';
 
+@withScroll
 @withStyles(styles)
 class Header extends React.Component {
+  constructor (props) {
+    super(props);
+  }
 
   render() {
+    console.log(this.props.viewportScroll)
     return (
       <header className="header">
         <div className="b-header">
