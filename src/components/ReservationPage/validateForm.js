@@ -48,8 +48,8 @@ const validateForm = data => {
     }
 
     //agree
-    if (!data.agree) {
-        errors.agree = 'Нужно согласиться с условиями';
+    if (!data.Agree) {
+        errors.Agree = 'Нужно согласиться с условиями';
     }
 
     if (data.passengers) {

@@ -34,7 +34,7 @@ import {isInsideRf} from '../../helpers/tripHelper';
 import {reduxForm} from 'redux-form';
 export const fields = [
   'validation',
-  'agree',
+  'Agree',
   'email',
   'phone_suffix',
   'phone_number',
@@ -301,11 +301,13 @@ class ReservationPage extends Component {
     }
   }
 
-  gotoBuyPage(params) {
+  gotoBuyPage() {
     var that = this;
     var {dispatch} = this.props;
+    console.log('gotoBuyPage')
     console.log(this.props);
-    dispatch(makeReservation(params))
+    console.log(this.state.reserveParams);
+    dispatch(makeReservation(this.state.reserveParams))
       .then((action)=> {
         var {data, err} = action;
         if (data) {
@@ -403,7 +405,7 @@ class ReservationPage extends Component {
     var {citizenshipList} = this.state;
 
     const {
-      fields: {passengers, agree},
+      fields: {passengers, Agree},
       handleSubmit,
       resetForm,
       submitting
@@ -487,7 +489,7 @@ class ReservationPage extends Component {
               </div>
             </div>
             <div className="b-reservation-page__agreement">
-              <Checkbox align="top" {...agree}>
+              <Checkbox align="top" {...Agree}>
                 <div className="b-reservation-page-agreement">
                   Я принимаю условия <a href="#">договора-оферты</a>, <a href="#">договора IATA</a>,
                   <a
@@ -496,7 +498,7 @@ class ReservationPage extends Component {
                   данных и передачи их третьим лицам (авиаперевозчику и пр.).
                 </div>
               </Checkbox>
-              {agree.touched && agree.error && <div className="b-passenger-err-label">{agree.error}</div>}
+              {Agree.touched && Agree.error && <div className="b-passenger-err-label">{Agree.error}</div>}
             </div>
             <div className="b-reservation-page__buy-block">
               <div className="b-reservation-page-buy-block__lbl">

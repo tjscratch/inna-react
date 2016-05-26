@@ -101,15 +101,14 @@ export function getParamsForMakeReservation(routeParams, roomId, formData) {
     }
 
     var params = {
-        "I": "",
-        "F": "",
         "Email": formData.email,
+        "Agree": formData.Agree,
         "Phone": phone,
         "IsSubscribe": false,
         "Passengers": passengers,
-        "IsNeededVisa": formData.isNeededVisa,
-        "IsNeededTransfer": formData.isNeededTransfer,
-        "IsNeededMedicalInsurance": formData.isNeededMedicalInsurance,
+        "IsNeededVisa": false,
+        "IsNeededTransfer": false,
+        "IsNeededMedicalInsurance": false,
         "SearchParams": {
             "HotelId": routeParams.hotelId,
             "HotelProviderId": routeParams.providerId,
