@@ -301,7 +301,7 @@ class ReservationPage extends Component {
     }
   }
 
-  gotoBuyPage() {
+  gotoBuyPage(params) {
     var that = this;
     var {dispatch} = this.props;
     console.log(this.props);
