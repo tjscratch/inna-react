@@ -7,7 +7,7 @@ import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
 if (__DEV__) {
   var apiPath = 'http://lh.m.inna.ru/api/v1';
-  var apiPathServer = 'https://lh.m.inna.ru/api/v1';
+  var apiPathServer = 'http://lh.m.inna.ru/api/v1';
 } else {
   var apiPath = 'https://m.inna.ru/api/v1';
   var apiPathServer = 'https://api.inna.ru/api/v1';
