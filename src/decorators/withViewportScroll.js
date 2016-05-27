@@ -30,22 +30,13 @@ function handleWindowScroll() {
   }
 }
 
-function withViewport(ComposedComponent) {
-  return class WithViewport extends React.Component {
+function withViewportScroll(ComposedComponent) {
+  return class WithViewportScroll extends React.Component {
 
     constructor() {
       super();
-
-      var supportPageOffset = window.pageXOffset !== undefined;
-      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-      var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
-
       this.state = {
-        viewportScroll: canUseDOM ? {
-          top: y,
-          scrollDown: (viewportScroll.top < y) ? true : false,
-          scrollUp: (viewportScroll.top > y) ? true : false,
-        } : viewportScroll
+        viewportScroll: viewportScroll
       };
     }
 
@@ -77,4 +68,4 @@ function withViewport(ComposedComponent) {
   };
 }
 
-export default withViewport;
+export default withViewportScroll;
