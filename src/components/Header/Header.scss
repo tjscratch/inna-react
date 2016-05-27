@@ -1,69 +1,97 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.scss';
-.header{
-    color: #fff;
-    background: #232323;
+.header {
+  height: 57px;
 }
-.b-header{
-    max-width: $layout-max-width;
-    padding: 5px 15px;
-    margin: 0 auto;
-    text-align: left;
+.b-header__container {
+  position:   absolute;
+  left:       0;
+  right:      0;
+  top:        0;
+  width:      100%;
+  z-index:    2000;
+  height:     57px;
+  color:      #fff;
+  background: #232323;
 }
-.b-header__brand{
-    display: inline-block;
-    width: 270px;
+.b-header__hideDown {
+  top: -57px;
 }
-.b-brand{
-    display: block;
+.b-header__hideUp {
+  position:   fixed;
+  top:        -57px;
+  transition: top .2s;
 }
-.b-brand__text{
-    display: inline-block;
-    margin-left: 15px;
+.b-header__ScrollDown {
+  position:   fixed;
+  top:        0;
+  transition: top .2s;
 }
-.b-header__nav{
-    display: inline-block;
-    float: right;
-    margin-top: 10px;
+.b-header__ScrollUp {
+  position:   fixed;
+  top:        0;
+  transition: top .2s;
 }
-.b-brand__img-mobile{
-    display: none;
+.b-header {
+  max-width:  $layout-max-width;
+  padding:    5px 15px;
+  margin:     0 auto;
+  text-align: left;
 }
-.b-header__nav-mobile{
-    display: none;
+.b-header__brand {
+  display: inline-block;
+  width:   270px;
+}
+.b-brand {
+  display: block;
+}
+.b-brand__text {
+  display:     inline-block;
+  margin-left: 15px;
+}
+.b-header__nav {
+  display:    inline-block;
+  float:      right;
+  margin-top: 10px;
+}
+.b-brand__img-mobile {
+  display: none;
+}
+.b-header__nav-mobile {
+  display: none;
 }
 @media (max-width: 650px) {
-    .b-header{
-        text-align: center;
-    }
+  .b-header {
+    text-align: center;
+  }
 
-    .b-header__nav{
-        float: none;
-        margin-bottom: 5px;
-    }
+  .b-header__nav {
+    float:         none;
+    margin-bottom: 5px;
+  }
 }
 @media (max-width: $mobile-max-width) {
-    .b-brand__img,
-    .b-brand__text,
-    .b-header__nav{
-        display: none;
-    }
+  .b-brand__img,
+  .b-brand__text,
+  .b-header__nav {
+    display: none;
+  }
 
-    .b-header{
-        padding: 5px 10px;
-    }
+  .b-header {
+    padding: 5px 10px;
+  }
 
-    .b-header__brand{
-        width: auto;
-        margin-left: -27px;
-    }
+  .b-header__brand {
+    width:       auto;
+    margin-left: -27px;
+  }
 
-    .b-header__nav-mobile{
-        display: block;
-        float: left;
-    }
+  .b-header__nav-mobile {
+    display: block;
+    float:   left;
+  }
 
-    .b-brand__img-mobile{
-        display: block;
-    }
+  .b-brand__img-mobile {
+    display: block;
+  }
 }

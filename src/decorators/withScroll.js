@@ -3,16 +3,28 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import EventEmitter from 'eventemitter3';
 import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
+import _ from 'lodash';
 
 let EE;
-let viewportScroll = {scrollX: 0, scrollY: 0};
+let viewportScroll = {
+  top: 0,
+  scrollDown: false,
+  scrollUp: false
+};
 const SCROLL_EVENT = 'scroll';
 
 function handleWindowScroll() {
-  if (viewportScroll.scrollX !== window.scrollX || viewportScroll.scrollY !== window.scrollY) {
+  // кроссбраузерное вычисление скролла
+  var supportPageOffset = window.pageXOffset !== undefined;
+  var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+  //var x = supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
+  var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+
+  if (viewportScroll.top !== y) {
     viewportScroll = {
-      scrollX: window.scrollX,
-      scrollY: window.scrollY
+      top: y,
+      scrollDown: (viewportScroll.top < y) ? true : false,
+      scrollUp: (viewportScroll.top > y) ? true : false,
     };
     EE.emit(SCROLL_EVENT, viewportScroll);
   }
@@ -20,26 +32,32 @@ function handleWindowScroll() {
 
 function withViewport(ComposedComponent) {
   return class WithViewport extends React.Component {
-    
+
     constructor() {
       super();
-      
+
+      var supportPageOffset = window.pageXOffset !== undefined;
+      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+      var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+
       this.state = {
         viewportScroll: canUseDOM ? {
-          scrollX: window.scrollX,
-          scrollY: window.scrollY
+          top: y,
+          scrollDown: (viewportScroll.top < y) ? true : false,
+          scrollUp: (viewportScroll.top > y) ? true : false,
         } : viewportScroll
       };
     }
-    
+
     componentDidMount() {
       if (!EE) {
         EE = new EventEmitter();
-        window.addEventListener('scroll', handleWindowScroll);
+        window.addEventListener('scroll', _.debounce(handleWindowScroll, 10));
+        //window.addEventListener('scroll', handleWindowScroll);
       }
       EE.on(SCROLL_EVENT, this.handleResize, this);
     }
-    
+
     componentWillUnmount() {
       EE.removeListener(SCROLL_EVENT, this.handleResize, this);
       if (!EE.listeners(SCROLL_EVENT, true)) {
@@ -47,15 +65,15 @@ function withViewport(ComposedComponent) {
         EE = null;
       }
     }
-    
+
     render() {
       return <ComposedComponent {...this.props} viewportScroll={this.state.viewportScroll}/>;
     }
-    
+
     handleResize(value) {
       this.setState({viewportScroll: value}); // eslint-disable-line react/no-set-state
     }
-    
+
   };
 }
 
