@@ -42,9 +42,6 @@
   margin:          0 auto;
   text-align:      left;
 }
-//.b-header__logo {
-//
-//}
 .b-header__nav-mobile {
   display: none;
 }
@@ -69,7 +66,11 @@
 
   .b-header__nav-mobile {
     display: block;
-    float:   left;
+    order: 2;
+  }
+
+  .b-header__logo {
+    order: 1;
   }
 
   .b-brand__img-mobile {

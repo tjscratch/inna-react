@@ -10,7 +10,13 @@
   }
 }
 .b-nav-mobile-menu {
+  display: block;
+  padding: 0 7px;
   font-size: 1.5em;
+
+  &:before{
+    margin: 0 !important;
+  }
 }
 .b-overlay {
   &.Sidebar__container {
