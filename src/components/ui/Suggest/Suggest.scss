@@ -1,68 +1,68 @@
 @import '../../variables.scss';
 @import '../../Icons/css/icons.css';
-.b-suggest{
-    position: relative;
-    display: block;
-    font-size: $font-size-base;
-    line-height: $line-height-computed;
-    background-color: $white;
-    border-radius: $b-suggest-border-radius;
+.b-suggest {
+  position:         relative;
+  display:          block;
+  font-size:        $font-size-base;
+  line-height:      $line-height-computed;
+  background-color: $white;
+  border-radius:    $b-suggest-border-radius;
 }
-.b-suggest__input{
-    position: relative;
-    z-index: 20;
-    display: block;
-    width: 100%;
-    padding: $padding-base-vertical 10px;
-    font-size: $font-size-base;
-    line-height: $line-height-computed;
-    background-color: $white;
-    border: 1px solid transparent;
-    border-radius: $b-suggest-border-radius;
+.b-suggest__input {
+  position:         relative;
+  z-index:          20;
+  display:          block;
+  width:            100%;
+  padding:          $padding-base-vertical 10px;
+  font-size:        $font-size-base;
+  line-height:      $line-height-computed;
+  background-color: $white;
+  border:           1px solid transparent;
+  border-radius:    $b-suggest-border-radius;
 
-    &:focus{
-        border-color: $green;
-    }
-}
-.b-suggest__input_focus{
+  &:focus {
     border-color: $green;
+  }
 }
-.b-suggest-list{
-    position: absolute;
-    left: 0;
-    z-index: 10;
-    //top: 100%;
-    min-width: 100%;
-    padding: 6px 0;
-    margin: 0;
-    background: $white;
-    box-shadow: 0 5px 10px $black;
+.b-suggest__input_focus {
+  border-color: $green;
 }
-.b-suggest-item{
-    position: relative;
-    padding: 4px 45px 4px $padding-base-horizontal;
-    list-style: none;
-    cursor: pointer;
-    white-space: nowrap;
+.b-suggest-list {
+  position:   absolute;
+  left:       0;
+  z-index:    10;
+  //top: 100%;
+  min-width:  100%;
+  padding:    0;
+  margin:     0;
+  background: $white;
+  box-shadow: 0 5px 10px $black;
+}
+.b-suggest-item {
+  position:    relative;
+  padding:     12px 45px 12px $padding-base-horizontal;
+  list-style:  none;
+  cursor:      pointer;
+  white-space: nowrap;
 
-    &:hover{
-        background-color: rgba(0, 0, 0, .1);
-    }
-}
-.b-suggest-item_selected{
+  &:hover {
     background-color: rgba(0, 0, 0, .1);
+  }
 }
-.b-suggest-item__city-name{
+.b-suggest-item_selected {
+  background-color: rgba(0, 0, 0, .1);
+}
+.b-suggest-item__city-name {
 
 }
-.b-suggest-item__country-name{
-    margin-left: 3px;
-    color: #888;
+.b-suggest-item__country-name {
+  margin-left: 3px;
+  color:       #888;
 }
-.b-suggest-item__iata{
-    position: absolute;
-    right: 10px;
-    color: #888;
+.b-suggest-item__iata {
+  position: absolute;
+  right:    10px;
+  color:    #888;
 }
 //
 //
@@ -71,60 +71,60 @@
 // OVERLAY
 //
 //
-.b-suggest-overlay{
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+.b-suggest-overlay {
+  position: absolute;
+  left:     0;
+  top:      0;
+  right:    0;
+  bottom:   0;
 
-    .b-suggest-list{
-        left: 0;
-        top: 38px;
-        right: 0;
-        bottom: 0;
-        overflow: auto;
+  .b-suggest-list {
+    left:     0;
+    top:      $b-suggest-overlay-input-height;
+    right:    0;
+    bottom:   0;
+    overflow: auto;
+  }
+  .b-suggest-item {
+    &:last-child {
+      margin-bottom: 10px;
     }
-    .b-suggest-item{
-        &:last-child{
-            margin-bottom: 10px;
-        }
-    }
+  }
 }
-.b-suggest__input_overlay{
-    height: $b-suggest-overlay-input-height;
-    padding: $b-suggest-overlay-input-vertical-padding 10px;
+.b-suggest__input_overlay {
+  height:  $b-suggest-overlay-input-height;
+  padding: $b-suggest-overlay-input-vertical-padding 10px;
 }
-.b-suggest-overlay__close{
-    position: absolute;
-    z-index: 21;
-    right: 1px;
-    top: 1px;
-    width: 36px;
-    height: 36px;
-    background: $b-suggest-overlay__close-bg;
-    font-size: 1.4em;
-    color: $b-suggest-overlay__close-color;
-    cursor: pointer;
-    transition: all .2s;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.b-suggest-overlay__close {
+  position:        absolute;
+  z-index:         21;
+  right:           1px;
+  top:             1px;
+  width:           43px;
+  height:          43px;
+  background:      $b-suggest-overlay__close-bg;
+  font-size:       1.7em;
+  color:           $b-suggest-overlay__close-color;
+  cursor:          pointer;
+  transition:      all .2s;
+  text-align:      center;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
 
-    &:before{
-        display: block;
-        //margin: auto;
-    }
+  &:before {
+    display: block;
+    //margin: auto;
+  }
 
-    &:hover{
-        background: $b-suggest-overlay__close-bg_hover;
-        color: $b-suggest-overlay__close-color_hover;
-    }
-    &:active{
-        background: $b-suggest-overlay__close-bg_active;
-        color: $b-suggest-overlay__close-color_active;
-    }
+  &:hover {
+    background: $b-suggest-overlay__close-bg_hover;
+    color:      $b-suggest-overlay__close-color_hover;
+  }
+  &:active {
+    background: $b-suggest-overlay__close-bg_active;
+    color:      $b-suggest-overlay__close-color_active;
+  }
 }
 //
 //

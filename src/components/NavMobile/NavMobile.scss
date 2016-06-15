@@ -1,58 +1,74 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 @import '../variables.scss';
 @import '../Icons/css/icons.css';
-.b-nav-mobile{
-    color: #fff;
+.b-nav-mobile {
+  color: #fff;
 
-    a{
-        color: $white;
-        text-decoration: none;
-    }
-}
-.b-nav-mobile-menu{
-    font-size: 1.5em;
-}
-.b-overlay{
-    &.Sidebar__container{
-        display: flex;
-        background-color: transparent;
-    }
-}
-.Sidebar__overlay{
-    position: relative;
-    width: 100%;
-    background-color: rgba(0, 0, 0, .3);
-}
-.Sidebar{
-    width: 200px;
-    height: 100%;
-    padding: 0;
-    background-color: $white;
-}
-.NavMobile{
-    margin: 0;
-    padding: 0;
-}
-.NavMobile__item{
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid $gray-2;
+  a {
+    color:           $white;
     text-decoration: none;
+  }
 }
-.NavMobile__item-icon{
-    width: 54px;
-    text-align: center;
-    color: $gray-2;
-    font-size: 1.7rem;
+.b-nav-mobile-menu {
+  font-size: 1.5em;
 }
-.NavMobile__item-text{
-    color: $gray;
-    font-size: 1.15rem;
+.b-overlay {
+  &.Sidebar__container {
+    display:          flex;
+    background-color: transparent;
+  }
+}
+.Sidebar__overlay {
+  position:         relative;
+  width:            100%;
+  background-color: rgba(0, 0, 0, .3);
+  //background-color: #fff;
+}
+.Sidebar-appear {
+  position: absolute;
+  top:      0;
+  bottom:   0;
+  left:     -100%;
+}
+.Sidebar-appear.Sidebar-appear-active {
+  left:       0;
+  transition: left .3s ease-in;
+}
+.Sidebar {
+  position:         absolute;
+  //left:             0;
+  top:              0;
+  bottom:           0;
+  width:            200px;
+  height:           100%;
+  padding:          0;
+  background-color: $white;
+  transition:       all .5s;
+}
+.NavMobile {
+  margin:  0;
+  padding: 0;
+}
+.NavMobile__item {
+  display:         flex;
+  align-items:     center;
+  padding:         12px 0;
+  border-bottom:   1px solid $gray-2;
+  text-decoration: none;
+}
+.NavMobile__item-icon {
+  width:      54px;
+  text-align: center;
+  color:      $gray-2;
+  font-size:  1.7rem;
+}
+.NavMobile__item-text {
+  color:     $gray;
+  font-size: 1.15rem;
 
-    &:hover{
-        color: $black;
-    }
+  &:hover {
+    color: $black;
+  }
 }
 @media (max-width: $mobile-max-width) {
 }
