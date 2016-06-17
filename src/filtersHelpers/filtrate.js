@@ -22,7 +22,7 @@ class Filtrate {
         var currentFilter = this.filters[nameFilter];
         /**
          * нахидим все варианты текущего фильтра nameFilter
-         * у кторых свойство Selected==true
+         * у которых свойство Selected==true
          */
         let filters = _.filter(currentFilter, { 'Selected': true });
 
@@ -72,8 +72,24 @@ class Filtrate {
         } else {
             var result = dataEnum;
         }
-
         return result;
+    }
+
+    filtersHotelName(nameFilter, dataEnum) {
+      var currentFilter = this.filters[nameFilter];
+      if(currentFilter.value) {
+        var result = [];
+        for (var i = 0; i < dataEnum.length; i++) {
+          let item = dataEnum[i];
+          let hotelName = item.HotelName;
+          if (hotelName.indexOf(currentFilter.value) > 0) {
+            result.push(item);
+          }
+        }
+      } else {
+        var result = dataEnum;
+      }
+      return result;
     }
 
     filtersRange (nameFilter, dataEnum) {
@@ -96,6 +112,7 @@ class Filtrate {
         this.dataEnum = this.filtersOne('TaFactor', this.dataEnum);
         this.dataEnum = this.filtersOne('Meal', this.dataEnum);
         this.dataEnum = this.filtersEnum('Extra', this.dataEnum);
+        this.dataEnum = this.filtersHotelName('HotelName', this.dataEnum);
         return this.dataEnum;
     }
 }

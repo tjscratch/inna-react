@@ -3,6 +3,7 @@ import styles from './ListFilters.scss';
 import withStyles from '../../decorators/withStyles';
 import FilterLayout from './../views/filterLayout/filterLayout';
 import EnumFilter from './filters/EnumFilter';
+import HotelNameFilter from './filters/HotelNameFilter';
 import PriceFilter from './filters/PriceFilter';
 import _ from 'lodash';
 
@@ -15,6 +16,7 @@ class PackagesFilters extends React.Component {
             filters: [
                 { label: 'Звезды', type: 'Stars', open: false },
                 { label: 'Цена', type: 'Price', open: false },
+                { label: 'Название', type: 'HotelName', open: false},
                 { label: 'Тип', type: 'HotelType', open: false },
                 { label: 'Рейтинг', type: 'TaFactor', open: false },
                 { label: 'Питание', type: 'Meal', open: false },
@@ -49,6 +51,12 @@ class PackagesFilters extends React.Component {
                                 <PriceFilter label={item.label} type={item.type} data={filters[item.type]}/>
                             </FilterLayout>
                         )
+                    } else if(filters && filters[item.type] && item.type == 'HotelName') {
+                      return (
+                        <FilterLayout key={ix} index={ix} open={item.open} toggle={this.onToggle.bind(this)} label={item.label}>
+                          <HotelNameFilter label={item.label} type={item.type}/>
+                        </FilterLayout>
+                      )
                     } else if (filters && filters[item.type]) {
                         let currentFilterSelected = _.filter(filters[item.type], { 'Selected': true }).length ? true : false;
                         return (

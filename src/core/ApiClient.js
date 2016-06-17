@@ -6,8 +6,8 @@ import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
 import SessionStorageHelper from '../helpers/SessionStorageHelper.js';
 
 if (__DEV__) {
-  var apiPath = 'http://test.inna.ru/api/v1';
-  var apiPathServer = 'http://test.inna.ru/api/v1';
+  var apiPath = 'http://beta.inna.ru/api/v1';
+  var apiPathServer = 'http://beta.inna.ru/api/v1';
 } else {
   var apiPath = 'https://m.inna.ru/api/v1';
   var apiPathServer = 'https://api.inna.ru/api/v1';

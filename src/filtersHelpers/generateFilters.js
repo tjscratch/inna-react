@@ -1,5 +1,6 @@
 export function generateFilters (filters) {
     let price = filters.Price;
+    let hotelName = filters.HotelName;
     let stars = filters.Stars.List;
     let types = filters.HotelType.List;
     let taFactor = filters.TaFactor.List;
@@ -16,6 +17,12 @@ export function generateFilters (filters) {
         },
         Stars: {},
         HotelType: {},
+        HotelName: {
+          ...hotelName,
+          value: hotelName,
+          label: 'Название',
+          systemName: 'HotelName'
+        },
         TaFactor: {},
         Extra: {},
         Meal: {}
