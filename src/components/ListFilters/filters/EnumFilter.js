@@ -27,7 +27,6 @@ class EnumFilter extends React.Component {
             items.push(data[key]);
         }
         items.reverse();
-
         if (data) {
             return (
                 <div className={`b-filter__body_${this.props.type}`}>

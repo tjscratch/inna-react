@@ -16,6 +16,22 @@ function setFiltersHotelEnum (key, item, value) {
     }
 }
 
+export function setNameFilterHotels (key, value) {
+  return (dispatch) => {
+    dispatch(setFiltersHotelName(key, value));
+    dispatch(filtrateHotels());
+  }
+}
+
+function setFiltersHotelName (key, value) {
+  return {
+    type: ActionTypes.SET_FILTER_HOTELS,
+    typeFilter: 'name',
+    key,
+    value
+  }
+}
+
 export function setRangeFilterHotels (key, value) {
     return (dispatch) => {
         dispatch(setFiltersHotelRange(key, value));

@@ -21,6 +21,8 @@ export default function reducerSearchHotels (state = null, action = null) {
             if (action.typeFilter == 'range') {
                 searchHotels.hotelsFilters[action.key]['SelectedMin'] = action.value.Min;
                 searchHotels.hotelsFilters[action.key]['SelectedMax'] = action.value.Max;
+            } else if(action.typeFilter == 'name') {
+                searchHotels.hotelsFilters[action.key]['value'] = action.value;
             } else {
                 searchHotels.hotelsFilters[action.key][action.item]['Selected'] = action.value;
             }
