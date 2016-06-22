@@ -82,7 +82,7 @@ class Filtrate {
         for (var i = 0; i < dataEnum.length; i++) {
           let item = dataEnum[i];
           let hotelName = item.HotelName;
-          if (hotelName.indexOf(currentFilter.value) > 0) {
+          if (hotelName.indexOf(currentFilter.value) > -1) {
             result.push(item);
           }
         }
