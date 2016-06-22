@@ -99,10 +99,12 @@ class SearchForm extends React.Component {
     }
 
     setToDate (date) {
+      if(this.state.fromDate) {
         this.setState({
             toDate: date,
             valid: {},
         })
+      }
     }
 
     setAdultCount (data) {
