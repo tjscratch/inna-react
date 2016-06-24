@@ -9,6 +9,7 @@ import {pluralize} from '../../helpers/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
+import TicketAbout from '../TicketAbout/TicketAbout.js';
 
 @withViewport
 @withStyles(styles)
@@ -197,11 +198,9 @@ class TicketCard extends React.Component {
             <ButtonSecondary onClick={this.changeTicket.bind(this)}>
               Заменить перелет
             </ButtonSecondary>
-            {/*
              <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
              Подробнее
              </ButtonSecondary>
-             */}
           </div>
         );
       }
@@ -220,11 +219,9 @@ class TicketCard extends React.Component {
                   Заменить перелет
                 </ButtonSecondary>
             }
-            {/*
              <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
              Подробнее
              </ButtonSecondary>
-             */}
           </div>
         );
       }
