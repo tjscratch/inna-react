@@ -78,14 +78,7 @@ class Filtrate {
     filtersHotelName(nameFilter, dataEnum) {
       var currentFilter = this.filters[nameFilter];
       if(currentFilter.value) {
-        var result = [];
-        for (var i = 0; i < dataEnum.length; i++) {
-          let item = dataEnum[i];
-          let hotelName = item.HotelName;
-          if (hotelName.indexOf(currentFilter.value) > 0) {
-            result.push(item);
-          }
-        }
+        var result = _.filter(dataEnum, function(o) { return o.HotelName.toLowerCase().indexOf(currentFilter.value.toLowerCase()) > -1; });
       } else {
         var result = dataEnum;
       }
