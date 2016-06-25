@@ -112,7 +112,7 @@ class TicketAbout extends Component {
     }
 
     renderOneWay () {
-      let data = this.props;
+      let data = this.props.data;
 
       return (
         <div class="rlf-oneway">
@@ -140,7 +140,7 @@ class TicketAbout extends Component {
     }
 
     renderTwoWay () {
-      let data = this.props;
+      let data = this.props.data;
 
       return (
         <div class="rlf-oneway">
@@ -190,8 +190,6 @@ class TicketAbout extends Component {
 
     render () {
         let data = this.props.data;
-        console.log('asdasdsad');
-        console.log(data);
         return (
           <Overlay>
             <div class="scroll-fix">

@@ -97,7 +97,7 @@ class TicketCard extends React.Component {
           <div className="FlightInfo__transfer">
             в
             пути:
-            {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
+               {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
             `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
           </div>
 
@@ -200,9 +200,11 @@ class TicketCard extends React.Component {
             <ButtonSecondary onClick={this.changeTicket.bind(this)}>
               Заменить перелет
             </ButtonSecondary>
-             <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-             Подробнее
-             </ButtonSecondary>
+            <ButtonSecondary ButtonType='Link' onClick={(e)=> {
+              this.ticketAbout(e)
+            }}>
+              Подробнее
+            </ButtonSecondary>
           </div>
         );
       }
@@ -211,19 +213,21 @@ class TicketCard extends React.Component {
         //if (viewport.isMobile || showChangeTickets) {
         return (
           <div className="b-avia-card__actions">
-            {
-              data.TicketsCount ?
-                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                  Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}
-                </ButtonSecondary>
-                :
-                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                  Заменить перелет
-                </ButtonSecondary>
-            }
-             <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-             Подробнее
-             </ButtonSecondary>
+               {
+                 data.TicketsCount ?
+                   <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                     Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}
+                   </ButtonSecondary>
+                   :
+                   <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                     Заменить перелет
+                   </ButtonSecondary>
+               }
+                 <ButtonSecondary ButtonType='Link' onClick={(e)=> {
+                   this.ticketAbout(e)
+                 }}>
+                   Подробнее
+                 </ButtonSecondary>
           </div>
         );
       }
@@ -233,13 +237,18 @@ class TicketCard extends React.Component {
   }
 
   render() {
-    let {data} = this.props.data;
+    let data = this.props.data ? this.props.data : null;
+    console.log()
 
     return (
       <div className="b-avia-card">
-        {this.renderFlightInfo()}
-        {this.props.allowActions ? this.renderActions() : null}
-        <TicketAbout data={data} />
+           {this.renderFlightInfo()}
+           {this.props.allowActions ? this.renderActions() : null}
+           {data ?
+             <TicketAbout data={data}/>
+             :
+             null
+           }
       </div>
     );
   }
