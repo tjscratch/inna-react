@@ -28,6 +28,8 @@ class TicketCard extends React.Component {
   }
 
   renderFlightInfo() {
+    console.log('asjdlaskdjasdasldaskd')
+    console.log(this.props)
     var {data} = this.props;
     if (data) {
       //туда
@@ -231,10 +233,13 @@ class TicketCard extends React.Component {
   }
 
   render() {
+    let {data} = this.props.data;
+
     return (
       <div className="b-avia-card">
         {this.renderFlightInfo()}
         {this.props.allowActions ? this.renderActions() : null}
+        <TicketAbout data={data} />
       </div>
     );
   }
