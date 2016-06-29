@@ -12,6 +12,10 @@ import {pluralize} from '../../helpers/CountHelper.js';
 class TicketAbout extends Component {
     constructor (props) {
         super(props)
+
+        this.state = {
+          display: this.props.display
+        }
     }
 
     getTransporterLogo(etap) {
@@ -23,200 +27,160 @@ class TicketAbout extends Component {
       return '';
     }
 
-    renderBodyOneWay () {
-      let etapTo = this.props.EtapsTo;
+    renderBodyOneWay(item, ix) {
+      let inTime = apiDateToJsDate(item.InTime)
+      let outTIme = apiDateToJsDate(item.OutTime)
 
       return (
-        <div>
-          {etapTo.map((etap, ix) => {
-          return (
-            <div key={ix}>
-              <div class="rlf-part">
-                <div class="rfl-column3">
-                  <div class="rlf-aviacompany">
-                    <img src={this.getTransporterLogo(etap)} alt="" style={{maxHeight: 25 + 'px', marginBottom: 5 + 'px' + '!important'}}/>
-                      {etap.TransporterName}<br/>
-                      рейс {etap.Number} <br/>
-                      {etap.VehicleName}
-                  </div>
+        <div key={ix}>
+            <div className="b-details-fly">
+              <div className="b-details-fly__row">
+                <div className="icon-emb-flight-1 icon-vilet"></div>
+                <div>
+                  <b>вылет {toHHMM(outTIme)}</b>, {dateToDDMMMDay(outTIme)} <br/>
+                  { (item.InCity != item.InPort) ? item.OutCity + ',' + item.OutPort : '' }
+                  { (item.InCity == item.InPort) ? item.OutCity : '' }
                 </div>
-                <div class="b-tickets__container">
-                  <div class="row b-tickets__block">
-                    <div class="col-xs-4 col-no-padding">
-                      <div class="rlf-airport">{etap.OutCode}</div>
-                    </div>
-                    <div class="col-xs-7 col-no-padding">
-                      <div class="rlf-flight-info">
-                        <b>вылет {toHHMM(etap.OutTime)}</b>, {dateToDDMMMDay(etap.OutDate)} <br/>
-                        if(etap.InCity != etap.InPort) {
-                          <span>{etap.OutCity}, {etap.OutPort}</span>
-                        }
-                        if(etap.InCity == etap.InPort) {
-                          <span>{etap.OutCity}</span>
-                        }
-                      </div>
-                    </div>
+                <div>{item.OutCode}</div>
+              </div>
+              { (item.WayTime > 0) ? <div className="b-details-fly__way-time">Перелет: {minutesToHHMM(item.WayTime)}</div> : '' }
+              { (!(item.WayTime > 0)) ? <div>&nbsp;</div> : '' }
+              <div className="b-details-fly__row">
+                  <div className="icon-emb-flight-1"></div>
+                  <div>
+                    <b>прилет {toHHMM(inTime)}</b>, {dateToDDMMMDay(inTime)} <br/>
+                    { (item.InCity != item.InPort) ? item.InCity + ',' + item.InPort : '' }
+                    { (item.InCity == item.InPort) ? item.InCity : '' }
                   </div>
-                  if(etap.WayTime > 0) {
-                    <div class="rlf-travel-time">{etap.WayTimeFormatted}</div>
-                  }
-                  if(!(etap.WayTime > 0)) {
-                    <div class="rlf-travel-time">&nbsp;</div>
-                  }
-                  <div class="row b-tickets__block">
-                    <div class="col-xs-4 col-no-padding">
-                      <div class="rlf-airport"><br/>{etap.InCode}</div>
-                    </div>
-                    <div class="col-xs-7 col-no-padding">
-                      <div class="rlf-flight-info">
-                        <b>прилет {toHHMM(etap.InTime)}</b>, {dateToDDMMMDay(etap.InDate)} <br/>
-                        if(etap.InCity != etap.InPort) {
-                          <span>{etap.InCity}, {etap.InPort}</span>
-                        }
-                        if(etap.InCity == etap.InPort) {
-                          <span>{etap.InCity}</span>
-                        }
-                      </div>
-                    </div>
-                  </div>
+                  <div>{item.InCode}</div>
+              </div>
+              <div className="b-details-aviacompany">
+                <div>
+                  <img src={this.getTransporterLogo(item)} alt=""/>
+                </div>
+                <div>
+                  {item.TransporterName}, рейс {item.Number} <br/>
+                  {item.VehicleName}
                 </div>
               </div>
-              {/*
-                <div class="rlf-part rlf-part_transfer" ng-if="!$last">
-                  <div class="rlf-column1">
-                    <div class="rlf-airport">Пересадка</div>
-                    if(etap.TransferWaitTime > 0) {
-                    <div class="rlf-travel-time">{minutesToHHMM(etap.WaitTime)}</div>
-                  }
-                    <div class="rlf-travel-time" ng-if="!(etap.TransferWaitTime > 0)">&nbsp;</div>
-                  </div>
-                  <div class="rlf-colum4">
-                    <span ng-if="etap.NextOutCity != etap.NextOutPort">{etap.NextOutCity}, {etap.NextOutPort}
-                      ({etap.NextOutCode}), {etap.NextOutCountryName}</span>
-                    <span ng-if="etap.NextOutCity == etap.NextOutPort">{etap.NextOutPort}
-                      ({etap.NextOutCode}), {etap.NextOutCountryName}</span>
-                    <div class="rlf-transfer" ng-if="etap.alert">{etap.alert}</div>
-                  </div>
-                </div>
-              */}
-                </div>
-            )
-            })}
+            </div>
         </div>
       )
-
     }
 
-    renderBodyTwoWay () {
-
-    }
 
     renderOneWay () {
       let data = this.props.data;
-
+      let etapsTo = data.EtapsTo;
+      console.log('etapsTOK', etapsTo)
       return (
-        <div class="rlf-oneway">
-        {data.map((item, ix) => {
-          return (
-            <div key={ix}>
-              <div class="rlf-fly">
-                <span class="rlf-city">{item.CityFrom}</span> {item.OutCode}
-                <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                <span class="rlf-city">{item.CityTo}</span> {item.InCode}
-                <div class="rlf-full-travel-time">
-                  в пути:
-                  {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
-                  `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
+        <div>
+                <div className="content-ticket-about__head content-ticket-about__head_one">
+                  <div className="content-head-ticket-about__row">
+                    <span>{data.CityFrom}</span>
+                    <span className="icon-emb-right-small" style={{fontSize: 30}}></span>
+                    <span>{data.CityTo}</span>
+                  </div>
+                  <div className="content-head-ticket-about__row">
+                    в пути:
+                    {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
+                    `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
+                  </div>
                 </div>
-              </div>
-              <div class="b-ticket_1way-cont">
-                  this.renderBodyOneWay()
-              </div>
-            </div>
-          )
-        })}
+                <div className="b-ticket_about-one__content">
+                  {etapsTo.map((item, ix) => {
+                    return this.renderBodyOneWay(item, ix);
+                  }, this)}
+                </div>
         </div>
       )
     }
 
     renderTwoWay () {
       let data = this.props.data;
+      let etapsTo = this.props.data.EtapsTo;
+      let etapsBack = this.props.data.EtapsBack;
 
       return (
-        <div class="rlf-oneway">
-          {data.map((item, ix) => {
-            return (
-              <div key={ix}>
-                <div class="b-ticket_2ways">
-                  <div class="row-fluid">
-                    <div class="col-xs-5 col-no-padding row-fluid__cell">
-                      <div class="rlf-fly">
-                        <span class="rlf-city">{item.CityFrom}</span> {item.OutCode}
-                        <span class="rlf-fly-arrow rlf-fly-arrow_popup"></span>
-                        <span class="rlf-city">{item.CityTo}</span> {item.InCode}
-                        <div class="rlf-full-travel-time">
+        <div className="container-two-ways">
+                    <div className="container-two-ways__one">
+                      <div className="content-ticket-about__head content-ticket-about__head_one">
+                        <div className="content-head-ticket-about__row">
+                        <span>{data.CityFrom}</span>
+                        <span className="icon-emb-right-small" style={{fontSize: 30}}></span>
+                        <span>{data.CityTo}</span>
+                        </div>
+                        <div className="content-head-ticket-about__row">
                           в пути:
                           {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
                           `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
                         </div>
                       </div>
+                      <div className="b-ticket_about-one__content">
+                        {etapsTo.map((item, ix) => {
+                          return this.renderBodyOneWay(item, ix);
+                        }, this)}
+                      </div>
                     </div>
-                    <div class="col-xs-5 col-no-padding row-fluid__cell">
-                      <div class="rlf-fly rlf-fly_back">
-                        <span class="rlf-city">{item.CityTo}</span> {item.OutCodeBack}
-                        <span class="rlf-fly-arrow"></span>
-                        { _lastEtapBack = item.EtapsBack[item.EtapsBack.length - 1] ? '' : '' }
-                        <span class="rlf-city">{_lastEtapBack.InCity}</span> {item.InCodeBack}
-                        <div class="rlf-full-travel-time">
+                    <div className="container-two-ways__two">
+                      <div className="content-ticket-about__head content-ticket-about__head_two">
+                        <div className="content-head-ticket-about__row">
+                        <span>{data.CityTo}</span>
+                        <span className="icon-emb-right-small" style={{fontSize: 30}}></span>
+                        <span>{data.EtapsBack[data.EtapsBack.length - 1].InCity}</span>
+                        </div>
+                        <div className="content-head-ticket-about__row">
                           в пути:
                           {minutesToHHMM(data.TimeBack)}, {data.BackTransferCount > 0 ?
                           `${data.BackTransferCount} ${pluralize(data.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` :
                           'без пересадок'}
                         </div>
                       </div>
+                      <div className="b-ticket_about-one__content">
+                        {etapsBack.map((item, ix) => {
+                          return this.renderBodyOneWay(item, ix);
+                        }, this)}
+                      </div>
                     </div>
-                  </div>
-
-                </div>
-                <div class="b-ticket_2ways b-ticket_2ways-sep">
-                    this.renderBodyTwoWay()
-                </div>
-              </div>
-            )
-          })}
         </div>
       )
     }
 
+    closeTicketAbout () {
+      this.props.display = false
+    }
+
     render () {
-        let data = this.props.data;
+      let data = this.props.data;
+      console.log('data.EtapsBack', data.EtapsBack);
+
         return (
-          <Overlay>
-            <div class="scroll-fix">
-              <div class={`balloon balloon_ticket balloon_ticket_ticket-details js-ticket-info-baloon ${data.EtapsBack.length > 0 ? 'balloon_2ticket' : ''}`}>
-                <span class="balloon-close" title="Закрыть" >
-					          <i class="icon-sprite-remove-big"></i>
-                </span>
-                <h3 class="b-tickets__title">Подробная информация по перелету</h3>
-                  {data.map((item, ix) => {
-                      return (
-                        <div key={ix} class="rlf-oneway">
-                          if(item.EtapsBack.length > 0) {
-                            this.renderTwoWay()
-                          } else if(item.EtapsBack.length == 0 || item.EtapsBack.length == null) {
-                            this.renderOneWay()
-                          }
-                        </div>
-                      )
-                  })}
-                  <div class="b-tickets__footer">
-                      <div class="b-tickets__footer-inner">
-                        <a class="rl-buy-button" href="javascript:void(0);">Выбрать</a>
-                      </div>
+          <div>
+            { (this.state.display) ?
+            // <div style={this.state.display ? {display: 'block'} : {display: 'none'}}>
+              <Overlay>
+                <div className={`b-ticket-about_one-way ${data.EtapsBack.length > 0 ? 'b-ticket-about_two-ways' : ''}`}>
+                  <div className="b-ticket-about__head">
+                    <span className="head__back icon-emb-angle-left" style={{fontSize: 30}}
+                    onClick={() => this.closeTicketAbout}></span>
+                    <span className="head__tittle">Подробная информация по перелету</span>
+                    <span className="head__close icon-emb-cancel" style={{fontSize: 30}}
+                    onClick={() => this.closeTicketAbout}></span>
                   </div>
-              </div>
-            </div>
-          </Overlay>
+                    <div className="b-tickets-about__content-ticket-about">
+                      {(data.EtapsBack.length > 0) ? this.renderTwoWay() : null}
+                    </div>
+                    <div className="b-tickets-about__footer">
+                      <div className="b-tickets__footer-inner">
+                        <a className="rl-buy-button" href="javascript:void(0);">Выбрать</a>
+                      </div>
+                    </div>
+                </div>
+              </Overlay>
+            // </div>
+              : null
+            }
+          </div>
         )
     }
 }

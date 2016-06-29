@@ -9,13 +9,17 @@ import {pluralize} from '../../helpers/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
-import TicketAbout from '../TicketAbout/TicketAbout.js';
+import TicketAbout from '../TicketAbout';
 
 @withViewport
 @withStyles(styles)
 class TicketCard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      openTicketAbout : false
+    }
   }
 
   getTransporterLogo(etap) {
@@ -28,8 +32,6 @@ class TicketCard extends React.Component {
   }
 
   renderFlightInfo() {
-    console.log('asjdlaskdjasdasldaskd')
-    console.log(this.props)
     var {data} = this.props;
     if (data) {
       //туда
@@ -41,7 +43,6 @@ class TicketCard extends React.Component {
       var BackArrivalDate = apiDateToJsDate(data.BackArrivalDate);
       return (
         <div className='FlightInfo'>
-
           <div className='FlightInfo__row'>
 
             <div className='FlightInfo__icons'>
@@ -183,11 +184,12 @@ class TicketCard extends React.Component {
   ticketAbout(e) {
     e.preventDefault();
 
-    var {events} = this.props;
-    console.log(this.props.data);
-    if (events && events.ticketAbout) {
-      events.ticketAbout();
-    }
+    // var {events} = this.props;
+    // console.log(this.props.data);
+    // if (events && events.ticketAbout) {
+    //   events.ticketAbout();
+    // }
+    this.setState({openTicketAbout: true});
   }
 
   renderActions() {
@@ -236,19 +238,24 @@ class TicketCard extends React.Component {
     return null;
   }
 
-  render() {
-    let data = this.props.data ? this.props.data : null;
-    console.log()
+  renderTicketAbout () {
+    let {data} = this.props;
 
+    if(data) {
+      return (
+        <div>
+          <TicketAbout data={data} display={this.state.openTicketAbout}/>
+        </div>
+      );
+    }
+  }
+
+  render() {
     return (
       <div className="b-avia-card">
            {this.renderFlightInfo()}
+           {this.renderTicketAbout()}
            {this.props.allowActions ? this.renderActions() : null}
-           {data ?
-             <TicketAbout data={data}/>
-             :
-             null
-           }
       </div>
     );
   }
