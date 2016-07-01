@@ -45,6 +45,7 @@
     width: 25%;
     border-left: 1px solid $result-list-item-border;
 
+    display: flex;
     flex-grow: 1;
 }
 @media(max-width: $recommended-bundle-max-mobile-width) {
