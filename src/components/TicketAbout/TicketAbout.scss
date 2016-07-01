@@ -1,66 +1,79 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
-
+.b-overlay {
+  &.TicketAbout__container {
+    display:          flex;
+    background-color: transparent;
+  }
+}
+.TicketAbout__overlay {
+  position:         relative;
+  width:            100%;
+  background-color: rgba(0, 0, 0, .3);
+  overflow:         auto;
+}
+.TicketAboutContainer {
+  width:   $layout-max-width;
+  margin:  0 auto;
+  padding: 20px;
+}
 .b-ticket-about_two-ways {
-  width: 960px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
+  width:            100%;
+  //position:         absolute;
+  //top:                   50%;
+  //left:                  50%;
+  //-webkit-transform:     translateX(-50%) translateY(-50%);
+  //-moz-transform:        translateX(-50%) translateY(-50%);
+  //-ms-transform:         translateX(-50%) translateY(-50%);
+  //-o-transform:          translateX(-50%) translateY(-50%);
+  //transform:             translateX(-50%) translateY(-50%);
+  border-radius:    7px;
   background-color: white;
 }
-
 .container-two-ways {
-  display: flex;
+  display:         flex;
   justify-content: space-between;
-  align-items: center;
+  align-items:     flex-start;
 
   div {
     flex: 1 1;
   }
 }
-
 .b-ticket-about__head {
-  font-size: 16px;
-  display: flex;
+  font-size:       16px;
+  display:         flex;
   justify-content: space-between;
-  align-items: center;
+  align-items:     center;
 
   span {
-    padding: 5px;
-    flex: 5 5;
+    padding:    5px;
+    flex:       5 5;
     text-align: center;
   }
   span:first-child {
     opacity: 0;
-    flex: 1 1;
+    flex:    1 1;
   }
   span:last-child {
     opacity: 1;
-    flex: 1 1;
+    flex:    1 1;
   }
   span:last-child:hover {
     cursor: pointer;
   }
 }
-
+.head__close{
+  width: 50px;
+}
 .b-tickets-about__content-avia {
   width: 100%;
 }
-
 .content-ticket-about__head {
   .content-head-ticket-about__row {
-    display: flex;
+    display:         flex;
     justify-content: space-around;
-    align-items: center;
-    text-align: center;
+    align-items:     center;
+    text-align:      center;
 
     span {
       padding: 5px;
@@ -82,79 +95,73 @@
   }
 
   .content-head-ticket-about__row:last-child {
-    font-size: 13px;
+    font-size:       13px;
     justify-content: center;
   }
 }
-
 .content-ticket-about__head_one {
-  color: white;
+  color:      white;
   background: linear-gradient(to right, rgba(21, 111, 188, 0.73), rgba(47, 45, 153, 0.83));
 }
-
 .content-ticket-about__head_two {
-  color: white;
+  color:      white;
   background: linear-gradient(to right, rgba(198, 18, 153, 0.77), rgba(141, 25, 160, 0.86));
 }
-
 .b-details-fly__way-time {
-    width: 100%;
-    text-align: center;
-    color: rgba(84, 84, 159, 0.79);
+  width:      100%;
+  text-align: center;
+  color:      rgba(84, 84, 159, 0.79);
 }
 .b-details-fly__row {
-    font-size: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
+  font-size:       15px;
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  text-align:      center;
 
-    div {
-      padding: 15px;
-      flex: 4 4;
-    }
-    div:first-child {
-      font-size: 25px;
-      flex: 1 1;
-    }
-    div:last-child {
-      flex: 1 1;
-    }
+  div {
+    padding: 15px;
+    flex:    4 4;
+  }
+  div:first-child {
+    font-size: 25px;
+    flex:      1 1;
+  }
+  div:last-child {
+    flex: 1 1;
+  }
 }
-
 .icon-vilet {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform:    rotate(180deg);
+  -ms-transform:     rotate(180deg);
+  -o-transform:      rotate(180deg);
+  transform:         rotate(180deg);
 }
-
 .b-details-aviacompany {
-    font-size: 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-size:       13px;
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
 
-    div:first-child {
-      flex: 1 1;
-      text-align: center;
-    }
+  div:first-child {
+    flex:       1 1;
+    text-align: center;
+  }
 
-    div:last-child {
-      flex: 5 5;
-      padding: 3px 20px;
-    }
+  div:last-child {
+    flex:    5 5;
+    padding: 3px 20px;
+  }
 }
-
 @media (max-width: $mobile-max-width) {
   .b-ticket-about_two-ways {
-    width: 100%;
-    height: 100%;
+    width:                 100%;
+    height:                100%;
     -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-    margin-top: 50px;
+    -moz-border-radius:    0px;
+    border-radius:         0px;
+    margin-top:            50px;
   }
 
   .container-two-ways {
@@ -166,11 +173,11 @@
   }
 
   .b-ticket-about__head {
-    max-width: 100%;
-    font-size: 13px;
+    max-width:       100%;
+    font-size:       13px;
     justify-content: flex-start;
 
-    span{
+    span {
       padding: 0 10px;
     }
     span:first-child {
@@ -182,24 +189,24 @@
   }
 
   .b-details-fly__way-time {
-    width: 100%;
+    width:      100%;
     text-align: center;
-    color: rgba(21, 111, 188, 0.73);
+    color:      rgba(21, 111, 188, 0.73);
   }
 
   .b-details-fly__row {
-    font-size: 15px;
-    display: flex;
+    font-size:       15px;
+    display:         flex;
     justify-content: space-between;
-    align-items: center;
-    text-align: center;
+    align-items:     center;
+    text-align:      center;
 
     div {
       padding: 20px 0px;
-      flex: 4 4;
+      flex:    4 4;
     }
     div:first-child {
-      flex: 1 1;
+      flex:      1 1;
       font-size: 30px;
     }
     div:last-child {
@@ -209,24 +216,24 @@
 
   .icon-vilet {
     -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
+    -moz-transform:    rotate(180deg);
+    -ms-transform:     rotate(180deg);
+    -o-transform:      rotate(180deg);
+    transform:         rotate(180deg);
   }
 
   .b-details-aviacompany {
-    display: flex;
+    display:         flex;
     justify-content: center;
-    align-items: center;
+    align-items:     center;
 
     div:first-child {
-      flex: 1 1;
+      flex:       1 1;
       text-align: center;
     }
 
     div:last-child {
-      flex: 5 5;
+      flex:    5 5;
       padding: 3px 20px;
     }
   }

@@ -183,13 +183,7 @@ class TicketCard extends React.Component {
 
   ticketAbout(e) {
     e.preventDefault();
-
-    // var {events} = this.props;
-    // console.log(this.props.data);
-    // if (events && events.ticketAbout) {
-    //   events.ticketAbout();
-    // }
-    this.setState({openTicketAbout: true});
+    this.setState({openTicketAbout: !this.state.openTicketAbout});
   }
 
   renderActions() {
@@ -240,11 +234,11 @@ class TicketCard extends React.Component {
 
   renderTicketAbout () {
     let {data} = this.props;
-
-    if(data) {
+    let isOpen = this.state.openTicketAbout;
+    if(data && isOpen) {
       return (
         <div>
-          <TicketAbout data={data} display={this.state.openTicketAbout}/>
+          <TicketAbout data={data} display={isOpen} isOpen={this.ticketAbout.bind(this)}/>
         </div>
       );
     }
