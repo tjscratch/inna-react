@@ -6,7 +6,7 @@ import Overlay from '../ui/Overlay';
 import Btn from '../ui/Btn';
 import Icon from '../ui/Icon';
 
-import {apiDateToJsDate, toHHMM, dateToDDMMMDay, minutesToHHMM} from '../../helpers/DateHelper.js';
+import {apiDateToJsDate, toHHMM, dateToDDMMMDay, dateToDDMMMDayYear, minutesToHHMM} from '../../helpers/DateHelper.js';
 import {pluralize} from '../../helpers/CountHelper.js';
 
 @withViewport
@@ -55,41 +55,63 @@ class TicketAbout extends Component {
 
   renderBodyOneWay(item, ix) {
     let inTime = apiDateToJsDate(item.InTime)
-    let outTIme = apiDateToJsDate(item.OutTime)
+    let outTime = apiDateToJsDate(item.OutTime)
 
+    console.log(item);
     return (
-      <div key={ix}>
-        <div className="b-details-fly">
-          <div className="b-details-fly__row">
-            <div className="icon-emb-flight-1 icon-vilet"></div>
-            <div>
-              <b>вылет {toHHMM(outTIme)}</b>, {dateToDDMMMDay(outTIme)} <br/>
-              { (item.InCity != item.InPort) ? item.OutCity + ',' + item.OutPort : '' }
-              { (item.InCity == item.InPort) ? item.OutCity : '' }
+      <div className="DetailsFly" key={ix}>
+        <div className="DetailsFly__Container">
+
+          <div className="DetailsFly_Segment">
+
+            <div className="DetailsFly__Row">
+              <div className="DetailsFly__Item DetailsFly__Item_first">
+                {item.OutCode}
+              </div>
+              <div className="DetailsFly__Item">
+                <div className="DetailsFly__Date">
+                  вылет {toHHMM(outTime)}, {dateToDDMMMDayYear(outTime)}
+                </div>
+                <div className="DetailsFly__CityPort">
+                  { (item.OutCity != item.OutPort) ? item.OutCity + ', ' + item.OutPort : '' }
+                  { (item.OutCity == item.OutPort) ? item.OutCity : '' }
+                </div>
+              </div>
             </div>
-            <div>{item.OutCode}</div>
-          </div>
-          { (item.WayTime > 0) ?
-            <div className="b-details-fly__way-time">Перелет: {minutesToHHMM(item.WayTime)}</div> : '' }
-          { (!(item.WayTime > 0)) ? <div>&nbsp;</div> : '' }
-          <div className="b-details-fly__row">
-            <div className="icon-emb-flight-1"></div>
-            <div>
-              <b>прилет {toHHMM(inTime)}</b>, {dateToDDMMMDay(inTime)} <br/>
-              { (item.InCity != item.InPort) ? item.InCity + ',' + item.InPort : '' }
-              { (item.InCity == item.InPort) ? item.InCity : '' }
+
+            <div className="DetailsFly__Delimiter"></div>
+
+            <div className="DetailsFly__Row">
+              <div className="DetailsFly__Item DetailsFly__Item_first">
+                {item.InCode}
+              </div>
+              <div className="DetailsFly__Item">
+                <div className="DetailsFly__Date">
+                  прилет {toHHMM(inTime)}, {dateToDDMMMDayYear(inTime)}
+                </div>
+                <div className="DetailsFly__CityPort">
+                  { (item.InCity != item.InPort) ? item.InCity + ', ' + item.InPort : '' }
+                  { (item.InCity == item.InPort) ? item.InCity : '' }
+                </div>
+              </div>
             </div>
-            <div>{item.InCode}</div>
+
           </div>
-          <div className="b-details-aviacompany">
-            <div>
+
+          <div className="DetailsFly__AirlineInfo">
+            <div className="DetailsFly__LogoAirline">
               <img src={this.getTransporterLogo(item)} alt=""/>
             </div>
-            <div>
-              {item.TransporterName}, рейс {item.Number} <br/>
+            <div className="DetailsFly__Airline">
+              {item.TransporterName}<br/>
+              Рейс {item.Number}<br/>
               {item.VehicleName}
             </div>
+            { (item.WayTime > 0) ?
+              <div className="DetailsFly__WayTime">Перелет: {minutesToHHMM(item.WayTime)}</div>
+              : ''}
           </div>
+
         </div>
       </div>
     )
@@ -122,18 +144,16 @@ class TicketAbout extends Component {
               в пути:&nbsp;
               {minutesToHHMM(data.TimeTo)},&nbsp;
               {(data.ToTransferCount > 0) ?
-                `${data.ToTransferCount}&nbsp;${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}`
+                `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}`
                 :
                 'без пересадок'
               }
             </div>
           </div>
 
-          <div className="b-ticket_about-one__content">
-            {etapsTo.map((item, ix) => {
-              return this.renderBodyOneWay(item, ix);
-            }, this)}
-          </div>
+          {etapsTo.map((item, ix) => {
+            return this.renderBodyOneWay(item, ix);
+          }, this)}
 
         </div>
 
@@ -153,17 +173,17 @@ class TicketAbout extends Component {
                 в пути:&nbsp;
                 {minutesToHHMM(data.TimeBack)},&nbsp;
                 {data.BackTransferCount > 0 ?
-                  `${data.BackTransferCount}&nbsp;${pluralize(data.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}`
+                  `${data.BackTransferCount} ${pluralize(data.BackTransferCount, ['пересадка', 'пересадки', 'пересадок'])}`
                   :
                   'без пересадок'
                 }
               </div>
             </div>
-            <div className="b-ticket_about-one__content">
-              {etapsBack.map((item, ix) => {
-                return this.renderBodyOneWay(item, ix);
-              }, this)}
-            </div>
+
+            {etapsBack.map((item, ix) => {
+              return this.renderBodyOneWay(item, ix);
+            }, this)}
+
           </div>
           : null}
 

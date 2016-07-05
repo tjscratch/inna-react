@@ -13,7 +13,7 @@
 .TicketAbout {
   width:     $layout-max-width;
   margin:    0 auto;
-  padding:   20px;
+  padding:   15px;
   font-size: 1rem;
 }
 .TicketAbout__container {
@@ -45,17 +45,13 @@
     line-height: 30px;
   }
 }
-.TicketAboutContent_container {
-
-}
 .TicketAboutContent {
   display:         flex;
   justify-content: space-between;
-  align-items:     flex-start;
+  align-items:     stretch;
 }
 .TicketAboutContent_container {
-  flex:    1 1;
-  padding: 0 0 15px;
+  flex: 1 1;
 }
 .TicketAboutContent_container__one {
   border-right: 1px solid $TicketAbout-border-color;
@@ -63,7 +59,7 @@
 .TicketAboutContent_container__two {
 }
 .TicketAboutContentHead {
-  padding:          10px;
+  padding:          10px 15px;
   color:            $white;
   background-color: $TicketAboutContentHead-bg;
 }
@@ -77,56 +73,67 @@
   flex: 1 1;
 }
 .TicketAboutContentHeadRow__foot {
-  padding: 5px 0 0 0;
+  padding:         5px 0 0 0;
   font-size:       .85rem;
   justify-content: center;
 }
-.b-details-fly__way-time {
-  width:      100%;
-  text-align: center;
-  color:      rgba(84, 84, 159, 0.79);
-}
-.b-details-fly__row {
-  font-size:       15px;
-  display:         flex;
-  justify-content: space-between;
-  align-items:     center;
-  text-align:      center;
+.DetailsFly {
+  padding:   0 15px;
+  font-size: .95rem;
 
-  div {
-    padding: 15px;
-    flex:    4 4;
-  }
-  div:first-child {
-    font-size: 25px;
-    flex:      1 1;
-  }
-  div:last-child {
-    flex: 1 1;
+  &:last-child{
+    .DetailsFly__Container{
+      border-bottom: none;
+    }
   }
 }
-.icon-vilet {
-  -webkit-transform: rotate(180deg);
-  -moz-transform:    rotate(180deg);
-  -ms-transform:     rotate(180deg);
-  -o-transform:      rotate(180deg);
-  transform:         rotate(180deg);
+.DetailsFly__Container {
+  display:       flex;
+  align-items:   center;
+  padding:       15px 0;
+  border-bottom: 1px solid $TicketAbout-border-color;
 }
-.b-details-aviacompany {
-  font-size:       13px;
-  display:         flex;
-  justify-content: center;
-  align-items:     center;
+.DetailsFly_Segment {
+  margin-right: 25px;
+}
+.DetailsFly__Row {
+  display: flex;
+}
+.DetailsFly__Delimiter {
+  height:           1px;
+  margin:           15px 0;
+  background-color: $TicketAbout-border-color;
+}
+.DetailsFly__WayTime {
+  font-size: .8rem;
+  color:     $gray-3;
+}
+.DetailsFly__Item {
 
-  div:first-child {
-    flex:       1 1;
-    text-align: center;
-  }
+}
+.DetailsFly__Item_first {
+  width: 50px;
+}
+.DetailsFly__Date {
+  white-space: nowrap;
+}
+.DetailsFly__CityPort {
+  font-size:   .8rem;
+  color:       $gray-3;
+  white-space: nowrap;
+}
+.DetailsFly__LogoAirline {
+  width:  28px;
+  height: 28px;
 
-  div:last-child {
-    flex:    5 5;
-    padding: 3px 20px;
+  img {
+    max-width:  100%;
+    max-height: 100%;
   }
+}
+.DetailsFly__Airline {
+  font-size: .8rem;
+  color:     $gray-3;
 }
 .TicketAboutFooter {
   display:         flex;
@@ -164,56 +171,6 @@
     }
     span:last-child {
       opacity: 0
-    }
-  }
-
-  .b-details-fly__way-time {
-    width:      100%;
-    text-align: center;
-    color:      rgba(21, 111, 188, 0.73);
-  }
-
-  .b-details-fly__row {
-    font-size:       15px;
-    display:         flex;
-    justify-content: space-between;
-    align-items:     center;
-    text-align:      center;
-
-    div {
-      padding: 20px 0px;
-      flex:    4 4;
-    }
-    div:first-child {
-      flex:      1 1;
-      font-size: 30px;
-    }
-    div:last-child {
-      flex: 1 1;
-    }
-  }
-
-  .icon-vilet {
-    -webkit-transform: rotate(180deg);
-    -moz-transform:    rotate(180deg);
-    -ms-transform:     rotate(180deg);
-    -o-transform:      rotate(180deg);
-    transform:         rotate(180deg);
-  }
-
-  .b-details-aviacompany {
-    display:         flex;
-    justify-content: center;
-    align-items:     center;
-
-    div:first-child {
-      flex:       1 1;
-      text-align: center;
-    }
-
-    div:last-child {
-      flex:    5 5;
-      padding: 3px 20px;
     }
   }
 }
