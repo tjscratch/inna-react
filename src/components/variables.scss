@@ -36,6 +36,7 @@ $green: #89c13a;
 $red: #e30514;
 $link-color: #1b74b3;
 $color-secondary: #f0bd4e;
+$color-blue: #5172CB;
 /* END COLORS */
 
 /* BEGIN b-search-form */
@@ -190,4 +191,7 @@ $ButtonSecondary-padding-horizontal: 1rem;
 $ButtonSecondary-padding-vertical: .566rem;
 /* END ButtonSecondary */
 
-
+/* BEGIN TicketAbout */
+$TicketAboutContentHead-bg: $color-blue;
+$TicketAbout-border-color: $gray-light;
+/* END TicketAbout */

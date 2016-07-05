@@ -11,37 +11,15 @@
   overflow:         auto;
 }
 .TicketAbout {
-  width:   $layout-max-width;
-  margin:  0 auto;
-  padding: 20px;
+  width:     $layout-max-width;
+  margin:    0 auto;
+  padding:   20px;
+  font-size: 1rem;
 }
-.b-ticket-about_two-ways {
+.TicketAbout__container {
   width:            100%;
-  //position:         absolute;
-  //top:                   50%;
-  //left:                  50%;
-  //-webkit-transform:     translateX(-50%) translateY(-50%);
-  //-moz-transform:        translateX(-50%) translateY(-50%);
-  //-ms-transform:         translateX(-50%) translateY(-50%);
-  //-o-transform:          translateX(-50%) translateY(-50%);
-  //transform:             translateX(-50%) translateY(-50%);
   border-radius:    7px;
   background-color: white;
-}
-.container-two-ways {
-  display:         flex;
-  justify-content: space-between;
-  align-items:     flex-start;
-}
-.container-two-ways__one{
-  flex: 1 1;
-  padding: 0 0 15px;
-  box-shadow: 1px 0 0 0 $gray-light;
-  //border-right: 1px solid $gray-light;
-}
-.container-two-ways__two{
-  flex: 1 1;
-  padding: 0 0 15px;
 }
 .TicketAboutHead {
   display:         flex;
@@ -67,55 +45,41 @@
     line-height: 30px;
   }
 }
-.TicketAboutFooter{
-  display: flex;
+.TicketAboutContent_container {
+
+}
+.TicketAboutContent {
+  display:         flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid $gray-light;
+  align-items:     flex-start;
 }
-.b-tickets-about__content-avia {
-  width: 100%;
+.TicketAboutContent_container {
+  flex:    1 1;
+  padding: 0 0 15px;
 }
-.content-ticket-about__head {
-  .content-head-ticket-about__row {
-    display:         flex;
-    justify-content: space-around;
-    align-items:     center;
-    text-align:      center;
-
-    span {
-      padding: 5px;
-    }
-  }
-
-  .content-head-ticket-about__row:first-child {
-    font-size: 15px;
-
-    span {
-      flex: 1 1;
-    }
-    span:first-child {
-      flex: 2 2;
-    }
-    span:last-child {
-      flex: 2 2;
-    }
-  }
-
-  .content-head-ticket-about__row:last-child {
-    font-size:       13px;
-    justify-content: center;
-  }
+.TicketAboutContent_container__one {
+  border-right: 1px solid $TicketAbout-border-color;
 }
-.content-ticket-about__head_one {
-  color:      white;
-  background: linear-gradient(to right, rgba(21, 111, 188, 0.73), rgba(47, 45, 153, 0.83));
+.TicketAboutContent_container__two {
 }
-.content-ticket-about__head_two {
-  color:      white;
-  background: linear-gradient(to right, rgba(198, 18, 153, 0.77), rgba(141, 25, 160, 0.86));
-  border-left: 1px solid rgba(47, 45, 153, 0.83);
+.TicketAboutContentHead {
+  padding:          10px;
+  color:            $white;
+  background-color: $TicketAboutContentHead-bg;
+}
+.TicketAboutContentHeadRow {
+  display:         flex;
+  justify-content: space-around;
+  align-items:     center;
+  text-align:      center;
+}
+.TicketAboutContentHeadRow_item {
+  flex: 1 1;
+}
+.TicketAboutContentHeadRow__foot {
+  padding: 5px 0 0 0;
+  font-size:       .85rem;
+  justify-content: center;
 }
 .b-details-fly__way-time {
   width:      100%;
@@ -164,17 +128,22 @@
     padding: 3px 20px;
   }
 }
+.TicketAboutFooter {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  padding:         10px 20px;
+  border-top:      1px solid $TicketAbout-border-color;
+}
 @media (max-width: $mobile-max-width) {
-  .b-ticket-about_two-ways {
-    width:                 100%;
-    height:                100%;
-    -webkit-border-radius: 0px;
-    -moz-border-radius:    0px;
-    border-radius:         0px;
-    margin-top:            50px;
+  .TicketAbout__container {
+    width:         100%;
+    height:        100%;
+    border-radius: 0px;
+    margin-top:    50px;
   }
 
-  .container-two-ways {
+  .TicketAboutContent {
     display: block;
 
     div {
