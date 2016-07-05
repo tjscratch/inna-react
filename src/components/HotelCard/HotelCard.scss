@@ -1,81 +1,82 @@
 @import "../variables.scss";
-.b-hotel-card{
+.b-hotel-card {
 }
 // BEGIN HotelInfo
-.HotelInfo{
-    height: $HotelInfo-photo-width;
-    margin-bottom: 10px;
+.HotelInfo {
+  height:        $HotelInfo-photo-width;
+  margin-bottom: 10px;
 
-    display: flex;
-    align-items: center;
+  display:       flex;
+  align-items:   center;
 }
-.HotelInfo__photos{
-    width: $HotelInfo-photo-width;
-    flex-basis: $HotelInfo-photo-width;
-    overflow: hidden;
+.HotelInfo__photos {
+  width:      $HotelInfo-photo-width;
+  height:     $HotelInfo-photo-width;
+  flex-basis: $HotelInfo-photo-width;
+  overflow:   hidden;
 }
-.HotelInfo__photos-photo{
-    display: block;
-    max-width: 100%;
+.HotelInfo__photos-photo {
+  display:   block;
+  max-width: 100%;
 }
-.HotelInfo__text{
-    width: $HotelInfo__text-width;
+.HotelInfo__text {
+  width:     $HotelInfo__text-width;
 
-    padding: 0 15px;
-    font-size: .9rem;
+  padding:   0 15px;
+  font-size: .9rem;
 }
-.HotelInfo__text-rating{
-    font-size: .75rem;
+.HotelInfo__text-rating {
+  font-size: .75rem;
 }
-.HotelInfo__text-title{
-    margin: 0;
-    font-size: inherit;
-    color: $black;
-    white-space: nowrap;
-    font-size: 1rem;
+.HotelInfo__text-title {
+  margin:      0;
+  font-size:   inherit;
+  color:       $black;
+  white-space: nowrap;
+  font-size:   1rem;
 }
-.HotelInfo__text-title-inset{
-    max-width: 100%;
+.HotelInfo__text-title-inset {
+  max-width:     100%;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
+  overflow:      hidden;
+  text-overflow: ellipsis;
 }
-.HotelInfo__text-date{
-    color: $gray;
+.HotelInfo__text-date {
+  color: $gray;
 }
-.HotelInfo__text-meal{
-    color: $gray;
+.HotelInfo__text-meal {
+  color: $gray;
 }
-.HotelInfo__text-rating-ta{
+.HotelInfo__text-rating-ta {
 
 }
 // END HotelInfo
-.b-hotel-card__actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.b-hotel-card__actions {
+  display:         flex;
+  flex-direction:  row;
+  justify-content: space-between;
 
-    .ButtonSecondary{
-        width: 50%;
-    }
+  .ButtonSecondary {
+    width: 50%;
+  }
 }
-.b-hotel-card__actions-more{
-    .ButtonSecondary{
-        width: 100%;
-    }
+.b-hotel-card__actions-more {
+  .ButtonSecondary {
+    width: 100%;
+  }
 }
 @media(max-width: $recommended-bundle-max-mobile-width) {
 
 }
 @media (max-width: $mobile-max-width) {
-    .HotelInfo__photos{
-        width: $HotelInfo-photo-width-mobile;
-        flex-basis: $HotelInfo-photo-width-mobile;
-    }
-    .HotelInfo__text{
-        width: $HotelInfo__text-width-mobile;
-        padding: 0 10px;
-    }
+  .HotelInfo__photos {
+    width:      $HotelInfo-photo-width-mobile;
+    flex-basis: $HotelInfo-photo-width-mobile;
+  }
+  .HotelInfo__text {
+    width:   $HotelInfo__text-width-mobile;
+    padding: 0 10px;
+  }
 }
 @media (max-width: $mobile-max-width) and (max-height: 550px) {
 

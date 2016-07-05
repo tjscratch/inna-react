@@ -1,18 +1,16 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
-.b-overlay {
-  &.TicketAbout__container {
-    display:          flex;
-    background-color: transparent;
-  }
+.Overlay__TicketAbout {
+  display:          flex;
+  background-color: transparent !important;
 }
-.TicketAbout__overlay {
+.Overlay__TicketAboutOverlay {
   position:         relative;
   width:            100%;
   background-color: rgba(0, 0, 0, .3);
   overflow:         auto;
 }
-.TicketAboutContainer {
+.TicketAbout {
   width:   $layout-max-width;
   margin:  0 auto;
   padding: 20px;
@@ -34,36 +32,47 @@
   display:         flex;
   justify-content: space-between;
   align-items:     flex-start;
-
-  div {
-    flex: 1 1;
-  }
 }
-.b-ticket-about__head {
-  font-size:       16px;
+.container-two-ways__one{
+  flex: 1 1;
+  padding: 0 0 15px;
+  box-shadow: 1px 0 0 0 $gray-light;
+  //border-right: 1px solid $gray-light;
+}
+.container-two-ways__two{
+  flex: 1 1;
+  padding: 0 0 15px;
+}
+.TicketAboutHead {
   display:         flex;
   justify-content: space-between;
   align-items:     center;
-
-  span {
-    padding:    5px;
-    flex:       5 5;
-    text-align: center;
-  }
-  span:first-child {
-    opacity: 0;
-    flex:    1 1;
-  }
-  span:last-child {
-    opacity: 1;
-    flex:    1 1;
-  }
-  span:last-child:hover {
-    cursor: pointer;
+}
+.TicketAboutHead__Back {
+  padding: 10px;
+  opacity: 1;
+  cursor:  pointer;
+}
+.TicketAboutHead__Title {
+  font-size: 20px;
+}
+.TicketAboutHead__Close {
+  padding: 10px;
+  cursor:  pointer;
+}
+.TicketAboutHead__Icon {
+  &:before {
+    margin:      0;
+    font-size:   30px;
+    line-height: 30px;
   }
 }
-.head__close{
-  width: 50px;
+.TicketAboutFooter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid $gray-light;
 }
 .b-tickets-about__content-avia {
   width: 100%;
@@ -106,6 +115,7 @@
 .content-ticket-about__head_two {
   color:      white;
   background: linear-gradient(to right, rgba(198, 18, 153, 0.77), rgba(141, 25, 160, 0.86));
+  border-left: 1px solid rgba(47, 45, 153, 0.83);
 }
 .b-details-fly__way-time {
   width:      100%;
@@ -172,7 +182,7 @@
     }
   }
 
-  .b-ticket-about__head {
+  .TicketAboutHead {
     max-width:       100%;
     font-size:       13px;
     justify-content: flex-start;
