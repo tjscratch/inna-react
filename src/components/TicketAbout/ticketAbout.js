@@ -16,13 +16,17 @@ class TicketAbout extends Component {
     super(props)
   }
 
+  closeTicketAbout(e) {
+    this.props.isOpen(e)
+  }
+
   getTransporterLogo(etap) {
     if (etap && etap.TransporterLogo) {
       var logo = etap.TransporterLogo;
       return `https://s.inna.ru/Files/logo/${logo}.png`;
+    } else {
+      return '';
     }
-
-    return '';
   }
 
   renderTicketAboutHead() {
@@ -56,8 +60,6 @@ class TicketAbout extends Component {
   renderBodyOneWay(item, ix) {
     let inTime = apiDateToJsDate(item.InTime)
     let outTime = apiDateToJsDate(item.OutTime)
-
-    console.log(item);
     return (
       <div className="DetailsFly" key={ix}>
         <div className="DetailsFly__Container">
@@ -192,14 +194,11 @@ class TicketAbout extends Component {
     )
   }
 
-  closeTicketAbout(e) {
-    this.props.isOpen(e)
-  }
-
   render() {
     return (
       <Overlay className="Overlay__TicketAbout">
-        <div className="Overlay__TicketAboutOverlay" onClick={this.closeTicketAbout.bind(this)}>
+        <div className="Overlay__TicketAboutOverlay">
+          <div onClick={this.closeTicketAbout.bind(this)}></div>
           <div className="TicketAbout">
             <div className="TicketAbout__container">
               {this.renderTicketAboutHead()}

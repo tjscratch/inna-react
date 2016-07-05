@@ -1,14 +1,13 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
 .Overlay__TicketAbout {
-  display:          flex;
-  background-color: transparent !important;
+  overflow:         auto;
 }
 .Overlay__TicketAboutOverlay {
-  position:         relative;
-  width:            100%;
-  background-color: rgba(0, 0, 0, .3);
-  overflow:         auto;
+  //position:         relative;
+  //width:            100%;
+  //background-color: rgba(0, 0, 0, .3);
+
 }
 .TicketAbout {
   width:     $layout-max-width;
@@ -81,8 +80,8 @@
   padding:   0 15px;
   font-size: .95rem;
 
-  &:last-child{
-    .DetailsFly__Container{
+  &:last-child {
+    .DetailsFly__Container {
       border-bottom: none;
     }
   }
