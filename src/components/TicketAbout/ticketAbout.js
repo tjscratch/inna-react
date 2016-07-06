@@ -53,7 +53,6 @@ class TicketAbout extends Component {
   }
 
   renderTicketAboutFooter() {
-    console.log(this.props.data);
     return (
       <div className="TicketAboutFooter">
         <div>
@@ -205,7 +204,7 @@ class TicketAbout extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.closeTicketAbout.bind(this)}>
+      <Modal className="TicketAbout_Modal" isOpen={this.closeTicketAbout.bind(this)}>
         <div onClick={this.closeTicketAbout.bind(this)}></div>
         <div className="TicketAbout">
           <div className="TicketAbout__container">

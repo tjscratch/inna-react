@@ -18,7 +18,7 @@
 }
 .TicketAboutHead__Back {
   padding: 10px;
-  opacity: 1;
+  opacity: 0;
   cursor:  pointer;
 }
 .TicketAboutHead__Title {
@@ -132,35 +132,32 @@
   padding:         10px 20px;
   border-top:      1px solid $TicketAbout-border-color;
 }
-@media (max-width: $mobile-max-width) {
-  .TicketAbout__container {
-    width:         100%;
-    height:        100%;
-    border-radius: 0px;
-    margin-top:    50px;
+@media (max-width: $layout-max-width) {
+  .TicketAbout {
+    width: $mobile-max-width;
   }
-
+  .TicketAboutHead__Title {
+    font-size: 1.1rem;
+  }
   .TicketAboutContent {
     display: block;
-
-    div {
-      width: 100%;
+  }
+}
+@media (max-width: $mobile-max-width) {
+  .TicketAboutHead__Back{
+    opacity: 1;
+  }
+  .TicketAbout_Modal {
+    .Modal_Body {
+      padding: 0;
+      width:   100%;
     }
   }
-
-  .TicketAboutHead {
-    max-width:       100%;
-    font-size:       13px;
-    justify-content: flex-start;
-
-    span {
-      padding: 0 10px;
-    }
-    span:first-child {
-      opacity: 1;
-    }
-    span:last-child {
-      opacity: 0
-    }
+  .TicketAbout {
+    width:   100%;
+    padding: 0;
+  }
+  .TicketAbout__container {
+    border-radius: 0px;
   }
 }
