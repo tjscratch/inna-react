@@ -238,7 +238,7 @@ class TicketCard extends React.Component {
     if(data && isOpen) {
       return (
         <div>
-          <TicketAbout data={data} display={isOpen} isOpen={this.ticketAbout.bind(this)}/>
+          <TicketAbout data={data} isOpen={this.ticketAbout.bind(this)}/>
         </div>
       );
     }

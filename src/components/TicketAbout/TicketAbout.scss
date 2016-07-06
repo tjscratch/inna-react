@@ -1,18 +1,9 @@
 @import "../variables.scss";
 @import "../Icons/css/icons.css";
-.Overlay__TicketAbout {
-  overflow:         auto;
-}
-.Overlay__TicketAboutOverlay {
-  //position:         relative;
-  //width:            100%;
-  //background-color: rgba(0, 0, 0, .3);
-
-}
 .TicketAbout {
   width:     $layout-max-width;
   margin:    0 auto;
-  padding:   15px;
+  padding:   0 15px;
   font-size: 1rem;
 }
 .TicketAbout__container {

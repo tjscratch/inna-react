@@ -3,6 +3,7 @@ import styles from './TicketAbout.scss';
 import withViewport from '../../decorators/withViewport';
 import withStyles from '../../decorators/withStyles';
 import Overlay from '../ui/Overlay';
+import Modal from '../ui/Modal';
 import Btn from '../ui/Btn';
 import Icon from '../ui/Icon';
 
@@ -15,6 +16,12 @@ class TicketAbout extends Component {
   constructor(props) {
     super(props)
   }
+
+  static propTypes = {
+    data: PropTypes.object,
+    isOpen: PropTypes.func
+  };
+
 
   closeTicketAbout(e) {
     this.props.isOpen(e)
@@ -46,9 +53,11 @@ class TicketAbout extends Component {
   }
 
   renderTicketAboutFooter() {
+    console.log(this.props.data);
     return (
       <div className="TicketAboutFooter">
         <div>
+          {this.props.Refundable == 2 ? "Невозвратный тариф" : ""}
         </div>
         <Btn small={true}>
           Выбрать
@@ -196,18 +205,16 @@ class TicketAbout extends Component {
 
   render() {
     return (
-      <Overlay className="Overlay__TicketAbout">
-        <div className="Overlay__TicketAboutOverlay">
-          <div onClick={this.closeTicketAbout.bind(this)}></div>
-          <div className="TicketAbout">
-            <div className="TicketAbout__container">
-              {this.renderTicketAboutHead()}
-              {this.renderTicketAboutContent()}
-              {this.renderTicketAboutFooter()}
-            </div>
+      <Modal isOpen={this.closeTicketAbout.bind(this)}>
+        <div onClick={this.closeTicketAbout.bind(this)}></div>
+        <div className="TicketAbout">
+          <div className="TicketAbout__container">
+            {this.renderTicketAboutHead()}
+            {this.renderTicketAboutContent()}
+            {this.renderTicketAboutFooter()}
           </div>
         </div>
-      </Overlay>
+      </Modal>
     )
   }
 }
