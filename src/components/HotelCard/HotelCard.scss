@@ -9,15 +9,25 @@
   display:       flex;
   align-items:   center;
 }
-.HotelInfo__photos {
-  width:      $HotelInfo-photo-width;
-  height:     $HotelInfo-photo-width;
-  flex-basis: $HotelInfo-photo-width;
-  overflow:   hidden;
+.HotelInfoPhoto {
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+
+  width:            $HotelInfo-photo-width;
+  height:           $HotelInfo-photo-width;
+  flex-basis:       $HotelInfo-photo-width;
+  overflow:         hidden;
+  background-color: $gray-light-1;
 }
-.HotelInfo__photos-photo {
+.HotelInfoPhoto__Image {
   display:   block;
+  margin:    auto;
   max-width: 100%;
+}
+.HotelInfoPhoto__Fail {
+  margin-right: -15px;
+  color:        $gray-4;
 }
 .HotelInfo__text {
   width:     $HotelInfo__text-width;
