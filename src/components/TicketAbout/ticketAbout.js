@@ -202,6 +202,7 @@ class TicketAbout extends Component {
     )
   }
 
+
   render() {
     return (
       <Modal className="TicketAbout_Modal" isOpen={this.closeTicketAbout.bind(this)}>
@@ -216,6 +217,8 @@ class TicketAbout extends Component {
       </Modal>
     )
   }
+
+
 }
 
 export default TicketAbout;
