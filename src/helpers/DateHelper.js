@@ -1,3 +1,4 @@
+import moment from 'moment';
 //12.11.2015 to 2015-11-12
 export function routeDateToApiDate (date) {
     if (date) {
@@ -159,6 +160,14 @@ export function dateToDDMMMDay(date) {
         return `${date.getDate()} ${dtr.translateMonthShort(date.getMonth())}, ${dtr.translateDayShort(date.getDay())}`
     }
 
+    return null;
+}
+
+//15 ноя, вс
+export function dateToDDMMMDayYear(date) {
+    if (date) {
+        return `${date.getDate()} ${dtr.translateMonthShort(date.getMonth())} ${moment(date).get('year')}, ${dtr.translateDayShort(date.getDay())}`
+    }
     return null;
 }
 

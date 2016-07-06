@@ -1,0 +1,163 @@
+@import "../variables.scss";
+@import "../Icons/css/icons.css";
+.TicketAbout {
+  width:     $layout-max-width;
+  margin:    0 auto;
+  padding:   0 15px;
+  font-size: 1rem;
+}
+.TicketAbout__container {
+  width:            100%;
+  border-radius:    7px;
+  background-color: white;
+}
+.TicketAboutHead {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+}
+.TicketAboutHead__Back {
+  padding: 10px;
+  opacity: 0;
+  cursor:  pointer;
+}
+.TicketAboutHead__Title {
+  font-size: 20px;
+}
+.TicketAboutHead__Close {
+  padding: 10px;
+  cursor:  pointer;
+}
+.TicketAboutHead__Icon {
+  &:before {
+    margin:      0;
+    font-size:   30px;
+    line-height: 30px;
+  }
+}
+.TicketAboutContent {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     stretch;
+}
+.TicketAboutContent_container {
+  flex: 1 1;
+}
+.TicketAboutContent_container__one {
+  border-right: 1px solid $TicketAbout-border-color;
+}
+.TicketAboutContent_container__two {
+}
+.TicketAboutContentHead {
+  padding:          10px 15px;
+  color:            $white;
+  background-color: $TicketAboutContentHead-bg;
+}
+.TicketAboutContentHeadRow {
+  display:         flex;
+  justify-content: space-around;
+  align-items:     center;
+  text-align:      center;
+}
+.TicketAboutContentHeadRow_item {
+  flex: 1 1;
+}
+.TicketAboutContentHeadRow__foot {
+  padding:         5px 0 0 0;
+  font-size:       .85rem;
+  justify-content: center;
+}
+.DetailsFly {
+  padding:   0 15px;
+  font-size: .95rem;
+
+  &:last-child {
+    .DetailsFly__Container {
+      border-bottom: none;
+    }
+  }
+}
+.DetailsFly__Container {
+  display:       flex;
+  align-items:   center;
+  padding:       15px 0;
+  border-bottom: 1px solid $TicketAbout-border-color;
+}
+.DetailsFly_Segment {
+  margin-right: 25px;
+}
+.DetailsFly__Row {
+  display: flex;
+}
+.DetailsFly__Delimiter {
+  height:           1px;
+  margin:           15px 0;
+  background-color: $TicketAbout-border-color;
+}
+.DetailsFly__WayTime {
+  font-size: .8rem;
+  color:     $gray-3;
+}
+.DetailsFly__Item {
+
+}
+.DetailsFly__Item_first {
+  width: 50px;
+}
+.DetailsFly__Date {
+  white-space: nowrap;
+}
+.DetailsFly__CityPort {
+  font-size:   .8rem;
+  color:       $gray-3;
+  white-space: nowrap;
+}
+.DetailsFly__LogoAirline {
+  width:  28px;
+  height: 28px;
+
+  img {
+    max-width:  100%;
+    max-height: 100%;
+  }
+}
+.DetailsFly__Airline {
+  font-size: .8rem;
+  color:     $gray-3;
+}
+.TicketAboutFooter {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  padding:         10px 20px;
+  border-top:      1px solid $TicketAbout-border-color;
+}
+@media (max-width: $layout-max-width) {
+  .TicketAbout {
+    width: $mobile-max-width;
+  }
+  .TicketAboutHead__Title {
+    font-size: 1.1rem;
+  }
+  .TicketAboutContent {
+    display: block;
+  }
+}
+@media (max-width: $mobile-max-width) {
+  .TicketAboutHead__Back{
+    opacity: 1;
+  }
+  .TicketAbout_Modal {
+    .Modal_Body {
+      padding: 0;
+      width:   100%;
+    }
+  }
+  .TicketAbout {
+    width:   100%;
+    padding: 0;
+  }
+  .TicketAbout__container {
+    border-radius: 0px;
+  }
+}

@@ -9,12 +9,17 @@ import {pluralize} from '../../helpers/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
+import TicketAbout from '../TicketAbout';
 
 @withViewport
 @withStyles(styles)
 class TicketCard extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      openTicketAbout : false
+    }
   }
 
   getTransporterLogo(etap) {
@@ -38,7 +43,6 @@ class TicketCard extends React.Component {
       var BackArrivalDate = apiDateToJsDate(data.BackArrivalDate);
       return (
         <div className='FlightInfo'>
-
           <div className='FlightInfo__row'>
 
             <div className='FlightInfo__icons'>
@@ -94,7 +98,7 @@ class TicketCard extends React.Component {
           <div className="FlightInfo__transfer">
             в
             пути:
-            {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
+               {minutesToHHMM(data.TimeTo)}, {data.ToTransferCount > 0 ?
             `${data.ToTransferCount} ${pluralize(data.ToTransferCount, ['пересадка', 'пересадки', 'пересадок'])}` : 'без пересадок'}
           </div>
 
@@ -179,12 +183,7 @@ class TicketCard extends React.Component {
 
   ticketAbout(e) {
     e.preventDefault();
-
-    var {events} = this.props;
-    console.log(this.props.data);
-    if (events && events.ticketAbout) {
-      events.ticketAbout();
-    }
+    this.setState({openTicketAbout: !this.state.openTicketAbout});
   }
 
   renderActions() {
@@ -197,11 +196,11 @@ class TicketCard extends React.Component {
             <ButtonSecondary onClick={this.changeTicket.bind(this)}>
               Заменить перелет
             </ButtonSecondary>
-            {/*
-             <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-             Подробнее
-             </ButtonSecondary>
-             */}
+            <ButtonSecondary ButtonType='Link' onClick={(e)=> {
+              this.ticketAbout(e)
+            }}>
+              Подробнее
+            </ButtonSecondary>
           </div>
         );
       }
@@ -210,21 +209,21 @@ class TicketCard extends React.Component {
         //if (viewport.isMobile || showChangeTickets) {
         return (
           <div className="b-avia-card__actions">
-            {
-              data.TicketsCount ?
-                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                  Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}
-                </ButtonSecondary>
-                :
-                <ButtonSecondary onClick={this.actionClick.bind(this)}>
-                  Заменить перелет
-                </ButtonSecondary>
-            }
-            {/*
-             <ButtonSecondary ButtonType='Link' onClick={(e)=>{this.ticketAbout(e)}}>
-             Подробнее
-             </ButtonSecondary>
-             */}
+               {
+                 data.TicketsCount ?
+                   <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                     Еще {data.TicketsCount} {pluralize(data.TicketsCount, ['перелета', 'перелета', 'перелетов'])}
+                   </ButtonSecondary>
+                   :
+                   <ButtonSecondary onClick={this.actionClick.bind(this)}>
+                     Заменить перелет
+                   </ButtonSecondary>
+               }
+                 <ButtonSecondary ButtonType='Link' onClick={(e)=> {
+                   this.ticketAbout(e)
+                 }}>
+                   Подробнее
+                 </ButtonSecondary>
           </div>
         );
       }
@@ -233,11 +232,24 @@ class TicketCard extends React.Component {
     return null;
   }
 
+  renderTicketAbout () {
+    let {data} = this.props;
+    let isOpen = this.state.openTicketAbout;
+    if(data && isOpen) {
+      return (
+        <div>
+          <TicketAbout data={data} isOpen={this.ticketAbout.bind(this)}/>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="b-avia-card">
-        {this.renderFlightInfo()}
-        {this.props.allowActions ? this.renderActions() : null}
+           {this.renderFlightInfo()}
+           {this.renderTicketAbout()}
+           {this.props.allowActions ? this.renderActions() : null}
       </div>
     );
   }

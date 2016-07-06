@@ -28,6 +28,7 @@ $small-border-radius: 1px;
 $black: rgba(0, 0, 0, 0.87);
 $gray: rgba(0, 0, 0, 0.54);
 $gray-2: rgba(0, 0, 0, .3);
+$gray-3: #7D7D7D;
 $gray-light: rgba(0, 0, 0, .1);
 $base-text-color: $black;
 $base-text-color-mobile: $black;
@@ -36,6 +37,7 @@ $green: #89c13a;
 $red: #e30514;
 $link-color: #1b74b3;
 $color-secondary: #f0bd4e;
+$color-blue: #5172CB;
 /* END COLORS */
 
 /* BEGIN b-search-form */
@@ -80,13 +82,13 @@ $b-suggest-overlay__close-color_active: $red;
 $btn-border-radius: $base-border-radius;
 $btn-line-height: $line-height-computed;
 $btn-font-size: 20px;
-$btn-padding-horizontal: $padding-base-horizontal;
+$btn-padding-horizontal: 20px;
 $btn-padding-vertical: $padding-base-vertical;
 
 $btn-small-border-radius: $base-border-radius;
 $btn-small-line-height: $line-height-computed;
 $btn-small-font-size: 16px;
-$btn-small-padding-horizontal: 12px;
+$btn-small-padding-horizontal: 20px;
 $btn-small-padding-vertical: 6px;
 
 $btn-green-color: $white;
@@ -190,4 +192,7 @@ $ButtonSecondary-padding-horizontal: 1rem;
 $ButtonSecondary-padding-vertical: .566rem;
 /* END ButtonSecondary */
 
-
+/* BEGIN TicketAbout */
+$TicketAboutContentHead-bg: $color-blue;
+$TicketAbout-border-color: $gray-light;
+/* END TicketAbout */
