@@ -9,7 +9,7 @@ import {pluralize} from '../../helpers/CountHelper.js';
 import ListType from '../PackagesSearchResultsPage/ListType.js';
 
 import ButtonSecondary from '../ui/Buttons/ButtonSecondary/ButtonSecondary.js'
-import TicketAbout from '../TicketAbout';
+import TicketAbout from '../TicketAbout/TicketAbout';
 
 @withViewport
 @withStyles(styles)
