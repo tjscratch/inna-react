@@ -103,8 +103,14 @@ class HotelCard extends React.Component {
                 renderLoading={() => (
                   <Spinner/>
                 )}
-                renderFetched={({ src }) => (
-                  <img src={src} className="HotelInfoPhoto__Image" />
+                renderFetched={({ src, image }) => (
+                  <div className="HotelInfoPhoto__Container">
+                    {image.naturalWidth > image.naturalHeight ?
+                      <img src={src} className="HotelInfoPhoto__Image" height="100%"/>
+                      :
+                      <img src={src} className="HotelInfoPhoto__Image" width="100%" />
+                    }
+                  </div>
                 )}
                 renderFailure={(error, retry) => (
                   <Icon className="HotelInfoPhoto__Fail" name="NoPhoto" size={80}/>

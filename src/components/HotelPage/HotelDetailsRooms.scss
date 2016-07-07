@@ -19,13 +19,21 @@
   display: flex;
 }
 .b-rooms-list-item-info__photo {
-  display:        inline-block;
-  margin:         4px 10px 0 0;
-  vertical-align: top;
+  //display:         inline-block;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+
+  width:           $HotelInfo-photo-width-mobile;
+  height:          $HotelInfo-photo-width-mobile;
+  margin:          4px 10px 0 0;
+  vertical-align:  top;
+}
+.b-rooms-list-item-info__photo-container {
+  overflow: hidden;
 }
 .b-rooms-list-item-info-photo {
-  max-width:  100px;
-  max-height: 100px;
+  max-width: 100%;
 }
 .b-rooms-list-item-info__text {
   display:        inline-block;
@@ -139,7 +147,7 @@
 
   .b-rooms-list-item__buy {
     .b-buy-btn {
-      padding: 4px 15px;
+      padding:   4px 15px;
       font-size: 1rem;
     }
   }
