@@ -24,7 +24,9 @@ import Datepicker from '../../ui/Datepicker';
     }
 
 
-    openDatepicker(type, isShow) {
+    openDatepicker(type, isShow, e) {
+        e.target.blur();
+        console.log('EVENT', e);
         if (type == 'start') {
             this.setState({
                 datepickerStartShow: isShow,
@@ -112,6 +114,8 @@ import Datepicker from '../../ui/Datepicker';
         event.nativeEvent.stopImmediatePropagation();
     }
 
+
+
     render() {
         return (
             <div className="b-datepicker-range" onClick={this.stopPropagation.bind(this)}>
@@ -130,7 +134,8 @@ import Datepicker from '../../ui/Datepicker';
                            placeholder="Обратно"
                            type="text"
                            onFocus={this.openDatepicker.bind(this, 'end', true)}
-                           value={this.props.endDate}/>
+                           value={this.props.endDate}
+                          />
                     <i className="b-datepicker-range__icon icon-emb-calendar"></i>
                     {this.renderDatepickerEnd()}
                 </div>
