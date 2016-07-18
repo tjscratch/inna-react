@@ -14,7 +14,7 @@ class PeopleSelector extends React.Component {
         this.state = {
             isOpen: false,
             childCount: 0,
-            flightClass: this.props.flightClass ? 'бизнес' : 'эконом'
+            flightClass: this.props.flightClass == 1 ? 'бизнес' : 'эконом'
         };
     }
 
