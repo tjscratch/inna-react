@@ -24,7 +24,7 @@ import Datepicker from '../../ui/Datepicker';
     }
 
 
-    openDatepicker(type, isShow) {
+    openDatepicker(type, isShow, e) {
         if (type == 'start') {
             this.setState({
                 datepickerStartShow: isShow,
@@ -112,26 +112,28 @@ import Datepicker from '../../ui/Datepicker';
         event.nativeEvent.stopImmediatePropagation();
     }
 
+
+
     render() {
+      console.log('this.props.startDate', this.props.startDate);
         return (
             <div className="b-datepicker-range" onClick={this.stopPropagation.bind(this)}>
                 <div className="b-datepicker-range__item b-datepicker-range__item-start">
-                    <input className="b-datepicker-range__input"
-                           placeholder="Туда"
-                           type="text"
-                           value={this.props.startDate}
-                           onFocus={this.openDatepicker.bind(this, 'start', true)}
-                        />
-                    <i className="b-datepicker-range__icon icon-emb-calendar"></i>
+                    <div className="b-datepicker-range__input"
+                           onClick={this.openDatepicker.bind(this, 'start', true)}>
+                      {this.props.startDate ? this.props.startDate : 'Туда'}
+                    </div>
+                    <i className="b-datepicker-range__icon icon-emb-calendar"
+                       onClick={this.openDatepicker.bind(this, 'start', true)}></i>
                     {this.renderDatepickerStart()}
                 </div>
                 <div className="b-datepicker-range__item b-datepicker-range__item-end">
-                    <input className="b-datepicker-range__input"
-                           placeholder="Обратно"
-                           type="text"
-                           onFocus={this.openDatepicker.bind(this, 'end', true)}
-                           value={this.props.endDate}/>
-                    <i className="b-datepicker-range__icon icon-emb-calendar"></i>
+                    <div className="b-datepicker-range__input"
+                           onClick={this.openDatepicker.bind(this, 'end', true)}>
+                      {this.props.endDate ? this.props.endDate : 'Обратно'}
+                    </div>
+                    <i className="b-datepicker-range__icon icon-emb-calendar"
+                       onClick={this.openDatepicker.bind(this, 'end', true)}></i>
                     {this.renderDatepickerEnd()}
                 </div>
             </div>
