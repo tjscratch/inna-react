@@ -29,7 +29,7 @@
     "react-addons-css-transition-group": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-list": "^0.7.8",
-    "react-maskedinput": "^3.0.0",
+    "react-maskedinput": "^3.2.1",
     "react-redux": "^4.0.0",
     "react-remote-image": "^0.1.1",
     "react-routing": "0.0.7",
