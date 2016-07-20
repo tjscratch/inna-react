@@ -5,14 +5,14 @@ import withStyles from '../../decorators/withStyles';
 import MaskedInput from 'react-maskedinput';
 import Checkbox from '../ui/Checkbox';
 
-@withStyles(styles) class CustomerInfo extends Component {
+@withStyles(styles) class CustomerInfoForm extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         const {
-            fields: {email, phone, phone_suffix, phone_number},
+            fields: {email, phone, phone_number},
             handleSubmit,
             resetForm,
             submitting
@@ -34,30 +34,10 @@ import Checkbox from '../ui/Checkbox';
                         </div>
                         <div className="b-customer-info-body__phone">
                             <label className="b-customer-info-label">Мобильный телефон</label>
-                            <div className="b-customer-info-phone">
-                                <div className="b-customer-info-phone__code">
-                                    <input className="b-customer-info-field b-customer-info-field_code"
-                                           type="text" {...phone_suffix}
-                                           placeholder="+7"/>
-                                    <ul className="b-customer-info-phone-code-suggest">
-                                        <li>Россия +7</li>
-                                        <li>США +1</li>
-                                    </ul>
-                                </div>
-                                <div className="b-customer-info-phone__number">
-                                    <input className={`b-customer-info-field b-customer-info-field_number ${phone_number.touched && phone_number.error ? 'b-customer-info-field_error' : ''}`}
-                                           type="tel" {...phone_number}
-                                           placeholder="(999) 999-99-99"/>
-                                    {phone_number.touched && phone_number.error && <div className="b-customer-info-err-label">{phone_number.error}</div>}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="b-customer-info-body__phone-mobile">
-                            <label className="b-customer-info-label">Мобильный телефон</label>
-                            <input className={`b-customer-info-field ${phone.touched && phone.error ? 'b-customer-info-field_error' : ''}`}
-                                   type="text" {...phone}
-                                   placeholder="+7 (999) 999-99-99"/>
-                            {phone.touched && phone.error && <div className="b-customer-info-err-label">{phone.error}</div>}
+                          <input className={`b-customer-info-field ${phone.touched && phone.error ? 'b-customer-info-field_error' : ''}`}
+                                 type="text" {...phone}
+                                 placeholder="+7 (999) 999-99-99"/>
+                          {phone.touched && phone.error && <div className="b-customer-info-err-label">{phone.error}</div>}
                         </div>
                         <div className="b-customer-info-body__agreement">
                             <Checkbox text="Хочу получать спецпредложения"/>
@@ -70,4 +50,4 @@ import Checkbox from '../ui/Checkbox';
 
 }
 
-export default CustomerInfo;
+export default CustomerInfoForm;

@@ -67,10 +67,7 @@ export function getParamsForCheckAvailability(routeParams, roomId) {
 
 export function getParamsForMakeReservation(routeParams, roomId, formData) {
     var phone = formData.phone;
-    if (!phone) {
-        phone = formData.phone_suffix + formData.phone_number;
-    }
-
+    
     var passengers = [];
     formData.passengers.forEach((p, ix)=>{
         var pas = {

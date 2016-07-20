@@ -36,8 +36,6 @@ export const fields = [
   'validation',
   'Agree',
   'email',
-  'phone_suffix',
-  'phone_number',
   'phone',
   'isNeededVisa',
   'isNeededTransfer',
@@ -289,7 +287,7 @@ class ReservationPage extends Component {
 
     if (this.props.data) {
       if (this.props.data.NeedSmsValidation) {
-        if (this.props.values.phone_suffix && this.props.values.phone_number) {
+        if (this.props.values.phone) {
           this.setState({
             smsValidationShow: true
           })
@@ -345,7 +343,7 @@ class ReservationPage extends Component {
     var {error, checkAvailabilityError} = this.state;
 
     if (this.state.smsValidationShow) {
-      let phone = this.props.values.phone_suffix + this.props.values.phone_number;
+      let phone = this.props.values.phone;
       return (
         <NeedSmsValidation phone={phone} smsValid={this.smsValid.bind(this)}/>
       );
@@ -546,7 +544,7 @@ function mapStateToProps(state) {
     data: state.reservation,
     availableData: state.reservation_is_available,
     initialValues: {
-      phone_suffix: '+7',
+      phone: '+7',
       //генерим пассажиров по кол-ву билетов
       passengers: state.reservation && state.reservation.AviaInfo ? generatePassengers(state.reservation.AviaInfo.PassengerCount) : []
     }

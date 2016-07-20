@@ -55,45 +55,20 @@
     vertical-align: top;
 }
 
-.b-customer-info-phone__code {
-    display: inline-block;
-}
-
-.b-customer-info-field_code {
-    width: 80px;
-}
-
-.b-customer-info-phone__number {
-    display: inline-block;
-    position: relative;
-}
-
-.b-customer-info-field_number {
-    width: 200px;
-}
-
-.b-customer-info-phone-code-suggest {
-    display: none;
-}
-
 .b-customer-info-body__agreement {
     margin: 15px 0 10px 0;
 }
 
 .b-customer-info-body__phone-mobile {
-    display: none;
+    display: block;
 }
 
 @media (max-width: $mobile-max-width) {
     .b-customer-info-body__email,
-    .b-customer-info-body__phone-mobile {
+    .b-customer-info-body__phone {
         display: block;
         width: 100%;
         margin-top: 20px;
-    }
-
-    .b-customer-info-body__phone {
-        display: none;
     }
 
     .b-customer-info__head {
