@@ -1,11 +1,12 @@
 @import '../../variables.scss';
 
 .b-datepicker-range{
-    
+
 }
 
 .b-datepicker-range__item{
     position: relative;
+    cursor: pointer;
 }
 
 .b-datepicker-range__input{
@@ -31,6 +32,7 @@
     bottom: 0;
     z-index: 2;
     font-size: 16px;
+    cursor: pointer;
 
     &:before{
         display: inline-block;

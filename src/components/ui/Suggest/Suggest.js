@@ -24,7 +24,8 @@ class Suggest extends React.Component {
             optionCounter: 0,
             onBlurDisabled: false,
             focus: false,
-            isMobileMaxWidth: 640
+            isMobileMaxWidth: 640,
+            isEnableCloseBtn: false
         };
 
         this.setOptions = _.debounce(
@@ -93,6 +94,13 @@ class Suggest extends React.Component {
         } else {
             this.props.setResult(null);
         }
+    }
+
+    handleClear () {
+        this.setState({
+          value: null
+        })
+        this.handleFocus()
     }
 
 
@@ -236,6 +244,12 @@ class Suggest extends React.Component {
                        value={this.state.value}
                        ref="inputBase"
                 />
+              {this.state.value
+                ?
+                <i className="b-suggest__icon icon-emb-cancel" onClick={this.handleClear.bind(this)}></i>
+                :
+                ''
+              }
                 {this.renderSuggest()}
             </div>
         );
