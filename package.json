@@ -28,6 +28,7 @@
     "react": "^0.14.3",
     "react-addons-css-transition-group": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-input-mask": "^0.7.2",
     "react-list": "^0.7.8",
     "react-maskedinput": "^3.2.1",
     "react-redux": "^4.0.0",
