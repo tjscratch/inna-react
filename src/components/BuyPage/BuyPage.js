@@ -463,7 +463,8 @@ import validate from './validateForm';
         //OrderStatus == 0 - все норм
         //OrderStatus == 2 - перелет не доступен
 
-        if (!data || data.isLoading) {
+        console.log(data);
+        if (!data) {
             return (
                 <WaitMsg
                     data={{title:'Собираем данные', text:'Это может занять какое-то время'}}

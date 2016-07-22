@@ -1,11 +1,12 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import styles from './ErrorMsg.scss';
 import withStyles from '../../../../decorators/withStyles';
 import Spinner from '../../Spinner';
 
 import PopupMessage from '../PopupMessage.js';
 
-@withStyles(styles) class ErrorMsg extends React.Component {
+@withStyles(styles)
+class ErrorMsg extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -21,10 +22,9 @@ import PopupMessage from '../PopupMessage.js';
         return (
             <PopupMessage {...this.props}>
                 <div className="b-wait-msg">
-                    {
-                        //<Spinner />
-                        <br/>
-                    }
+
+                    <br/>
+                    <br/>
 
                     <div className="b-wait-msg__title">
                         {data ? data.title : ''}
@@ -34,9 +34,9 @@ import PopupMessage from '../PopupMessage.js';
                     </div>
                     {
                         this.props.cancel ?
-                        <div className="b-wait-msg__cancel" onClick={this.cancelClick.bind(this)}>
-                            {data ? data.cancelText : ''}
-                        </div> : null
+                            <div className="b-wait-msg__cancel" onClick={this.cancelClick.bind(this)}>
+                                {data ? data.cancelText : ''}
+                            </div> : null
                     }
                 </div>
             </PopupMessage>

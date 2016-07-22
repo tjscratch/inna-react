@@ -1,6 +1,6 @@
 import apiClient from '../core/ApiClient';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
-import { process, processIf, processIfNotExists, multiProcessIf, multiProcessIfNotExists } from './action_index';
+import {canUseDOM} from 'fbjs/lib/ExecutionEnvironment';
+import {process, processIf, processIfNotExists, multiProcessIf, multiProcessIfNotExists} from './action_index';
 
 import apiUrls from '../constants/ApiUrls';
 
@@ -8,7 +8,7 @@ export const RESERVATION_GET_HOTEL_DETAILS = 'RESERVATION_GET_HOTEL_DETAILS';
 export const RESERVATION_CHECK_AVAILABILITY = 'RESERVATION_CHECK_AVAILABILITY';
 export const MAKE_RESERVATION = 'MAKE_RESERVATION';
 
-export function getHotelDetails (params) {
+export function getHotelDetails(params) {
     return (dispatch, getState) => {
         var field = 'reservationHotelDetails';
         var ACTION_NAME = RESERVATION_GET_HOTEL_DETAILS;
@@ -32,7 +32,7 @@ export function getHotelDetails (params) {
     }
 }
 
-export function checkAvailability (params) {
+export function checkAvailability(params) {
     return (dispatch, getState) => {
         var field = 'packageAvailable';
         var ACTION_NAME = RESERVATION_CHECK_AVAILABILITY;
@@ -56,7 +56,7 @@ export function checkAvailability (params) {
     }
 }
 
-export function makeReservation (params) {
+export function makeReservation(params) {
     return (dispatch, getState) => {
         var field = 'makeReservation';
         var ACTION_NAME = MAKE_RESERVATION;
