@@ -17,7 +17,7 @@ import Footer from '../Footer';
 
     render() {
         return !this.props.error ? (
-            <div>
+            <div className="AppContainer">
                 <Header />
                 {this.props.children}
                 <Footer />

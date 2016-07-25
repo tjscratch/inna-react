@@ -125,7 +125,7 @@ import HotelDetailsVotes from './HotelDetailsVotes.js';
         if (data) {
             var { Hotel, AviaInfo } = data;
 
-            var url = siteUrls.PackageReservation + [
+            var url = siteUrls.Reservation + [
                     routeParams.fromId,
                     routeParams.toId,
                     routeParams.fromDate,
