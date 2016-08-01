@@ -1,17 +1,50 @@
 @import '../variables.scss';
 
-.b-offers-slider {
-    height: 500px;
-    background-color: #f6f6f6;
-    background-image: url('../../public/images/bg-1.jpg');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
+.OffersSlider {
+  height: 550px;
+  background-color: #f6f6f6;
 }
+.OffersSlider__img {
+  height: 550px;
+  width: 100%;
+  background-repeat: no-repeat;
+  z-index: 3;
+  position: absolute;
+}
+.OffersSlider__content {
+  width: 100%;
+  color: #fff;
+  z-index: 3;
+  position: absolute;
+}
+.content__main-slogan {
+  margin: $Header__nav-container-height + $Header__info-container-height auto 0 auto;
+  width: $layout-max-width;
+  text-align: center;
+}
+.main-slogan__country-name {
+  font-size: 36px;
+  text-transform: uppercase;
+}
+.main-slogan__tittle {
+  font-size: 36px;
+}
+.main-slogan__description {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.content__slogan {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-.b-offers-slider__content {
-    max-width: $layout-max-width;
-    padding: 40px 0 40px;
-    margin: 0 auto;
-    color: #fff;
+  width: $layout-max-width;
+  margin: 170px auto auto;
+  padding: 0 15px;
+}
+.slogan__tittle {
+  font-size: 18px;
+}
+.slogan__description {
+  font-size: 15px;
 }

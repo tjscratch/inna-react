@@ -1,6 +1,7 @@
 @import '../variables.scss';
 .b-search-form{
-    margin: 20px 0 0;
+    //margin: $Header__nav-container-height + $Header__info-container-height + 20px 0 0;
+  margin-top: 250px;
 }
 .b-search-form__form,
 .b-search-form__tabs{
