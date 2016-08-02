@@ -13,7 +13,7 @@ import MainPage from './components/MainPage';
 import PackagesSearchResultsPage from './components/PackagesSearchResultsPage';
 import HotelPage from './components/HotelPage';
 import ReservationPage from './components/ReservationPage';
-import Reservation from './components/Reservation';
+import ReservationPackage from './components/ReservationPackage/ReservationPackage';
 import BuyPage from './components/BuyPage';
 
 import siteUrls from './constants/SiteUrls.js';
@@ -98,8 +98,8 @@ const router = new Router(on => {
             routeParams={state.params}/>
     });
 
-    on(`${siteUrls.Reservation}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
-        return <Reservation
+    on(`${siteUrls.ReservationPackage}:fromId-:toId-:fromDate-:toDate-:flightClass-:adultCount-:childAges?-:hotelId-:ticketId-:ticketBackId-:providerId`, async (state) => {
+        return <ReservationPackage
             routeQuery={state.query ? state.query : {}}
             routeParams={state.params}/>
     });

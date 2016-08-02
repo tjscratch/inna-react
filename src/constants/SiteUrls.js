@@ -3,6 +3,6 @@ export default {
     SearchPackages: '/packages/search/',
     HotelDetails: '/packages/details/',
     PackageReservation: '/packages/reservation/',
-    Reservation: '/reservation/',
+    ReservationPackage: '/reservation/package/',
     Buy: '/packages/buy/'
 }
