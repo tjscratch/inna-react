@@ -24,8 +24,10 @@ export function getResevationPackageData(params) {
                 });
             })
             .catch((error, data)=> {
+                console.log(33333)
+                console.log(error)
                 dispatch({
-                    type: ActionTypes.RESERVATION_PACKAGES_DATA_ERROR,
+                    type: ActionTypes.RESERVATION_PACKAGE_DATA_ERROR,
                     data: null,
                     error: error
                 });

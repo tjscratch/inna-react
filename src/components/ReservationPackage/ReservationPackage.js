@@ -21,8 +21,8 @@ class ReservationPackage extends Component {
     componentDidMount() {
         this.getData();
     }
-
-    async getData(){
+    
+    async getData() {
         var {routeParams, routeQuery, dispatch} = this.props;
         var {room} = routeQuery;
         var params = getParamsForHotelDetails(routeParams, room);
@@ -31,32 +31,50 @@ class ReservationPackage extends Component {
         await dispatch(getResevationPackageData(params));
         await dispatch(getResevationIsPackageAvailable(paramsAvia));
     }
-
+    
     /**
-     * Показывается когда идет загрузка данных и проверка доступности
+     * Загрузка данных и проверка доступности
      */
     renderLoading() {
-        if (this.props.package_data == null || this.props.package_avialable == null) {
+        if (this.props.package_data == null || this.props.package_available == null) {
             return (
                 <WaitMsg
-                    data={{title:'Собираем данные', text:'Это может занять какое-то время'}}
+                    data={{title: 'Собираем данные', text: 'Это может занять какое-то время'}}
                 />
             );
         }
     }
-
+    
+    /**
+     * Ошибка загрузки данных
+     */
+    renderLoadingError() {
+        let package_data_error = this.props.package_data ? this.props.package_data.error : null
+        let package_available_error = this.props.package_available ? this.props.package_available.error : null
+        if (package_data_error || package_available_error) {
+            return (
+                <ErrorMsg
+                    data={{title: 'Произошла ошибка', text: 'Попробуйте начать поиск заново'}}
+                />
+            );
+        }
+    }
+    
     render() {
         var events = null;
         var {package_data} = this.props;
         var price = package_data ? package_data.Price : 0;
-
+        
         return (
             <section className="ReservationPackage">
                 {this.renderLoading()}
+                {this.renderLoadingError()}
                 <HotelDetailsPackage
                     title="Оформление и оплата"
                     price={price}
-                    events={events} data={package_data}/>
+                    events={events}
+                    data={package_data}
+                />
             </section>
         )
     }
@@ -66,7 +84,7 @@ class ReservationPackage extends Component {
 function mapStateToProps(state) {
     return {
         package_data: state.reservation_package_data,
-        package_avialable: state.reservation_package_avialable
+        package_available: state.reservation_package_available
     }
 }
 
