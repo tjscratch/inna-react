@@ -128,7 +128,9 @@
     }
 }
 @media(max-width: $tablet-max-width) {
-
+    .b-search-form{
+        margin-top: 190px;
+    }
     .b-search-form__form,
     .b-search-form__tabs{
         padding: 0;
@@ -163,5 +165,11 @@
     }
     .b-search-form-action__btn{
         @include form-item(100%, 0, 0);
+    }
+}
+
+@media (max-width: $mobile-max-width) {
+    .b-search-form{
+        margin-top: 180px;
     }
 }
