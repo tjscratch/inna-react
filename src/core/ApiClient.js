@@ -9,7 +9,7 @@ if (__DEV__) {
   var apiPath = 'http://lh.m.inna.ru/api/v1';
   var apiPathServer = 'http://lh.m.inna.ru/api/v1';
 } else {
-  var apiPath = 'http://test.inna.ru/api/v1';
+  var apiPath = 'https://m.inna.ru/api/v1';
   var apiPathServer = 'http://test.inna.ru/api/v1';
 }
 
