@@ -307,11 +307,13 @@ class ReservationPage extends Component {
 
                     //отель забронирован
                     if (data.Status == 1) {
-                        var url = `${siteUrls.Buy}${data.OrderNum}`;
-                        Location.pushState(null, url);
-                        that.setState({
-                            buyProgress: false
-                        })
+                        // редирект на общую страницу оплаты
+                        var url = `${siteUrls.Payment}${data.OrderNum}`;
+                        window.location.href = url;
+                        // Location.pushState(null, url);
+                        // that.setState({
+                        //     buyProgress: false
+                        // })
                     }
                     else {
                         that.setState({
