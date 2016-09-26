@@ -227,14 +227,14 @@ class ReservationPage extends Component {
                     //если поездка по России
                     if (item && isInsideRf(item)) {
                         return [
-                            {value: 1, name: 'Паспорт РФ'},
-                            {value: 2, name: 'Загранпаспорт'},
-                            {value: 3, name: 'Св-во о рождении'}
+                            {value: 0, name: 'Паспорт РФ'},
+                            {value: 1, name: 'Загранпаспорт'},
+                            {value: 2, name: 'Св-во о рождении'}
                         ];
                     }
                     else {
                         return [
-                            {value: 2, name: 'Загранпаспорт'}
+                            {value: 1, name: 'Загранпаспорт'}
                         ];
                     }
                 }
@@ -242,7 +242,7 @@ class ReservationPage extends Component {
             else {
                 //гражданство не Россия
                 return [
-                    {value: 4, name: 'Иностранный документ'}
+                    {value: 3, name: 'Иностранный документ'}
                 ];
             }
         }

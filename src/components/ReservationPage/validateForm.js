@@ -68,7 +68,7 @@ const validateForm = data => {
       if (!pas.citizenship) {
         errors.passengers[ix].citizenship = 'Введите гражданство';
       }
-      if (!pas.docType) {
+      if (!pas.docType && pas.docType != 0) {
         errors.passengers[ix].docType = 'Введите тип док.';
       }
       
@@ -80,19 +80,19 @@ const validateForm = data => {
         //console.log('pas.docType', pas.docType, pas.citizenship);
         //зависит от типа документа
         switch (pas.docType) {
-          case 1:
+          case 0:
             //10 цифр - российский паспорт
             if (!/^(\d{10})+$/.test(pas.docNumber)) {
               errors.passengers[ix].docNumber = 'Неправильный номер';
             }
             break;
-          case 2:
+          case 1:
             //9 цифр - загранпаспорт
             if (!/^(\d{9})+$/.test(pas.docNumber)) {
               errors.passengers[ix].docNumber = 'Неправильный номер';
             }
             break;
-          case 3:
+          case 2:
             //строка символов(латинских)-строка символов(русских)+6цифр
             //Проверять что первая строка латинские символы, вторая строка русские символы
             //например, I-МЮ №134567 или XIV-РН №345678
@@ -100,7 +100,7 @@ const validateForm = data => {
               errors.passengers[ix].docNumber = 'Неправильный номер';
             }
             break;
-          case 4:
+          case 3:
             if (!pas.docNumber) {
               errors.passengers[ix].docNumber = 'Неправильный номер';
             }
@@ -110,7 +110,7 @@ const validateForm = data => {
       
       //doc expire
       var dontValidateDocExpire = false;
-      if ((pas.docType == 1 || pas.docType == 3) && pas.citizenship) {
+      if ((pas.docType == 0 || pas.docType == 2) && pas.citizenship) {
         //Россия
         if (pas.citizenship == 189) {
           if (aviaInfo) {

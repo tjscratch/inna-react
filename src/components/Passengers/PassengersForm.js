@@ -56,7 +56,7 @@ class Passengers extends Component {
     //для поездок по РФ и для пасрорта РФ или св-ва о рождении - не показываем дату документа
     var isDocExpireVisible = true;
 
-    if (docType.value == 1 || docType.value == 3) {
+    if (docType.value == 0 || docType.value == 2) {
       //прячем
       if (isRuCitizenshipAndInsiderRf(citizenship.value)) {
         isDocExpireVisible = false;
