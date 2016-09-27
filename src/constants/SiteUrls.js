@@ -4,5 +4,5 @@ export default {
     HotelDetails: '/packages/details/',
     PackageReservation: '/packages/reservation/',
     Buy: '/packages/buy/',
-    Payment: 'httpы://inna.ru/#/payment/'
+    Payment: 'https://inna.ru/#/payment/'
 }
